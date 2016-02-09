@@ -184,9 +184,21 @@ locktestthread(void *junk, unsigned long num)
 {
 	int i;
 	(void)junk;
-
+        
+        if (lock_do_i_hold(testlock)) {
+                    kprintf_n("I hold the lock \n");
+                }
+                else {
+                    kprintf_n("Not my lock \n");
+                }
 	for (i=0; i<NLOCKLOOPS; i++) {
 		lock_acquire(testlock);
+                if (lock_do_i_hold(testlock)) {
+                    kprintf_n("I hold the lock \n");
+                }
+                else {
+                    kprintf_n("Not my lock \n");
+                }
 		random_yielder(4);
 
 		testval1 = num;
@@ -240,6 +252,7 @@ locktest(int nargs, char **args)
 	inititems();
 	test_status = SUCCESS;
 	kprintf_n("Starting lock test...\n");
+
 
 	for (i=0; i<NTHREADS; i++) {
 		result = thread_fork("synchtest", NULL, locktestthread, NULL, i);

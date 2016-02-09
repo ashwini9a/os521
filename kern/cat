@@ -1,0 +1,566 @@
+arch/mips/include/current.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/include/elf.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/include/kern/endian.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/include/kern/regdefs.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/include/kern/setjmp.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/include/kern/signal.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/include/kern/signal.h: * whatever userlevel execution context the signal interrupted. Fill
+arch/mips/include/kern/types.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/include/membar.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/include/specialreg.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/include/specialreg.h:#define CST_IEc      0x00000001 /* current: interrupt enable */
+arch/mips/include/specialreg.h:#define CST_IEp      0x00000004 /* previous: interrupt enable */
+arch/mips/include/specialreg.h:#define CST_IEo      0x00000010 /* old: interrupt enable */
+arch/mips/include/specialreg.h:#define CCA_IRQS   0x0000ff00   /* Currently pending interrupts */
+arch/mips/include/spinlock.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/include/thread.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/include/tlb.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/include/trapframe.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/include/trapframe.h:#define EX_IRQ    0    /* Interrupt */
+arch/mips/include/types.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/include/vm.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/locore/cache-mips161.S: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/locore/exception-mips1.S: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/locore/exception-mips1.S:    *      Interrupts are off. (The processor did this for us.)
+arch/mips/locore/exception-mips1.S:    * Interrupts should be off.
+arch/mips/locore/exception-mips1.S: * Interrupts on this processor should be off.
+arch/mips/locore/trap.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/locore/trap.c:	"Interrupt",
+arch/mips/locore/trap.c:	/* Interrupt? Call the interrupt handler and return. */
+arch/mips/locore/trap.c:		old_in = curthread->t_in_interrupt;
+arch/mips/locore/trap.c:		curthread->t_in_interrupt = 1;
+arch/mips/locore/trap.c:		 * The processor has turned interrupts off; if the
+arch/mips/locore/trap.c:		 * currently recorded interrupt state is interrupts on
+arch/mips/locore/trap.c:		 * restore after processing the interrupt.
+arch/mips/locore/trap.c:		 * How can we get an interrupt if the recorded state
+arch/mips/locore/trap.c:		 * is interrupts off? Well, as things currently stand
+arch/mips/locore/trap.c:		 * when the CPU finishes idling it flips interrupts on
+arch/mips/locore/trap.c:		 * While we're here, assert that the interrupt
+arch/mips/locore/trap.c:		mainbus_interrupt(tf);
+arch/mips/locore/trap.c:		curthread->t_in_interrupt = old_in;
+arch/mips/locore/trap.c:	 * The processor turned interrupts off when it took the trap.
+arch/mips/locore/trap.c:	 * interrupt, restore the interrupt state to where it was in
+arch/mips/locore/trap.c:	 * the previous context, which may be low (interrupts on).
+arch/mips/locore/trap.c:	 * cpu_irqoff() but forces the stored MI interrupt state into
+arch/mips/locore/trap.c:		/* Interrupts should have been on while in user mode. */
+arch/mips/locore/trap.c:	 * Turn interrupts off on the processor, without affecting the
+arch/mips/locore/trap.c:	 * stored interrupt state.
+arch/mips/locore/trap.c:	 * The boot thread can get here (e.g. on interrupt return) but
+arch/mips/locore/trap.c:	 * Interrupts should be off within the kernel while entering
+arch/mips/locore/trap.c:	 * user mode. However, while in user mode, interrupts should
+arch/mips/syscall/syscall.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/thread/cpu.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/thread/cpu.c: * Interrupt control.
+arch/mips/thread/cpu.c: * While the mips actually has on-chip interrupt priority masking, in
+arch/mips/thread/cpu.c: * register) bit 0, IEc, which is the global interrupt enable flag.
+arch/mips/thread/cpu.c: * (IEc stands for interrupt-enable-current.)
+arch/mips/thread/cpu.c: *      interrupt state to really change.
+arch/mips/thread/cpu.c: * Interrupts on.
+arch/mips/thread/cpu.c: * Interrupts off.
+arch/mips/thread/cpu.c:	 * interrupt is trying to occur.
+arch/mips/thread/cpu.c:	 * Then switch interrupts on and off again, so we actually
+arch/mips/thread/cpu.c:	 * take the interrupt.
+arch/mips/thread/cpu.c:		"wait;"			/* suspend until interrupted */
+arch/mips/thread/switch.S: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/thread/switchframe.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/thread/switchframe.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/thread/threadstart.S: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/thread/thread_machdep.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/vm/dumbvm.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/vm/dumbvm.c:		/* must not be in an interrupt handler */
+arch/mips/vm/dumbvm.c:		KASSERT(curthread->t_in_interrupt == 0);
+arch/mips/vm/dumbvm.c:	/* Disable interrupts on this CPU while frobbing the TLB. */
+arch/mips/vm/dumbvm.c:	/* Disable interrupts on this CPU while frobbing the TLB. */
+arch/mips/vm/ram.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/mips/vm/tlb-mips161.S: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/sys161/dev/lamebus_machdep.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/sys161/dev/lamebus_machdep.c: * matches the c0_compare register, the timer interrupt line is
+arch/sys161/dev/lamebus_machdep.c: * asserted. Writing to c0_compare again clears the interrupt.
+arch/sys161/dev/lamebus_machdep.c:	/* Interrupts should be off (and have been off since startup) */
+arch/sys161/dev/lamebus_machdep.c:	 * Now we can take interrupts without croaking, so turn them on.
+arch/sys161/dev/lamebus_machdep.c:	 * Some device probes might require being able to get interrupts.
+arch/sys161/dev/lamebus_machdep.c:	 * Configure the MIPS on-chip timer to interrupt HZ times a second.
+arch/sys161/dev/lamebus_machdep.c: * Interrupt dispatcher.
+arch/sys161/dev/lamebus_machdep.c:/* Wiring of LAMEbus interrupts to bits in the cause register */
+arch/sys161/dev/lamebus_machdep.c:#define LAMEBUS_IPI_BIT  0x00000800	/* inter-processor interrupt */
+arch/sys161/dev/lamebus_machdep.c:mainbus_interrupt(struct trapframe *tf)
+arch/sys161/dev/lamebus_machdep.c:	/* interrupts should be off */
+arch/sys161/dev/lamebus_machdep.c:		lamebus_interrupt(lamebus);
+arch/sys161/dev/lamebus_machdep.c:		interprocessor_interrupt();
+arch/sys161/dev/lamebus_machdep.c:		/* Reset the timer (this clears the interrupt) */
+arch/sys161/dev/lamebus_machdep.c:			 * interrupt line asserts (very) briefly and
+arch/sys161/dev/lamebus_machdep.c:			 * But if we get an interrupt on an interrupt
+arch/sys161/dev/lamebus_machdep.c:			panic("Unknown interrupt; cause register is %08x\n",
+arch/sys161/include/bus.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/sys161/include/maxcpus.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/sys161/main/start.S: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+arch/sys161/main/start.S:    * The MIPS has six hardware interrupt lines and two software interrupts.
+arch/sys161/main/start.S:    * interrupt enable/disable flag in bit 0. So enable all of those bits
+arch/sys161/main/start.S:    * Initialize the on-chip timer interrupt.
+compile/DUMBVM/includelinks/kern/machine/endian.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/kern/machine/regdefs.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/kern/machine/setjmp.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/kern/machine/signal.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/kern/machine/signal.h: * whatever userlevel execution context the signal interrupted. Fill
+compile/DUMBVM/includelinks/kern/machine/types.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/kern/mips/endian.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/kern/mips/regdefs.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/kern/mips/setjmp.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/kern/mips/signal.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/kern/mips/signal.h: * whatever userlevel execution context the signal interrupted. Fill
+compile/DUMBVM/includelinks/kern/mips/types.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/machine/current.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/machine/elf.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/machine/kern/endian.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/machine/kern/regdefs.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/machine/kern/setjmp.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/machine/kern/signal.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/machine/kern/signal.h: * whatever userlevel execution context the signal interrupted. Fill
+compile/DUMBVM/includelinks/machine/kern/types.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/machine/membar.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/machine/specialreg.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/machine/specialreg.h:#define CST_IEc      0x00000001 /* current: interrupt enable */
+compile/DUMBVM/includelinks/machine/specialreg.h:#define CST_IEp      0x00000004 /* previous: interrupt enable */
+compile/DUMBVM/includelinks/machine/specialreg.h:#define CST_IEo      0x00000010 /* old: interrupt enable */
+compile/DUMBVM/includelinks/machine/specialreg.h:#define CCA_IRQS   0x0000ff00   /* Currently pending interrupts */
+compile/DUMBVM/includelinks/machine/spinlock.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/machine/thread.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/machine/tlb.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/machine/trapframe.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/machine/trapframe.h:#define EX_IRQ    0    /* Interrupt */
+compile/DUMBVM/includelinks/machine/types.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/machine/vm.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/mips/current.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/mips/elf.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/mips/kern/endian.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/mips/kern/regdefs.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/mips/kern/setjmp.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/mips/kern/signal.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/mips/kern/signal.h: * whatever userlevel execution context the signal interrupted. Fill
+compile/DUMBVM/includelinks/mips/kern/types.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/mips/membar.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/mips/specialreg.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/mips/specialreg.h:#define CST_IEc      0x00000001 /* current: interrupt enable */
+compile/DUMBVM/includelinks/mips/specialreg.h:#define CST_IEp      0x00000004 /* previous: interrupt enable */
+compile/DUMBVM/includelinks/mips/specialreg.h:#define CST_IEo      0x00000010 /* old: interrupt enable */
+compile/DUMBVM/includelinks/mips/specialreg.h:#define CCA_IRQS   0x0000ff00   /* Currently pending interrupts */
+compile/DUMBVM/includelinks/mips/spinlock.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/mips/thread.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/mips/tlb.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/mips/trapframe.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/mips/trapframe.h:#define EX_IRQ    0    /* Interrupt */
+compile/DUMBVM/includelinks/mips/types.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/mips/vm.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/platform/bus.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/platform/maxcpus.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/sys161/bus.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+compile/DUMBVM/includelinks/sys161/maxcpus.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+Binary file compile/DUMBVM/clock.o matches
+Binary file compile/DUMBVM/console.o matches
+Binary file compile/DUMBVM/copyinout.o matches
+Binary file compile/DUMBVM/cpu.o matches
+Binary file compile/DUMBVM/dumbvm.o matches
+Binary file compile/DUMBVM/emu_att.o matches
+Binary file compile/DUMBVM/hmacunit.o matches
+Binary file compile/DUMBVM/proc.o matches
+Binary file compile/DUMBVM/runprogram.o matches
+Binary file compile/DUMBVM/semfs_vnops.o matches
+Binary file compile/DUMBVM/semunit.o matches
+Binary file compile/DUMBVM/kernel matches
+Binary file compile/DUMBVM/kprintf.o matches
+Binary file compile/DUMBVM/lamebus.o matches
+Binary file compile/DUMBVM/lamebus_machdep.o matches
+Binary file compile/DUMBVM/lhd_att.o matches
+Binary file compile/DUMBVM/loadelf.o matches
+Binary file compile/DUMBVM/lser_att.o matches
+Binary file compile/DUMBVM/ltimer_att.o matches
+Binary file compile/DUMBVM/main.o matches
+Binary file compile/DUMBVM/misc.o matches
+Binary file compile/DUMBVM/spinlock.o matches
+Binary file compile/DUMBVM/spl.o matches
+Binary file compile/DUMBVM/switchframe.o matches
+Binary file compile/DUMBVM/synch.o matches
+Binary file compile/DUMBVM/syscall.o matches
+Binary file compile/DUMBVM/thread.o matches
+Binary file compile/DUMBVM/threadlist.o matches
+Binary file compile/DUMBVM/threadlisttest.o matches
+Binary file compile/DUMBVM/trap.o matches
+Binary file compile/DUMBVM/uio.o matches
+Binary file compile/DUMBVM/vfscwd.o matches
+conf/newvers.sh:# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/generic/beep.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/generic/beep.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/generic/console.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/generic/console.c: * an interrupt handler or with interrupts off (by polling),
+dev/generic/console.c: * Print a character, using polling instead of interrupts to wait for
+dev/generic/console.c: * Print a character, using interrupts to wait for I/O completion.
+dev/generic/console.c: * Read a character, using interrupts to wait for I/O completion.
+dev/generic/console.c: * Called from underlying device when a read-ready interrupt occurs.
+dev/generic/console.c: * Called from underlying device when a write-done interrupt occurs.
+dev/generic/console.c: * Warning: putch must work even in an interrupt handler or with
+dev/generic/console.c: * interrupts disabled, and before the console is probed. getch need
+dev/generic/console.c:	else if (curthread->t_in_interrupt ||
+dev/generic/console.c:	KASSERT(!curthread->t_in_interrupt && curthread->t_iplhigh_count == 0);
+dev/generic/console.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/generic/random.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/generic/random.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/generic/rtclock.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/generic/rtclock.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/beep_ltimer.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/con_lscreen.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/con_lser.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/emu.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/emu.c: * Called by the underlying bus code when an interrupt happens
+dev/lamebus/emu.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/emu.h:	/* Written by the interrupt handler */
+dev/lamebus/emu_att.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/emu_att.c:	lamebus_attach_interrupt(sc, slot, es, emu_irq);
+dev/lamebus/lamebus.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/lamebus.c:	 * By default, route all interrupts only to the boot cpu. We
+dev/lamebus/lamebus.c:	 * interrupts, disable interrupts while working with it.
+dev/lamebus/lamebus.c: * when a particular slot signals an interrupt.
+dev/lamebus/lamebus.c:lamebus_attach_interrupt(struct lamebus_softc *sc, int slot,
+dev/lamebus/lamebus.c:		panic("lamebus_attach_interrupt: slot %d not marked in use\n",
+dev/lamebus/lamebus.c: * signaled an interrupt.
+dev/lamebus/lamebus.c:lamebus_detach_interrupt(struct lamebus_softc *sc, int slot)
+dev/lamebus/lamebus.c:		panic("lamebus_detach_interrupt: slot %d not marked in use\n",
+dev/lamebus/lamebus.c: * Mask/unmask an interrupt using the global IRQE register.
+dev/lamebus/lamebus.c:lamebus_mask_interrupt(struct lamebus_softc *lamebus, int slot)
+dev/lamebus/lamebus.c:lamebus_unmask_interrupt(struct lamebus_softc *lamebus, int slot)
+dev/lamebus/lamebus.c: * LAMEbus interrupt handling function. (Machine-independent!)
+dev/lamebus/lamebus.c:lamebus_interrupt(struct lamebus_softc *lamebus)
+dev/lamebus/lamebus.c:	 * priority level", we don't actually support interrupt
+dev/lamebus/lamebus.c:	 * priorities. When an interrupt happens, we look through the
+dev/lamebus/lamebus.c:	 * slots to find the first interrupting device and call its
+dev/lamebus/lamebus.c:	 * interrupt routine, no matter what that device is.
+dev/lamebus/lamebus.c:	 * Note that the entire LAMEbus uses only one on-cpu interrupt line.
+dev/lamebus/lamebus.c:	 * Thus, we do not use any on-cpu interrupt priority system either.
+dev/lamebus/lamebus.c:	 * slots are asserting an interrupt condition.
+dev/lamebus/lamebus.c:		kprintf("lamebus: stray interrupt on cpu %u\n",
+dev/lamebus/lamebus.c:		 * a stray interrupt that latches itself on. If that
+dev/lamebus/lamebus.c:		 * loop forever printing "stray interrupt".
+dev/lamebus/lamebus.c:		 * This slot is signalling an interrupt.
+dev/lamebus/lamebus.c:			 * The device driver hasn't installed an interrupt
+dev/lamebus/lamebus.c:		 * Call the interrupt handler. Release the spinlock
+dev/lamebus/lamebus.c:		 * interrupts on other devices.
+dev/lamebus/lamebus.c:	 * If we get interrupts for a slot with no driver or no
+dev/lamebus/lamebus.c:	 * interrupt handler, it's fairly serious. Because LAMEbus
+dev/lamebus/lamebus.c:	 * uses level-triggered interrupts, if we don't shut off the
+dev/lamebus/lamebus.c:	 * condition, we'll keep getting interrupted continuously and
+dev/lamebus/lamebus.c:	 * do that if there's no driver or no interrupt handler.
+dev/lamebus/lamebus.c:	 * So, if we get too many dud interrupts, panic, since it's
+dev/lamebus/lamebus.c:		kprintf("lamebus: %d dud interrupts\n", duds);
+dev/lamebus/lamebus.c:		panic("lamebus: too many (%d) dud interrupts\n", duds);
+dev/lamebus/lamebus.c: * Turn on or off the interprocessor interrupt line for a given CPU.
+dev/lamebus/lamebus.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/lamebus.h:/* Pointer to kind of function called on interrupt */
+dev/lamebus/lamebus.h:	/* Accessed from interrupts; synchronized with ls_lock */
+dev/lamebus/lamebus.h: * Attach to an interrupt.
+dev/lamebus/lamebus.h:void lamebus_attach_interrupt(struct lamebus_softc *, int slot,
+dev/lamebus/lamebus.h: * Detach from interrupt.
+dev/lamebus/lamebus.h:void lamebus_detach_interrupt(struct lamebus_softc *, int slot);
+dev/lamebus/lamebus.h: * Mask/unmask an interrupt.
+dev/lamebus/lamebus.h:void lamebus_mask_interrupt(struct lamebus_softc *, int slot);
+dev/lamebus/lamebus.h:void lamebus_unmask_interrupt(struct lamebus_softc *, int slot);
+dev/lamebus/lamebus.h: * Function to call to handle a LAMEbus interrupt.
+dev/lamebus/lamebus.h:void lamebus_interrupt(struct lamebus_softc *);
+dev/lamebus/lamebus.h: * Turn on or off the inter-processor interrupt line to a CPU.
+dev/lamebus/lhd.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/lhd.c: * Interrupt handler for lhd.
+dev/lamebus/lhd.c:		/* Now wait until the interrupt handler tells us we're done. */
+dev/lamebus/lhd.c:		/* Get the result value saved by the interrupt handler. */
+dev/lamebus/lhd.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/lhd.h:void lhd_irq(/*struct lhd_softc*/ void *);	/* Interrupt handler */
+dev/lamebus/lhd_att.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/lhd_att.c:	/* Mark the slot in use and collect interrupts */
+dev/lamebus/lhd_att.c:	lamebus_attach_interrupt(sc, slot, lh, lhd_irq);
+dev/lamebus/lnet.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/lnet_att.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/lrandom.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/lrandom.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/lrandom_att.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/lscreen.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/lscreen.c:#define LSCR_REG_RIRQ    12  /* Read interrupt status */
+dev/lamebus/lscreen.c: * Interrupt handler.
+dev/lamebus/lscreen.c:	 * Enable interrupting.
+dev/lamebus/lscreen.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/lscreen.h:void lscreen_irq(/*struct lser_softc*/ void *sc);  // interrupt handler
+dev/lamebus/lscreen_att.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/lscreen_att.c:	/* Mark the slot in use and hook the interrupt */
+dev/lamebus/lscreen_att.c:	lamebus_attach_interrupt(sc, slot, ls, lscreen_irq);
+dev/lamebus/lser.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/lser.c:#define LSER_REG_WIRQ  4     /* Write interrupt status */
+dev/lamebus/lser.c:#define LSER_REG_RIRQ  8     /* Read interrupt status */
+dev/lamebus/lser.c:		 * spinlock and interrupts are off; it won't recurse.)
+dev/lamebus/lser.c:		/* Clear the interrupt enable bit */
+dev/lamebus/lser.c:	 * condition and turn interruption back on. But if there was,
+dev/lamebus/lser.c:	 * interrupt handler and they'll be cleared.
+dev/lamebus/lser.c:	 * Enable interrupting.
+dev/lamebus/lser.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/lser_att.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/lser_att.c:	lamebus_attach_interrupt(sc, slot, ls, lser_irq);
+dev/lamebus/ltimer.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/ltimer.c:#define LT_REG_IRQ    12    /* Interrupt status register */
+dev/lamebus/ltimer.c:	 * to receive timer interrupts. (Exercise: how would you make
+dev/lamebus/ltimer.c:	 * sure all CPUs receive exactly one timer interrupt? Remember
+dev/lamebus/ltimer.c:	 * that LAMEbus uses level-triggered interrupts, so the
+dev/lamebus/ltimer.c:	 * hardware interrupt line will cause repeated interrupts if
+dev/lamebus/ltimer.c:	 * be interrupted at all.)
+dev/lamebus/ltimer.c: * Interrupt handler.
+dev/lamebus/ltimer.c:	 * Do it with interrupts off on the current processor to avoid
+dev/lamebus/ltimer.c:	 * getting garbage if we get an interrupt among the register
+dev/lamebus/ltimer.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/ltimer.h:void ltimer_irq(/*struct ltimer_softc*/ void *lt);  // interrupt handler
+dev/lamebus/ltimer_att.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/ltimer_att.c:	/* Mark the slot in use and hook that slot's interrupt */
+dev/lamebus/ltimer_att.c:	lamebus_attach_interrupt(sc, slot, lt, ltimer_irq);
+dev/lamebus/ltrace.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/ltrace.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/ltrace_att.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/random_lrandom.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+dev/lamebus/rtclock_ltimer.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+fs/semfs/semfs.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+fs/semfs/semfs_fsops.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+fs/semfs/semfs_obj.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+fs/semfs/semfs_vnops.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+fs/sfs/sfsprivate.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+fs/sfs/sfs_balloc.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+fs/sfs/sfs_bmap.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+fs/sfs/sfs_dir.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+fs/sfs/sfs_fsops.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+fs/sfs/sfs_inode.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+fs/sfs/sfs_io.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+fs/sfs/sfs_vnops.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/addrspace.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/array.h: * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+include/bitmap.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/cdefs.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/clock.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/copyinout.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/cpu.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/cpu.h: * Hardware-level interrupt on/off, for the current CPU.
+include/cpu.h: * interrupt. Then it returns. (It may be wrong, so it should always
+include/cpu.h: * called with interrupts off to avoid race conditions, although
+include/cpu.h: * interrupts may be delivered before it returns.
+include/cpu.h: * external reset is pushed. Interrupts should be disabled. It does
+include/cpu.h: * not return. It should not allow interrupts to be delivered.
+include/cpu.h: * Interprocessor interrupts.
+include/cpu.h: * interprocessor_interrupt is called on the target CPU when an IPI is
+include/cpu.h:void interprocessor_interrupt(void);
+include/current.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/device.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/elf.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/emufs.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/endian.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/fs.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/endian.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/errmsg.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/errmsg.h:	"Interrupted system call",    /* EINTR */
+include/kern/errno.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/errno.h:#define EINTR           5      /* Interrupted system call */
+include/kern/fcntl.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/ioctl.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/iovec.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/limits.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/reboot.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/resource.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/secret.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/seek.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/sfs.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/signal.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/signal.h:#define SIGINT		2	/* Interrupt (^C) */
+include/kern/signal.h:#define SA_RESTART	2	/* Restart syscall instead of interrupting. */
+include/kern/socket.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/stat.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/stattypes.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/syscall.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/time.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/types.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/unistd.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/kern/wait.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/lib.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/lib.h:#define DB_INTERRUPT   0x0004
+include/limits.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/mainbus.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/mainbus.h:/* Bus-level interrupt handler, called from cpu-level trap/interrupt code */
+include/mainbus.h:void mainbus_interrupt(struct trapframe *);
+include/mainbus.h:/* Switch on an inter-processor interrupt. (Low-level.) */
+include/membar.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/proc.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/prompt.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/setjmp.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/sfs.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/signal.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/spinlock.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/spinlock.h: * acquire	Get the lock, spinning as necessary. Also disables interrupts.
+include/spinlock.h: * release	Release the lock. May re-enable interrupts.
+include/spl.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/spl.h: * Machine-independent interface to interrupt enable/disable.
+include/spl.h: * The idea is that one can block less important interrupts while
+include/spl.h: * processing them, but still allow more urgent interrupts to interrupt
+include/spl.h: * Ordinarily there would be a whole bunch of defined interrupt
+include/spl.h: * splbio(), etc., etc. But we don't support interrupt priorities in
+include/spl.h: *      spl0()       sets IPL to 0, enabling all interrupts.
+include/spl.h: *      splhigh()    sets IPL to the highest value, disabling all interrupts.
+include/spl.h: * All three return the old interrupt state. Thus, these are commonly used
+include/spl.h: * Note that these functions only affect interrupts on the current
+include/spl.h: * Integer interrupt priority levels.
+include/spl.h: * particular interrupt levels. These are used by splx() and by the
+include/stat.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/stdarg.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/synch.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/syscall.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/test.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/thread.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/thread.h:	 * Interrupt state fields.
+include/thread.h:	 * t_in_interrupt is true if current execution is in an
+include/thread.h:	 * interrupt handler, which means the thread's normal context
+include/thread.h:	bool t_in_interrupt;		/* Are we in an interrupt? */
+include/thread.h: * Interrupts need not be disabled.
+include/thread.h: * Interrupts need not be disabled.
+include/thread.h: * Reshuffle the run queue. Called from the timer interrupt.
+include/thread.h: * timer interrupt.
+include/threadlist.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/threadprivate.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/types.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/uio.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/version.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/vfs.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/vm.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/vm.h:/* TLB shootdown handling called from interprocessor_interrupt */
+include/vnode.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+include/wchan.h: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+lib/array.c: * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+lib/bitmap.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+lib/bswap.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+lib/kgets.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+lib/kprintf.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+lib/kprintf.c: * Warning: all this has to work from interrupt handlers and when
+lib/kprintf.c: * interrupts are disabled.
+lib/kprintf.c:		&& curthread->t_in_interrupt == false
+lib/kprintf.c:		 * Not only do we not want to be interrupted while
+lib/kprintf.c:		 * switches. So turn interrupts off on this CPU.
+lib/misc.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+lib/time.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+lib/uio.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+main/main.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+main/main.c:	/* Probe and initialize devices. Interrupts should come on. */
+main/menu.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+proc/proc.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+proc/proc.c:		 * clear the address space, or a timer interrupt might
+proc/proc.c: * Turn off interrupts on the local cpu while changing t_proc, in
+proc/proc.c: * the timer interrupt context switch, and any other implicit uses
+proc/proc.c: * Turn off interrupts on the local cpu while changing t_proc, in
+proc/proc.c: * the timer interrupt context switch, and any other implicit uses
+synchprobs/stoplight.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+synchprobs/whalemating.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+syscall/loadelf.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+syscall/runprogram.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+syscall/time_syscalls.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+test/arraytest.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+test/automationtest.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+test/bitmaptest.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+test/fstest.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+test/hmacunit.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+test/kmalloctest.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+test/nettest.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+test/semunit.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+test/semunit.c: * This is true even if we are in an interrupt handler.
+test/semunit.c:do_semu89(bool interrupthandler)
+test/semunit.c:	 * The right way to this is to set up an actual interrupt,
+test/semunit.c:	 * e.g. an interprocessor interrupt, and hook onto it to run
+test/semunit.c:	 * the V() in the actual interrupt handler. However, that
+test/semunit.c:	 * curthread->t_in_interrupt.
+test/semunit.c:	if (interrupthandler) {
+test/semunit.c:		KASSERT(curthread->t_in_interrupt == false);
+test/semunit.c:		curthread->t_in_interrupt = true;
+test/semunit.c:	if (interrupthandler) {
+test/semunit.c:		KASSERT(curthread->t_in_interrupt == true);
+test/semunit.c:		curthread->t_in_interrupt = false;
+test/semunit.c:	do_semu89(false /*interrupthandler*/);
+test/semunit.c:	do_semu89(true /*interrupthandler*/);
+test/semunit.c: * This is true even if we are in an interrupt handler.
+test/semunit.c:do_semu1011(bool interrupthandler)
+test/semunit.c:	if (interrupthandler) {
+test/semunit.c:		KASSERT(curthread->t_in_interrupt == false);
+test/semunit.c:		curthread->t_in_interrupt = true;
+test/semunit.c:	if (interrupthandler) {
+test/semunit.c:		KASSERT(curthread->t_in_interrupt == true);
+test/semunit.c:		curthread->t_in_interrupt = false;
+test/semunit.c:	do_semu1011(false /*interrupthandler*/);
+test/semunit.c:	do_semu1011(true /*interrupthandler*/);
+test/semunit.c:semu1213(bool interrupthandler)
+test/semunit.c:	if (interrupthandler) {
+test/semunit.c:		KASSERT(curthread->t_in_interrupt == false);
+test/semunit.c:		curthread->t_in_interrupt = true;
+test/semunit.c:	if (interrupthandler) {
+test/semunit.c:		KASSERT(curthread->t_in_interrupt == true);
+test/semunit.c:		curthread->t_in_interrupt = false;
+test/semunit.c:	semu1213(false /*interrupthandler*/);
+test/semunit.c:	semu1213(true /*interrupthandler*/);
+test/semunit.c: * 20/21. Calling P in an interrupt handler asserts, regardless of the
+test/semunit.c:	kprintf("This should assert that we aren't in an interrupt\n");
+test/semunit.c:	curthread->t_in_interrupt = true;
+test/semunit.c:	panic("semu20: P tolerated being in an interrupt handler\n");
+test/semunit.c:	kprintf("This should assert that we aren't in an interrupt\n");
+test/semunit.c:	curthread->t_in_interrupt = true;
+test/semunit.c:	panic("semu21: P tolerated being in an interrupt handler\n");
+test/synchtest.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+test/threadlisttest.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+test/threadtest.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+test/tt3.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+thread/clock.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+thread/spinlock.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+thread/spinlock.c: * First disable interrupts (otherwise, if we get a timer interrupt we
+thread/spl.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+thread/spl.c: * Machine-independent interrupt handling functions.
+thread/spl.c: * Since on OS/161 we don't support interrupt levels on any platform,
+thread/spl.c: * that explicitly turn interrupts off and on.
+thread/spl.c: * If we had multiple interrupt levels, the number of levels would in
+thread/spl.c: * Raise and lower the interrupt priority level.
+thread/spl.c: * IPL_HIGH (or, if we had multiple interrupt priority levels, each
+thread/spl.c: * level independently) has been raised. Interrupts go off on the
+thread/spl.c:		/* before curcpu initialization; interrupts are off anyway */
+thread/spl.c:		/* before curcpu initialization; interrupts are off anyway */
+thread/spl.c: * Disable or enable interrupts and adjust curspl setting. Return old
+thread/spl.c:		/* before curcpu initialization; interrupts are off anyway */
+thread/spl.c:		/* turning interrupts off */
+thread/spl.c:		/* turning interrupts on */
+thread/synch.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+thread/synch.c:	 * May not block in an interrupt handler.
+thread/synch.c:	KASSERT(curthread->t_in_interrupt == false);
+thread/thread.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+thread/thread.c:	/* Interrupt state fields */
+thread/thread.c:	thread->t_in_interrupt = false;
+thread/thread.c:	 * interrupt, and we'd like to be able to do that if the
+thread/thread.c:		 * Other processor is idle; send interrupt to make
+thread/thread.c:	/* Explicitly disable interrupts on this processor */
+thread/thread.c:	 * when the timer interrupt interrupts the idle loop.
+thread/thread.c:	 * interrupt (either a hardware interrupt or an interprocessor
+thread/thread.c:	 * interrupt from another cpu posting a wakeup) and idling
+thread/thread.c:	 * *is* atomic with respect to re-enabling interrupts.
+thread/thread.c:	/* Turn interrupts back on. */
+thread/thread.c:	/* Enable interrupts. */
+thread/thread.c:	/* Interrupts off on this processor */
+thread/thread.c:			 * If the timer interrupt happens at (almost)
+thread/thread.c:				 * interrupt to make sure it unidles.
+thread/thread.c:	/* may not sleep in an interrupt handler */
+thread/thread.c:	KASSERT(!curthread->t_in_interrupt);
+thread/thread.c: * Send an IPI (inter-processor interrupt) to the specified CPU.
+thread/thread.c:interprocessor_interrupt(void)
+thread/thread.c:		 * interrupt; don't need to do anything else.
+thread/threadlist.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+vfs/device.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+vfs/devnull.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+vfs/vfscwd.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+vfs/vfsfail.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+vfs/vfslist.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+vfs/vfslookup.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+vfs/vfspath.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+vfs/vnode.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+vm/addrspace.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+vm/copyinout.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+vm/kmalloc.c: * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+vm/kmalloc.c:	/* print the whole thing with interrupts off */
+vm/kmalloc.c:	/* print the whole thing with interrupts off */
+vm/kmalloc.c:	/* print the whole thing with interrupts off */

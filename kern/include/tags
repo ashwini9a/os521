@@ -1,0 +1,971 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AF_INET	kern/socket.h	50;"	d
+AF_INET6	kern/socket.h	51;"	d
+AF_UNIX	kern/socket.h	49;"	d
+AF_UNSPEC	kern/socket.h	48;"	d
+ARG_MAX	limits.h	43;"	d
+ARRAYASSERT	array.h	39;"	d
+ARRAYASSERT	array.h	41;"	d
+ARRAYCOUNT	cdefs.h	48;"	d
+ARRAYINLINE	array.h	45;"	d
+ARRAYS_CHECKED	array.h	36;"	d
+BASE_VERSION	version.h	37;"	d
+CHAR_BIT	types.h	140;"	d
+COMPILE_ASSERT	cdefs.h	42;"	d
+CURCPU_EXISTS	current.h	72;"	d
+CURCPU_EXISTS	current.h	80;"	d
+DB_DEVICE	lib.h	82;"	d
+DB_EXEC	lib.h	85;"	d
+DB_INTERRUPT	lib.h	81;"	d
+DB_KMALLOC	lib.h	91;"	d
+DB_LOCORE	lib.h	79;"	d
+DB_NET	lib.h	89;"	d
+DB_NETFS	lib.h	90;"	d
+DB_SEMFS	lib.h	87;"	d
+DB_SFS	lib.h	88;"	d
+DB_SYSCALL	lib.h	80;"	d
+DB_THREADS	lib.h	83;"	d
+DB_VFS	lib.h	86;"	d
+DB_VM	lib.h	84;"	d
+DEBUG	lib.h	111;"	d
+DEBUGASSERT	lib.h	70;"	d
+DEBUGASSERT	lib.h	72;"	d
+DECLARRAY	array.h	258;"	d
+DECLARRAY_BYTYPE	array.h	168;"	d
+DEFARRAY	array.h	259;"	d
+DEFARRAY_BYTYPE	array.h	185;"	d
+DEVOP_EACHOPEN	device.h	69;"	d
+DEVOP_IO	device.h	70;"	d
+DEVOP_IOCTL	device.h	71;"	d
+DIVROUNDUP	lib.h	194;"	d
+E2BIG	kern/errno.h	58;"	d
+EACCES	kern/errno.h	54;"	d
+EADDRINUSE	kern/errno.h	98;"	d
+EADDRNOTAVAIL	kern/errno.h	99;"	d
+EAFNOSUPPORT	kern/errno.h	96;"	d
+EAGAIN	kern/errno.h	48;"	d
+EBADF	kern/errno.h	74;"	d
+EBUSY	kern/errno.h	71;"	d
+ECHILD	kern/errno.h	60;"	d
+ECONNREFUSED	kern/errno.h	104;"	d
+ECONNRESET	kern/errno.h	106;"	d
+EDOM	kern/errno.h	84;"	d
+EDQUOT	kern/errno.h	81;"	d
+EEXIST	kern/errno.h	66;"	d
+EFAULT	kern/errno.h	50;"	d
+EFBIG	kern/errno.h	82;"	d
+EFTYPE	kern/errno.h	83;"	d
+EHOSTDOWN	kern/errno.h	102;"	d
+EHOSTUNREACH	kern/errno.h	103;"	d
+EILSEQ	kern/errno.h	86;"	d
+EINTR	kern/errno.h	49;"	d
+EINVAL	kern/errno.h	52;"	d
+EIO	kern/errno.h	76;"	d
+EIOCTL	kern/errno.h	75;"	d
+EISCONN	kern/errno.h	89;"	d
+EISDIR	kern/errno.h	62;"	d
+EISSOCK	kern/errno.h	88;"	d
+EI_ABIVERSION	elf.h	77;"	d
+EI_CLASS	elf.h	73;"	d
+EI_DATA	elf.h	74;"	d
+EI_MAG0	elf.h	69;"	d
+EI_MAG1	elf.h	70;"	d
+EI_MAG2	elf.h	71;"	d
+EI_MAG3	elf.h	72;"	d
+EI_OSABI	elf.h	76;"	d
+EI_PAD	elf.h	78;"	d
+EI_VERSION	elf.h	75;"	d
+ELFCLASS32	elf.h	90;"	d
+ELFCLASS64	elf.h	91;"	d
+ELFCLASSNONE	elf.h	89;"	d
+ELFDATA2LSB	elf.h	95;"	d
+ELFDATA2MSB	elf.h	96;"	d
+ELFDATANONE	elf.h	94;"	d
+ELFMAG0	elf.h	83;"	d
+ELFMAG1	elf.h	84;"	d
+ELFMAG2	elf.h	85;"	d
+ELFMAG3	elf.h	86;"	d
+ELFOSABI_HPUX	elf.h	104;"	d
+ELFOSABI_STANDALONE	elf.h	105;"	d
+ELFOSABI_SYSV	elf.h	103;"	d
+ELF_NIDENT	elf.h	50;"	d
+ELOOP	kern/errno.h	64;"	d
+EMFILE	kern/errno.h	72;"	d
+EMLINK	kern/errno.h	67;"	d
+EMPROC	kern/errno.h	55;"	d
+EMSGSIZE	kern/errno.h	107;"	d
+EM_386	elf.h	124;"	d
+EM_486	elf.h	127;"	d
+EM_68HC12	elf.h	156;"	d
+EM_68K	elf.h	125;"	d
+EM_860	elf.h	128;"	d
+EM_88K	elf.h	126;"	d
+EM_960	elf.h	137;"	d
+EM_ALPHA	elf.h	144;"	d
+EM_ALPHA_EXP	elf.h	158;"	d
+EM_ARC	elf.h	148;"	d
+EM_ARM	elf.h	143;"	d
+EM_COLDFIRE	elf.h	155;"	d
+EM_FR20	elf.h	140;"	d
+EM_H8S	elf.h	151;"	d
+EM_H8_300	elf.h	149;"	d
+EM_H8_300H	elf.h	150;"	d
+EM_H8_500	elf.h	152;"	d
+EM_IA_64	elf.h	153;"	d
+EM_M32	elf.h	122;"	d
+EM_MIPS	elf.h	129;"	d
+EM_MIPS_RS3_LE	elf.h	131;"	d
+EM_MIPS_X	elf.h	154;"	d
+EM_NCUBE	elf.h	134;"	d
+EM_NONE	elf.h	121;"	d
+EM_NUM	elf.h	159;"	d
+EM_PARISC	elf.h	133;"	d
+EM_PPC	elf.h	138;"	d
+EM_RCE	elf.h	142;"	d
+EM_RH32	elf.h	141;"	d
+EM_RS6000	elf.h	132;"	d
+EM_S370	elf.h	130;"	d
+EM_SH	elf.h	145;"	d
+EM_SPARC	elf.h	123;"	d
+EM_SPARC32PLUS	elf.h	136;"	d
+EM_SPARCV9	elf.h	146;"	d
+EM_TRICORE	elf.h	147;"	d
+EM_V800	elf.h	139;"	d
+EM_VAX	elf.h	157;"	d
+EM_VPP500	elf.h	135;"	d
+ENAMETOOLONG	kern/errno.h	51;"	d
+ENETDOWN	kern/errno.h	100;"	d
+ENETUNREACH	kern/errno.h	101;"	d
+ENFILE	kern/errno.h	73;"	d
+ENODEV	kern/errno.h	69;"	d
+ENOENT	kern/errno.h	63;"	d
+ENOEXEC	kern/errno.h	57;"	d
+ENOMEM	kern/errno.h	47;"	d
+ENOPROTOOPT	kern/errno.h	97;"	d
+ENOSPC	kern/errno.h	80;"	d
+ENOSYS	kern/errno.h	45;"	d
+ENOTCONN	kern/errno.h	90;"	d
+ENOTDIR	kern/errno.h	61;"	d
+ENOTEMPTY	kern/errno.h	65;"	d
+ENOTSOCK	kern/errno.h	87;"	d
+ENOTSUP	kern/errno.h	108;"	d
+ENPROC	kern/errno.h	56;"	d
+ENXIO	kern/errno.h	70;"	d
+EPERM	kern/errno.h	53;"	d
+EPFNOSUPPORT	kern/errno.h	92;"	d
+EPIPE	kern/errno.h	78;"	d
+EPROTONOSUPPORT	kern/errno.h	94;"	d
+EPROTOTYPE	kern/errno.h	95;"	d
+ERANGE	kern/errno.h	85;"	d
+EROFS	kern/errno.h	79;"	d
+ESHUTDOWN	kern/errno.h	91;"	d
+ESOCKTNOSUPPORT	kern/errno.h	93;"	d
+ESPIPE	kern/errno.h	77;"	d
+ESRCH	kern/errno.h	59;"	d
+ETIMEDOUT	kern/errno.h	105;"	d
+ET_CORE	elf.h	115;"	d
+ET_DYN	elf.h	114;"	d
+ET_EXEC	elf.h	113;"	d
+ET_NONE	elf.h	111;"	d
+ET_NUM	elf.h	116;"	d
+ET_REL	elf.h	112;"	d
+EV_CURRENT	elf.h	100;"	d
+EV_NONE	elf.h	99;"	d
+EXDEV	kern/errno.h	68;"	d
+Elf32_Ehdr	elf.h	/^} Elf32_Ehdr;$/;"	t	typeref:struct:__anon1
+Elf32_Phdr	elf.h	/^} Elf32_Phdr;$/;"	t	typeref:struct:__anon2
+Elf_Ehdr	elf.h	/^typedef Elf32_Ehdr Elf_Ehdr;$/;"	t
+Elf_Phdr	elf.h	/^typedef Elf32_Phdr Elf_Phdr;$/;"	t
+FAIL	test.h	173;"	d
+FD_CLOEXEC	kern/fcntl.h	83;"	d
+FSOP_GETROOT	fs.h	84;"	d
+FSOP_GETVOLNAME	fs.h	83;"	d
+FSOP_SYNC	fs.h	82;"	d
+FSOP_UNMOUNT	fs.h	85;"	d
+F_DUPFD	kern/fcntl.h	71;"	d
+F_GETFD	kern/fcntl.h	72;"	d
+F_GETFL	kern/fcntl.h	74;"	d
+F_GETLK	kern/fcntl.h	78;"	d
+F_GETOWN	kern/fcntl.h	76;"	d
+F_RDLCK	kern/fcntl.h	86;"	d
+F_SETFD	kern/fcntl.h	73;"	d
+F_SETFL	kern/fcntl.h	75;"	d
+F_SETLK	kern/fcntl.h	79;"	d
+F_SETLKW	kern/fcntl.h	80;"	d
+F_SETOWN	kern/fcntl.h	77;"	d
+F_UNLCK	kern/fcntl.h	88;"	d
+F_WRLCK	kern/fcntl.h	87;"	d
+GROUP_VERSION	version.h	42;"	d
+HZ	clock.h	46;"	d
+INLINE	cdefs.h	129;"	d
+INLINE	cdefs.h	133;"	d
+INLINE	cdefs.h	137;"	d
+IOV_MAX	limits.h	50;"	d
+IPI_OFFLINE	cpu.h	163;"	d
+IPI_PANIC	cpu.h	162;"	d
+IPI_TLBSHOOTDOWN	cpu.h	165;"	d
+IPI_UNIDLE	cpu.h	164;"	d
+IPL_HIGH	spl.h	78;"	d
+IPL_NONE	spl.h	77;"	d
+ITIMER_PROF	kern/time.h	61;"	d
+ITIMER_REAL	kern/time.h	59;"	d
+ITIMER_VIRTUAL	kern/time.h	60;"	d
+KASSERT	lib.h	63;"	d
+KASSERT	lib.h	65;"	d
+KERNEL_PROMPT	prompt.h	45;"	d
+LOCK_EX	kern/fcntl.h	62;"	d
+LOCK_NB	kern/fcntl.h	64;"	d
+LOCK_SH	kern/fcntl.h	61;"	d
+LOCK_UN	kern/fcntl.h	63;"	d
+LOGIN_NAME_MAX	limits.h	48;"	d
+MEMBAR_INLINE	membar.h	81;"	d
+NAME_MAX	limits.h	41;"	d
+NGROUPS_MAX	limits.h	47;"	d
+NULL	types.h	146;"	d
+OPEN_MAX	limits.h	49;"	d
+O_ACCMODE	kern/fcntl.h	54;"	d
+O_APPEND	kern/fcntl.h	50;"	d
+O_CREAT	kern/fcntl.h	47;"	d
+O_EXCL	kern/fcntl.h	48;"	d
+O_NOCTTY	kern/fcntl.h	51;"	d
+O_RDONLY	kern/fcntl.h	43;"	d
+O_RDWR	kern/fcntl.h	45;"	d
+O_TRUNC	kern/fcntl.h	49;"	d
+O_WRONLY	kern/fcntl.h	44;"	d
+PATH_MAX	limits.h	42;"	d
+PF_INET	kern/socket.h	56;"	d
+PF_INET6	kern/socket.h	57;"	d
+PF_R	elf.h	191;"	d
+PF_UNIX	kern/socket.h	55;"	d
+PF_UNSPEC	kern/socket.h	54;"	d
+PF_W	elf.h	192;"	d
+PF_X	elf.h	193;"	d
+PID_MAX	limits.h	45;"	d
+PID_MIN	limits.h	44;"	d
+PIPE_BUF	limits.h	46;"	d
+PRIO_MAX	kern/resource.h	42;"	d
+PRIO_MIN	kern/resource.h	41;"	d
+PRIO_PGRP	kern/resource.h	46;"	d
+PRIO_PROCESS	kern/resource.h	45;"	d
+PRIO_USER	kern/resource.h	47;"	d
+PT_DYNAMIC	elf.h	182;"	d
+PT_INTERP	elf.h	183;"	d
+PT_LOAD	elf.h	181;"	d
+PT_MIPS_REGINFO	elf.h	188;"	d
+PT_NOTE	elf.h	184;"	d
+PT_NULL	elf.h	180;"	d
+PT_NUM	elf.h	187;"	d
+PT_PHDR	elf.h	186;"	d
+PT_SHLIB	elf.h	185;"	d
+RANDOM_MAX	lib.h	118;"	d
+RB_HALT	kern/reboot.h	41;"	d
+RB_POWEROFF	kern/reboot.h	42;"	d
+RB_REBOOT	kern/reboot.h	40;"	d
+RLIMIT_CORE	kern/resource.h	81;"	d
+RLIMIT_CPU	kern/resource.h	76;"	d
+RLIMIT_DATA	kern/resource.h	77;"	d
+RLIMIT_FSIZE	kern/resource.h	82;"	d
+RLIMIT_MEMLOCK	kern/resource.h	79;"	d
+RLIMIT_NOFILE	kern/resource.h	75;"	d
+RLIMIT_NPROC	kern/resource.h	74;"	d
+RLIMIT_RSS	kern/resource.h	80;"	d
+RLIMIT_STACK	kern/resource.h	78;"	d
+RLIM_INFINITY	kern/resource.h	90;"	d
+ROUNDUP	lib.h	195;"	d
+RUSAGE_CHILDREN	kern/resource.h	51;"	d
+RUSAGE_SELF	kern/resource.h	50;"	d
+SAME_STACK	thread.h	56;"	d
+SA_ONSTACK	kern/signal.h	95;"	d
+SA_RESETHAND	kern/signal.h	97;"	d
+SA_RESTART	kern/signal.h	96;"	d
+SECRET	kern/secret.h	48;"	d
+SECRET_TESTING	kern/secret.h	47;"	d
+SEEK_CUR	kern/seek.h	43;"	d
+SEEK_END	kern/seek.h	44;"	d
+SEEK_SET	kern/seek.h	42;"	d
+SFS_BITSPERBLOCK	kern/sfs.h	54;"	d
+SFS_BLOCKSIZE	kern/sfs.h	40;"	d
+SFS_DBPERIDB	kern/sfs.h	46;"	d
+SFS_FREEMAPBITS	kern/sfs.h	60;"	d
+SFS_FREEMAPBLOCKS	kern/sfs.h	63;"	d
+SFS_FREEMAP_START	kern/sfs.h	49;"	d
+SFS_MAGIC	kern/sfs.h	39;"	d
+SFS_NAMELEN	kern/sfs.h	47;"	d
+SFS_NDINDIRECT	kern/sfs.h	44;"	d
+SFS_NDIRECT	kern/sfs.h	42;"	d
+SFS_NINDIRECT	kern/sfs.h	43;"	d
+SFS_NOINO	kern/sfs.h	50;"	d
+SFS_NTINDIRECT	kern/sfs.h	45;"	d
+SFS_ROOTDIR_INO	kern/sfs.h	51;"	d
+SFS_ROUNDUP	kern/sfs.h	57;"	d
+SFS_SUPER_BLOCK	kern/sfs.h	48;"	d
+SFS_TYPE_DIR	kern/sfs.h	68;"	d
+SFS_TYPE_FILE	kern/sfs.h	67;"	d
+SFS_TYPE_INVAL	kern/sfs.h	66;"	d
+SFS_VOLNAME_SIZE	kern/sfs.h	41;"	d
+SIGABRT	kern/signal.h	61;"	d
+SIGALRM	kern/signal.h	69;"	d
+SIGBUS	kern/signal.h	65;"	d
+SIGCHLD	kern/signal.h	75;"	d
+SIGCONT	kern/signal.h	74;"	d
+SIGEMT	kern/signal.h	62;"	d
+SIGFPE	kern/signal.h	63;"	d
+SIGHUP	kern/signal.h	56;"	d
+SIGILL	kern/signal.h	59;"	d
+SIGINFO	kern/signal.h	84;"	d
+SIGINT	kern/signal.h	57;"	d
+SIGIO	kern/signal.h	78;"	d
+SIGKILL	kern/signal.h	64;"	d
+SIGPIPE	kern/signal.h	68;"	d
+SIGPROF	kern/signal.h	82;"	d
+SIGPWR	kern/signal.h	87;"	d
+SIGQUIT	kern/signal.h	58;"	d
+SIGSEGV	kern/signal.h	66;"	d
+SIGSTOP	kern/signal.h	72;"	d
+SIGSYS	kern/signal.h	67;"	d
+SIGTERM	kern/signal.h	70;"	d
+SIGTRAP	kern/signal.h	60;"	d
+SIGTSTP	kern/signal.h	73;"	d
+SIGTTIN	kern/signal.h	76;"	d
+SIGTTOU	kern/signal.h	77;"	d
+SIGURG	kern/signal.h	71;"	d
+SIGUSR1	kern/signal.h	85;"	d
+SIGUSR2	kern/signal.h	86;"	d
+SIGVTALRM	kern/signal.h	81;"	d
+SIGWINCH	kern/signal.h	83;"	d
+SIGXCPU	kern/signal.h	79;"	d
+SIGXFSZ	kern/signal.h	80;"	d
+SIG_BLOCK	kern/signal.h	100;"	d
+SIG_DFL	kern/signal.h	108;"	d
+SIG_IGN	kern/signal.h	109;"	d
+SIG_SETMASK	kern/signal.h	102;"	d
+SIG_UNBLOCK	kern/signal.h	101;"	d
+SOCK_DGRAM	kern/socket.h	44;"	d
+SOCK_RAW	kern/socket.h	45;"	d
+SOCK_STREAM	kern/socket.h	43;"	d
+SPINLOCK_INITIALIZER	spinlock.h	65;"	d
+SPINLOCK_INLINE	spinlock.h	42;"	d
+SPL_INLINE	spl.h	37;"	d
+STACK_MASK	thread.h	53;"	d
+STACK_SIZE	thread.h	50;"	d
+STDERR_FILENO	kern/unistd.h	36;"	d
+STDIN_FILENO	kern/unistd.h	34;"	d
+STDOUT_FILENO	kern/unistd.h	35;"	d
+SUCCESS	test.h	172;"	d
+SYS___getcwd	kern/syscall.h	139;"	d
+SYS___getlogin	kern/syscall.h	77;"	d
+SYS___setlogin	kern/syscall.h	78;"	d
+SYS___settime	kern/syscall.h	190;"	d
+SYS___time	kern/syscall.h	189;"	d
+SYS__exit	kern/syscall.h	53;"	d
+SYS_accept	kern/syscall.h	176;"	d
+SYS_access	kern/syscall.h	135;"	d
+SYS_bind	kern/syscall.h	173;"	d
+SYS_chdir	kern/syscall.h	137;"	d
+SYS_chmod	kern/syscall.h	157;"	d
+SYS_chown	kern/syscall.h	158;"	d
+SYS_close	kern/syscall.h	109;"	d
+SYS_connect	kern/syscall.h	174;"	d
+SYS_dup	kern/syscall.h	107;"	d
+SYS_dup2	kern/syscall.h	108;"	d
+SYS_execv	kern/syscall.h	52;"	d
+SYS_fchdir	kern/syscall.h	138;"	d
+SYS_fchmod	kern/syscall.h	159;"	d
+SYS_fchown	kern/syscall.h	160;"	d
+SYS_fcntl	kern/syscall.h	123;"	d
+SYS_flock	kern/syscall.h	120;"	d
+SYS_fork	kern/syscall.h	50;"	d
+SYS_fstat	kern/syscall.h	150;"	d
+SYS_fsync	kern/syscall.h	122;"	d
+SYS_ftruncate	kern/syscall.h	121;"	d
+SYS_futimes	kern/syscall.h	154;"	d
+SYS_getdirentry	kern/syscall.h	114;"	d
+SYS_getgroups	kern/syscall.h	75;"	d
+SYS_getpeername	kern/syscall.h	180;"	d
+SYS_getpid	kern/syscall.h	55;"	d
+SYS_getppid	kern/syscall.h	56;"	d
+SYS_getresgid	kern/syscall.h	73;"	d
+SYS_getresuid	kern/syscall.h	71;"	d
+SYS_getsockname	kern/syscall.h	179;"	d
+SYS_getsockopt	kern/syscall.h	181;"	d
+SYS_ioctl	kern/syscall.h	124;"	d
+SYS_issetugid	kern/syscall.h	70;"	d
+SYS_kill	kern/syscall.h	80;"	d
+SYS_lchmod	kern/syscall.h	161;"	d
+SYS_lchown	kern/syscall.h	162;"	d
+SYS_link	kern/syscall.h	129;"	d
+SYS_listen	kern/syscall.h	175;"	d
+SYS_lseek	kern/syscall.h	119;"	d
+SYS_lstat	kern/syscall.h	151;"	d
+SYS_lutimes	kern/syscall.h	155;"	d
+SYS_mkdir	kern/syscall.h	131;"	d
+SYS_mkfifo	kern/syscall.h	133;"	d
+SYS_mmap	kern/syscall.h	59;"	d
+SYS_mount	kern/syscall.h	144;"	d
+SYS_mprotect	kern/syscall.h	61;"	d
+SYS_munmap	kern/syscall.h	60;"	d
+SYS_nanosleep	kern/syscall.h	191;"	d
+SYS_open	kern/syscall.h	105;"	d
+SYS_pipe	kern/syscall.h	106;"	d
+SYS_poll	kern/syscall.h	126;"	d
+SYS_pread	kern/syscall.h	111;"	d
+SYS_pwrite	kern/syscall.h	116;"	d
+SYS_read	kern/syscall.h	110;"	d
+SYS_readlink	kern/syscall.h	142;"	d
+SYS_reboot	kern/syscall.h	197;"	d
+SYS_remove	kern/syscall.h	130;"	d
+SYS_rename	kern/syscall.h	134;"	d
+SYS_rmdir	kern/syscall.h	132;"	d
+SYS_sbrk	kern/syscall.h	58;"	d
+SYS_select	kern/syscall.h	125;"	d
+SYS_setgroups	kern/syscall.h	76;"	d
+SYS_setresgid	kern/syscall.h	74;"	d
+SYS_setresuid	kern/syscall.h	72;"	d
+SYS_setsockopt	kern/syscall.h	182;"	d
+SYS_shutdown	kern/syscall.h	178;"	d
+SYS_sigaction	kern/syscall.h	81;"	d
+SYS_sigpending	kern/syscall.h	82;"	d
+SYS_sigprocmask	kern/syscall.h	83;"	d
+SYS_sigreturn	kern/syscall.h	85;"	d
+SYS_sigsuspend	kern/syscall.h	84;"	d
+SYS_socket	kern/syscall.h	172;"	d
+SYS_stat	kern/syscall.h	149;"	d
+SYS_symlink	kern/syscall.h	141;"	d
+SYS_sync	kern/syscall.h	196;"	d
+SYS_umask	kern/syscall.h	69;"	d
+SYS_unmount	kern/syscall.h	145;"	d
+SYS_utimes	kern/syscall.h	153;"	d
+SYS_vfork	kern/syscall.h	51;"	d
+SYS_waitpid	kern/syscall.h	54;"	d
+SYS_write	kern/syscall.h	115;"	d
+S_IFBLK	stat.h	47;"	d
+S_IFCHR	stat.h	46;"	d
+S_IFDIR	stat.h	42;"	d
+S_IFIFO	stat.h	44;"	d
+S_IFLNK	stat.h	43;"	d
+S_IFMT	stat.h	40;"	d
+S_IFREG	stat.h	41;"	d
+S_IFSOCK	stat.h	45;"	d
+S_READY	thread.h	/^	S_READY,	\/* ready to run *\/$/;"	e	enum:__anon4
+S_RUN	thread.h	/^	S_RUN,		\/* running *\/$/;"	e	enum:__anon4
+S_SLEEP	thread.h	/^	S_SLEEP,	\/* sleeping *\/$/;"	e	enum:__anon4
+S_ZOMBIE	thread.h	/^	S_ZOMBIE,	\/* zombie; exited but not yet deleted *\/$/;"	e	enum:__anon4
+THREADINLINE	thread.h	115;"	d
+THREADLIST_FORALL	threadlist.h	94;"	d
+THREADLIST_FORALL_REV	threadlist.h	99;"	d
+TLBSHOOTDOWN_ALL	cpu.h	93;"	d
+UIO_READ	uio.h	/^        UIO_READ,			\/* From kernel to uio_seg *\/$/;"	e	enum:uio_rw
+UIO_SYSSPACE	uio.h	/^        UIO_SYSSPACE,			\/* Kernel. *\/$/;"	e	enum:uio_seg
+UIO_USERISPACE	uio.h	/^        UIO_USERISPACE,			\/* User process code. *\/$/;"	e	enum:uio_seg
+UIO_USERSPACE	uio.h	/^        UIO_USERSPACE,			\/* User process data. *\/$/;"	e	enum:uio_seg
+UIO_WRITE	uio.h	/^        UIO_WRITE,			\/* From uio_seg to kernel *\/$/;"	e	enum:uio_rw
+VFSINLINE	vfs.h	181;"	d
+VM_FAULT_READ	vm.h	43;"	d
+VM_FAULT_READONLY	vm.h	45;"	d
+VM_FAULT_WRITE	vm.h	44;"	d
+VOP_CREAT	vnode.h	244;"	d
+VOP_DECREF	vnode.h	267;"	d
+VOP_EACHOPEN	vnode.h	228;"	d
+VOP_FSYNC	vnode.h	239;"	d
+VOP_GETDIRENTRY	vnode.h	233;"	d
+VOP_GETTYPE	vnode.h	237;"	d
+VOP_INCREF	vnode.h	266;"	d
+VOP_IOCTL	vnode.h	235;"	d
+VOP_ISSEEKABLE	vnode.h	238;"	d
+VOP_LINK	vnode.h	247;"	d
+VOP_LOOKPARENT	vnode.h	253;"	d
+VOP_LOOKUP	vnode.h	252;"	d
+VOP_MAGIC	vnode.h	178;"	d
+VOP_MKDIR	vnode.h	246;"	d
+VOP_MMAP	vnode.h	240;"	d
+VOP_NAMEFILE	vnode.h	242;"	d
+VOP_READ	vnode.h	231;"	d
+VOP_READLINK	vnode.h	232;"	d
+VOP_RECLAIM	vnode.h	229;"	d
+VOP_REMOVE	vnode.h	248;"	d
+VOP_RENAME	vnode.h	250;"	d
+VOP_RMDIR	vnode.h	249;"	d
+VOP_STAT	vnode.h	236;"	d
+VOP_SYMLINK	vnode.h	245;"	d
+VOP_TRUNCATE	vnode.h	241;"	d
+VOP_WRITE	vnode.h	234;"	d
+WAIT_ANY	kern/wait.h	43;"	d
+WAIT_MYPGRP	kern/wait.h	44;"	d
+WCOREDUMP	kern/wait.h	71;"	d
+WEXITSTATUS	kern/wait.h	68;"	d
+WIFEXITED	kern/wait.h	65;"	d
+WIFSIGNALED	kern/wait.h	66;"	d
+WIFSTOPPED	kern/wait.h	67;"	d
+WNOHANG	kern/wait.h	39;"	d
+WSTOPSIG	kern/wait.h	70;"	d
+WTERMSIG	kern/wait.h	69;"	d
+WUNTRACED	kern/wait.h	40;"	d
+_ADDRSPACE_H_	addrspace.h	31;"	d
+_ARRAY_H_	array.h	31;"	d
+_BIG_ENDIAN	kern/endian.h	43;"	d
+_BITMAP_H_	bitmap.h	31;"	d
+_CDEFS_H_	cdefs.h	31;"	d
+_CLOCK_H_	clock.h	31;"	d
+_COPYINOUT_H_	copyinout.h	31;"	d
+_CPU_H_	cpu.h	31;"	d
+_CURRENT_H_	current.h	31;"	d
+_DEVICE_H_	device.h	31;"	d
+_ELF_H_	elf.h	31;"	d
+_EMUFS_H_	emufs.h	31;"	d
+_ENDIAN_H_	endian.h	31;"	d
+_FS_H_	fs.h	31;"	d
+_KERN_ENDIAN_H_	kern/endian.h	31;"	d
+_KERN_ERRMSG_H_	kern/errmsg.h	31;"	d
+_KERN_ERRNO_H_	kern/errno.h	31;"	d
+_KERN_FCNTL_H_	kern/fcntl.h	31;"	d
+_KERN_IOCTL_H_	kern/ioctl.h	31;"	d
+_KERN_IOVEC_H_	kern/iovec.h	31;"	d
+_KERN_LIMITS_H_	kern/limits.h	31;"	d
+_KERN_REBOOT_H_	kern/reboot.h	31;"	d
+_KERN_RESOURCE_H_	kern/resource.h	31;"	d
+_KERN_SECURE_H_	kern/secure.h	2;"	d
+_KERN_SEEK_H_	kern/seek.h	31;"	d
+_KERN_SFS_H_	kern/sfs.h	31;"	d
+_KERN_SIGNAL_H_	kern/signal.h	38;"	d
+_KERN_SOCKET_H_	kern/socket.h	31;"	d
+_KERN_STATTYPES_H_	kern/stattypes.h	31;"	d
+_KERN_STAT_H_	kern/stat.h	31;"	d
+_KERN_SYSCALL_H_	kern/syscall.h	31;"	d
+_KERN_TIME_H_	kern/time.h	31;"	d
+_KERN_TYPES_H_	kern/types.h	31;"	d
+_KERN_UNISTD_H_	kern/unistd.h	31;"	d
+_KERN_WAIT_H_	kern/wait.h	31;"	d
+_LIB_H_	lib.h	31;"	d
+_LIMITS_H_	limits.h	31;"	d
+_LITTLE_ENDIAN	kern/endian.h	42;"	d
+_MAINBUS_H_	mainbus.h	31;"	d
+_MEMBAR_H_	membar.h	31;"	d
+_MKWAIT_CORE	kern/wait.h	76;"	d
+_MKWAIT_EXIT	kern/wait.h	74;"	d
+_MKWAIT_SIG	kern/wait.h	75;"	d
+_MKWAIT_STOP	kern/wait.h	77;"	d
+_MKWVAL	kern/wait.h	56;"	d
+_NSIG	kern/signal.h	88;"	d
+_PDP_ENDIAN	kern/endian.h	44;"	d
+_PROC_H_	proc.h	31;"	d
+_PROMPT_H_	prompt.h	38;"	d
+_SECRET_H_	kern/secret.h	38;"	d
+_SETJMP_H_	setjmp.h	31;"	d
+_SFS_H_	sfs.h	31;"	d
+_SIGNAL_H_	signal.h	31;"	d
+_SPINLOCK_H_	spinlock.h	31;"	d
+_SPL_H_	spl.h	31;"	d
+_SS_SIZE	kern/socket.h	78;"	d
+_STAT_H_	stat.h	31;"	d
+_STDARG_H_	stdarg.h	31;"	d
+_SYNCH_H_	synch.h	31;"	d
+_SYSCALL_H_	syscall.h	31;"	d
+_S_IFBLK	kern/stattypes.h	52;"	d
+_S_IFCHR	kern/stattypes.h	51;"	d
+_S_IFDIR	kern/stattypes.h	47;"	d
+_S_IFIFO	kern/stattypes.h	49;"	d
+_S_IFLNK	kern/stattypes.h	48;"	d
+_S_IFMT	kern/stattypes.h	45;"	d
+_S_IFREG	kern/stattypes.h	46;"	d
+_S_IFSOCK	kern/stattypes.h	50;"	d
+_TEST_H_	test.h	31;"	d
+_THREADLIST_H_	threadlist.h	31;"	d
+_THREADPRIVATE_H_	threadprivate.h	31;"	d
+_THREAD_H_	thread.h	31;"	d
+_TYPES_H_	types.h	31;"	d
+_UIO_H_	uio.h	31;"	d
+_VERSION_H_	version.h	31;"	d
+_VFS_H_	vfs.h	31;"	d
+_VM_H_	vm.h	31;"	d
+_VNODE_H_	vnode.h	31;"	d
+_WCHAN_H_	wchan.h	31;"	d
+_WVAL	kern/wait.h	55;"	d
+_WWHAT	kern/wait.h	54;"	d
+__ARG_MAX	kern/limits.h	66;"	d
+__DEAD	cdefs.h	58;"	d
+__DEAD	cdefs.h	62;"	d
+__IOV_MAX	kern/limits.h	106;"	d
+__LOGIN_NAME_MAX	kern/limits.h	98;"	d
+__NAME_MAX	kern/limits.h	60;"	d
+__NGROUPS_MAX	kern/limits.h	95;"	d
+__OPEN_MAX	kern/limits.h	83;"	d
+__PATH_MAX	kern/limits.h	63;"	d
+__PF	cdefs.h	57;"	d
+__PF	cdefs.h	61;"	d
+__PID_MAX	kern/limits.h	80;"	d
+__PID_MIN	kern/limits.h	77;"	d
+__PIPE_BUF	kern/limits.h	86;"	d
+__RLIMIT_NUM	kern/resource.h	83;"	d
+__UNUSED	cdefs.h	59;"	d
+__UNUSED	cdefs.h	63;"	d
+__VOP	vnode.h	226;"	d
+__WCORED	kern/wait.h	61;"	d
+__WEXITED	kern/wait.h	59;"	d
+__WSIGNALED	kern/wait.h	60;"	d
+__WSTOPPED	kern/wait.h	62;"	d
+__blkcnt_t	kern/types.h	/^typedef __u32 __blkcnt_t;  \/* Count of blocks *\/$/;"	t
+__blksize_t	kern/types.h	/^typedef __u32 __blksize_t; \/* Size of an I\/O block *\/$/;"	t
+__counter_t	kern/types.h	/^typedef __u64 __counter_t; \/* Event counter *\/$/;"	t
+__daddr_t	kern/types.h	/^typedef __u32 __daddr_t;   \/* Disk block number *\/$/;"	t
+__dev_t	kern/types.h	/^typedef __u32 __dev_t;     \/* Hardware device ID *\/$/;"	t
+__fsid_t	kern/types.h	/^typedef __u32 __fsid_t;    \/* Filesystem ID *\/$/;"	t
+__gid_t	kern/types.h	/^typedef __i32 __gid_t;     \/* Group ID *\/$/;"	t
+__in_addr_t	kern/types.h	/^typedef __u32 __in_addr_t; \/* Internet address *\/$/;"	t
+__in_port_t	kern/types.h	/^typedef __u32 __in_port_t; \/* Internet port number *\/$/;"	t
+__ino_t	kern/types.h	/^typedef __u32 __ino_t;     \/* Inode number *\/$/;"	t
+__mode_t	kern/types.h	/^typedef __u32 __mode_t;    \/* File access mode *\/$/;"	t
+__nfds_t	kern/types.h	/^typedef int __nfds_t;    \/* Number of file handles *\/$/;"	t
+__nlink_t	kern/types.h	/^typedef __u16 __nlink_t;   \/* Number of links (intentionally only 16 bits) *\/$/;"	t
+__off_t	kern/types.h	/^typedef __i64 __off_t;     \/* Offset within file *\/$/;"	t
+__pid_t	kern/types.h	/^typedef __i32 __pid_t;     \/* Process ID *\/$/;"	t
+__rlim_t	kern/types.h	/^typedef __u64 __rlim_t;    \/* Resource limit quantity *\/$/;"	t
+__sa_family_t	kern/types.h	/^typedef __u8 __sa_family_t;\/* Socket address family *\/$/;"	t
+__sigfunc	kern/signal.h	/^typedef void (*__sigfunc)(int);$/;"	t
+__socklen_t	kern/types.h	/^typedef int __socklen_t;   \/* Socket-related length *\/$/;"	t
+__ss_pad1	kern/socket.h	/^   __u8 __ss_pad1;$/;"	m	struct:sockaddr_storage
+__ss_pad2	kern/socket.h	/^   __u8 __ss_pad2;$/;"	m	struct:sockaddr_storage
+__ss_pad3	kern/socket.h	/^   __u32 __ss_pad3;$/;"	m	struct:sockaddr_storage
+__ss_pad4	kern/socket.h	/^   __u64 __ss_pad4;$/;"	m	struct:sockaddr_storage
+__ss_pad5	kern/socket.h	/^   char __ss_pad5[_SS_SIZE - sizeof(__u64) - sizeof(__u32) - 4*sizeof(__u8)];$/;"	m	struct:sockaddr_storage
+__time_t	kern/types.h	/^typedef __i64 __time_t;    \/* Time in seconds *\/$/;"	t
+__uid_t	kern/types.h	/^typedef __i32 __uid_t;     \/* User ID *\/$/;"	t
+__userptr	types.h	/^struct __userptr { char _dummy; };$/;"	s
+__va_list	kern/types.h	/^typedef __builtin_va_list __va_list;$/;"	t
+_dummy	types.h	/^struct __userptr { char _dummy; };$/;"	m	struct:__userptr
+acquired	synch.h	/^	volatile bool acquired;$/;"	m	struct:lock
+addrspace	addrspace.h	/^struct addrspace {$/;"	s
+array	array.h	/^struct array {$/;"	s
+array_add	array.h	/^array_add(struct array *a, void *val, unsigned *index_ret)$/;"	f
+array_get	array.h	/^array_get(const struct array *a, unsigned index)$/;"	f
+array_num	array.h	/^array_num(const struct array *a)$/;"	f
+array_set	array.h	/^array_set(const struct array *a, unsigned index, void *val)$/;"	f
+as_npages1	addrspace.h	/^        size_t as_npages1;$/;"	m	struct:addrspace
+as_npages2	addrspace.h	/^        size_t as_npages2;$/;"	m	struct:addrspace
+as_pbase1	addrspace.h	/^        paddr_t as_pbase1;$/;"	m	struct:addrspace
+as_pbase2	addrspace.h	/^        paddr_t as_pbase2;$/;"	m	struct:addrspace
+as_stackpbase	addrspace.h	/^        paddr_t as_stackpbase;$/;"	m	struct:addrspace
+as_vbase1	addrspace.h	/^        vaddr_t as_vbase1;$/;"	m	struct:addrspace
+as_vbase2	addrspace.h	/^        vaddr_t as_vbase2;$/;"	m	struct:addrspace
+blkcnt_t	types.h	/^typedef __blkcnt_t blkcnt_t;$/;"	t
+blksize_t	types.h	/^typedef __blksize_t blksize_t;$/;"	t
+bool	types.h	/^typedef _Bool bool;$/;"	t
+c_curthread	cpu.h	/^	struct thread *c_curthread;	\/* Current thread on cpu *\/$/;"	m	struct:cpu	typeref:struct:cpu::thread
+c_hardclocks	cpu.h	/^	unsigned c_hardclocks;		\/* Counter of hardclock() calls *\/$/;"	m	struct:cpu
+c_hardware_number	cpu.h	/^	unsigned c_hardware_number;	\/* Hardware-defined cpu number *\/$/;"	m	struct:cpu
+c_ipi_lock	cpu.h	/^	struct spinlock c_ipi_lock;$/;"	m	struct:cpu	typeref:struct:cpu::spinlock
+c_ipi_pending	cpu.h	/^	uint32_t c_ipi_pending;		\/* One bit for each IPI number *\/$/;"	m	struct:cpu
+c_isidle	cpu.h	/^	bool c_isidle;			\/* True if this cpu is idle *\/$/;"	m	struct:cpu
+c_number	cpu.h	/^	unsigned c_number;		\/* This cpu's cpu number *\/$/;"	m	struct:cpu
+c_numshootdown	cpu.h	/^	int c_numshootdown;$/;"	m	struct:cpu
+c_runqueue	cpu.h	/^	struct threadlist c_runqueue;	\/* Run queue for this cpu *\/$/;"	m	struct:cpu	typeref:struct:cpu::threadlist
+c_runqueue_lock	cpu.h	/^	struct spinlock c_runqueue_lock;$/;"	m	struct:cpu	typeref:struct:cpu::spinlock
+c_self	cpu.h	/^	struct cpu *c_self;		\/* Canonical address of this struct *\/$/;"	m	struct:cpu	typeref:struct:cpu::cpu
+c_shootdown	cpu.h	/^	struct tlbshootdown c_shootdown[TLBSHOOTDOWN_MAX];$/;"	m	struct:cpu	typeref:struct:cpu::tlbshootdown
+c_spinlocks	cpu.h	/^	unsigned c_spinlocks;		\/* Counter of spinlocks held *\/$/;"	m	struct:cpu
+c_zombies	cpu.h	/^	struct threadlist c_zombies;	\/* List of exited threads *\/$/;"	m	struct:cpu	typeref:struct:cpu::threadlist
+cmsg_len	kern/socket.h	/^	socklen_t cmsg_len;	\/* length of control data, including header *\/$/;"	m	struct:cmsghdr
+cmsg_level	kern/socket.h	/^	int cmsg_level;		\/* protocol layer item originates from *\/$/;"	m	struct:cmsghdr
+cmsg_type	kern/socket.h	/^	int cmsg_type;		\/* protocol-specific message type *\/$/;"	m	struct:cmsghdr
+cmsghdr	kern/socket.h	/^struct cmsghdr {$/;"	s
+const_userptr_t	types.h	/^typedef const struct __userptr *const_userptr_t;$/;"	t	typeref:struct:__userptr
+cpu	cpu.h	/^struct cpu {$/;"	s
+curcpu	current.h	79;"	d
+curproc	current.h	90;"	d
+curthread	current.h	71;"	d
+cv	synch.h	/^struct cv {$/;"	s
+cv_name	synch.h	/^        char *cv_name;$/;"	m	struct:cv
+d_blocks	device.h	/^	blkcnt_t d_blocks;$/;"	m	struct:device
+d_blocksize	device.h	/^	blksize_t d_blocksize;$/;"	m	struct:device
+d_data	device.h	/^	void *d_data;		\/* device-specific data *\/$/;"	m	struct:device
+d_devnumber	device.h	/^	dev_t d_devnumber;	\/* serial number for this device *\/$/;"	m	struct:device
+d_ops	device.h	/^	const struct device_ops *d_ops;$/;"	m	struct:device	typeref:struct:device::device_ops
+daddr_t	types.h	/^typedef __daddr_t daddr_t;$/;"	t
+dev_t	types.h	/^typedef __dev_t dev_t;$/;"	t
+device	device.h	/^struct device {$/;"	s
+device_ops	device.h	/^struct device_ops {$/;"	s
+devop_eachopen	device.h	/^	int (*devop_eachopen)(struct device *, int flags_from_open);$/;"	m	struct:device_ops
+devop_io	device.h	/^	int (*devop_io)(struct device *, struct uio *);$/;"	m	struct:device_ops
+devop_ioctl	device.h	/^	int (*devop_ioctl)(struct device *, int op, userptr_t data);$/;"	m	struct:device_ops
+e_ehsize	elf.h	/^	uint16_t	e_ehsize;          \/* actual size of file header *\/$/;"	m	struct:__anon1
+e_entry	elf.h	/^	uint32_t	e_entry;           \/* address of program entry point *\/$/;"	m	struct:__anon1
+e_flags	elf.h	/^	uint32_t	e_flags;	   \/* ignore *\/$/;"	m	struct:__anon1
+e_ident	elf.h	/^	unsigned char	e_ident[ELF_NIDENT];   \/* magic number et al. *\/$/;"	m	struct:__anon1
+e_machine	elf.h	/^	uint16_t	e_machine;             \/* processor type file is for *\/$/;"	m	struct:__anon1
+e_phentsize	elf.h	/^	uint16_t	e_phentsize;       \/* actual size of phdr *\/$/;"	m	struct:__anon1
+e_phnum	elf.h	/^	uint16_t	e_phnum;           \/* number of phdrs *\/$/;"	m	struct:__anon1
+e_phoff	elf.h	/^	uint32_t	e_phoff;           \/* location in file of phdrs *\/$/;"	m	struct:__anon1
+e_shentsize	elf.h	/^	uint16_t	e_shentsize;       \/* ignore *\/$/;"	m	struct:__anon1
+e_shnum	elf.h	/^	uint16_t	e_shnum;           \/* ignore *\/$/;"	m	struct:__anon1
+e_shoff	elf.h	/^	uint32_t	e_shoff;           \/* ignore *\/$/;"	m	struct:__anon1
+e_shstrndx	elf.h	/^	uint16_t	e_shstrndx;        \/* ignore *\/$/;"	m	struct:__anon1
+e_type	elf.h	/^	uint16_t	e_type;                \/* type of file this is *\/$/;"	m	struct:__anon1
+e_version	elf.h	/^	uint32_t	e_version;             \/* ELF version *\/$/;"	m	struct:__anon1
+ef_emu	emufs.h	/^	struct emu_softc *ef_emu;	\/* device *\/$/;"	m	struct:emufs_fs	typeref:struct:emufs_fs::emu_softc
+ef_fs	emufs.h	/^	struct fs ef_fs;		\/* abstract filesystem structure *\/$/;"	m	struct:emufs_fs	typeref:struct:emufs_fs::fs
+ef_root	emufs.h	/^	struct emufs_vnode *ef_root;	\/* root vnode *\/$/;"	m	struct:emufs_fs	typeref:struct:emufs_fs::emufs_vnode
+ef_vnodes	emufs.h	/^	struct vnodearray *ef_vnodes;	\/* table of loaded vnodes *\/$/;"	m	struct:emufs_fs	typeref:struct:emufs_fs::vnodearray
+emufs_fs	emufs.h	/^struct emufs_fs {$/;"	s
+emufs_vnode	emufs.h	/^struct emufs_vnode {$/;"	s
+ev_emu	emufs.h	/^	struct emu_softc *ev_emu;	\/* device *\/$/;"	m	struct:emufs_vnode	typeref:struct:emufs_vnode::emu_softc
+ev_handle	emufs.h	/^	uint32_t ev_handle;		\/* file handle *\/$/;"	m	struct:emufs_vnode
+ev_v	emufs.h	/^	struct vnode ev_v;		\/* abstract vnode structure *\/$/;"	m	struct:emufs_vnode	typeref:struct:emufs_vnode::vnode
+false	types.h	153;"	d
+flock	kern/fcntl.h	/^struct flock {$/;"	s
+fs	fs.h	/^struct fs {$/;"	s
+fs_data	fs.h	/^	void *fs_data;$/;"	m	struct:fs
+fs_ops	fs.h	/^	const struct fs_ops *fs_ops;$/;"	m	struct:fs	typeref:struct:fs::fs_ops
+fs_ops	fs.h	/^struct fs_ops {$/;"	s
+fsid_t	types.h	/^typedef __fsid_t fsid_t;$/;"	t
+fsop_getroot	fs.h	/^	int           (*fsop_getroot)(struct fs *, struct vnode **);$/;"	m	struct:fs_ops
+fsop_getvolname	fs.h	/^	const char   *(*fsop_getvolname)(struct fs *);$/;"	m	struct:fs_ops
+fsop_sync	fs.h	/^	int           (*fsop_sync)(struct fs *);$/;"	m	struct:fs_ops
+fsop_unmount	fs.h	/^	int           (*fsop_unmount)(struct fs *);$/;"	m	struct:fs_ops
+gid_t	types.h	/^typedef __gid_t gid_t;$/;"	t
+in_addr_t	types.h	/^typedef __in_addr_t in_addr_t;$/;"	t
+in_port_t	types.h	/^typedef __in_port_t in_port_t;$/;"	t
+ino_t	types.h	/^typedef __ino_t ino_t;$/;"	t
+int16_t	types.h	/^typedef __i16 int16_t;$/;"	t
+int32_t	types.h	/^typedef __i32 int32_t;$/;"	t
+int64_t	types.h	/^typedef __i64 int64_t;$/;"	t
+int8_t	types.h	/^typedef __i8 int8_t;$/;"	t
+intptr_t	types.h	/^typedef __intptr_t intptr_t;$/;"	t
+iov_kbase	kern/iovec.h	/^                void      *iov_kbase;	\/* kernel-supplied pointer *\/$/;"	m	union:iovec::__anon3
+iov_len	kern/iovec.h	/^        size_t iov_len;			\/* Length of data *\/$/;"	m	struct:iovec
+iov_ubase	kern/iovec.h	/^                userptr_t  iov_ubase;	\/* user-supplied pointer *\/$/;"	m	union:iovec::__anon3
+iovec	kern/iovec.h	/^struct iovec {$/;"	s
+it_interval	kern/time.h	/^        struct timeval it_interval;	\/* Time to reload after expiry. *\/$/;"	m	struct:itimerval	typeref:struct:itimerval::timeval
+it_value	kern/time.h	/^	struct timeval it_value;	\/* Time to count. *\/$/;"	m	struct:itimerval	typeref:struct:itimerval::timeval
+itimerval	kern/time.h	/^struct itimerval {$/;"	s
+kprintf_n	test.h	186;"	d
+kprintf_n	test.h	189;"	d
+kprintf_t	test.h	185;"	d
+kprintf_t	test.h	188;"	d
+l_len	kern/fcntl.h	/^	off_t l_len;            \/* length of locked region *\/$/;"	m	struct:flock
+l_pid	kern/fcntl.h	/^	pid_t l_pid;            \/* process that holds the lock *\/$/;"	m	struct:flock
+l_start	kern/fcntl.h	/^	off_t l_start;          \/* place in file *\/$/;"	m	struct:flock
+l_type	kern/fcntl.h	/^	int l_type;             \/* F_RDLCK or F_WRLCK *\/$/;"	m	struct:flock
+l_whence	kern/fcntl.h	/^	int l_whence;           \/* SEEK_SET, SEEK_CUR, or SEEK_END *\/$/;"	m	struct:flock
+lk_name	synch.h	/^        char *lk_name;$/;"	m	struct:lock
+lock	synch.h	/^struct lock {$/;"	s
+max	array.h	/^	unsigned num, max;$/;"	m	struct:array
+mode_t	types.h	/^typedef __mode_t mode_t;$/;"	t
+msg_control	kern/socket.h	/^	void *msg_control;	\/* auxiliary data area, or null *\/$/;"	m	struct:msghdr
+msg_controllen	kern/socket.h	/^	socklen_t msg_controllen; \/* size of msg_control area *\/$/;"	m	struct:msghdr
+msg_flags	kern/socket.h	/^	int msg_flags;		\/* flags *\/$/;"	m	struct:msghdr
+msg_iov	kern/socket.h	/^	struct iovec *msg_iov;	\/* I\/O buffers *\/$/;"	m	struct:msghdr	typeref:struct:msghdr::iovec
+msg_iovlen	kern/socket.h	/^	int msg_iovlen;		\/* number of iovecs *\/$/;"	m	struct:msghdr
+msg_name	kern/socket.h	/^	void *msg_name;		\/* really sockaddr; address, or null *\/$/;"	m	struct:msghdr
+msg_namelen	kern/socket.h	/^	socklen_t msg_namelen;	\/* size of msg_name object, or 0 *\/$/;"	m	struct:msghdr
+msghdr	kern/socket.h	/^struct msghdr {$/;"	s
+myLock	synch.h	/^	char* myLock;$/;"	m	struct:lock
+nfds_t	types.h	/^typedef __nfds_t nfds_t;$/;"	t
+nlink_t	types.h	/^typedef __nlink_t nlink_t;$/;"	t
+num	array.h	/^	unsigned num, max;$/;"	m	struct:array
+off_t	types.h	/^typedef __off_t off_t;$/;"	t
+p_addrspace	proc.h	/^	struct addrspace *p_addrspace;	\/* virtual address space *\/$/;"	m	struct:proc	typeref:struct:proc::addrspace
+p_align	elf.h	/^	uint32_t	p_align;     \/* Required alignment - can ignore *\/$/;"	m	struct:__anon2
+p_cwd	proc.h	/^	struct vnode *p_cwd;		\/* current working directory *\/$/;"	m	struct:proc	typeref:struct:proc::vnode
+p_filesz	elf.h	/^	uint32_t	p_filesz;    \/* Size of data within file *\/$/;"	m	struct:__anon2
+p_flags	elf.h	/^	uint32_t	p_flags;     \/* Flags *\/$/;"	m	struct:__anon2
+p_lock	proc.h	/^	struct spinlock p_lock;		\/* Lock for this structure *\/$/;"	m	struct:proc	typeref:struct:proc::spinlock
+p_memsz	elf.h	/^	uint32_t	p_memsz;     \/* Size of data to be loaded into memory*\/$/;"	m	struct:__anon2
+p_name	proc.h	/^	char *p_name;			\/* Name of this process *\/$/;"	m	struct:proc
+p_numthreads	proc.h	/^	unsigned p_numthreads;		\/* Number of threads in this process *\/$/;"	m	struct:proc
+p_offset	elf.h	/^	uint32_t	p_offset;    \/* Location of data within file *\/$/;"	m	struct:__anon2
+p_paddr	elf.h	/^	uint32_t	p_paddr;     \/* Ignore *\/$/;"	m	struct:__anon2
+p_type	elf.h	/^	uint32_t	p_type;      \/* Type of segment *\/$/;"	m	struct:__anon2
+p_vaddr	elf.h	/^	uint32_t	p_vaddr;     \/* Virtual address *\/$/;"	m	struct:__anon2
+pid_t	types.h	/^typedef __pid_t pid_t;$/;"	t
+proc	proc.h	/^struct proc {$/;"	s
+ptrdiff_t	types.h	/^typedef __ptrdiff_t ptrdiff_t;$/;"	t
+reserved	kern/sfs.h	/^	uint32_t reserved[118];			\/* unused, set to 0 *\/$/;"	m	struct:sfs_superblock
+rlim_cur	kern/resource.h	/^	__rlim_t rlim_cur;	\/* soft limit *\/$/;"	m	struct:rlimit
+rlim_max	kern/resource.h	/^	__rlim_t rlim_max;	\/* hard limit *\/$/;"	m	struct:rlimit
+rlim_t	types.h	/^typedef __rlim_t rlim_t;$/;"	t
+rlimit	kern/resource.h	/^struct rlimit {$/;"	s
+ru_idrss	kern/resource.h	/^	__counter_t ru_idrss;		\/* data memory usage (kb-ticks) *\/$/;"	m	struct:rusage
+ru_inblock	kern/resource.h	/^	__counter_t ru_inblock;		\/* file blocks read (count) *\/$/;"	m	struct:rusage
+ru_isrss	kern/resource.h	/^	__counter_t ru_isrss;		\/* stack memory usage (kb-ticks) *\/$/;"	m	struct:rusage
+ru_ixrss	kern/resource.h	/^	__counter_t ru_ixrss;		\/* text memory usage (kb-ticks) *\/$/;"	m	struct:rusage
+ru_majflt	kern/resource.h	/^	__counter_t ru_majflt;		\/* major VM faults (count) *\/$/;"	m	struct:rusage
+ru_maxrss	kern/resource.h	/^	__size_t ru_maxrss;		\/* maximum RSS during lifespan (kb) *\/$/;"	m	struct:rusage
+ru_minflt	kern/resource.h	/^	__counter_t ru_minflt;		\/* minor VM faults (count) *\/$/;"	m	struct:rusage
+ru_msgrcv	kern/resource.h	/^	__counter_t ru_msgrcv;		\/* socket\/pipe packets rcv'd (count) *\/$/;"	m	struct:rusage
+ru_msgsnd	kern/resource.h	/^	__counter_t ru_msgsnd;		\/* socket\/pipe packets sent (count) *\/$/;"	m	struct:rusage
+ru_nivcsw	kern/resource.h	/^	__counter_t ru_nivcsw;		\/* involuntary ditto (count) *\/$/;"	m	struct:rusage
+ru_nsignals	kern/resource.h	/^	__counter_t ru_nsignals;	\/* signals delivered (count) *\/$/;"	m	struct:rusage
+ru_nswap	kern/resource.h	/^	__counter_t ru_nswap;		\/* whole-process swaps (count) *\/$/;"	m	struct:rusage
+ru_nvcsw	kern/resource.h	/^	__counter_t ru_nvcsw;		\/* voluntary context switches (count)*\/$/;"	m	struct:rusage
+ru_oublock	kern/resource.h	/^	__counter_t ru_oublock;		\/* file blocks written (count) *\/$/;"	m	struct:rusage
+ru_stime	kern/resource.h	/^	struct timeval ru_stime;$/;"	m	struct:rusage	typeref:struct:rusage::timeval
+ru_utime	kern/resource.h	/^	struct timeval ru_utime;$/;"	m	struct:rusage	typeref:struct:rusage::timeval
+rusage	kern/resource.h	/^struct rusage {$/;"	s
+rwlock	synch.h	/^struct rwlock {$/;"	s
+rwlock_name	synch.h	/^        char *rwlock_name;$/;"	m	struct:rwlock
+sa_family	kern/socket.h	/^   __u8 sa_family;$/;"	m	struct:sockaddr
+sa_family_t	types.h	/^typedef __sa_family_t sa_family_t;$/;"	t
+sa_flags	kern/signal.h	/^	unsigned sa_flags;$/;"	m	struct:sigaction
+sa_handler	kern/signal.h	/^	__sigfunc sa_handler;$/;"	m	struct:sigaction
+sa_len	kern/socket.h	/^   __u8	sa_len;$/;"	m	struct:sockaddr
+sa_mask	kern/signal.h	/^	sigset_t sa_mask;$/;"	m	struct:sigaction
+sb_magic	kern/sfs.h	/^	uint32_t sb_magic;		\/* Magic number; should be SFS_MAGIC *\/$/;"	m	struct:sfs_superblock
+sb_nblocks	kern/sfs.h	/^	uint32_t sb_nblocks;			\/* Number of blocks in fs *\/$/;"	m	struct:sfs_superblock
+sb_volname	kern/sfs.h	/^	char sb_volname[SFS_VOLNAME_SIZE];	\/* Name of this volume *\/$/;"	m	struct:sfs_superblock
+sem_count	synch.h	/^	volatile unsigned sem_count;$/;"	m	struct:semaphore
+sem_lock	synch.h	/^	struct spinlock sem_lock;$/;"	m	struct:semaphore	typeref:struct:semaphore::spinlock
+sem_name	synch.h	/^	char *sem_name;$/;"	m	struct:semaphore
+sem_wchan	synch.h	/^	struct wchan *sem_wchan;$/;"	m	struct:semaphore	typeref:struct:semaphore::wchan
+semaphore	synch.h	/^struct semaphore {$/;"	s
+sfd_ino	kern/sfs.h	/^	uint32_t sfd_ino;			\/* Inode number *\/$/;"	m	struct:sfs_direntry
+sfd_name	kern/sfs.h	/^	char sfd_name[SFS_NAMELEN];		\/* Filename *\/$/;"	m	struct:sfs_direntry
+sfi_direct	kern/sfs.h	/^	uint32_t sfi_direct[SFS_NDIRECT];	\/* Direct blocks *\/$/;"	m	struct:sfs_dinode
+sfi_indirect	kern/sfs.h	/^	uint32_t sfi_indirect;			\/* Indirect block *\/$/;"	m	struct:sfs_dinode
+sfi_linkcount	kern/sfs.h	/^	uint16_t sfi_linkcount;			\/* # hard links to this file *\/$/;"	m	struct:sfs_dinode
+sfi_size	kern/sfs.h	/^	uint32_t sfi_size;			\/* Size of this file (bytes) *\/$/;"	m	struct:sfs_dinode
+sfi_type	kern/sfs.h	/^	uint16_t sfi_type;			\/* One of SFS_TYPE_* above *\/$/;"	m	struct:sfs_dinode
+sfi_waste	kern/sfs.h	/^	uint32_t sfi_waste[128-3-SFS_NDIRECT];	\/* unused space, set to 0 *\/$/;"	m	struct:sfs_dinode
+sfs_absfs	sfs.h	/^	struct fs sfs_absfs;            \/* abstract filesystem structure *\/$/;"	m	struct:sfs_fs	typeref:struct:sfs_fs::fs
+sfs_device	sfs.h	/^	struct device *sfs_device;      \/* device mounted on *\/$/;"	m	struct:sfs_fs	typeref:struct:sfs_fs::device
+sfs_dinode	kern/sfs.h	/^struct sfs_dinode {$/;"	s
+sfs_direntry	kern/sfs.h	/^struct sfs_direntry {$/;"	s
+sfs_freemap	sfs.h	/^	struct bitmap *sfs_freemap;     \/* blocks in use are marked 1 *\/$/;"	m	struct:sfs_fs	typeref:struct:sfs_fs::bitmap
+sfs_freemapdirty	sfs.h	/^	bool sfs_freemapdirty;          \/* true if freemap modified *\/$/;"	m	struct:sfs_fs
+sfs_fs	sfs.h	/^struct sfs_fs {$/;"	s
+sfs_sb	sfs.h	/^	struct sfs_superblock sfs_sb;	\/* copy of on-disk superblock *\/$/;"	m	struct:sfs_fs	typeref:struct:sfs_fs::sfs_superblock
+sfs_superblock	kern/sfs.h	/^struct sfs_superblock {$/;"	s
+sfs_superdirty	sfs.h	/^	bool sfs_superdirty;            \/* true if superblock modified *\/$/;"	m	struct:sfs_fs
+sfs_vnode	sfs.h	/^struct sfs_vnode {$/;"	s
+sfs_vnodes	sfs.h	/^	struct vnodearray *sfs_vnodes;  \/* vnodes loaded into memory *\/$/;"	m	struct:sfs_fs	typeref:struct:sfs_fs::vnodearray
+sigaction	kern/signal.h	/^struct sigaction {$/;"	s
+sigaltstack	kern/signal.h	/^struct sigaltstack {$/;"	s
+sigset_t	kern/signal.h	/^typedef __u32 sigset_t;$/;"	t
+silent	test.h	/^static inline void silent(const char * fmt, ...) { (void)fmt; };$/;"	f
+size_t	types.h	/^typedef __size_t size_t;$/;"	t
+sockaddr	kern/socket.h	/^struct sockaddr {$/;"	s
+sockaddr_storage	kern/socket.h	/^struct sockaddr_storage {$/;"	s
+socklen_t	types.h	/^typedef __socklen_t socklen_t;$/;"	t
+spinlock	spinlock.h	/^struct spinlock {$/;"	s
+spl0	spl.h	/^spl0(void)$/;"	f
+splhigh	spl.h	/^splhigh(void)$/;"	f
+splk_holder	spinlock.h	/^	struct cpu *splk_holder;	    \/* CPU holding this lock. *\/$/;"	m	struct:spinlock	typeref:struct:spinlock::cpu
+splk_lock	spinlock.h	/^	volatile spinlock_data_t splk_lock; \/* Memory word where we spin. *\/$/;"	m	struct:spinlock
+ss_family	kern/socket.h	/^   __u8 ss_family;$/;"	m	struct:sockaddr_storage
+ss_flags	kern/signal.h	/^	unsigned ss_flags;$/;"	m	struct:sigaltstack
+ss_len	kern/socket.h	/^   __u8 ss_len;$/;"	m	struct:sockaddr_storage
+ss_size	kern/signal.h	/^	size_t ss_size;$/;"	m	struct:sigaltstack
+ss_sp	kern/signal.h	/^	void *ss_sp;$/;"	m	struct:sigaltstack
+ssize_t	types.h	/^typedef __ssize_t ssize_t;$/;"	t
+st_atime	kern/stat.h	/^	time_t st_atime;        \/* last access time: seconds *\/$/;"	m	struct:stat
+st_atimensec	kern/stat.h	/^	__u32 st_atimensec;     \/* last access time: nanoseconds *\/$/;"	m	struct:stat
+st_blksize	kern/stat.h	/^	blksize_t st_blksize;   \/* recommended I\/O block size *\/$/;"	m	struct:stat
+st_blocks	kern/stat.h	/^	blkcnt_t st_blocks;	\/* number of blocks file is using *\/$/;"	m	struct:stat
+st_ctime	kern/stat.h	/^	time_t st_ctime;        \/* inode change time: seconds *\/$/;"	m	struct:stat
+st_ctimensec	kern/stat.h	/^	__u32 st_ctimensec;     \/* inode change time: nanoseconds *\/$/;"	m	struct:stat
+st_dev	kern/stat.h	/^	dev_t st_dev;           \/* device object lives on *\/$/;"	m	struct:stat
+st_gen	kern/stat.h	/^	__u32 st_gen;           \/* file generation number (root only) *\/$/;"	m	struct:stat
+st_gid	kern/stat.h	/^	gid_t st_gid;           \/* group *\/$/;"	m	struct:stat
+st_ino	kern/stat.h	/^	ino_t st_ino;           \/* inode number (serial number) of object *\/$/;"	m	struct:stat
+st_mode	kern/stat.h	/^	mode_t st_mode;		\/* file type and protection mode *\/$/;"	m	struct:stat
+st_mtime	kern/stat.h	/^	time_t st_mtime;        \/* modification time: seconds *\/$/;"	m	struct:stat
+st_mtimensec	kern/stat.h	/^	__u32 st_mtimensec;     \/* modification time: nanoseconds *\/$/;"	m	struct:stat
+st_nlink	kern/stat.h	/^	nlink_t st_nlink;	\/* number of hard links *\/$/;"	m	struct:stat
+st_rdev	kern/stat.h	/^	dev_t st_rdev;          \/* device object is (if a device) *\/$/;"	m	struct:stat
+st_size	kern/stat.h	/^	off_t st_size;		\/* file size in bytes *\/$/;"	m	struct:stat
+st_uid	kern/stat.h	/^	uid_t st_uid;           \/* owner *\/$/;"	m	struct:stat
+stat	kern/stat.h	/^struct stat {$/;"	s
+sv_absvn	sfs.h	/^	struct vnode sv_absvn;          \/* abstract vnode structure *\/$/;"	m	struct:sfs_vnode	typeref:struct:sfs_vnode::vnode
+sv_dirty	sfs.h	/^	bool sv_dirty;                  \/* true if sv_i modified *\/$/;"	m	struct:sfs_vnode
+sv_i	sfs.h	/^	struct sfs_dinode sv_i;		\/* copy of on-disk inode *\/$/;"	m	struct:sfs_vnode	typeref:struct:sfs_vnode::sfs_dinode
+sv_ino	sfs.h	/^	uint32_t sv_ino;                \/* inode number *\/$/;"	m	struct:sfs_vnode
+sys_errlist	kern/errmsg.h	/^const char *const sys_errlist[] = {$/;"	v
+sys_nerr	kern/errmsg.h	/^const int sys_nerr = sizeof(sys_errlist)\/sizeof(const char *);$/;"	v
+t_context	thread.h	/^	struct switchframe *t_context;	\/* Saved register context (on stack) *\/$/;"	m	struct:thread	typeref:struct:thread::switchframe
+t_cpu	thread.h	/^	struct cpu *t_cpu;		\/* CPU thread runs on *\/$/;"	m	struct:thread	typeref:struct:thread::cpu
+t_curspl	thread.h	/^	int t_curspl;			\/* Current spl*() state *\/$/;"	m	struct:thread
+t_in_interrupt	thread.h	/^	bool t_in_interrupt;		\/* Are we in an interrupt? *\/$/;"	m	struct:thread
+t_iplhigh_count	thread.h	/^	int t_iplhigh_count;		\/* # of times IPL has been raised *\/$/;"	m	struct:thread
+t_listnode	thread.h	/^	struct threadlistnode t_listnode; \/* Link for run\/sleep\/zombie lists *\/$/;"	m	struct:thread	typeref:struct:thread::threadlistnode
+t_machdep	thread.h	/^	struct thread_machdep t_machdep; \/* Any machine-dependent goo *\/$/;"	m	struct:thread	typeref:struct:thread::thread_machdep
+t_name	thread.h	/^	char *t_name;			\/* Name of this thread *\/$/;"	m	struct:thread
+t_proc	thread.h	/^	struct proc *t_proc;		\/* Process thread belongs to *\/$/;"	m	struct:thread	typeref:struct:thread::proc
+t_stack	thread.h	/^	void *t_stack;			\/* Kernel-level stack *\/$/;"	m	struct:thread
+t_state	thread.h	/^	threadstate_t t_state;		\/* State this thread is in *\/$/;"	m	struct:thread
+t_wchan_name	thread.h	/^	const char *t_wchan_name;	\/* Name of wait channel, if sleeping *\/$/;"	m	struct:thread
+thread	thread.h	/^struct thread {$/;"	s
+threadlist	threadlist.h	/^struct threadlist {$/;"	s
+threadlistnode	threadlist.h	/^struct threadlistnode {$/;"	s
+threadstate_t	thread.h	/^} threadstate_t;$/;"	t	typeref:enum:__anon4
+time_t	types.h	/^typedef __time_t time_t;$/;"	t
+timespec	kern/time.h	/^struct timespec {$/;"	s
+timeval	kern/time.h	/^struct timeval {$/;"	s
+tl_count	threadlist.h	/^	unsigned tl_count;$/;"	m	struct:threadlist
+tl_head	threadlist.h	/^	struct threadlistnode tl_head;$/;"	m	struct:threadlist	typeref:struct:threadlist::threadlistnode
+tl_tail	threadlist.h	/^	struct threadlistnode tl_tail;$/;"	m	struct:threadlist	typeref:struct:threadlist::threadlistnode
+tln_next	threadlist.h	/^	struct threadlistnode *tln_next;$/;"	m	struct:threadlistnode	typeref:struct:threadlistnode::threadlistnode
+tln_prev	threadlist.h	/^	struct threadlistnode *tln_prev;$/;"	m	struct:threadlistnode	typeref:struct:threadlistnode::threadlistnode
+tln_self	threadlist.h	/^	struct thread *tln_self;$/;"	m	struct:threadlistnode	typeref:struct:threadlistnode::thread
+true	types.h	152;"	d
+tv_nsec	kern/time.h	/^        __i32 tv_nsec;          \/* nanoseconds *\/$/;"	m	struct:timespec
+tv_sec	kern/time.h	/^        __time_t tv_sec;        \/* seconds *\/$/;"	m	struct:timespec
+tv_sec	kern/time.h	/^        __time_t tv_sec;        \/* seconds *\/$/;"	m	struct:timeval
+tv_usec	kern/time.h	/^        __i32 tv_usec;          \/* microseconds *\/$/;"	m	struct:timeval
+uid_t	types.h	/^typedef __uid_t uid_t;$/;"	t
+uint16_t	types.h	/^typedef __u16 uint16_t;$/;"	t
+uint32_t	types.h	/^typedef __u32 uint32_t;$/;"	t
+uint64_t	types.h	/^typedef __u64 uint64_t;$/;"	t
+uint8_t	types.h	/^typedef __u8 uint8_t;$/;"	t
+uintptr_t	types.h	/^typedef __uintptr_t uintptr_t;$/;"	t
+uio	uio.h	/^struct uio {$/;"	s
+uio_iov	uio.h	/^	struct iovec     *uio_iov;	\/* Data blocks *\/$/;"	m	struct:uio	typeref:struct:uio::iovec
+uio_iovcnt	uio.h	/^	unsigned          uio_iovcnt;	\/* Number of iovecs *\/$/;"	m	struct:uio
+uio_offset	uio.h	/^	off_t             uio_offset;	\/* Desired offset into object *\/$/;"	m	struct:uio
+uio_resid	uio.h	/^	size_t            uio_resid;	\/* Remaining amt of data to xfer *\/$/;"	m	struct:uio
+uio_rw	uio.h	/^	enum uio_rw       uio_rw;	\/* Whether op is a read or write *\/$/;"	m	struct:uio	typeref:enum:uio::uio_rw
+uio_rw	uio.h	/^enum uio_rw {$/;"	g
+uio_seg	uio.h	/^enum uio_seg {$/;"	g
+uio_segflg	uio.h	/^	enum uio_seg      uio_segflg;	\/* What kind of pointer we have *\/$/;"	m	struct:uio	typeref:enum:uio::uio_seg
+uio_space	uio.h	/^	struct addrspace *uio_space;	\/* Address space for user pointer *\/$/;"	m	struct:uio	typeref:struct:uio::addrspace
+userptr_t	types.h	/^typedef struct __userptr *userptr_t;$/;"	t	typeref:struct:__userptr
+v	array.h	/^	void **v;$/;"	m	struct:array
+va_arg	stdarg.h	53;"	d
+va_copy	stdarg.h	54;"	d
+va_end	stdarg.h	55;"	d
+va_list	stdarg.h	/^typedef __va_list va_list;$/;"	t
+va_start	stdarg.h	49;"	d
+va_start	stdarg.h	51;"	d
+vn_countlock	vnode.h	/^	struct spinlock vn_countlock;   \/* Lock for vn_refcount *\/$/;"	m	struct:vnode	typeref:struct:vnode::spinlock
+vn_data	vnode.h	/^	void *vn_data;                  \/* Filesystem-specific data *\/$/;"	m	struct:vnode
+vn_fs	vnode.h	/^	struct fs *vn_fs;               \/* Filesystem vnode belongs to *\/$/;"	m	struct:vnode	typeref:struct:vnode::fs
+vn_ops	vnode.h	/^	const struct vnode_ops *vn_ops; \/* Functions on this vnode *\/$/;"	m	struct:vnode	typeref:struct:vnode::vnode_ops
+vn_refcount	vnode.h	/^	int vn_refcount;                \/* Reference count *\/$/;"	m	struct:vnode
+vnode	vnode.h	/^struct vnode {$/;"	s
+vnode_ops	vnode.h	/^struct vnode_ops {$/;"	s
+vop_creat	vnode.h	/^	int (*vop_creat)(struct vnode *dir,$/;"	m	struct:vnode_ops
+vop_eachopen	vnode.h	/^	int (*vop_eachopen)(struct vnode *object, int flags_from_open);$/;"	m	struct:vnode_ops
+vop_fsync	vnode.h	/^	int (*vop_fsync)(struct vnode *object);$/;"	m	struct:vnode_ops
+vop_getdirentry	vnode.h	/^	int (*vop_getdirentry)(struct vnode *dir, struct uio *uio);$/;"	m	struct:vnode_ops
+vop_gettype	vnode.h	/^	int (*vop_gettype)(struct vnode *object, mode_t *result);$/;"	m	struct:vnode_ops
+vop_ioctl	vnode.h	/^	int (*vop_ioctl)(struct vnode *object, int op, userptr_t data);$/;"	m	struct:vnode_ops
+vop_isseekable	vnode.h	/^	bool (*vop_isseekable)(struct vnode *object);$/;"	m	struct:vnode_ops
+vop_link	vnode.h	/^	int (*vop_link)(struct vnode *dir,$/;"	m	struct:vnode_ops
+vop_lookparent	vnode.h	/^	int (*vop_lookparent)(struct vnode *dir,$/;"	m	struct:vnode_ops
+vop_lookup	vnode.h	/^	int (*vop_lookup)(struct vnode *dir,$/;"	m	struct:vnode_ops
+vop_magic	vnode.h	/^	unsigned long vop_magic;	\/* should always be VOP_MAGIC *\/$/;"	m	struct:vnode_ops
+vop_mkdir	vnode.h	/^	int (*vop_mkdir)(struct vnode *parentdir,$/;"	m	struct:vnode_ops
+vop_mmap	vnode.h	/^	int (*vop_mmap)(struct vnode *file \/* add stuff *\/);$/;"	m	struct:vnode_ops
+vop_namefile	vnode.h	/^	int (*vop_namefile)(struct vnode *file, struct uio *uio);$/;"	m	struct:vnode_ops
+vop_read	vnode.h	/^	int (*vop_read)(struct vnode *file, struct uio *uio);$/;"	m	struct:vnode_ops
+vop_readlink	vnode.h	/^	int (*vop_readlink)(struct vnode *link, struct uio *uio);$/;"	m	struct:vnode_ops
+vop_reclaim	vnode.h	/^	int (*vop_reclaim)(struct vnode *vnode);$/;"	m	struct:vnode_ops
+vop_remove	vnode.h	/^	int (*vop_remove)(struct vnode *dir,$/;"	m	struct:vnode_ops
+vop_rename	vnode.h	/^	int (*vop_rename)(struct vnode *vn1, const char *name1,$/;"	m	struct:vnode_ops
+vop_rmdir	vnode.h	/^	int (*vop_rmdir)(struct vnode *dir,$/;"	m	struct:vnode_ops
+vop_stat	vnode.h	/^	int (*vop_stat)(struct vnode *object, struct stat *statbuf);$/;"	m	struct:vnode_ops
+vop_symlink	vnode.h	/^	int (*vop_symlink)(struct vnode *dir,$/;"	m	struct:vnode_ops
+vop_truncate	vnode.h	/^	int (*vop_truncate)(struct vnode *file, off_t len);$/;"	m	struct:vnode_ops
+vop_write	vnode.h	/^	int (*vop_write)(struct vnode *file, struct uio *uio);$/;"	m	struct:vnode_ops
