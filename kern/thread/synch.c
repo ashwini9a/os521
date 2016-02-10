@@ -267,10 +267,6 @@ cv_create(const char *name)
 		return NULL;           
 	}
 
-	//l->lock_thread = NULL;
-	//To check if it has been acquired or not
-	//lock->acquired = false;
-
 	spinlock_init(&cv->cv_spinlock);
 	return cv;
 }
@@ -293,9 +289,9 @@ cv_wait(struct cv *cv, struct lock *lock)
 {
 	// Write this
 	
+	spinlock_acquire(&cv->cv_spinlock);
 	lock_release(lock);
 		
-	spinlock_acquire(&cv->cv_spinlock);
 	wchan_sleep(cv->cv_wchan, &cv->cv_spinlock);
 	spinlock_release(&cv->cv_spinlock);
 	lock_acquire(lock);
