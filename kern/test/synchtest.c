@@ -55,22 +55,11 @@ static volatile unsigned long testval2;
 static volatile unsigned long testval3;
 static volatile int32_t testval4;
 
-<<<<<<< HEAD
-static struct semaphore *testsem;
-static struct lock *testlock;
-static struct cv *testcv;
-static struct semaphore *donesem;
-	//added this to test rw locks implementation
-static struct rwlock *rwlock;
-static int readcount = 0;
-static int writecount = 0;
-=======
 static struct semaphore *testsem = NULL;
 static struct lock *testlock = NULL;
 static struct cv *testcv = NULL;
 static struct semaphore *donesem = NULL;
 
->>>>>>> d9de9ca947ddbb14d4d043a4a64377673abad9dc
 struct spinlock status_lock;
 static bool test_status = FAIL;
 
@@ -84,19 +73,7 @@ failif(bool condition) {
 		test_status = FAIL;
 		spinlock_release(&status_lock);
 	}
-<<<<<<< HEAD
-	//added this to test rw locks implementation
-	if (rwlock==NULL) {
-		rwlock = rwlock_create("test_rwlock");
-		if (rwlock == NULL) {
-			panic("synchtest: rwlock_create failed\n");
-		}
-	}
-	//
-	spinlock_init(&status_lock);
-=======
 	return condition;
->>>>>>> d9de9ca947ddbb14d4d043a4a64377673abad9dc
 }
 
 static
@@ -189,13 +166,9 @@ void
 locktestthread(void *junk, unsigned long num)
 {
 	(void)junk;
-<<<<<<< HEAD
-        
-=======
 
 	int i;
 
->>>>>>> d9de9ca947ddbb14d4d043a4a64377673abad9dc
 	for (i=0; i<NLOCKLOOPS; i++) {
 		kprintf_t(".");
 		lock_acquire(testlock);
@@ -635,73 +608,6 @@ cvtest3(int nargs, char **args) {
 	(void)nargs;
 	(void)args;
 
-<<<<<<< HEAD
-static void rwtestthread(void *junk, unsigned long num)
-{
-//	int i;
-	(void)junk;
-	(void)num;
-        
-//	for (i=0; i<NLOCKLOOPS; i++) {
-//		lock_acquire(testlock);
-		random_yielder(4);
-		if (num%3 == 0) {
-			rwlock_acquire_write(rwlock);
-			writecount++;
-			kprintf("\nI am a writer lock : Readcound : %d Writecount :%d",readcount,writecount);
-			if (readcount >0 || writecount >1) {
-				test_status = FAIL;
-				thread_exit();				
-			}
-			rwlock_release_write(rwlock);
-
-			writecount--;
-		}
-		else {
-			rwlock_acquire_read(rwlock);
-			readcount++;
-			kprintf("\nI am a reader lock : Readcound : %d Writecount :%d",readcount,writecount);
-			if (writecount>0) {
-				test_status = FAIL;
-				thread_exit();
-			}
-			rwlock_release_read(rwlock);
-			readcount--;
-//		}
-
-//		rwlock_release(test_rwlock);
-	}
-//	V(donesem);
-}
-
-
-int rwtest(int nargs, char **args) {
-	
-	(void) nargs;
-	(void) args;
-	int i , result;	
-	kprintf_n("rwtest starting\n");
-	inititems();
-	test_status = SUCCESS;
-//	kprintf_n("Starting rwlock test...\n");
-
-
-	for (i=0; i<NTHREADS; i++) {
-		result = thread_fork("synchtest", NULL, rwtestthread, NULL, i);
-		if (result) {
-			panic("rwlocktest: thread_fork failed: %s\n", strerror(result));
-		}
-	}
-
-//	for (i=0; i<NTHREADS; i++) {
-//		P(donesem);
-//	}
-	
-	kprintf_n("rwlock test done.\n");
-	success(test_status, SECRET, "sy5");
-
-//	success(FAIL, SECRET, "sy5");
-=======
 	int i;
 	
 	kprintf_n("Starting cvt3...\n");
@@ -771,7 +677,6 @@ cvtest4(int nargs, char **args) {
 	cv_destroy(testcv);
 	testcv = NULL;
 	testlock = NULL;
->>>>>>> d9de9ca947ddbb14d4d043a4a64377673abad9dc
 
 	return 0;
 }

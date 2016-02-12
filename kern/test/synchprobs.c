@@ -102,22 +102,10 @@ male_wrapper(void * unused1, unsigned long index) {
 	(void)unused1;
 
 	random_yielder(4);
-<<<<<<< HEAD
-	lock_acquire(startlock);
-	startcount--;
-	if (startcount == 0) {
-		cv_broadcast(startcv, startlock);
-	} else {
-		cv_wait(startcv, startlock);
-	}
-	lock_release(startlock);
-//	kprintf("our code starts");
-=======
 	lock_acquire(testlock);
 	initialize_thread(whale_threads, (uint32_t)index);
 	whale_roles[index] = MALE;
 	lock_release(testlock);
->>>>>>> d9de9ca947ddbb14d4d043a4a64377673abad9dc
 	male((uint32_t)index);
 
 	return;
@@ -157,22 +145,10 @@ female_wrapper(void * unused1, unsigned long index) {
 	(void)unused1;
 
 	random_yielder(4);
-<<<<<<< HEAD
-	lock_acquire(startlock);
-	startcount--;
-	if (startcount == 0) {
-		cv_broadcast(startcv, startlock);
-	} else {
-		cv_wait(startcv, startlock);
-	}
-	lock_release(startlock);
-//	kprintf("our code starts for female");
-=======
 	lock_acquire(testlock);
 	initialize_thread(whale_threads, (uint32_t)index);
 	whale_roles[index] = FEMALE;
 	lock_release(testlock);
->>>>>>> d9de9ca947ddbb14d4d043a4a64377673abad9dc
 	female((uint32_t)index);
 
 	return;
@@ -212,22 +188,10 @@ matchmaker_wrapper(void * unused1, unsigned long index) {
 	(void)unused1;
 
 	random_yielder(4);
-<<<<<<< HEAD
-	lock_acquire(startlock);
-	startcount--;
-	if (startcount == 0) {
-		cv_broadcast(startcv, startlock);
-	} else {
-		cv_wait(startcv, startlock);
-	}
-	lock_release(startlock);
-//	kprintf("our matchmaker code starts");
-=======
 	lock_acquire(testlock);
 	initialize_thread(whale_threads, (uint32_t)index);
 	whale_roles[index] = MATCHMAKER;
 	lock_release(testlock);
->>>>>>> d9de9ca947ddbb14d4d043a4a64377673abad9dc
 	matchmaker((uint32_t)index);
 
 	return;
