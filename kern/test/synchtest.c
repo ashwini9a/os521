@@ -54,7 +54,10 @@ static struct semaphore *testsem;
 static struct lock *testlock;
 static struct cv *testcv;
 static struct semaphore *donesem;
-
+	//added this to test rw locks implementation
+static struct rwlock *rwlock;
+static int readcount = 0;
+static int writecount = 0;
 struct spinlock status_lock;
 static bool test_status;
 
@@ -88,6 +91,14 @@ inititems(void)
 			panic("synchtest: sem_create failed\n");
 		}
 	}
+	//added this to test rw locks implementation
+	if (rwlock==NULL) {
+		rwlock = rwlock_create("test_rwlock");
+		if (rwlock == NULL) {
+			panic("synchtest: rwlock_create failed\n");
+		}
+	}
+	//
 	spinlock_init(&status_lock);
 }
 
@@ -185,20 +196,8 @@ locktestthread(void *junk, unsigned long num)
 	int i;
 	(void)junk;
         
-        if (lock_do_i_hold(testlock)) {
-                    kprintf_n("I hold the lock \n");
-                }
-                else {
-                    kprintf_n("Not my lock \n");
-                }
 	for (i=0; i<NLOCKLOOPS; i++) {
 		lock_acquire(testlock);
-                if (lock_do_i_hold(testlock)) {
-                    kprintf_n("I hold the lock \n");
-                }
-                else {
-                    kprintf_n("Not my lock \n");
-                }
 		random_yielder(4);
 
 		testval1 = num;
@@ -493,13 +492,74 @@ cvtest2(int nargs, char **args)
  * Complete this for ASST1.
  */
 
+static void rwtestthread(void *junk, unsigned long num)
+{
+//	int i;
+	(void)junk;
+	(void)num;
+        
+//	for (i=0; i<NLOCKLOOPS; i++) {
+//		lock_acquire(testlock);
+		random_yielder(4);
+		if (num%3 == 0) {
+			rwlock_acquire_write(rwlock);
+			writecount++;
+			kprintf("\nI am a writer lock : Readcound : %d Writecount :%d",readcount,writecount);
+			if (readcount >0 || writecount >1) {
+				test_status = FAIL;
+				thread_exit();				
+			}
+			rwlock_release_write(rwlock);
+
+			writecount--;
+		}
+		else {
+			rwlock_acquire_read(rwlock);
+			readcount++;
+			kprintf("\nI am a reader lock : Readcound : %d Writecount :%d",readcount,writecount);
+			if (writecount>0) {
+				test_status = FAIL;
+				thread_exit();
+			}
+			rwlock_release_read(rwlock);
+			readcount--;
+//		}
+
+//		rwlock_release(test_rwlock);
+	}
+//	V(donesem);
+}
+
+
 int rwtest(int nargs, char **args) {
 	
 	(void) nargs;
 	(void) args;
+	int i , result;	
+	kprintf_n("rwtest starting\n");
+	inititems();
+	test_status = SUCCESS;
+//	kprintf_n("Starting rwlock test...\n");
+
+
+	for (i=0; i<NTHREADS; i++) {
+		result = thread_fork("synchtest", NULL, rwtestthread, NULL, i);
+		if (result) {
+			panic("rwlocktest: thread_fork failed: %s\n", strerror(result));
+		}
+	}
+
+//	for (i=0; i<NTHREADS; i++) {
+//		P(donesem);
+//	}
 	
-	kprintf_n("rwtest unimplemented\n");
-	success(FAIL, SECRET, "sy5");
+	kprintf_n("rwlock test done.\n");
+	success(test_status, SECRET, "sy5");
+
+//	success(FAIL, SECRET, "sy5");
 
 	return 0;
 }
+
+
+

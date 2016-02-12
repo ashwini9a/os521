@@ -43,8 +43,44 @@
 /*
  * Called by the driver during initialization.
  */
+struct cv *malecv;
+struct cv *femalecv;
+struct cv *matchmakercv;
+struct lock *malecountlock;
+struct lock *femalecountlock;
+struct lock *matchmakercountlock;
+static int malecount,femalecount,matchmakercount;
+
 
 void whalemating_init() {
+	malecount = 0;
+	femalecount = 0;
+	matchmakercount = 0;
+	malecv = cv_create("malecv");
+	if (malecv == NULL) {
+		panic("malecv create failed in matingwhale.c \n");
+	}
+	femalecv = cv_create("femalecv");
+	if (femalecv == NULL) {
+		panic("femalecv create failed in matingwhale.c \n");
+	}
+	matchmakercv = cv_create("matchmakercv");	
+	if (matchmakercv == NULL) {
+		panic("matchmakercv create failed in matingwhale.c \n");
+	}
+	malecountlock = lock_create("malecountlock");
+	if (malecountlock == NULL) {
+		panic("malecountlock create failed in matingwhale.c \n");
+	}
+	
+	femalecountlock = lock_create("femalecountlock");
+	if (femalecountlock == NULL) {
+		panic("femalecountlock create failed in matingwhale.c \n");
+	}
+	matchmakercountlock = lock_create("matchmakercountlock");
+	if (matchmakercountlock == NULL) {
+		panic("matchmakercountlock create failed in matingwhale.c \n");
+	}
 	return;
 }
 
@@ -54,6 +90,12 @@ void whalemating_init() {
 
 void
 whalemating_cleanup() {
+	cv_destroy(malecv);
+	cv_destroy(femalecv);
+	cv_destroy(matchmakercv);
+	lock_destroy(malecountlock);
+	lock_destroy(femalecountlock);
+	lock_destroy(matchmakercountlock);
 	return;
 }
 
@@ -65,6 +107,21 @@ male(uint32_t index)
 	 * Implement this function by calling male_start and male_end when
 	 * appropriate.
 	 */
+	lock_acquire(malecountlock);
+	malecount++;
+	cv_signal(femalecv,malecountlock);
+	cv_signal(matchmakercv,malecountlock);
+	while (femalecount == 0 || matchmakercount == 0) {
+		cv_wait(malecv , malecountlock);
+	}
+	KASSERT(matchmakercount>0);
+	KASSERT(femalecount>0);
+	male_start(index);
+	malecount--;
+	male_end(index);
+	lock_release(malecountlock);
+//	female_start();
+//	matchmaker_start();
 	return;
 }
 
@@ -76,6 +133,19 @@ female(uint32_t index)
 	 * Implement this function by calling female_start and female_end when
 	 * appropriate.
 	 */
+	lock_acquire(femalecountlock);
+	femalecount++;
+	cv_signal(malecv,femalecountlock);
+	cv_signal(matchmakercv,femalecountlock);
+	while (malecount == 0 || matchmakercount == 0) {
+		cv_wait(femalecv , femalecountlock);
+	}
+	KASSERT(matchmakercount>0);
+	KASSERT(malecount>0);
+	female_start(index);
+	femalecount--;
+	female_end(index);
+	lock_release(femalecountlock);
 	return;
 }
 
@@ -87,5 +157,18 @@ matchmaker(uint32_t index)
 	 * Implement this function by calling matchmaker_start and matchmaker_end
 	 * when appropriate.
 	 */
+	lock_acquire(matchmakercountlock);
+	matchmakercount++;
+	cv_signal(malecv,matchmakercountlock);
+	cv_signal(femalecv,matchmakercountlock);
+	while (femalecount == 0 || malecount == 0) {
+		cv_wait(matchmakercv , matchmakercountlock);
+	}
+	KASSERT(femalecount>0);
+	KASSERT(malecount>0);
+	matchmaker_start(index);
+	matchmakercount--;
+	matchmaker_end(index);
+	lock_release(matchmakercountlock);
 	return;
 }

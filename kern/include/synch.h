@@ -158,8 +158,16 @@ void cv_broadcast(struct cv *cv, struct lock *lock);
 
 struct rwlock {
         char *rwlock_name;
+
         // add what you need here
         // (don't forget to mark things volatile as needed)
+
+	int rcount;
+	int wcount;
+//	struct thread *rw_thread;
+	struct wchan *rw_wchan;
+	struct spinlock rw_spinlock;
+	int wreq;
 };
 
 struct rwlock * rwlock_create(const char *);
