@@ -68,7 +68,7 @@ male_wrapper(void * unused1, unsigned long index) {
 		cv_wait(startcv, startlock);
 	}
 	lock_release(startlock);
-	kprintf("our code starts");
+//	kprintf("our code starts");
 	male((uint32_t)index);
 	V(endsem);
 
@@ -103,7 +103,7 @@ female_wrapper(void * unused1, unsigned long index) {
 		cv_wait(startcv, startlock);
 	}
 	lock_release(startlock);
-	kprintf("our code starts for female");
+//	kprintf("our code starts for female");
 	female((uint32_t)index);
 	V(endsem);
 
@@ -138,7 +138,7 @@ matchmaker_wrapper(void * unused1, unsigned long index) {
 		cv_wait(startcv, startlock);
 	}
 	lock_release(startlock);
-	kprintf("our matchmaker code starts");
+//	kprintf("our matchmaker code starts");
 	matchmaker((uint32_t)index);
 	V(endsem);
 	

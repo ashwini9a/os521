@@ -162,7 +162,7 @@ lock_create(const char *name)
 
 	lock->lock_thread = NULL;
 	//To check if it has been acquired or not
-	//lock->acquired = false;
+	lock->acquired = false;
 
 	spinlock_init(&lock->lock_spinlock);
 

@@ -43,43 +43,38 @@
 /*
  * Called by the driver during initialization.
  */
-struct cv *malecv;
-struct cv *femalecv;
-struct cv *matchmakercv;
-struct lock *malecountlock;
-struct lock *femalecountlock;
-struct lock *matchmakercountlock;
-static int malecount,femalecount,matchmakercount;
-
+static struct cv *allincv;
+static struct lock *malelock;
+static struct lock *femalelock;
+static struct lock *matchmakerlock;
+static struct lock *semlock;
+static struct semaphore *allinsem;
 
 void whalemating_init() {
-	malecount = 0;
-	femalecount = 0;
-	matchmakercount = 0;
-	malecv = cv_create("malecv");
-	if (malecv == NULL) {
-		panic("malecv create failed in matingwhale.c \n");
+	allincv = cv_create("allincv");
+	if (allincv == NULL) {
+		panic("allincv create failed in matingwhale.c \n");
 	}
-	femalecv = cv_create("femalecv");
-	if (femalecv == NULL) {
-		panic("femalecv create failed in matingwhale.c \n");
-	}
-	matchmakercv = cv_create("matchmakercv");	
-	if (matchmakercv == NULL) {
-		panic("matchmakercv create failed in matingwhale.c \n");
-	}
-	malecountlock = lock_create("malecountlock");
-	if (malecountlock == NULL) {
-		panic("malecountlock create failed in matingwhale.c \n");
+	malelock = lock_create("malelock");
+	if (malelock == NULL) {
+		panic("malelock create failed in matingwhale.c \n");
 	}
 	
-	femalecountlock = lock_create("femalecountlock");
-	if (femalecountlock == NULL) {
-		panic("femalecountlock create failed in matingwhale.c \n");
+	femalelock = lock_create("femalelock");
+	if (femalelock == NULL) {
+		panic("femalelock create failed in matingwhale.c \n");
 	}
-	matchmakercountlock = lock_create("matchmakercountlock");
-	if (matchmakercountlock == NULL) {
-		panic("matchmakercountlock create failed in matingwhale.c \n");
+	matchmakerlock = lock_create("matchmakerlock");
+	if (matchmakerlock == NULL) {
+		panic("matchmakerlock create failed in matingwhale.c \n");
+	}
+	semlock = lock_create("semlock");
+	if (semlock == NULL) {
+		panic("semlock create failed in matingwhale.c \n");
+	}
+	allinsem = sem_create("allinsem" , 3);
+	if (allinsem == NULL) {
+		panic("could not create allinsem in matingwhale.c");
 	}
 	return;
 }
@@ -90,12 +85,12 @@ void whalemating_init() {
 
 void
 whalemating_cleanup() {
-	cv_destroy(malecv);
-	cv_destroy(femalecv);
-	cv_destroy(matchmakercv);
-	lock_destroy(malecountlock);
-	lock_destroy(femalecountlock);
-	lock_destroy(matchmakercountlock);
+	cv_destroy(allincv);
+	lock_destroy(malelock);
+	lock_destroy(femalelock);
+	lock_destroy(matchmakerlock);
+	lock_destroy(semlock);
+	sem_destroy(allinsem);
 	return;
 }
 
@@ -103,25 +98,35 @@ void
 male(uint32_t index)
 {
 	(void)index;
-	/*
-	 * Implement this function by calling male_start and male_end when
-	 * appropriate.
-	 */
-	lock_acquire(malecountlock);
-	malecount++;
-	cv_signal(femalecv,malecountlock);
-	cv_signal(matchmakercv,malecountlock);
-	while (femalecount == 0 || matchmakercount == 0) {
-		cv_wait(malecv , malecountlock);
+	// Lock so that only one male is in the semaphore
+	lock_acquire(malelock);
+	//decrease semaphore count.....1 male is in
+	P(allinsem);
+	//Check semaphore to see if everyone in in
+	lock_acquire(semlock);
+	//If everyone is in broadcast and start else wait for everyone...
+	if (allinsem->sem_count==0) {
+		cv_broadcast(allincv , semlock);
 	}
-	KASSERT(matchmakercount>0);
-	KASSERT(femalecount>0);
+	else{
+		cv_wait(allincv , semlock);	
+	}
 	male_start(index);
-	malecount--;
+	lock_release(semlock);
+	//Increase semaphore count to signal male has started
+	V(allinsem);
+	//acquire another lock to check if everyone has started
+	lock_acquire(semlock);
+	//if sem count is 3 again, everyone has started. and now can exit
+	if (allinsem->sem_count!=3) {
+		cv_wait(allincv, semlock);
+	}
+	else {
+		cv_broadcast(allincv,semlock);
+	}
+	lock_release(semlock);
 	male_end(index);
-	lock_release(malecountlock);
-//	female_start();
-//	matchmaker_start();
+	lock_release(malelock);
 	return;
 }
 
@@ -129,23 +134,35 @@ void
 female(uint32_t index)
 {
 	(void)index;
-	/*
-	 * Implement this function by calling female_start and female_end when
-	 * appropriate.
-	 */
-	lock_acquire(femalecountlock);
-	femalecount++;
-	cv_signal(malecv,femalecountlock);
-	cv_signal(matchmakercv,femalecountlock);
-	while (malecount == 0 || matchmakercount == 0) {
-		cv_wait(femalecv , femalecountlock);
+	// Lock so that only one female is in the semaphore
+	lock_acquire(femalelock);
+	//decrease semaphore count.....1 female is in
+	P(allinsem);
+	//Check semaphore to see if everyone in in
+	lock_acquire(semlock);
+	//If everyone is in broadcast and start else wait for everyone...
+	if (allinsem->sem_count==0) {
+		cv_broadcast(allincv , semlock);
 	}
-	KASSERT(matchmakercount>0);
-	KASSERT(malecount>0);
+	else{
+		cv_wait(allincv , semlock);	
+	}
 	female_start(index);
-	femalecount--;
+	lock_release(semlock);
+	//Increase semaphore count to signal female has started
+	V(allinsem);
+	//acquire another lock to check if everyone has started
+	lock_acquire(semlock);
+	//if sem count is 3 again, everyone has started. and now can exit
+	if (allinsem->sem_count!=3) {
+		cv_wait(allincv, semlock);
+	}
+	else {
+		cv_broadcast(allincv,semlock);
+	}
+	lock_release(semlock);
 	female_end(index);
-	lock_release(femalecountlock);
+	lock_release(femalelock);
 	return;
 }
 
@@ -153,22 +170,34 @@ void
 matchmaker(uint32_t index)
 {
 	(void)index;
-	/*
-	 * Implement this function by calling matchmaker_start and matchmaker_end
-	 * when appropriate.
-	 */
-	lock_acquire(matchmakercountlock);
-	matchmakercount++;
-	cv_signal(malecv,matchmakercountlock);
-	cv_signal(femalecv,matchmakercountlock);
-	while (femalecount == 0 || malecount == 0) {
-		cv_wait(matchmakercv , matchmakercountlock);
+	// Lock so that only one matchmaker is in the semaphore
+	lock_acquire(matchmakerlock);
+	//decrease semaphore count.....1 matchmaker is in
+	P(allinsem);
+	//Check semaphore to see if everyone in in
+	lock_acquire(semlock);
+	//If everyone is in broadcast and start else wait for everyone...
+	if (allinsem->sem_count==0) {
+		cv_broadcast(allincv , semlock);
 	}
-	KASSERT(femalecount>0);
-	KASSERT(malecount>0);
+	else{
+		cv_wait(allincv , semlock);	
+	}
 	matchmaker_start(index);
-	matchmakercount--;
+	lock_release(semlock);
+	//Increase semaphore count to signal male has started
+	V(allinsem);
+	//acquire another lock to check if everyone has started
+	lock_acquire(semlock);
+	//if sem count is 3 again, everyone has started. and now can exit
+	if (allinsem->sem_count!=3) {
+		cv_wait(allincv, semlock);
+	}
+	else {
+		cv_broadcast(allincv,semlock);
+	}
+	lock_release(semlock);
 	matchmaker_end(index);
-	lock_release(matchmakercountlock);
+	lock_release(matchmakerlock);
 	return;
 }
