@@ -73,8 +73,37 @@
  * Called by the driver during initialization.
  */
 
+
+static struct lock *quad0; 
+static struct lock *quad1;
+static struct lock *quad2;
+static struct lock *quad3;
+static struct lock *acqlock;
+
 void
 stoplight_init() {
+	quad0 = lock_create("quad0");
+        if (quad0 == NULL) {
+                panic("quad0: lock_create failed\n");
+        }
+	quad1 = lock_create("quad1");
+        if (quad1 == NULL) {
+                panic("quad1: lock_create failed\n");
+        }
+	quad2 = lock_create("quad2");
+        if (quad2 == NULL) {
+                panic("quad2: lock_create failed\n");
+        }
+        quad3 = lock_create("quad3");
+        if (quad3 == NULL) {
+                panic("quad3: lock_create failed\n");
+        }
+	acqlock = lock_create("acqlock");
+        if (acqlock == NULL) {
+                panic("acqlock: lock_create failed\n");
+        }
+
+
 	return;
 }
 
@@ -83,6 +112,11 @@ stoplight_init() {
  */
 
 void stoplight_cleanup() {
+	lock_destroy(quad0);
+	lock_destroy(quad1);
+	lock_destroy(quad2);
+	lock_destroy(quad3);
+	lock_destroy(acqlock);
 	return;
 }
 
@@ -91,6 +125,52 @@ turnright(uint32_t direction, uint32_t index)
 {
 	(void)direction;
 	(void)index;
+	kprintf("\n Car: %d goin to: turn right in quad: %d ",index,direction);	
+	switch(direction)
+	{
+		case 0:
+			lock_acquire(acqlock);
+			lock_acquire(quad0);
+			lock_release(acqlock);
+			inQuadrant(0,index);
+			leaveIntersection(index);
+			lock_release(quad0);		
+//			kprintf("\n Lock released 0");
+			break;
+
+		case 1:
+			lock_acquire(acqlock);
+                        lock_acquire(quad1);
+			lock_release(acqlock);
+                        inQuadrant(1,index);        
+                        leaveIntersection(index);
+                        lock_release(quad1);
+//			kprintf("\n Lock released 1");
+			break;
+
+		case 2:
+			lock_acquire(acqlock);
+                        lock_acquire(quad2);
+			lock_release(acqlock);
+                        inQuadrant(2,index);        
+                        leaveIntersection(index);
+                        lock_release(quad2);
+//			kprintf("\n Lock released 2");
+			break;
+
+		case 3:
+			lock_acquire(acqlock);
+                        lock_acquire(quad3);
+			lock_release(acqlock);
+                        inQuadrant(3,index);        
+                        leaveIntersection(index);
+                        lock_release(quad3);
+//			kprintf("\n Lock released 3");
+			break;
+		
+		default:
+			kprintf("\n Wrong direction for car: turn right !!!");
+	}
 	/*
 	 * Implement this function.
 	 */
@@ -101,6 +181,64 @@ gostraight(uint32_t direction, uint32_t index)
 {
 	(void)direction;
 	(void)index;
+//	kprintf("\n Car: %d goin to:%d ",index,direction);
+	kprintf("\n Car: %d goin to: go straight in quad: %d ",index,direction);
+        switch(direction)
+        {
+                case 0:
+			lock_acquire(acqlock);
+                        lock_acquire(quad3);
+			lock_acquire(quad0);
+			lock_release(acqlock);
+                        inQuadrant(0,index);  
+			inQuadrant(3,index);
+			lock_release(quad0);
+//			kprintf("\n Lock released 0");
+			leaveIntersection(index);
+			lock_release(quad3);
+//			kprintf("\n Lock released 3");
+                        break;
+
+                case 1:
+			lock_acquire(acqlock);
+              		lock_acquire(quad0);
+                        lock_acquire(quad1);
+			lock_release(acqlock);
+                        inQuadrant(1,index);
+                        inQuadrant(0,index);
+                        lock_release(quad1);
+                        leaveIntersection(index);
+                        lock_release(quad0);
+                        break;
+
+                case 2:
+			lock_acquire(acqlock);
+                        lock_acquire(quad1);
+                        lock_acquire(quad2);
+			lock_release(acqlock);
+                        inQuadrant(2,index);
+                        inQuadrant(1,index);
+                        lock_release(quad2);
+                        leaveIntersection(index);
+                        lock_release(quad1);
+                        break;
+
+                case 3:
+			lock_acquire(acqlock);
+                        lock_acquire(quad2);
+                        lock_acquire(quad3);
+			lock_release(acqlock);
+                        inQuadrant(3,index);
+                        inQuadrant(2,index);
+                        lock_release(quad3);
+                        leaveIntersection(index);
+                        lock_release(quad2);
+                        break;
+
+                default:
+                        kprintf("\n Wrong direction for car: go straight !!!");
+        }
+
 	/*
 	 * Implement this function.
 	 */
@@ -111,6 +249,71 @@ turnleft(uint32_t direction, uint32_t index)
 {
 	(void)direction;
 	(void)index;
+//	kprintf("\n Car: %d goin to:%d ",index,direction);
+	kprintf("\n Car: %d goin to: turn left in quad: %d ",index,direction);
+	switch(direction)
+        {
+                case 0:
+			lock_acquire(acqlock);
+                        lock_acquire(quad2);
+                        lock_acquire(quad3);
+			lock_acquire(quad0);
+			lock_release(acqlock);
+                        inQuadrant(0,index);
+                        inQuadrant(3,index);
+                        lock_release(quad0);
+			inQuadrant(2,index);
+			lock_release(quad3);
+                        leaveIntersection(index);
+                        lock_release(quad2);
+                        break;
+
+                case 1:
+			lock_acquire(acqlock);
+                        lock_acquire(quad3);
+                        lock_acquire(quad0);
+                        lock_acquire(quad1);
+			lock_release(acqlock);
+                        inQuadrant(1,index);
+                        inQuadrant(0,index);
+                        lock_release(quad1);
+                        inQuadrant(3,index);
+                        lock_release(quad0);
+                        leaveIntersection(index);
+                        lock_release(quad3);
+                        break;
+		case 2:
+			lock_acquire(acqlock);
+                        lock_acquire(quad0);
+                        lock_acquire(quad1);
+                        lock_acquire(quad2);
+			lock_release(acqlock);
+                        inQuadrant(2,index);
+                        inQuadrant(1,index);
+                        lock_release(quad2);
+                        inQuadrant(0,index);
+                        lock_release(quad1);
+                        leaveIntersection(index);
+                        lock_release(quad0);
+                        break;
+		case 3:
+			lock_acquire(acqlock);
+ 			lock_acquire(quad1);
+                        lock_acquire(quad2);
+                        lock_acquire(quad3);
+			lock_release(acqlock);
+                        inQuadrant(3,index);
+                        inQuadrant(2,index);
+                        lock_release(quad3);
+                        inQuadrant(1,index);
+                        lock_release(quad2);
+                        leaveIntersection(index);
+                        lock_release(quad1);
+                        break;
+		default:
+			kprintf("\n Wrong direction: turn left, %d",direction);
+
+	}
 	/*
 	 * Implement this function.
 	 */
