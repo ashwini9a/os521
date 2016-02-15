@@ -43,37 +43,30 @@
 /*
  * Called by the driver during initialization.
  */
-struct semaphore *malesem;
-struct semaphore *femalesem;
-struct semaphore *matchmakersem;
-struct lock *malelock; 
-struct lock *femalelock; 
-struct lock *matchmakerlock; 
-void whalemating_init() {
-	malesem = sem_create("malesem" , 0);
-	if(malesem == NULL) {
-		panic("malesem create failed in matingwhale.c \n");
-	}
+static struct lock *malelock;
+static int malecount;
+static int femalecount;
+static int matchmakercount;
+static int malestart;
+static int femalestart;
+static int matchmakerstart;
+static struct cv *endcv;
 
-	femalesem = sem_create("femalesem" , 0);
-	if(femalesem == NULL) {
-		panic("femalesem create failed in matingwhale.c \n");
-	}
-	matchmakersem = sem_create("matchmakersem" , 0);
-	if(matchmakersem == NULL) {
-		panic("matchmakersem create failed in matingwhale.c \n");
-	}
+void whalemating_init() {
 	malelock = lock_create("malelock");
 	if (malelock == NULL) {
 		panic("malelock create failed in matingwhale.c \n");
 	}
-	femalelock = lock_create("femalelock");
-	if (femalelock == NULL) {
-		panic("femalelock create failed in matingwhale.c \n");
-	}
-	matchmakerlock = lock_create("matchmakerlock");
-	if (matchmakerlock == NULL) {
-		panic("matchmakerlock create failed in matingwhale.c \n");
+	
+	malecount = 0;
+	femalecount = 0;
+	matchmakercount = 0;
+	malestart = 0;
+	femalestart = 0;
+	matchmakerstart = 0;
+	endcv = cv_create("endcv");
+	if (endcv == NULL) {
+		panic("end cv not created in whalemating.c\n");
 	}
 	return;
 }
@@ -84,12 +77,8 @@ void whalemating_init() {
 
 void
 whalemating_cleanup() {
-	sem_destroy(malesem);
-	sem_destroy(femalesem);
-	sem_destroy(matchmakersem);
 	lock_destroy(malelock);
-	lock_destroy(femalelock);
-	lock_destroy(matchmakerlock);
+	cv_destroy(endcv);
 	return;
 }
 
@@ -98,12 +87,16 @@ male(uint32_t index)
 {
 	male_start(index);
 	lock_acquire(malelock);
-	V(malesem);
-	V(malesem);
-	P(femalesem);
-	P(matchmakersem);
-	lock_release(malelock);
+	malestart = malestart +2;
+	cv_broadcast(endcv, malelock);
+	while (femalestart == 0 || matchmakerstart == 0) 
+	{
+		cv_wait(endcv , malelock);
+	}
 	male_end(index);
+	femalestart--;
+	matchmakerstart--;
+	lock_release(malelock);	
 	return;
 }
 
@@ -111,26 +104,36 @@ void
 female(uint32_t index)
 {
 	female_start(index);
-	lock_acquire(femalelock);
-	V(femalesem);
-	V(femalesem);
-	P(malesem);
-	P(matchmakersem);
-	lock_release(femalelock);
+	lock_acquire(malelock);
+	femalestart = femalestart + 2;
+	cv_broadcast(endcv, malelock);
+	while (malestart == 0 || matchmakerstart == 0) 
+	{
+		cv_wait(endcv , malelock);
+	}
 	female_end(index);
+	malestart--;
+	matchmakerstart--;
+	lock_release(malelock);
 	return;
 }
 
 void
 matchmaker(uint32_t index)
 {
+
 	matchmaker_start(index);
-	lock_acquire(matchmakerlock);
-	V(matchmakersem);
-	V(matchmakersem);
-	P(femalesem);
-	P(malesem);
-	lock_release(matchmakerlock);
+	lock_acquire(malelock);
+	matchmakerstart = matchmakerstart + 2;
+	cv_broadcast(endcv, malelock);
+	while (femalestart == 0 || malestart == 0) 
+	{
+		cv_wait(endcv , malelock);
+	}
 	matchmaker_end(index);
+	malestart--;
+	femalestart--;
+	lock_release(malelock);
+	
 	return;
 }

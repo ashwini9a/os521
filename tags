@@ -187,8 +187,9 @@ CFLAGS	mk/os161.config.mk	/^CFLAGS=$(DEBUG) $(WARNINGS) $(WERROR) -std=gnu99$/;"
 CHAR_BIT	build/install/include/sys/types.h	84;"	d
 CHAR_BIT	kern/include/types.h	140;"	d
 CHAR_BIT	userland/include/sys/types.h	84;"	d
-CHECKBEEF	kern/vm/kmalloc.c	121;"	d	file:
-CHECKGUARDS	kern/vm/kmalloc.c	122;"	d	file:
+CHECKBEEF	kern/vm/kmalloc.c	123;"	d	file:
+CHECKGUARDS	kern/vm/kmalloc.c	124;"	d	file:
+CHECK_TIMES	kern/test/synchprobs.c	74;"	d	file:
 CIN_INDEX	kern/arch/mips/include/specialreg.h	86;"	d
 CIN_INDEX	kern/compile/DUMBVM/includelinks/machine/specialreg.h	86;"	d
 CIN_INDEX	kern/compile/DUMBVM/includelinks/mips/specialreg.h	86;"	d
@@ -215,6 +216,7 @@ COMPUTE_ITERS	kern/test/tt3.c	50;"	d	file:
 CONFNAME	kern/compile/DUMBVM/Makefile	/^CONFNAME=DUMBVM$/;"	m
 CONSOLE_INPUT_BUFFER_SIZE	kern/dev/generic/console.h	40;"	d
 CPU_FREQUENCY	kern/arch/sys161/dev/lamebus_machdep.c	53;"	d	file:
+CREATELOOPS	kern/test/synchtest.c	46;"	d	file:
 CST_BEV	kern/arch/mips/include/specialreg.h	69;"	d
 CST_BEV	kern/compile/DUMBVM/includelinks/machine/specialreg.h	69;"	d
 CST_BEV	kern/compile/DUMBVM/includelinks/mips/specialreg.h	69;"	d
@@ -305,7 +307,7 @@ DIMCHAR	userland/testbin/tictac/tictac.c	51;"	d	file:
 DIRFILE_NAME	userland/testbin/f_test/f_test.c	66;"	d	file:
 DIR_DEPTH	userland/testbin/f_test/f_test.c	64;"	d	file:
 DIR_NAME	userland/testbin/f_test/f_test.c	65;"	d	file:
-DIVROUNDUP	kern/include/lib.h	194;"	d
+DIVROUNDUP	kern/include/lib.h	195;"	d
 DIVROUNDUP	userland/sbin/dumpsfs/dumpsfs.c	70;"	d	file:
 DIVROUNDUP	userland/testbin/frack/pool.h	39;"	d
 DUMBVM_STACKPAGES	kern/arch/mips/vm/dumbvm.c	60;"	d	file:
@@ -660,7 +662,8 @@ Elf_Ehdr	kern/include/elf.h	/^typedef Elf32_Ehdr Elf_Ehdr;$/;"	t
 Elf_Phdr	kern/include/elf.h	/^typedef Elf32_Phdr Elf_Phdr;$/;"	t
 F0	common/libc/secure/sha256.c	169;"	d	file:
 F1	common/libc/secure/sha256.c	170;"	d	file:
-FAIL	kern/include/test.h	173;"	d
+FAIL	kern/include/test.h	177;"	d
+FAIL	kern/test/synchprobs.c	19;"	d	file:
 FAKE_MAGIC	kern/test/threadlisttest.c	52;"	d	file:
 FALSE	userland/testbin/tictac/tictac.c	/^typedef enum { FALSE, TRUE } bool;$/;"	e	enum:__anon36	file:
 FC_CREAT	userland/testbin/frack/check.c	/^	FC_CREAT,		\/* create a file *\/$/;"	e	enum:fschanges	file:
@@ -676,6 +679,7 @@ FC_WRITE	userland/testbin/frack/check.c	/^	FC_WRITE,		\/* write to a file *\/$/;
 FD_CLOEXEC	build/install/hostinclude/kern/fcntl.h	83;"	d
 FD_CLOEXEC	build/install/include/kern/fcntl.h	83;"	d
 FD_CLOEXEC	kern/include/kern/fcntl.h	83;"	d
+FEMALE	kern/test/synchprobs.c	72;"	d	file:
 FILENAME	kern/test/fstest.c	54;"	d	file:
 FNAME	userland/testbin/f_test/f_read.c	49;"	d	file:
 FNAME	userland/testbin/f_test/f_test.c	69;"	d	file:
@@ -745,14 +749,15 @@ GET_III	userland/sbin/sfsck/ibmacros.h	130;"	d
 GET_STATUS	kern/arch/mips/thread/cpu.c	195;"	d	file:
 GET_UINT32_BE	common/libc/secure/sha256.c	65;"	d	file:
 GNUTARGET	mk/os161.config.mk	/^GNUTARGET=$(MACHINE)-harvard-os161$/;"	m
+GO_STRAIGHT	kern/test/synchprobs.c	437;"	d	file:
 GROUP_VERSION	kern/include/version.h	42;"	d
-GUARDS	kern/vm/kmalloc.c	118;"	d	file:
-GUARD_FILLBYTE	kern/vm/kmalloc.c	355;"	d	file:
-GUARD_HALFWORD	kern/vm/kmalloc.c	357;"	d	file:
-GUARD_OVERHEAD	kern/vm/kmalloc.c	360;"	d	file:
-GUARD_OVERHEAD	kern/vm/kmalloc.c	440;"	d	file:
-GUARD_PTROFFSET	kern/vm/kmalloc.c	363;"	d	file:
-GUARD_RETBYTE	kern/vm/kmalloc.c	353;"	d	file:
+GUARDS	kern/vm/kmalloc.c	120;"	d	file:
+GUARD_FILLBYTE	kern/vm/kmalloc.c	357;"	d	file:
+GUARD_HALFWORD	kern/vm/kmalloc.c	359;"	d	file:
+GUARD_OVERHEAD	kern/vm/kmalloc.c	362;"	d	file:
+GUARD_OVERHEAD	kern/vm/kmalloc.c	442;"	d	file:
+GUARD_PTROFFSET	kern/vm/kmalloc.c	365;"	d	file:
+GUARD_RETBYTE	kern/vm/kmalloc.c	355;"	d	file:
 H	common/gcc-millicode/longlong.h	81;"	d
 H	common/gcc-millicode/longlong.h	86;"	d
 HALF_BITS	common/gcc-millicode/longlong.h	98;"	d
@@ -816,8 +821,8 @@ INTSZ	common/libc/printf/__printf.c	/^		INTSZ,$/;"	e	enum:__anon4::__anon5	file:
 INTTYPE	common/libc/printf/__printf.c	70;"	d	file:
 INTTYPE	common/libc/printf/__printf.c	72;"	d	file:
 INT_BITS	common/gcc-millicode/longlong.h	97;"	d
-INUSE_WORDS	kern/vm/kmalloc.c	192;"	d	file:
-INVALID_OFFSET	kern/vm/kmalloc.c	154;"	d	file:
+INUSE_WORDS	kern/vm/kmalloc.c	194;"	d	file:
+INVALID_OFFSET	kern/vm/kmalloc.c	156;"	d	file:
 INVAL_ADDR	userland/testbin/crash/crash.c	52;"	d	file:
 INVAL_INSN	userland/testbin/crash/crash.c	54;"	d	file:
 INVAL_PTR	userland/testbin/badcall/config.h	39;"	d
@@ -858,13 +863,13 @@ KLDFLAGS	mk/os161.config.mk	/^KLDFLAGS=$/;"	m
 KTOP	kern/compile/DUMBVM/Makefile	/^KTOP=..\/..$/;"	m
 L	common/gcc-millicode/longlong.h	82;"	d
 L	common/gcc-millicode/longlong.h	87;"	d
-LABELS	kern/vm/kmalloc.c	119;"	d	file:
-LABEL_OVERHEAD	kern/vm/kmalloc.c	613;"	d	file:
-LABEL_OVERHEAD	kern/vm/kmalloc.c	696;"	d	file:
-LABEL_PTROFFSET	kern/vm/kmalloc.c	612;"	d	file:
+LABELS	kern/vm/kmalloc.c	121;"	d	file:
+LABEL_OVERHEAD	kern/vm/kmalloc.c	615;"	d	file:
+LABEL_OVERHEAD	kern/vm/kmalloc.c	698;"	d	file:
+LABEL_PTROFFSET	kern/vm/kmalloc.c	614;"	d	file:
 LAMEBUS_IPI_BIT	kern/arch/sys161/dev/lamebus_machdep.c	284;"	d	file:
 LAMEBUS_IRQ_BIT	kern/arch/sys161/dev/lamebus_machdep.c	283;"	d	file:
-LARGEST_SUBPAGE_SIZE	kern/vm/kmalloc.c	132;"	d	file:
+LARGEST_SUBPAGE_SIZE	kern/vm/kmalloc.c	134;"	d	file:
 LBCS161_DISK	kern/dev/lamebus/lamebus.h	49;"	d
 LBCS161_EMUFS	kern/dev/lamebus/lamebus.h	53;"	d
 LBCS161_MPBUSCTL	kern/dev/lamebus/lamebus.h	56;"	d
@@ -980,6 +985,7 @@ MAGIC	userland/testbin/crash/crash.c	59;"	d	file:
 MAGIC_STATUS	userland/testbin/badcall/config.h	57;"	d
 MAIN_H	userland/sbin/sfsck/main.h	31;"	d
 MAKENAME	kern/test/fstest.c	111;"	d	file:
+MALE	kern/test/synchprobs.c	71;"	d	file:
 MALLOC32	userland/lib/libc/stdlib/malloc.c	48;"	d	file:
 MALLOC64	userland/lib/libc/stdlib/malloc.c	50;"	d	file:
 MALLOCDEBUG	userland/lib/libc/stdlib/malloc.c	45;"	d	file:
@@ -999,6 +1005,7 @@ MANFILES	man/misc/Makefile	/^MANFILES=index.html$/;"	m
 MANFILES	man/sbin/Makefile	/^MANFILES=dumpsfs.html halt.html index.html mksfs.html poweroff.html reboot.html$/;"	m
 MANFILES	man/syscall/Makefile	/^MANFILES=\\$/;"	m
 MANFILES	man/testbin/Makefile	/^MANFILES=\\$/;"	m
+MATCHMAKER	kern/test/synchprobs.c	73;"	d	file:
 MAX	userland/testbin/userthreads/userthreads.c	56;"	d	file:
 MAXARGS	userland/lib/libc/stdlib/system.c	42;"	d	file:
 MAXBG	userland/bin/sh/sh.c	73;"	d	file:
@@ -1155,7 +1162,6 @@ MEDIUMSIZE	userland/testbin/malloctest/malloctest.c	56;"	d	file:
 MEMBAR_INLINE	kern/include/membar.h	81;"	d
 MEMBAR_INLINE	kern/thread/spinlock.c	32;"	d	file:
 MIGRATE_HARDCLOCKS	kern/thread/clock.c	54;"	d	file:
-MIN_MULTIPLIER	kern/test/lib.c	18;"	d	file:
 MIPS_KSEG0	kern/arch/mips/include/vm.h	52;"	d
 MIPS_KSEG0	kern/compile/DUMBVM/includelinks/machine/vm.h	52;"	d
 MIPS_KSEG0	kern/compile/DUMBVM/includelinks/mips/vm.h	52;"	d
@@ -1173,7 +1179,7 @@ MKDIRS	Makefile	/^MKDIRS=$(OSTREE)$/;"	m
 MKDIRS	mk/os161.mkdirs.mk	/^MKDIRS=$/;"	m
 MKDIRS	userland/lib/crt0/Makefile	/^MKDIRS=$(INSTALLTOP)\/lib $(OSTREE)\/lib $(MYBUILDDIR)$/;"	m
 MKDIRS	userland/lib/hostcompat/Makefile	/^MKDIRS=$(INSTALLTOP)\/hostinclude$/;"	m
-MKPAB	kern/vm/kmalloc.c	158;"	d	file:
+MKPAB	kern/vm/kmalloc.c	160;"	d	file:
 MMAGIC	userland/lib/libc/stdlib/malloc.c	76;"	d	file:
 MORECFLAGS	mk/os161.config.mk	/^MORECFLAGS=$/;"	m
 MORELIBS	mk/os161.config.mk	/^MORELIBS=$/;"	m
@@ -1195,35 +1201,35 @@ NAME_MAX	kern/include/limits.h	41;"	d
 NAME_MAX	userland/include/limits.h	41;"	d
 NARG_MAX	userland/bin/sh/sh.c	55;"	d	file:
 NARG_MAX	userland/testbin/shll/shll.c	26;"	d	file:
-NCARS	kern/test/synchprobs.c	283;"	d	file:
+NCARS	kern/test/synchprobs.c	432;"	d	file:
 NCHUNKS	kern/test/fstest.c	55;"	d	file:
 NCREATE	kern/test/fstest.c	58;"	d	file:
-NCVLOOPS	kern/test/synchtest.c	45;"	d	file:
-NCVS	kern/test/synchtest.c	361;"	d	file:
+NCVLOOPS	kern/test/synchtest.c	49;"	d	file:
+NCVS	kern/test/synchtest.c	478;"	d	file:
 NEWLINE	userland/testbin/tictac/tictac.c	44;"	d	file:
 NGROUPS_MAX	build/install/include/limits.h	47;"	d
 NGROUPS_MAX	kern/include/limits.h	47;"	d
 NGROUPS_MAX	userland/include/limits.h	47;"	d
 NJOBS	userland/testbin/parallelvm/parallelvm.c	49;"	d	file:
-NLOCKLOOPS	kern/test/synchtest.c	44;"	d	file:
+NLOCKLOOPS	kern/test/synchtest.c	48;"	d	file:
 NLONG	kern/test/fstest.c	57;"	d	file:
-NLOOPS	kern/test/synchtest.c	362;"	d	file:
+NLOOPS	kern/test/synchtest.c	479;"	d	file:
 NM	mk/os161.config.mk	/^NM=$(GNUTARGET)-nm		# Symbol dumper.$/;"	m
-NMATING	kern/test/synchprobs.c	159;"	d	file:
+NMATING	kern/test/synchprobs.c	70;"	d	file:
 NMATS	userland/testbin/parallelvm/parallelvm.c	52;"	d	file:
 NNAMES	userland/testbin/dirconc/dirconc.c	51;"	d	file:
 NOBODY	userland/testbin/psort/psort.c	123;"	d	file:
 NONEXIST_IOCTL	userland/testbin/badcall/config.h	60;"	d
 NONEXIST_PID	userland/testbin/badcall/config.h	54;"	d
 NO_REALLOC	userland/sbin/sfsck/compat.h	60;"	d
-NPAGEREFS_PER_PAGE	kern/vm/kmalloc.c	181;"	d	file:
+NPAGEREFS_PER_PAGE	kern/vm/kmalloc.c	183;"	d	file:
 NPROCS	userland/testbin/dirconc/dirconc.c	48;"	d	file:
-NSEMLOOPS	kern/test/synchtest.c	43;"	d	file:
-NSIZES	kern/vm/kmalloc.c	128;"	d	file:
+NSEMLOOPS	kern/test/synchtest.c	47;"	d	file:
+NSIZES	kern/vm/kmalloc.c	130;"	d	file:
 NTH	kern/test/arraytest.c	37;"	d	file:
 NTHREADS	kern/test/fstest.c	56;"	d	file:
 NTHREADS	kern/test/kmalloctest.c	59;"	d	file:
-NTHREADS	kern/test/synchtest.c	46;"	d	file:
+NTHREADS	kern/test/synchtest.c	50;"	d	file:
 NTHREADS	kern/test/threadtest.c	39;"	d	file:
 NTHREADS	userland/testbin/userthreads/userthreads.c	55;"	d	file:
 NTRAPCODES	kern/arch/mips/locore/trap.c	52;"	d	file:
@@ -1242,7 +1248,8 @@ NUM_II	userland/sbin/sfsck/ibmacros.h	85;"	d
 NUM_III	userland/sbin/sfsck/ibmacros.h	86;"	d
 NUM_KM3_SIZES	kern/test/kmalloctest.c	175;"	d	file:
 NUM_KM4_SIZES	kern/test/kmalloctest.c	302;"	d	file:
-NUM_PAGEREFPAGES	kern/vm/kmalloc.c	210;"	d	file:
+NUM_PAGEREFPAGES	kern/vm/kmalloc.c	212;"	d	file:
+NUM_QUADRANTS	kern/test/synchprobs.c	433;"	d	file:
 NUM_TLB	kern/arch/mips/include/tlb.h	102;"	d
 NUM_TLB	kern/compile/DUMBVM/includelinks/machine/tlb.h	102;"	d
 NUM_TLB	kern/compile/DUMBVM/includelinks/mips/tlb.h	102;"	d
@@ -1296,6 +1303,7 @@ O_WRONLY	build/install/hostinclude/kern/fcntl.h	44;"	d
 O_WRONLY	build/install/include/kern/fcntl.h	44;"	d
 O_WRONLY	kern/include/kern/fcntl.h	44;"	d
 P	common/libc/secure/sha256.c	178;"	d	file:
+P	kern/thread/synch.c	/^P(struct semaphore *sem)$/;"	f
 P	userland/testbin/schedpong/usem.c	/^P(struct usem *sem)$/;"	f
 P	userland/testbin/usemtest/usemtest.c	/^P(struct usem *sem)$/;"	f	file:
 PADDR_TO_KVADDR	kern/arch/mips/include/vm.h	68;"	d
@@ -1311,6 +1319,7 @@ PAGE_SIZE	userland/lib/libc/stdlib/malloc.c	145;"	d	file:
 PAGE_SIZE	userland/lib/libc/stdlib/malloc.c	147;"	d	file:
 PAGE_SIZE	userland/testbin/bloat/bloat.c	20;"	d	file:
 PAGE_SIZE	userland/testbin/sbrktest/sbrktest.c	46;"	d	file:
+PASSED_CAR	kern/test/synchprobs.c	435;"	d	file:
 PASSES_H	userland/sbin/sfsck/passes.h	31;"	d
 PATH_CAT	userland/testbin/redirect/redirect.c	47;"	d	file:
 PATH_KEYS	userland/testbin/psort/psort.c	56;"	d	file:
@@ -1451,8 +1460,8 @@ PROG	userland/testbin/usemtest/Makefile	/^PROG=usemtest$/;"	m
 PROG	userland/testbin/userthreads/Makefile	/^PROG=userthreads$/;"	m
 PROG	userland/testbin/waiter/Makefile	/^PROG=waiter$/;"	m
 PROG	userland/testbin/zero/Makefile	/^PROG=zero$/;"	m
-PR_BLOCKTYPE	kern/vm/kmalloc.c	157;"	d	file:
-PR_PAGEADDR	kern/vm/kmalloc.c	156;"	d	file:
+PR_BLOCKTYPE	kern/vm/kmalloc.c	159;"	d	file:
+PR_PAGEADDR	kern/vm/kmalloc.c	158;"	d	file:
 PT_DYNAMIC	kern/include/elf.h	182;"	d
 PT_INTERP	kern/include/elf.h	183;"	d
 PT_LOAD	kern/include/elf.h	181;"	d
@@ -1529,7 +1538,7 @@ RLIM_INFINITY	build/install/hostinclude/kern/resource.h	90;"	d
 RLIM_INFINITY	build/install/include/kern/resource.h	90;"	d
 RLIM_INFINITY	kern/include/kern/resource.h	90;"	d
 ROTR	common/libc/secure/sha256.c	161;"	d	file:
-ROUNDUP	kern/include/lib.h	195;"	d
+ROUNDUP	kern/include/lib.h	196;"	d
 ROUNDUP	userland/testbin/frack/pool.h	40;"	d
 RUNBIGFILE	userland/testbin/f_test/f_test.c	302;"	d	file:
 RUNCONCUR	userland/testbin/f_test/f_test.c	304;"	d	file:
@@ -1837,10 +1846,10 @@ SIZE_SMALL	userland/testbin/frack/workloads.c	/^	SIZE_SMALL,$/;"	e	enum:sizes	fi
 SLEEPALOT_ITERS	kern/test/tt3.c	46;"	d	file:
 SLEEPALOT_PRINTS	kern/test/tt3.c	45;"	d	file:
 SLOGAN	kern/test/fstest.c	53;"	d	file:
-SLOW	kern/vm/kmalloc.c	116;"	d	file:
-SLOW	kern/vm/kmalloc.c	449;"	d	file:
-SLOWER	kern/vm/kmalloc.c	117;"	d	file:
-SMALLEST_SUBPAGE_SIZE	kern/vm/kmalloc.c	131;"	d	file:
+SLOW	kern/vm/kmalloc.c	118;"	d	file:
+SLOW	kern/vm/kmalloc.c	451;"	d	file:
+SLOWER	kern/vm/kmalloc.c	119;"	d	file:
+SMALLEST_SUBPAGE_SIZE	kern/vm/kmalloc.c	133;"	d	file:
 SMALLSIZE	userland/testbin/malloctest/malloctest.c	55;"	d	file:
 SNP	common/libc/printf/snprintf.c	/^} SNP;$/;"	t	typeref:struct:__anon3	file:
 SOCK_DGRAM	build/install/hostinclude/kern/socket.h	44;"	d
@@ -1963,7 +1972,8 @@ SUBDIRS	userland/bin/Makefile	/^SUBDIRS=true false sync mkdir rmdir pwd cat cp l
 SUBDIRS	userland/lib/Makefile	/^SUBDIRS=crt0 libc libtest hostcompat$/;"	m
 SUBDIRS	userland/sbin/Makefile	/^SUBDIRS=reboot halt poweroff mksfs dumpsfs sfsck$/;"	m
 SUBDIRS	userland/testbin/Makefile	/^SUBDIRS=add argtest badcall bigexec bigfile bigfork bigseek bloat conman \\$/;"	m
-SUCCESS	kern/include/test.h	172;"	d
+SUCCESS	kern/include/test.h	176;"	d
+SUCCESS	kern/test/synchprobs.c	18;"	d	file:
 SUM_OF_DATA_STUFF	userland/testbin/zero/zero.c	60;"	d	file:
 SUPPORTED_TARGETS	mk/os161.config.mk	/^SUPPORTED_TARGETS=sys161 mips$/;"	m
 SWAP16	userland/sbin/dumpsfs/dumpsfs.c	55;"	d	file:
@@ -1984,10 +1994,13 @@ SWAP64	userland/sbin/mksfs/mksfs.c	46;"	d	file:
 SWAP64	userland/sbin/mksfs/mksfs.c	52;"	d	file:
 SWAP64	userland/sbin/sfsck/compat.h	51;"	d
 SWAP64	userland/sbin/sfsck/compat.h	57;"	d
+SYNCHTEST_YIELDER_MAX	kern/test/synchtest.c	51;"	d	file:
 SYS161_PRID_2X	kern/arch/mips/thread/cpu.c	103;"	d	file:
 SYS161_PRID_ORIG	kern/arch/mips/thread/cpu.c	102;"	d	file:
 SYSCALL	build/userland/lib/libc/syscalls.S	/^#define SYSCALL(sym, num) \\$/;"	d
+SYSCALL	userland/build/lib/libc/syscalls.S	/^#define SYSCALL(sym, num) \\$/;"	d
 SYSCALL	userland/lib/libc/arch/mips/syscalls-mips.S	/^#define SYSCALL(sym, num) \\$/;"	d
+SYSCALL	userland/lib/libc/build/syscalls.S	/^#define SYSCALL(sym, num) \\$/;"	d
 SYSCALL_H	userland/lib/libc/Makefile	/^SYSCALL_H=$(INSTALLTOP)\/include\/kern\/syscall.h$/;"	m
 SYS___getcwd	build/install/hostinclude/kern/syscall.h	139;"	d
 SYS___getcwd	build/install/include/kern/syscall.h	139;"	d
@@ -2450,8 +2463,10 @@ TOP	userland/testbin/usemtest/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/userthreads/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/waiter/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/zero/Makefile	/^TOP=..\/..\/..$/;"	m
-TOTAL_PAGEREFS	kern/vm/kmalloc.c	211;"	d	file:
+TOTAL_PAGEREFS	kern/vm/kmalloc.c	213;"	d	file:
 TRUE	userland/testbin/tictac/tictac.c	/^typedef enum { FALSE, TRUE } bool;$/;"	e	enum:__anon36	file:
+TURN_LEFT	kern/test/synchprobs.c	438;"	d	file:
+TURN_RIGHT	kern/test/synchprobs.c	439;"	d	file:
 TWICELOOPS	userland/testbin/usemtest/usemtest.c	49;"	d	file:
 TYPE_0	userland/lib/libc/stdlib/random.c	122;"	d	file:
 TYPE_1	userland/lib/libc/stdlib/random.c	127;"	d	file:
@@ -2464,6 +2479,7 @@ UIO_SYSSPACE	kern/include/uio.h	/^        UIO_SYSSPACE,			\/* Kernel. *\/$/;"	e	
 UIO_USERISPACE	kern/include/uio.h	/^        UIO_USERISPACE,			\/* User process code. *\/$/;"	e	enum:uio_seg
 UIO_USERSPACE	kern/include/uio.h	/^        UIO_USERSPACE,			\/* User process data. *\/$/;"	e	enum:uio_seg
 UIO_WRITE	kern/include/uio.h	/^        UIO_WRITE,			\/* From uio_seg to kernel *\/$/;"	e	enum:uio_rw
+UNKNOWN_CAR	kern/test/synchprobs.c	434;"	d	file:
 UNKNOWN_ID	userland/testbin/frack/check.c	59;"	d	file:
 UNLOCKME	userland/lib/libc/stdlib/random.c	50;"	d	file:
 USERSPACETOP	kern/arch/mips/include/vm.h	74;"	d
@@ -3216,7 +3232,9 @@ __start	userland/lib/crt0/mips/crt0.S	/^__start:$/;"	l
 __strtok_context	userland/lib/libc/string/strtok.c	/^static char *__strtok_context;$/;"	v	file:
 __subdi3	common/gcc-millicode/subdi3.c	/^__subdi3(long long a, long long b)$/;"	f
 __syscall	build/userland/lib/libc/syscalls.S	/^__syscall:$/;"	l
+__syscall	userland/build/lib/libc/syscalls.S	/^__syscall:$/;"	l
 __syscall	userland/lib/libc/arch/mips/syscalls-mips.S	/^__syscall:$/;"	l
+__syscall	userland/lib/libc/build/syscalls.S	/^__syscall:$/;"	l
 __time	userland/lib/hostcompat/time.c	/^__time(time_t *secs, unsigned long *nsecs)$/;"	f
 __time_t	build/install/hostinclude/kern/types.h	/^typedef __i64 __time_t;    \/* Time in seconds *\/$/;"	t
 __time_t	build/install/include/kern/types.h	/^typedef __i64 __time_t;    \/* Time in seconds *\/$/;"	t
@@ -3327,13 +3345,17 @@ a3	kern/compile/DUMBVM/includelinks/kern/mips/regdefs.h	47;"	d
 a3	kern/compile/DUMBVM/includelinks/machine/kern/regdefs.h	47;"	d
 a3	kern/compile/DUMBVM/includelinks/mips/kern/regdefs.h	47;"	d
 abort	userland/lib/libc/stdlib/abort.c	/^abort(void)$/;"	f
+acquired	kern/include/synch.h	/^	volatile bool acquired;$/;"	m	struct:lock
 add	userland/testbin/bigfork/bigfork.c	/^add(int *x, const int *a, const int *b)$/;"	f	file:
 addeq	userland/testbin/parallelvm/parallelvm.c	/^addeq(struct matrix *m1, const struct matrix *m2)$/;"	f	file:
 addrspace	kern/include/addrspace.h	/^struct addrspace {$/;"	s
 advancestateto	userland/testbin/frack/check.c	/^advancestateto(struct fschange *targetchange)$/;"	f	file:
 alignment_error	userland/testbin/crash/crash.c	/^alignment_error(void)$/;"	f	file:
+all_quadrant	kern/test/synchprobs.c	/^static volatile int all_quadrant;$/;"	v	file:
 allbase	kern/vm/kmalloc.c	/^static struct pageref *allbase;$/;"	v	typeref:struct:pageref	file:
 allcpus	kern/thread/thread.c	/^static struct cpuarray allcpus;$/;"	v	typeref:struct:cpuarray	file:
+allincv	kern/synchprobs/whalemating.c	/^static struct cv *allincv;$/;"	v	typeref:struct:cv	file:
+allinsem	kern/synchprobs/whalemating.c	/^static struct semaphore *allinsem;$/;"	v	typeref:struct:semaphore	file:
 alloc_kpages	kern/arch/mips/vm/dumbvm.c	/^alloc_kpages(unsigned npages)$/;"	f
 allocblock	userland/sbin/mksfs/mksfs.c	/^allocblock(uint32_t block)$/;"	f	file:
 allocpageref	kern/vm/kmalloc.c	/^allocpageref(void)$/;"	f	file:
@@ -3505,7 +3527,7 @@ buflen	common/libc/printf/snprintf.c	/^	size_t buflen;$/;"	m	struct:__anon3	file
 bufpos	common/libc/printf/snprintf.c	/^	size_t bufpos;$/;"	m	struct:__anon3	file:
 buftest	userland/testbin/badcall/common_buf.c	/^struct buftest {$/;"	s	file:
 buildconfig	kern/compile/DUMBVM/vers.c	/^const char buildconfig[] = "DUMBVM";$/;"	v
-buildversion	kern/compile/DUMBVM/vers.c	/^const int buildversion = 1;$/;"	v
+buildversion	kern/compile/DUMBVM/vers.c	/^const int buildversion = 50;$/;"	v
 builtins	userland/bin/sh/sh.c	/^} builtins[] = {$/;"	v	typeref:struct:__anon13	file:
 builtins	userland/testbin/shll/shll.c	/^} builtins[] = {$/;"	v	typeref:struct:__anon35	file:
 bus_map_area	kern/arch/sys161/include/bus.h	49;"	d
@@ -3572,6 +3594,11 @@ c_zombies	kern/include/cpu.h	/^	struct threadlist c_zombies;	\/* List of exited 
 calcresult	userland/testbin/schedpong/main.c	/^calcresult(unsigned groupid, time_t startsecs, unsigned long startnsecs,$/;"	f	file:
 can_bg	userland/bin/sh/sh.c	/^can_bg(void)$/;"	f	file:
 can_bg	userland/testbin/shll/shll.c	/^can_bg(void)$/;"	f	file:
+car_directions	kern/test/synchprobs.c	/^static volatile int car_directions[NCARS];$/;"	v	file:
+car_locations	kern/test/synchprobs.c	/^static volatile int car_locations[NCARS];$/;"	v	file:
+car_threads	kern/test/synchprobs.c	/^static volatile void* car_threads[NCARS];$/;"	v	file:
+car_turn_times	kern/test/synchprobs.c	/^static volatile int car_turn_times[NCARS];$/;"	v	file:
+car_turns	kern/test/synchprobs.c	/^static volatile int car_turns[NCARS];$/;"	v	file:
 cargv	userland/testbin/farm/farm.c	/^static char *cargv[3] = { (char *)"cat", (char *)"catfile", NULL };$/;"	v	file:
 cat	userland/bin/cat/cat.c	/^cat(const char *file)$/;"	f	file:
 cat	userland/testbin/farm/farm.c	/^cat(void)$/;"	f	file:
@@ -3601,6 +3628,7 @@ check_createfile	userland/testbin/frack/check.c	/^check_createfile(unsigned name
 check_data	userland/testbin/zero/zero.c	/^check_data(void)$/;"	f	file:
 check_indirect_block	userland/sbin/sfsck/pass1.c	/^check_indirect_block(struct ibstate *ibs, uint32_t *ientry, int *iechangedp,$/;"	f	file:
 check_inode_blocks	userland/sbin/sfsck/pass1.c	/^check_inode_blocks(uint32_t ino, struct sfs_dinode *sfi, int isdir)$/;"	f	file:
+check_intersection	kern/test/synchprobs.c	/^check_intersection() {$/;"	f	file:
 check_link	userland/testbin/frack/check.c	/^check_link(unsigned fromname, unsigned toname)$/;"	f
 check_mkdir	userland/testbin/frack/check.c	/^check_mkdir(unsigned name)$/;"	f
 check_openfile	userland/testbin/frack/check.c	/^check_openfile(unsigned name)$/;"	f
@@ -3608,15 +3636,18 @@ check_order	kern/test/threadlisttest.c	/^check_order(struct threadlist *tl, bool
 check_rename	userland/testbin/frack/check.c	/^check_rename(unsigned from, unsigned to)$/;"	f
 check_renamexd	userland/testbin/frack/check.c	/^check_renamexd(unsigned fromdir, unsigned from, unsigned todir, unsigned to)$/;"	f
 check_rmdir	userland/testbin/frack/check.c	/^check_rmdir(unsigned name)$/;"	f
+check_role	kern/test/synchprobs.c	/^check_role(uint32_t index, int role) {$/;"	f	file:
 check_sbrk	userland/testbin/zero/zero.c	/^check_sbrk(void)$/;"	f	file:
 check_setup	userland/testbin/frack/check.c	/^check_setup(void)$/;"	f
 check_slogan	userland/testbin/bigseek/bigseek.c	/^check_slogan(int fd, unsigned which)$/;"	f	file:
 check_sync	userland/testbin/frack/check.c	/^check_sync(void)$/;"	f
+check_thread	kern/test/synchprobs.c	/^check_thread(volatile void* threads[], uint32_t index) {$/;"	f	file:
 check_timing	userland/bin/sh/sh.c	/^check_timing(void)$/;"	f	file:
 check_timing	userland/testbin/shll/shll.c	/^check_timing(void)$/;"	f	file:
 check_truncate	userland/testbin/frack/check.c	/^check_truncate(int handle, unsigned name, off_t len)$/;"	f
 check_unlink	userland/testbin/frack/check.c	/^check_unlink(unsigned name)$/;"	f
 check_write	userland/testbin/frack/check.c	/^check_write(int handle, unsigned name, unsigned code, unsigned seq,$/;"	f
+check_zero	kern/test/synchprobs.c	/^check_zero(int count) {$/;"	f	file:
 checkallfilecontents	userland/testbin/frack/check.c	/^checkallfilecontents(struct fsobject *dir, struct fschange *change)$/;"	f	file:
 checkbadstring	userland/sbin/sfsck/utils.c	/^checkbadstring(char *buf)$/;"	f
 checkblock	userland/testbin/malloctest/malloctest.c	/^checkblock(volatile void *ptr, size_t size, unsigned bias, int doprint)$/;"	f	file:
@@ -3637,9 +3668,9 @@ checksize_bins	userland/testbin/psort/psort.c	/^checksize_bins(void)$/;"	f	file:
 checksize_merge	userland/testbin/psort/psort.c	/^checksize_merge(void)$/;"	f	file:
 checksize_valid	userland/testbin/psort/psort.c	/^checksize_valid(void)$/;"	f	file:
 checksubpage	kern/vm/kmalloc.c	/^checksubpage(struct pageref *pr)$/;"	f	file:
-checksubpage	kern/vm/kmalloc.c	570;"	d	file:
+checksubpage	kern/vm/kmalloc.c	572;"	d	file:
 checksubpages	kern/vm/kmalloc.c	/^checksubpages(void)$/;"	f	file:
-checksubpages	kern/vm/kmalloc.c	605;"	d	file:
+checksubpages	kern/vm/kmalloc.c	607;"	d	file:
 checksum	userland/testbin/psort/psort.c	/^static unsigned long checksum;$/;"	v	file:
 checksum_file	userland/testbin/psort/psort.c	/^checksum_file(const char *path)$/;"	f	file:
 checkzeroed	userland/sbin/sfsck/utils.c	/^checkzeroed(void *vbuf, size_t len)$/;"	f
@@ -3669,6 +3700,7 @@ cmd_exit	userland/testbin/shll/shll.c	/^cmd_exit(int ac, char *av[], struct exit
 cmd_kheapdump	kern/main/menu.c	/^cmd_kheapdump(int nargs, char **args)$/;"	f	file:
 cmd_kheapgeneration	kern/main/menu.c	/^cmd_kheapgeneration(int nargs, char **args)$/;"	f	file:
 cmd_kheapstats	kern/main/menu.c	/^cmd_kheapstats(int nargs, char **args)$/;"	f	file:
+cmd_kheapused	kern/main/menu.c	/^cmd_kheapused(int nargs, char **args)$/;"	f	file:
 cmd_mainmenu	kern/main/menu.c	/^cmd_mainmenu(int n, char **a)$/;"	f	file:
 cmd_mount	kern/main/menu.c	/^cmd_mount(int nargs, char **args)$/;"	f	file:
 cmd_opsmenu	kern/main/menu.c	/^cmd_opsmenu(int n, char **a)$/;"	f	file:
@@ -3794,9 +3826,13 @@ cv_create	kern/thread/synch.c	/^cv_create(const char *name)$/;"	f
 cv_destroy	kern/thread/synch.c	/^cv_destroy(struct cv *cv)$/;"	f
 cv_name	kern/include/synch.h	/^        char *cv_name;$/;"	m	struct:cv
 cv_signal	kern/thread/synch.c	/^cv_signal(struct cv *cv, struct lock *lock)$/;"	f
+cv_spinlock	kern/include/synch.h	/^	struct spinlock cv_spinlock;$/;"	m	struct:cv	typeref:struct:cv::spinlock
 cv_wait	kern/thread/synch.c	/^cv_wait(struct cv *cv, struct lock *lock)$/;"	f
+cv_wchan	kern/include/synch.h	/^	struct wchan *cv_wchan;$/;"	m	struct:cv	typeref:struct:cv::wchan
 cvtest	kern/test/synchtest.c	/^cvtest(int nargs, char **args)$/;"	f
 cvtest2	kern/test/synchtest.c	/^cvtest2(int nargs, char **args)$/;"	f
+cvtest3	kern/test/synchtest.c	/^cvtest3(int nargs, char **args) {$/;"	f
+cvtest4	kern/test/synchtest.c	/^cvtest4(int nargs, char **args) {$/;"	f
 cvtestthread	kern/test/synchtest.c	/^cvtestthread(void *junk, unsigned long num)$/;"	f	file:
 cwd	userland/testbin/frack/check.c	/^static unsigned cwd;$/;"	v	file:
 d_blocks	kern/include/device.h	/^	blkcnt_t d_blocks;$/;"	m	struct:device
@@ -3918,7 +3954,7 @@ dolseek	userland/testbin/bigseek/bigseek.c	/^dolseek(int fd, off_t pos, int when
 dolseek	userland/testbin/psort/psort.c	/^dolseek(const char *name, int fd, off_t offset, int whence)$/;"	f	file:
 domalloc	userland/sbin/sfsck/utils.c	/^domalloc(size_t len)$/;"	f
 domkdir	userland/testbin/dirconc/dirconc.c	/^domkdir(const char *name)$/;"	f	file:
-donesem	kern/test/synchtest.c	/^static struct semaphore *donesem;$/;"	v	typeref:struct:semaphore	file:
+donesem	kern/test/synchtest.c	/^static struct semaphore *donesem = NULL;$/;"	v	typeref:struct:semaphore	file:
 donesem	kern/test/tt3.c	/^static struct semaphore *donesem;$/;"	v	typeref:struct:semaphore	file:
 doopen	userland/testbin/psort/psort.c	/^doopen(const char *path, int flags, int mode)$/;"	f	file:
 doopen	userland/testbin/redirect/redirect.c	/^doopen(const char *path, int openflags)$/;"	f	file:
@@ -4101,7 +4137,8 @@ exitsem	kern/test/synchtest.c	/^static struct semaphore *exitsem;$/;"	v	typeref:
 exorcise	kern/thread/thread.c	/^exorcise(void)$/;"	f	file:
 f	userland/testbin/badcall/driver.c	/^	void (*f)(void);$/;"	m	struct:__anon15	file:
 f	userland/testbin/crash/crash.c	/^	func f;$/;"	m	struct:__anon16	file:
-fail	kern/test/synchtest.c	/^fail(unsigned long num, const char *msg)$/;"	f	file:
+failif	kern/test/synchprobs.c	/^failif(bool condition, const char *message) {$/;"	f	file:
+failif	kern/test/synchtest.c	/^failif(bool condition) {$/;"	f	file:
 failures	userland/testbin/bigfork/bigfork.c	/^static unsigned failures;$/;"	v	file:
 fakethread_create	kern/test/threadlisttest.c	/^fakethread_create(const char *name)$/;"	f	file:
 fakethread_destroy	kern/test/threadlisttest.c	/^fakethread_destroy(struct thread *t)$/;"	f	file:
@@ -4140,8 +4177,11 @@ fd	userland/testbin/schedpong/usem.h	/^	int fd;$/;"	m	struct:usem
 fd	userland/testbin/usemtest/usemtest.c	/^	int fd;$/;"	m	struct:usem	file:
 female	kern/synchprobs/whalemating.c	/^female(uint32_t index)$/;"	f
 female_end	kern/test/synchprobs.c	/^female_end(uint32_t index) {$/;"	f
+female_end_count	kern/test/synchprobs.c	/^static volatile int female_end_count;$/;"	v	file:
 female_start	kern/test/synchprobs.c	/^female_start(uint32_t index) {$/;"	f
+female_start_count	kern/test/synchprobs.c	/^static volatile int female_start_count;$/;"	v	file:
 female_wrapper	kern/test/synchprobs.c	/^female_wrapper(void * unused1, unsigned long index) {$/;"	f	file:
+femalelock	kern/synchprobs/whalemating.c	/^static struct lock *femalelock;$/;"	v	typeref:struct:lock	file:
 file	userland/testbin/frack/check.c	/^			unsigned file;$/;"	m	struct:fschange::__anon18::__anon20	file:
 file	userland/testbin/frack/check.c	/^			unsigned file;$/;"	m	struct:fschange::__anon18::__anon21	file:
 file	userland/testbin/frack/check.c	/^			unsigned file;$/;"	m	struct:fschange::__anon18::__anon26	file:
@@ -4242,9 +4282,17 @@ func	userland/testbin/malloctest/malloctest.c	/^	void (*func)(void);$/;"	m	struc
 func	userland/testbin/sbrktest/sbrktest.c	/^	void (*func)(void);$/;"	m	struct:__anon34	file:
 func	userland/testbin/shll/shll.c	/^	void (*func)(int, char **, struct exitinfo *);$/;"	m	struct:__anon35	file:
 funcs2	build/userland/testbin/randcall/calls.c	/^static tryfunc funcs2[] = {$/;"	v	file:
+funcs2	userland/build/testbin/randcall/calls.c	/^static tryfunc funcs2[] = {$/;"	v	file:
+funcs2	userland/testbin/randcall/build/calls.c	/^static tryfunc funcs2[] = {$/;"	v	file:
 funcs3	build/userland/testbin/randcall/calls.c	/^static tryfunc funcs3[] = {$/;"	v	file:
+funcs3	userland/build/testbin/randcall/calls.c	/^static tryfunc funcs3[] = {$/;"	v	file:
+funcs3	userland/testbin/randcall/build/calls.c	/^static tryfunc funcs3[] = {$/;"	v	file:
 funcs4	build/userland/testbin/randcall/calls.c	/^static tryfunc funcs4[] = {$/;"	v	file:
+funcs4	userland/build/testbin/randcall/calls.c	/^static tryfunc funcs4[] = {$/;"	v	file:
+funcs4	userland/testbin/randcall/build/calls.c	/^static tryfunc funcs4[] = {$/;"	v	file:
 funcs5	build/userland/testbin/randcall/calls.c	/^static tryfunc funcs5[] = {$/;"	v	file:
+funcs5	userland/build/testbin/randcall/calls.c	/^static tryfunc funcs5[] = {$/;"	v	file:
+funcs5	userland/testbin/randcall/build/calls.c	/^static tryfunc funcs5[] = {$/;"	v	file:
 gatesem	kern/test/synchtest.c	/^static struct semaphore *gatesem;$/;"	v	typeref:struct:semaphore	file:
 generation	kern/vm/kmalloc.c	/^	unsigned generation;$/;"	m	struct:malloclabel	file:
 genkeys	userland/testbin/psort/psort.c	/^genkeys(void)$/;"	f	file:
@@ -4354,9 +4402,9 @@ init_threadsem	kern/test/fstest.c	/^init_threadsem(void)$/;"	f	file:
 initarray	userland/testbin/sort/sort.c	/^initarray(void)$/;"	f	file:
 initfreemap	userland/sbin/mksfs/mksfs.c	/^initfreemap(uint32_t fsblocks)$/;"	f	file:
 initialize_board	userland/testbin/tictac/tictac.c	/^initialize_board(void)$/;"	f
+initialize_car_thread	kern/test/synchprobs.c	/^initialize_car_thread(uint32_t index, uint32_t direction, uint32_t turn) {$/;"	f	file:
+initialize_thread	kern/test/synchprobs.c	/^initialize_thread(volatile void* threads[], uint32_t index) {$/;"	f	file:
 inititems	kern/test/automationtest.c	/^inititems(void)$/;"	f	file:
-inititems	kern/test/synchprobs.c	/^inititems(uint32_t count)$/;"	f	file:
-inititems	kern/test/synchtest.c	/^inititems(void)$/;"	f	file:
 initprogname	userland/testbin/psort/psort.c	/^initprogname(const char *av0)$/;"	f	file:
 initstate	userland/lib/libc/stdlib/random.c	/^initstate($/;"	f
 ino	userland/sbin/sfsck/inode.c	/^	uint32_t ino;$/;"	m	struct:inodeinfo	file:
@@ -4477,6 +4525,7 @@ kheap_dump	kern/vm/kmalloc.c	/^kheap_dump(void)$/;"	f
 kheap_dumpall	kern/vm/kmalloc.c	/^kheap_dumpall(void)$/;"	f
 kheap_nextgeneration	kern/vm/kmalloc.c	/^kheap_nextgeneration(void)$/;"	f
 kheap_printstats	kern/vm/kmalloc.c	/^kheap_printstats(void)$/;"	f
+kheap_printused	kern/vm/kmalloc.c	/^kheap_printused(void)$/;"	f
 kheap_root	kern/vm/kmalloc.c	/^struct kheap_root {$/;"	s	file:
 kheaproots	kern/vm/kmalloc.c	/^static struct kheap_root kheaproots[NUM_PAGEREFPAGES];$/;"	v	typeref:struct:kheap_root	file:
 kill_curthread	kern/arch/mips/locore/trap.c	/^kill_curthread(vaddr_t epc, unsigned code, vaddr_t vaddr)$/;"	f	file:
@@ -4495,12 +4544,13 @@ knowndevs	kern/vfs/vfslist.c	/^static struct knowndevarray *knowndevs;$/;"	v	typ
 kprintf	kern/lib/kprintf.c	/^kprintf(const char *fmt, ...)$/;"	f
 kprintf_bootstrap	kern/lib/kprintf.c	/^kprintf_bootstrap(void)$/;"	f
 kprintf_lock	kern/lib/kprintf.c	/^static struct lock *kprintf_lock;$/;"	v	typeref:struct:lock	file:
-kprintf_n	kern/include/test.h	186;"	d
-kprintf_n	kern/include/test.h	189;"	d
+kprintf_n	kern/include/test.h	192;"	d
+kprintf_n	kern/include/test.h	195;"	d
 kprintf_spinlock	kern/lib/kprintf.c	/^static struct spinlock kprintf_spinlock;$/;"	v	typeref:struct:spinlock	file:
-kprintf_t	kern/include/test.h	185;"	d
-kprintf_t	kern/include/test.h	188;"	d
+kprintf_t	kern/include/test.h	191;"	d
+kprintf_t	kern/include/test.h	194;"	d
 kproc	kern/proc/proc.c	/^struct proc *kproc;$/;"	v	typeref:struct:proc
+ksecprintf	kern/test/lib.c	/^ksecprintf(const char * secret, const char * msg, const char * name)$/;"	f
 kstrdup	kern/lib/misc.c	/^kstrdup(const char *s)$/;"	f
 l_len	build/install/hostinclude/kern/fcntl.h	/^	off_t l_len;            \/* length of locked region *\/$/;"	m	struct:flock
 l_len	build/install/include/kern/fcntl.h	/^	off_t l_len;            \/* length of locked region *\/$/;"	m	struct:flock
@@ -4588,7 +4638,12 @@ lock_create	kern/thread/synch.c	/^lock_create(const char *name)$/;"	f
 lock_destroy	kern/thread/synch.c	/^lock_destroy(struct lock *lock)$/;"	f
 lock_do_i_hold	kern/thread/synch.c	/^lock_do_i_hold(struct lock *lock)$/;"	f
 lock_release	kern/thread/synch.c	/^lock_release(struct lock *lock)$/;"	f
+lock_spinlock	kern/include/synch.h	/^	struct spinlock lock_spinlock;$/;"	m	struct:lock	typeref:struct:lock::spinlock
+lock_thread	kern/include/synch.h	/^	struct thread *lock_thread;$/;"	m	struct:lock	typeref:struct:lock::thread
+lock_wchan	kern/include/synch.h	/^	struct wchan *lock_wchan;$/;"	m	struct:lock	typeref:struct:lock::wchan
 locktest	kern/test/synchtest.c	/^locktest(int nargs, char **args)$/;"	f
+locktest2	kern/test/synchtest.c	/^locktest2(int nargs, char **args) {$/;"	f
+locktest3	kern/test/synchtest.c	/^locktest3(int nargs, char **args) {$/;"	f
 locktestthread	kern/test/synchtest.c	/^locktestthread(void *junk, unsigned long num)$/;"	f	file:
 longjmp	common/libc/arch/mips/setjmp.S	/^longjmp:$/;"	l
 longstress	kern/test/fstest.c	/^DEFTEST(longstress);$/;"	v
@@ -4767,23 +4822,33 @@ makesubtree	userland/testbin/frack/workloads.c	/^makesubtree(unsigned testcode, 
 makewaiter	kern/test/semunit.c	/^makewaiter(struct semaphore *sem)$/;"	f	file:
 male	kern/synchprobs/whalemating.c	/^male(uint32_t index)$/;"	f
 male_end	kern/test/synchprobs.c	/^male_end(uint32_t index) {$/;"	f
+male_end_count	kern/test/synchprobs.c	/^static volatile int male_end_count;$/;"	v	file:
 male_start	kern/test/synchprobs.c	/^male_start(uint32_t index) {$/;"	f
+male_start_count	kern/test/synchprobs.c	/^static volatile int male_start_count;$/;"	v	file:
 male_wrapper	kern/test/synchprobs.c	/^male_wrapper(void * unused1, unsigned long index) {$/;"	f	file:
+malelock	kern/synchprobs/whalemating.c	/^static struct lock *malelock;$/;"	v	typeref:struct:lock	file:
 malloc	userland/lib/libc/stdlib/malloc.c	/^malloc(size_t size)$/;"	f
 mallocgeneration	kern/vm/kmalloc.c	/^static unsigned mallocgeneration;$/;"	v	file:
 malloclabel	kern/vm/kmalloc.c	/^struct malloclabel {$/;"	s	file:
 markblock	userland/testbin/malloctest/malloctest.c	/^markblock(volatile void *ptr, size_t size, unsigned bias, int doprint)$/;"	f	file:
 markpage	userland/testbin/sbrktest/sbrktest.c	/^markpage(volatile void *baseptr, unsigned pageoffset)$/;"	f	file:
 markpagelight	userland/testbin/sbrktest/sbrktest.c	/^markpagelight(volatile void *baseptr, unsigned pageoffset)$/;"	f	file:
+match_count	kern/test/synchprobs.c	/^static volatile int match_count;$/;"	v	file:
+match_status	kern/test/synchprobs.c	/^static volatile int match_status[3 * NMATING];$/;"	v	file:
+matcher_sem	kern/test/synchprobs.c	/^static struct semaphore *matcher_sem;$/;"	v	typeref:struct:semaphore	file:
 matches_at	userland/testbin/frack/data.c	/^matches_at(size_t start, size_t len)$/;"	f	file:
 matchmaker	kern/synchprobs/whalemating.c	/^matchmaker(uint32_t index)$/;"	f
 matchmaker_end	kern/test/synchprobs.c	/^matchmaker_end(uint32_t index) {$/;"	f
+matchmaker_end_count	kern/test/synchprobs.c	/^static volatile int matchmaker_end_count;$/;"	v	file:
 matchmaker_start	kern/test/synchprobs.c	/^matchmaker_start(uint32_t index) {$/;"	f
+matchmaker_start_count	kern/test/synchprobs.c	/^static volatile int matchmaker_start_count;$/;"	v	file:
 matchmaker_wrapper	kern/test/synchprobs.c	/^matchmaker_wrapper(void * unused1, unsigned long index) {$/;"	f	file:
+matchmakerlock	kern/synchprobs/whalemating.c	/^static struct lock *matchmakerlock;$/;"	v	typeref:struct:lock	file:
 matrix	userland/testbin/parallelvm/parallelvm.c	/^struct matrix {$/;"	s	file:
 mats	userland/testbin/parallelvm/parallelvm.c	/^static struct matrix mats[NMATS];$/;"	v	typeref:struct:matrix	file:
 max	kern/include/array.h	/^	unsigned num, max;$/;"	m	struct:array
 max	userland/testbin/frack/pool.h	/^	unsigned max;$/;"	m	struct:poolctl
+max_car_count	kern/test/synchprobs.c	/^static volatile int max_car_count;$/;"	v	file:
 maxinodes	userland/sbin/sfsck/inode.c	/^static unsigned ninodes = 0, maxinodes = 0;$/;"	v	file:
 maxname	userland/testbin/frack/pool.h	/^	const char *maxname;$/;"	m	struct:poolctl
 mbedtls_printf	common/libc/secure/sha256.c	50;"	d	file:
@@ -4863,6 +4928,7 @@ model_isdir	userland/testbin/frack/check.c	/^model_isdir(unsigned dirnum, unsign
 model_isfile	userland/testbin/frack/check.c	/^model_isfile(unsigned dirnum, unsigned name)$/;"	f	file:
 moremem	userland/testbin/bloat/bloat.c	/^moremem(void)$/;"	f	file:
 mounttable	kern/main/menu.c	/^} mounttable[] = {$/;"	v	typeref:struct:__anon11	file:
+move	kern/test/synchprobs.c	/^move(uint32_t index) {$/;"	f	file:
 moveddir	userland/testbin/frack/check.c	/^			unsigned moveddir;$/;"	m	struct:fschange::__anon18::__anon28	file:
 movedfile	userland/testbin/frack/check.c	/^			unsigned movedfile;$/;"	m	struct:fschange::__anon18::__anon27	file:
 msg_control	build/install/hostinclude/kern/socket.h	/^	void *msg_control;	\/* auxiliary data area, or null *\/$/;"	m	struct:msghdr
@@ -5147,6 +5213,7 @@ putobject	userland/testbin/frack/check.c	/^putobject(struct fsobject *obj)$/;"	f
 putresult	userland/testbin/schedpong/results.c	/^putresult(unsigned groupid, time_t secs, unsigned long nsecs)$/;"	f
 puts	userland/lib/libc/stdio/puts.c	/^puts(const char *s)$/;"	f
 qsort	userland/lib/libc/stdlib/qsort.c	/^qsort(void *vdata, unsigned num, size_t size,$/;"	f
+quadrant_array	kern/test/synchprobs.c	/^static volatile int quadrant_array[NUM_QUADRANTS];$/;"	v	file:
 quietthread	kern/test/threadtest.c	/^quietthread(void *junk, unsigned long num)$/;"	f	file:
 quint	userland/lib/libtest/quint.c	/^quint(const char *prog)$/;"	f
 ra	build/install/hostinclude/kern/machine/regdefs.h	71;"	d
@@ -5189,6 +5256,7 @@ randsize	userland/testbin/randcall/main.c	/^randsize(void)$/;"	f
 randtbl	userland/lib/libc/stdlib/random.c	/^static long randtbl[DEG_3 + 1] = {$/;"	v	file:
 randtruncate	userland/testbin/frack/workloads.c	/^randtruncate(struct file *file)$/;"	f	file:
 randwrite	userland/testbin/frack/workloads.c	/^randwrite(struct file *file)$/;"	f	file:
+rcount	kern/include/synch.h	/^	int rcount;$/;"	m	struct:rwlock
 read	userland/testbin/badcall/common_buf.c	/^T(read);$/;"	v
 read_badbuf	userland/testbin/badcall/common_buf.c	/^read_badbuf(void *buf)$/;"	f	file:
 read_badfd	userland/testbin/badcall/common_fds.c	/^read_badfd(int fd)$/;"	f	file:
@@ -5369,9 +5437,17 @@ runthreads	kern/test/threadtest.c	/^runthreads(int doloud)$/;"	f	file:
 rusage	build/install/hostinclude/kern/resource.h	/^struct rusage {$/;"	s
 rusage	build/install/include/kern/resource.h	/^struct rusage {$/;"	s
 rusage	kern/include/kern/resource.h	/^struct rusage {$/;"	s
+rw_spinlock	kern/include/synch.h	/^	struct spinlock rw_spinlock;$/;"	m	struct:rwlock	typeref:struct:rwlock::spinlock
+rw_wchan	kern/include/synch.h	/^	struct wchan *rw_wchan;$/;"	m	struct:rwlock	typeref:struct:rwlock::wchan
 rwlock	kern/include/synch.h	/^struct rwlock {$/;"	s
+rwlock_acquire_read	kern/thread/synch.c	/^void rwlock_acquire_read(struct rwlock *rwlock) $/;"	f
+rwlock_acquire_write	kern/thread/synch.c	/^void rwlock_acquire_write(struct rwlock *rwlock)$/;"	f
+rwlock_create	kern/thread/synch.c	/^struct rwlock * rwlock_create(const char *name)$/;"	f
+rwlock_destroy	kern/thread/synch.c	/^void rwlock_destroy(struct rwlock * rwlock) $/;"	f
 rwlock_name	kern/include/synch.h	/^        char *rwlock_name;$/;"	m	struct:rwlock
-rwtest	kern/test/synchtest.c	/^int rwtest(int nargs, char **args) {$/;"	f
+rwlock_release_read	kern/thread/synch.c	/^void rwlock_release_read(struct rwlock *rwlock)$/;"	f
+rwlock_release_write	kern/thread/synch.c	/^void rwlock_release_write(struct rwlock *rwlock)$/;"	f
+rwtest	kern/test/rwtest.c	/^int rwtest(int nargs, char **args) {$/;"	f
 rwtestmodes	userland/testbin/badcall/common_fds.c	/^enum rwtestmodes {$/;"	g	file:
 s0	build/install/hostinclude/kern/machine/regdefs.h	56;"	d
 s0	build/install/hostinclude/kern/mips/regdefs.h	56;"	d
@@ -5583,6 +5659,7 @@ semfs_vnode_destroy	kern/fs/semfs/semfs_vnops.c	/^semfs_vnode_destroy(struct sem
 semfs_vnodes	kern/fs/semfs/semfs.h	/^	struct vnodearray *semfs_vnodes;	\/* Currently extant vnodes *\/$/;"	m	struct:semfs	typeref:struct:semfs::vnodearray
 semfs_wakeup	kern/fs/semfs/semfs_vnops.c	/^semfs_wakeup(struct semfs_sem *sem, unsigned newcount)$/;"	f	file:
 semfs_write	kern/fs/semfs/semfs_vnops.c	/^semfs_write(struct vnode *vn, struct uio *uio)$/;"	f	file:
+semlock	kern/synchprobs/whalemating.c	/^static struct lock *semlock;$/;"	v	typeref:struct:lock	file:
 semopen	userland/testbin/multiexec/multiexec.c	/^semopen(struct usem *sem)$/;"	f	file:
 semopen	userland/testbin/parallelvm/parallelvm.c	/^semopen(struct usem *sem)$/;"	f	file:
 sems	userland/testbin/schedpong/pong.c	/^static struct usem sems[MAXCOUNT];$/;"	v	typeref:struct:usem	file:
@@ -5942,8 +6019,8 @@ st_uid	build/install/include/kern/stat.h	/^	uid_t st_uid;           \/* owner *\
 st_uid	kern/include/kern/stat.h	/^	uid_t st_uid;           \/* owner *\/$/;"	m	struct:stat
 startcount	kern/test/synchprobs.c	/^static uint32_t startcount;$/;"	v	file:
 startcv	kern/test/synchprobs.c	/^static struct cv *startcv;$/;"	v	typeref:struct:cv	file:
-startlock	kern/test/synchprobs.c	/^static struct lock *startlock;$/;"	v	typeref:struct:lock	file:
 startpoint	userland/testbin/rmdirtest/rmdirtest.c	/^static char startpoint[PATH_MAX - sizeof(testdir)];$/;"	v	file:
+startsem	kern/test/synchprobs.c	/^static struct semaphore *startsem;$/;"	v	typeref:struct:semaphore	file:
 startsem	userland/testbin/schedpong/main.c	/^struct usem startsem;$/;"	v	typeref:struct:usem
 startup	userland/testbin/rmdirtest/rmdirtest.c	/^startup(void)$/;"	f	file:
 stat	build/install/hostinclude/kern/stat.h	/^struct stat {$/;"	s
@@ -5955,10 +6032,10 @@ state	common/libc/secure/sha256.h	/^    uint32_t state[8];          \/*!< interm
 state	userland/lib/libc/stdlib/random.c	/^static long *state = &randtbl[1];$/;"	v	file:
 state	userland/testbin/frack/check.c	/^static struct fsobject *state;$/;"	v	typeref:struct:fsobject	file:
 status_is_failure	userland/testbin/parallelvm/parallelvm.c	/^status_is_failure(int status)$/;"	f	file:
+status_lock	kern/test/synchprobs.c	/^struct spinlock status_lock;$/;"	v	typeref:struct:spinlock
 status_lock	kern/test/synchtest.c	/^struct spinlock status_lock;$/;"	v	typeref:struct:spinlock
 stealmem_lock	kern/arch/mips/vm/dumbvm.c	/^static struct spinlock stealmem_lock = SPINLOCK_INITIALIZER;$/;"	v	typeref:struct:spinlock	file:
 stoplight	kern/test/synchprobs.c	/^int stoplight(int nargs, char **args) {$/;"	f
-stoplightMenuSemaphore	kern/test/synchprobs.c	/^struct semaphore * stoplightMenuSemaphore;$/;"	v	typeref:struct:semaphore
 stoplight_cleanup	kern/synchprobs/stoplight.c	/^void stoplight_cleanup() {$/;"	f
 stoplight_init	kern/synchprobs/stoplight.c	/^stoplight_init() {$/;"	f
 stopped	userland/bin/sh/sh.c	/^		stopped:1,$/;"	m	struct:exitinfo	file:
@@ -5979,11 +6056,11 @@ subargc	userland/testbin/multiexec/multiexec.c	/^static int subargc = 0;$/;"	v	f
 subargv	userland/testbin/multiexec/multiexec.c	/^static char *subargv[SUBARGC_MAX];$/;"	v	file:
 subpage_kfree	kern/vm/kmalloc.c	/^subpage_kfree(void *ptr)$/;"	f	file:
 subpage_kmalloc	kern/vm/kmalloc.c	/^subpage_kmalloc(size_t sz$/;"	f	file:
-subpage_stats	kern/vm/kmalloc.c	/^subpage_stats(struct pageref *pr)$/;"	f	file:
+subpage_stats	kern/vm/kmalloc.c	/^subpage_stats(struct pageref *pr, bool quiet)$/;"	f	file:
 subpos	userland/testbin/badcall/report.c	/^static size_t subpos;$/;"	v	file:
 subproc_read	userland/testbin/f_test/f_read.c	/^subproc_read(void)$/;"	f
 subproc_write	userland/testbin/f_test/f_write.c	/^subproc_write(void)$/;"	f
-success	kern/test/lib.c	/^success(bool status, uint32_t secret, const char * name) {$/;"	f
+success	kern/test/lib.c	/^success(bool status, const char * secret, const char * name) {$/;"	f
 sum	userland/testbin/schedpong/grind.c	/^sum(const unsigned *p, unsigned n)$/;"	f	file:
 sv_absvn	kern/include/sfs.h	/^	struct vnode sv_absvn;          \/* abstract vnode structure *\/$/;"	m	struct:sfs_vnode	typeref:struct:sfs_vnode::vnode
 sv_dirty	kern/include/sfs.h	/^	bool sv_dirty;                  \/* true if sv_i modified *\/$/;"	m	struct:sfs_vnode
@@ -5998,7 +6075,9 @@ switchframe	kern/arch/mips/thread/switchframe.h	/^struct switchframe {$/;"	s
 switchframe_init	kern/arch/mips/thread/switchframe.c	/^switchframe_init(struct thread *thread,$/;"	f
 switchframe_switch	kern/arch/mips/thread/switch.S	/^switchframe_switch:$/;"	l
 sym	build/userland/lib/libc/syscalls.S	/^sym:				; \\$/;"	l
+sym	userland/build/lib/libc/syscalls.S	/^sym:				; \\$/;"	l
 sym	userland/lib/libc/arch/mips/syscalls-mips.S	/^sym:				; \\$/;"	l
+sym	userland/lib/libc/build/syscalls.S	/^sym:				; \\$/;"	l
 symlink	userland/testbin/badcall/common_path.c	/^T2(symlink);$/;"	v
 symlink_badpath1	userland/testbin/badcall/common_path.c	/^symlink_badpath1(const char *path)$/;"	f	file:
 symlink_badpath2	userland/testbin/badcall/common_path.c	/^symlink_badpath2(const char *path)$/;"	f	file:
@@ -6127,6 +6206,8 @@ t_stack	kern/include/thread.h	/^	void *t_stack;			\/* Kernel-level stack *\/$/;"
 t_state	kern/include/thread.h	/^	threadstate_t t_state;		\/* State this thread is in *\/$/;"	m	struct:thread
 t_wchan_name	kern/include/thread.h	/^	const char *t_wchan_name;	\/* Name of wait channel, if sleeping *\/$/;"	m	struct:thread
 tables	build/userland/testbin/randcall/calls.c	/^static tryfunc *tables[4] = {$/;"	v	file:
+tables	userland/build/testbin/randcall/calls.c	/^static tryfunc *tables[4] = {$/;"	v	file:
+tables	userland/testbin/randcall/build/calls.c	/^static tryfunc *tables[4] = {$/;"	v	file:
 tail	userland/testbin/tail/tail.c	/^tail(int file, off_t where, const char *filename)$/;"	f	file:
 test	userland/testbin/forktest/forktest.c	/^test(int nowait)$/;"	f	file:
 test1	userland/testbin/malloctest/malloctest.c	/^test1(void)$/;"	f	file:
@@ -6179,6 +6260,7 @@ test_ioctl	userland/testbin/badcall/bad_ioctl.c	/^test_ioctl(void)$/;"	f
 test_link	userland/testbin/badcall/bad_link.c	/^test_link(void)$/;"	f
 test_lseek	userland/testbin/badcall/bad_lseek.c	/^test_lseek(void)$/;"	f
 test_lstat	userland/testbin/badcall/bad_stat.c	/^test_lstat(void)$/;"	f
+test_message	kern/test/synchprobs.c	/^const char *test_message;$/;"	v
 test_mkdir	userland/testbin/badcall/bad_mkdir.c	/^test_mkdir(void)$/;"	f
 test_open	userland/testbin/badcall/bad_open.c	/^test_open(void)$/;"	f
 test_pipe	userland/testbin/badcall/bad_pipe.c	/^test_pipe(void)$/;"	f
@@ -6190,23 +6272,25 @@ test_rename	userland/testbin/badcall/bad_rename.c	/^test_rename(void)$/;"	f
 test_rmdir	userland/testbin/badcall/bad_rmdir.c	/^test_rmdir(void)$/;"	f
 test_sbrk	userland/testbin/badcall/bad_sbrk.c	/^test_sbrk(void)$/;"	f
 test_stat	userland/testbin/badcall/bad_stat.c	/^test_stat(void)$/;"	f
-test_status	kern/test/synchtest.c	/^static bool test_status;$/;"	v	file:
+test_status	kern/test/synchprobs.c	/^static bool test_status = FAIL;$/;"	v	file:
+test_status	kern/test/synchtest.c	/^static bool test_status = FAIL;$/;"	v	file:
 test_symlink	userland/testbin/badcall/bad_symlink.c	/^test_symlink(void)$/;"	f
 test_time	userland/testbin/badcall/bad_time.c	/^test_time(void)$/;"	f
 test_waitpid	userland/testbin/badcall/bad_waitpid.c	/^test_waitpid(void)$/;"	f
 test_write	userland/testbin/badcall/bad_write.c	/^test_write(void)$/;"	f
 testa	kern/test/arraytest.c	/^testa(struct array *a)$/;"	f	file:
 testcode	userland/testbin/frack/ops.c	/^	unsigned testcode;$/;"	m	struct:file	file:
-testcv	kern/test/synchtest.c	/^static struct cv *testcv;$/;"	v	typeref:struct:cv	file:
+testcv	kern/test/synchtest.c	/^static struct cv *testcv = NULL;$/;"	v	typeref:struct:cv	file:
 testcvs	kern/test/synchtest.c	/^static struct cv *testcvs[NCVS];$/;"	v	typeref:struct:cv	file:
 testdir	userland/testbin/rmdirtest/rmdirtest.c	/^static const char testdir[] = "testdir";$/;"	v	file:
 testfiles	userland/testbin/dirseek/dirseek.c	/^} testfiles[] = {$/;"	v	typeref:struct:__anon17	file:
-testlock	kern/test/synchtest.c	/^static struct lock *testlock;$/;"	v	typeref:struct:lock	file:
+testlock	kern/test/synchprobs.c	/^static struct lock *testlock;$/;"	v	typeref:struct:lock	file:
+testlock	kern/test/synchtest.c	/^static struct lock *testlock = NULL;$/;"	v	typeref:struct:lock	file:
 testlocks	kern/test/synchtest.c	/^static struct lock *testlocks[NCVS];$/;"	v	typeref:struct:lock	file:
 testmenu	kern/main/menu.c	/^static const char *testmenu[] = {$/;"	v	file:
 tests	userland/testbin/malloctest/malloctest.c	/^} tests[] = {$/;"	v	typeref:struct:__anon33	file:
 tests	userland/testbin/sbrktest/sbrktest.c	/^} tests[] = {$/;"	v	typeref:struct:__anon34	file:
-testsem	kern/test/synchtest.c	/^static struct semaphore *testsem;$/;"	v	typeref:struct:semaphore	file:
+testsem	kern/test/synchtest.c	/^static struct semaphore *testsem = NULL;$/;"	v	typeref:struct:semaphore	file:
 testval1	kern/test/synchtest.c	/^static volatile unsigned long testval1;$/;"	v	file:
 testval2	kern/test/synchtest.c	/^static volatile unsigned long testval2;$/;"	v	file:
 testval3	kern/test/synchtest.c	/^static volatile unsigned long testval3;$/;"	v	file:
@@ -6444,34 +6528,86 @@ true	userland/include/stdbool.h	34;"	d
 true	userland/testbin/frack/workloads.c	43;"	d	file:
 try	userland/testbin/bigexec/bigexec.c	/^try(const char *first, ...)$/;"	f	file:
 try___getcwd	build/userland/testbin/randcall/calls.c	/^try___getcwd(int dofork)$/;"	f	file:
+try___getcwd	userland/build/testbin/randcall/calls.c	/^try___getcwd(int dofork)$/;"	f	file:
+try___getcwd	userland/testbin/randcall/build/calls.c	/^try___getcwd(int dofork)$/;"	f	file:
 try___time	build/userland/testbin/randcall/calls.c	/^try___time(int dofork)$/;"	f	file:
+try___time	userland/build/testbin/randcall/calls.c	/^try___time(int dofork)$/;"	f	file:
+try___time	userland/testbin/randcall/build/calls.c	/^try___time(int dofork)$/;"	f	file:
 try_chdir	build/userland/testbin/randcall/calls.c	/^try_chdir(int dofork)$/;"	f	file:
+try_chdir	userland/build/testbin/randcall/calls.c	/^try_chdir(int dofork)$/;"	f	file:
+try_chdir	userland/testbin/randcall/build/calls.c	/^try_chdir(int dofork)$/;"	f	file:
 try_close	build/userland/testbin/randcall/calls.c	/^try_close(int dofork)$/;"	f	file:
+try_close	userland/build/testbin/randcall/calls.c	/^try_close(int dofork)$/;"	f	file:
+try_close	userland/testbin/randcall/build/calls.c	/^try_close(int dofork)$/;"	f	file:
 try_dup2	build/userland/testbin/randcall/calls.c	/^try_dup2(int dofork)$/;"	f	file:
+try_dup2	userland/build/testbin/randcall/calls.c	/^try_dup2(int dofork)$/;"	f	file:
+try_dup2	userland/testbin/randcall/build/calls.c	/^try_dup2(int dofork)$/;"	f	file:
 try_execv	build/userland/testbin/randcall/calls.c	/^try_execv(int dofork)$/;"	f	file:
+try_execv	userland/build/testbin/randcall/calls.c	/^try_execv(int dofork)$/;"	f	file:
+try_execv	userland/testbin/randcall/build/calls.c	/^try_execv(int dofork)$/;"	f	file:
 try_fstat	build/userland/testbin/randcall/calls.c	/^try_fstat(int dofork)$/;"	f	file:
+try_fstat	userland/build/testbin/randcall/calls.c	/^try_fstat(int dofork)$/;"	f	file:
+try_fstat	userland/testbin/randcall/build/calls.c	/^try_fstat(int dofork)$/;"	f	file:
 try_fsync	build/userland/testbin/randcall/calls.c	/^try_fsync(int dofork)$/;"	f	file:
+try_fsync	userland/build/testbin/randcall/calls.c	/^try_fsync(int dofork)$/;"	f	file:
+try_fsync	userland/testbin/randcall/build/calls.c	/^try_fsync(int dofork)$/;"	f	file:
 try_ftruncate	build/userland/testbin/randcall/calls.c	/^try_ftruncate(int dofork)$/;"	f	file:
+try_ftruncate	userland/build/testbin/randcall/calls.c	/^try_ftruncate(int dofork)$/;"	f	file:
+try_ftruncate	userland/testbin/randcall/build/calls.c	/^try_ftruncate(int dofork)$/;"	f	file:
 try_getdirentry	build/userland/testbin/randcall/calls.c	/^try_getdirentry(int dofork)$/;"	f	file:
+try_getdirentry	userland/build/testbin/randcall/calls.c	/^try_getdirentry(int dofork)$/;"	f	file:
+try_getdirentry	userland/testbin/randcall/build/calls.c	/^try_getdirentry(int dofork)$/;"	f	file:
 try_ioctl	build/userland/testbin/randcall/calls.c	/^try_ioctl(int dofork)$/;"	f	file:
+try_ioctl	userland/build/testbin/randcall/calls.c	/^try_ioctl(int dofork)$/;"	f	file:
+try_ioctl	userland/testbin/randcall/build/calls.c	/^try_ioctl(int dofork)$/;"	f	file:
 try_link	build/userland/testbin/randcall/calls.c	/^try_link(int dofork)$/;"	f	file:
+try_link	userland/build/testbin/randcall/calls.c	/^try_link(int dofork)$/;"	f	file:
+try_link	userland/testbin/randcall/build/calls.c	/^try_link(int dofork)$/;"	f	file:
 try_lseek	build/userland/testbin/randcall/calls.c	/^try_lseek(int dofork)$/;"	f	file:
+try_lseek	userland/build/testbin/randcall/calls.c	/^try_lseek(int dofork)$/;"	f	file:
+try_lseek	userland/testbin/randcall/build/calls.c	/^try_lseek(int dofork)$/;"	f	file:
 try_lstat	build/userland/testbin/randcall/calls.c	/^try_lstat(int dofork)$/;"	f	file:
+try_lstat	userland/build/testbin/randcall/calls.c	/^try_lstat(int dofork)$/;"	f	file:
+try_lstat	userland/testbin/randcall/build/calls.c	/^try_lstat(int dofork)$/;"	f	file:
 try_mkdir	build/userland/testbin/randcall/calls.c	/^try_mkdir(int dofork)$/;"	f	file:
+try_mkdir	userland/build/testbin/randcall/calls.c	/^try_mkdir(int dofork)$/;"	f	file:
+try_mkdir	userland/testbin/randcall/build/calls.c	/^try_mkdir(int dofork)$/;"	f	file:
 try_open	build/userland/testbin/randcall/calls.c	/^try_open(int dofork)$/;"	f	file:
+try_open	userland/build/testbin/randcall/calls.c	/^try_open(int dofork)$/;"	f	file:
+try_open	userland/testbin/randcall/build/calls.c	/^try_open(int dofork)$/;"	f	file:
 try_pipe	build/userland/testbin/randcall/calls.c	/^try_pipe(int dofork)$/;"	f	file:
+try_pipe	userland/build/testbin/randcall/calls.c	/^try_pipe(int dofork)$/;"	f	file:
+try_pipe	userland/testbin/randcall/build/calls.c	/^try_pipe(int dofork)$/;"	f	file:
 try_read	build/userland/testbin/randcall/calls.c	/^try_read(int dofork)$/;"	f	file:
+try_read	userland/build/testbin/randcall/calls.c	/^try_read(int dofork)$/;"	f	file:
+try_read	userland/testbin/randcall/build/calls.c	/^try_read(int dofork)$/;"	f	file:
 try_reading	userland/testbin/bigseek/bigseek.c	/^try_reading(int fd)$/;"	f	file:
 try_readlink	build/userland/testbin/randcall/calls.c	/^try_readlink(int dofork)$/;"	f	file:
+try_readlink	userland/build/testbin/randcall/calls.c	/^try_readlink(int dofork)$/;"	f	file:
+try_readlink	userland/testbin/randcall/build/calls.c	/^try_readlink(int dofork)$/;"	f	file:
 try_remove	build/userland/testbin/randcall/calls.c	/^try_remove(int dofork)$/;"	f	file:
+try_remove	userland/build/testbin/randcall/calls.c	/^try_remove(int dofork)$/;"	f	file:
+try_remove	userland/testbin/randcall/build/calls.c	/^try_remove(int dofork)$/;"	f	file:
 try_rename	build/userland/testbin/randcall/calls.c	/^try_rename(int dofork)$/;"	f	file:
+try_rename	userland/build/testbin/randcall/calls.c	/^try_rename(int dofork)$/;"	f	file:
+try_rename	userland/testbin/randcall/build/calls.c	/^try_rename(int dofork)$/;"	f	file:
 try_rmdir	build/userland/testbin/randcall/calls.c	/^try_rmdir(int dofork)$/;"	f	file:
+try_rmdir	userland/build/testbin/randcall/calls.c	/^try_rmdir(int dofork)$/;"	f	file:
+try_rmdir	userland/testbin/randcall/build/calls.c	/^try_rmdir(int dofork)$/;"	f	file:
 try_sbrk	userland/testbin/badcall/bad_sbrk.c	/^try_sbrk(long val)$/;"	f	file:
 try_seeking	userland/testbin/bigseek/bigseek.c	/^try_seeking(int fd, off_t pos, off_t cursize)$/;"	f	file:
 try_stat	build/userland/testbin/randcall/calls.c	/^try_stat(int dofork)$/;"	f	file:
+try_stat	userland/build/testbin/randcall/calls.c	/^try_stat(int dofork)$/;"	f	file:
+try_stat	userland/testbin/randcall/build/calls.c	/^try_stat(int dofork)$/;"	f	file:
 try_symlink	build/userland/testbin/randcall/calls.c	/^try_symlink(int dofork)$/;"	f	file:
+try_symlink	userland/build/testbin/randcall/calls.c	/^try_symlink(int dofork)$/;"	f	file:
+try_symlink	userland/testbin/randcall/build/calls.c	/^try_symlink(int dofork)$/;"	f	file:
 try_waitpid	build/userland/testbin/randcall/calls.c	/^try_waitpid(int dofork)$/;"	f	file:
+try_waitpid	userland/build/testbin/randcall/calls.c	/^try_waitpid(int dofork)$/;"	f	file:
+try_waitpid	userland/testbin/randcall/build/calls.c	/^try_waitpid(int dofork)$/;"	f	file:
 try_write	build/userland/testbin/randcall/calls.c	/^try_write(int dofork)$/;"	f	file:
+try_write	userland/build/testbin/randcall/calls.c	/^try_write(int dofork)$/;"	f	file:
+try_write	userland/testbin/randcall/build/calls.c	/^try_write(int dofork)$/;"	f	file:
 try_writing	userland/testbin/bigseek/bigseek.c	/^try_writing(int fd)$/;"	f	file:
 tryattach	kern/conf/config	/^    function tryattach(combo) {$/;"	f
 tryattach_beep_to_ltimer	kern/compile/DUMBVM/autoconf.c	/^tryattach_beep_to_ltimer(int devunit, struct ltimer_softc *bus, int busunit)$/;"	f	file:
@@ -6485,7 +6621,11 @@ tryattach_ltrace_to_lamebus	kern/compile/DUMBVM/autoconf.c	/^tryattach_ltrace_to
 tryattach_random_to_lrandom	kern/compile/DUMBVM/autoconf.c	/^tryattach_random_to_lrandom(int devunit, struct lrandom_softc *bus, int busunit)$/;"	f	file:
 tryattach_rtclock_to_ltimer	kern/compile/DUMBVM/autoconf.c	/^tryattach_rtclock_to_ltimer(int devunit, struct ltimer_softc *bus, int busunit)$/;"	f	file:
 trycalls	build/userland/testbin/randcall/calls.c	/^trycalls(int asst, int dofork, int count)$/;"	f
+trycalls	userland/build/testbin/randcall/calls.c	/^trycalls(int asst, int dofork, int count)$/;"	f
+trycalls	userland/testbin/randcall/build/calls.c	/^trycalls(int asst, int dofork, int count)$/;"	f
 tryfunc	build/userland/testbin/randcall/calls.c	/^typedef void (*tryfunc)(int dofork);$/;"	t	file:
+tryfunc	userland/build/testbin/randcall/calls.c	/^typedef void (*tryfunc)(int dofork);$/;"	t	file:
+tryfunc	userland/testbin/randcall/build/calls.c	/^typedef void (*tryfunc)(int dofork);$/;"	t	file:
 trymany	userland/testbin/bigexec/bigexec.c	/^trymany(int num, const char *word)$/;"	f	file:
 ts_placeholder	kern/arch/mips/include/vm.h	/^	int ts_placeholder;$/;"	m	struct:tlbshootdown
 ts_placeholder	kern/compile/DUMBVM/includelinks/machine/vm.h	/^	int ts_placeholder;$/;"	m	struct:tlbshootdown
@@ -6773,6 +6913,9 @@ wchan_isempty	kern/thread/thread.c	/^wchan_isempty(struct wchan *wc, struct spin
 wchan_sleep	kern/thread/thread.c	/^wchan_sleep(struct wchan *wc, struct spinlock *lk)$/;"	f
 wchan_wakeall	kern/thread/thread.c	/^wchan_wakeall(struct wchan *wc, struct spinlock *lk)$/;"	f
 wchan_wakeone	kern/thread/thread.c	/^wchan_wakeone(struct wchan *wc, struct spinlock *lk)$/;"	f
+wcount	kern/include/synch.h	/^	int wcount;$/;"	m	struct:rwlock
+whale_roles	kern/test/synchprobs.c	/^static volatile int whale_roles[3 * NMATING];$/;"	v	file:
+whale_threads	kern/test/synchprobs.c	/^static volatile void* whale_threads[3 * NMATING];$/;"	v	file:
 whalemating	kern/test/synchprobs.c	/^whalemating(int nargs, char **args) {$/;"	f
 whalemating_cleanup	kern/synchprobs/whalemating.c	/^whalemating_cleanup() {$/;"	f
 whalemating_init	kern/synchprobs/whalemating.c	/^void whalemating_init() {$/;"	f
@@ -6847,6 +6990,7 @@ word8	userland/testbin/bigexec/bigexec.c	/^static const char word8[] = "Dalemark
 workload	userland/testbin/frack/main.c	/^struct workload {$/;"	s	file:
 workloads	userland/testbin/frack/main.c	/^static const struct workload workloads[] = {$/;"	v	typeref:struct:workload	file:
 workspace	userland/testbin/psort/psort.c	/^static int workspace[WORKNUM];$/;"	v	file:
+wreq	kern/include/synch.h	/^	int wreq;$/;"	m	struct:rwlock
 write	userland/testbin/badcall/common_buf.c	/^T(write);$/;"	v
 write_badbuf	userland/testbin/badcall/common_buf.c	/^write_badbuf(void *ptr)$/;"	f	file:
 write_badfd	userland/testbin/badcall/common_fds.c	/^write_badfd(int fd)$/;"	f	file:
