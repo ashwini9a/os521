@@ -371,7 +371,6 @@ void rwlock_acquire_read(struct rwlock *rwlock)
 {
 		
 	KASSERT(curthread->t_in_interrupt == false);
-
 	/* Use the lock spinlock to protect the wchan as well. */
 	spinlock_acquire(&rwlock->rw_spinlock);
 	//sleep if a writer has the lock
@@ -379,6 +378,7 @@ void rwlock_acquire_read(struct rwlock *rwlock)
 
 		wchan_sleep(rwlock->rw_wchan, &rwlock->rw_spinlock);
 	}
+	KASSERT(rwlock->wcount == 0);
 	rwlock->rcount++;
 	//rwlock->rw_thread = curthread;
 	//free the spinlock
@@ -393,9 +393,7 @@ void rwlock_release_read(struct rwlock *rwlock)
 	KASSERT(rwlock != NULL);
 //	KASSERT(lock_do_i_hold(lock));
 	spinlock_acquire(&rwlock->rw_spinlock);
-
-//	lock->acquired = false;
-//	lock->lock_thread = NULL;
+	KASSERT(rwlock->rcount>0);
 	rwlock->rcount--;
 	if (rwlock->rcount == 0)	
 		wchan_wakeall(rwlock->rw_wchan, &rwlock->rw_spinlock);
@@ -412,6 +410,7 @@ void rwlock_acquire_write(struct rwlock *rwlock)
 	{
 		wchan_sleep(rwlock->rw_wchan,&rwlock->rw_spinlock );
 	}
+	KASSERT(rwlock->rcount == 0 && rwlock->wcount == 0);
 	rwlock->wcount++;	
 	rwlock->wreq--;
 	spinlock_release(&rwlock->rw_spinlock);
@@ -421,6 +420,7 @@ void rwlock_release_write(struct rwlock *rwlock)
 {
 	KASSERT(rwlock!=NULL);
 	spinlock_acquire(&rwlock->rw_spinlock);
+	KASSERT(rwlock->wcount > 0);
 	rwlock->wcount--;
 	wchan_wakeall(rwlock->rw_wchan,&rwlock->rw_spinlock);
 	spinlock_release(&rwlock->rw_spinlock);

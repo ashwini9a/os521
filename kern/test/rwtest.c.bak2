@@ -1,0 +1,71 @@
+/*
+ * All the contents of this file are overwritten during automated
+ * testing. Please consider this before changing anything in this file.
+ */
+
+#include <types.h>
+#include <lib.h>
+#include <clock.h>
+#include <thread.h>
+#include <synch.h>
+#include <test.h>
+#include <kern/secret.h>
+#include <spinlock.h>
+
+#define NTHREADS 32
+
+static bool status = FAIL;
+struct rwlock * rwlock;
+int readcount;
+int writecount;
+struct semaphore *donesem;
+struct lock *lock;
+
+static void init() {
+	rwlock = rwlock_create("rwlock");
+}
+
+int rwtest(int nargs, char **args) {
+	(void)nargs;
+	(void)args;
+	status = SUCCESS;
+	init();
+	rwlock_acquire_read(rwlock);
+	kprintf("readlock acquired \n");
+	rwlock_release_read(rwlock);
+	kprintf("readlock released \n");
+
+	rwlock_acquire_write(rwlock);
+	kprintf("writelock acquired \n");
+	rwlock_release_write(rwlock);
+	kprintf("writelock released \n");
+
+	rwlock_acquire_read(rwlock);
+	kprintf("readlock acquired \n");
+	rwlock_release_read(rwlock);
+	kprintf("readlock released \n");
+
+
+	rwlock_acquire_write(rwlock);
+	kprintf("writelock acquired \n");
+//	rwlock_release_read(rwlock);
+//	kprintf("readlock released \n");
+//	success(status, SECRET, "rwt1");
+
+	rwlock_acquire_write(rwlock);
+	kprintf("readlock acquired \n");
+//	rwlock_release_read(rwlock);
+//	kprintf("readlock released \n");
+//		
+
+	rwlock_acquire_read(rwlock);
+	kprintf("readlock acquired \n");
+	rwlock_release_read(rwlock);
+	kprintf("readlock released \n");
+
+//	rwlock_acquire_read(rwlock);
+//	kprintf("readlock acquired \n");
+	rwlock_release_write(rwlock);
+	kprintf("writelock released \n");
+	return 0;
+}
