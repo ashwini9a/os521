@@ -12,6 +12,7 @@
 #include <kern/secret.h>
 #include <spinlock.h>
 
+
 #define NTHREADS 32
 
 static bool status = FAIL;
@@ -57,10 +58,10 @@ static void rwtestthread(void *junk, unsigned long num) {
 		writecount--;
 		random_yielder(4);
 		writecount++;
-		rwlock_release_write(rwlock);
 		writecount--;
-//		lock_release(lock);
+		rwlock_release_write(rwlock);
 		kprintf("Write lock released... Writers:%d  Readers:%d \n",writecount, readcount);
+//		lock_release(lock);
 
 	}
 	else {
@@ -71,13 +72,18 @@ static void rwtestthread(void *junk, unsigned long num) {
 		readcount--;
 		random_yielder(4);
 		readcount++;
-		rwlock_release_read(rwlock);
 		readcount--;
+		rwlock_release_read(rwlock);
 		kprintf("read lock released... Writers:%d  Readers:%d \n",writecount, readcount);
 //		lock_release(lock);
 	}
 	V(donesem);
 }
+
+/*
+ * Use these stubs to test your reader-writer locks.
+ */
+
 
 int rwtest(int nargs, char **args) {
 	(void)nargs;
@@ -100,6 +106,46 @@ int rwtest(int nargs, char **args) {
 	cleanup();
 	kprintf_n("rwt1 unimplemented\n");
 	success(status, SECRET, "rwt1");
+
+	return 0;
+}
+
+int rwtest2(int nargs, char **args) {
+	(void)nargs;
+	(void)args;
+
+	kprintf_n("rwt2 unimplemented\n");
+	success(FAIL, SECRET, "rwt2");
+
+	return 0;
+}
+
+int rwtest3(int nargs, char **args) {
+	(void)nargs;
+	(void)args;
+
+	kprintf_n("rwt3 unimplemented\n");
+	success(FAIL, SECRET, "rwt3");
+
+	return 0;
+}
+
+int rwtest4(int nargs, char **args) {
+	(void)nargs;
+	(void)args;
+
+	kprintf_n("rwt4 unimplemented\n");
+	success(FAIL, SECRET, "rwt4");
+
+	return 0;
+}
+
+int rwtest5(int nargs, char **args) {
+	(void)nargs;
+	(void)args;
+
+	kprintf_n("rwt5 unimplemented\n");
+	success(FAIL, SECRET, "rwt5");
 
 	return 0;
 }

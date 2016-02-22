@@ -166,6 +166,7 @@ struct rwlock {
 	int wcount;
 //	struct thread *rw_thread;
 	struct wchan *rw_wchan;
+	struct wchan *write_wchan;
 	struct spinlock rw_spinlock;
 	int wreq;
 };

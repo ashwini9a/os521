@@ -336,9 +336,15 @@ struct rwlock * rwlock_create(const char *name)
 
 	rwlock->rw_wchan = wchan_create(rwlock->rwlock_name);
 	if (rwlock->rw_wchan == NULL) {
-	kfree(rwlock->rwlock_name);  
+		kfree(rwlock->rwlock_name);  
 		kfree(rwlock);
 		return NULL;           
+	}
+
+	rwlock->write_wchan = wchan_create("write_wchan");
+	if (rwlock->write_wchan == NULL) {
+		kfree(rwlock);
+		return NULL;
 	}
 	
 	//rcount signifies the number of readers and can be greater than 1
@@ -361,6 +367,7 @@ void rwlock_destroy(struct rwlock * rwlock)
 
 	spinlock_cleanup(&rwlock->rw_spinlock);
 	wchan_destroy(rwlock->rw_wchan);
+	wchan_destroy(rwlock->write_wchan);
 	kfree(rwlock->rwlock_name);
 //	kfree(rwlock->rcount);
 //	kfree(rwlock->wcount);
@@ -405,6 +412,9 @@ void rwlock_acquire_write(struct rwlock *rwlock)
 {
 	KASSERT(curthread->t_in_interrupt == false);
 	spinlock_acquire(&rwlock->rw_spinlock);
+//	while(rwlock->wreq >0) {
+//		wchan_sleep(rwlock->write_wchan, &rwlock->rw_spinlock);
+//	}
 	rwlock->wreq++;
 	while(rwlock->wcount>0 || rwlock->rcount>0)
 	{
@@ -413,6 +423,8 @@ void rwlock_acquire_write(struct rwlock *rwlock)
 	KASSERT(rwlock->rcount == 0 && rwlock->wcount == 0);
 	rwlock->wcount++;	
 	rwlock->wreq--;
+	//wchan_wakeall(rwlock->rw_wchan, &rwlock->rw_spinlock);
+//	wchan_wakeone(rwlock->write_wchan,&rwlock-> rw_spinlock);
 	spinlock_release(&rwlock->rw_spinlock);
 }
 
