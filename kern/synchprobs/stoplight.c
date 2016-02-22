@@ -125,7 +125,7 @@ turnright(uint32_t direction, uint32_t index)
 {
 //	(void)direction;
 //	(void)index;
-	kprintf("\n Car: %d goin to: turn right in quad: %d ",index,direction);	
+	//kprintf("\n Car: %d goin to: turn right in quad: %d ",index,direction);	
 	switch(direction)
 	{
 		case 0:
@@ -182,7 +182,7 @@ gostraight(uint32_t direction, uint32_t index)
 //	(void)direction;
 //	(void)index;
 //	kprintf("\n Car: %d goin to:%d ",index,direction);
-	kprintf("\n Car: %d goin to: go straight in quad: %d ",index,direction);
+//	kprintf("\n Car: %d goin to: go straight in quad: %d ",index,direction);
         switch(direction)
         {
                 case 0:
@@ -250,7 +250,7 @@ turnleft(uint32_t direction, uint32_t index)
 //	(void)direction;
 //	(void)index;
 //	kprintf("\n Car: %d goin to:%d ",index,direction);
-	kprintf("\n Car: %d goin to: turn left in quad: %d ",index,direction);
+//	kprintf("\n Car: %d goin to: turn left in quad: %d ",index,direction);
 	switch(direction)
         {
                 case 0:
