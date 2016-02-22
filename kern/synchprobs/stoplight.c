@@ -187,8 +187,8 @@ gostraight(uint32_t direction, uint32_t index)
         {
                 case 0:
 			lock_acquire(acqlock);
-                        lock_acquire(quad3);
-			lock_acquire(quad0);
+                        lock_acquire(quad0);
+			lock_acquire(quad3);
 			lock_release(acqlock);
                         inQuadrant(0,index);  
 			inQuadrant(3,index);
@@ -201,8 +201,8 @@ gostraight(uint32_t direction, uint32_t index)
 
                 case 1:
 			lock_acquire(acqlock);
-              		lock_acquire(quad0);
-                        lock_acquire(quad1);
+              		lock_acquire(quad1);
+                        lock_acquire(quad0);
 			lock_release(acqlock);
                         inQuadrant(1,index);
                         inQuadrant(0,index);
@@ -213,8 +213,8 @@ gostraight(uint32_t direction, uint32_t index)
 
                 case 2:
 			lock_acquire(acqlock);
-                        lock_acquire(quad1);
                         lock_acquire(quad2);
+                        lock_acquire(quad1);
 			lock_release(acqlock);
                         inQuadrant(2,index);
                         inQuadrant(1,index);
@@ -225,8 +225,8 @@ gostraight(uint32_t direction, uint32_t index)
 
                 case 3:
 			lock_acquire(acqlock);
-                        lock_acquire(quad2);
                         lock_acquire(quad3);
+                        lock_acquire(quad2);
 			lock_release(acqlock);
                         inQuadrant(3,index);
                         inQuadrant(2,index);
@@ -255,9 +255,9 @@ turnleft(uint32_t direction, uint32_t index)
         {
                 case 0:
 			lock_acquire(acqlock);
-                        lock_acquire(quad2);
+                        lock_acquire(quad0);
                         lock_acquire(quad3);
-			lock_acquire(quad0);
+			lock_acquire(quad2);
 			lock_release(acqlock);
                         inQuadrant(0,index);
                         inQuadrant(3,index);
@@ -270,9 +270,9 @@ turnleft(uint32_t direction, uint32_t index)
 
                 case 1:
 			lock_acquire(acqlock);
-                        lock_acquire(quad3);
-                        lock_acquire(quad0);
                         lock_acquire(quad1);
+                        lock_acquire(quad0);
+                        lock_acquire(quad3);
 			lock_release(acqlock);
                         inQuadrant(1,index);
                         inQuadrant(0,index);
@@ -284,9 +284,9 @@ turnleft(uint32_t direction, uint32_t index)
                         break;
 		case 2:
 			lock_acquire(acqlock);
-                        lock_acquire(quad0);
-                        lock_acquire(quad1);
                         lock_acquire(quad2);
+                        lock_acquire(quad1);
+                        lock_acquire(quad0);
 			lock_release(acqlock);
                         inQuadrant(2,index);
                         inQuadrant(1,index);
@@ -298,9 +298,9 @@ turnleft(uint32_t direction, uint32_t index)
                         break;
 		case 3:
 			lock_acquire(acqlock);
- 			lock_acquire(quad1);
+ 			lock_acquire(quad3);
                         lock_acquire(quad2);
-                        lock_acquire(quad3);
+                        lock_acquire(quad1);
 			lock_release(acqlock);
                         inQuadrant(3,index);
                         inQuadrant(2,index);
