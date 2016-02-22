@@ -352,7 +352,6 @@ struct rwlock * rwlock_create(const char *name)
 	rwlock->rcount = 0;
 	rwlock->wcount = 0;
 	rwlock->wreq = 0;
-	rwlock->rreq = 0;
 	spinlock_init(&rwlock->rw_spinlock);
 	return rwlock;
 }
@@ -382,21 +381,12 @@ void rwlock_acquire_read(struct rwlock *rwlock)
 	/* Use the lock spinlock to protect the wchan as well. */
 	spinlock_acquire(&rwlock->rw_spinlock);
 	//sleep if a writer has the lock
-	rwlock->rreq++;
-	if (rwlock->rreq <3) {
-		while (rwlock->wcount > 0 || rwlock->wreq > 0) {
-	
-			wchan_sleep(rwlock->rw_wchan, &rwlock->rw_spinlock);
-		}
-	}
-	else {
-		while(rwlock->wcount > 0) {
-			wchan_sleep(rwlock->rw_wchan, &rwlock->rw_spinlock);
-		}
+	while (rwlock->wcount > 0 || rwlock->wreq > 0) {
+
+		wchan_sleep(rwlock->rw_wchan, &rwlock->rw_spinlock);
 	}
 	KASSERT(rwlock->wcount == 0);
 	rwlock->rcount++;
-	rwlock->rreq--;
 	//rwlock->rw_thread = curthread;
 	//free the spinlock
 	spinlock_release(&rwlock->rw_spinlock);

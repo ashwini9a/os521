@@ -169,6 +169,7 @@ struct rwlock {
 	struct wchan *write_wchan;
 	struct spinlock rw_spinlock;
 	int wreq;
+	int rreq;
 };
 
 struct rwlock * rwlock_create(const char *);
