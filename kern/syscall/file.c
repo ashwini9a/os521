@@ -1,22 +1,10 @@
 #include <file.h>
-#include <syscall.h>
-#include <limits.h>
-#include <kern/filecalls.h>
-#include <lib.h>
-#include <vnode.h>
-#include <stdarg.h>
-#include <types.h>
-#include <kern/errno.h>
-#include <kern/fcntl.h>
-#include <limits.h>
-#include <synch.h>
-#include <current.h>
-#include <copyinout.h>
 
 int sys_open(const_userptr_t file, int flags, mode_t mode, int *returnvalue) {
 	int index;
 	char *filename = (char*)kmalloc(PATH_MAX + 1);
 	struct vnode *vnode;
+	int offset =0;
 
 	if (filename == NULL) {
 		kprintf("Kmalloc failed to  give a filename");
@@ -34,8 +22,8 @@ int sys_open(const_userptr_t file, int flags, mode_t mode, int *returnvalue) {
 		return EMFILE;
 	}
 
-	curproc->filedescriptor[index] =(struct filehandle*)kamlloc(sizeof(struct filehandle*));
-	if (filehandle == NULL) {
+	curproc->filedescriptor[index] =(struct filehandle*)kmalloc(sizeof(struct filehandle));
+	if (curproc->filedescriptor[index] == NULL) {
 		kprintf("could not allocate memory to filehandle");
 		return ENFILE;
 	}
@@ -51,15 +39,15 @@ int sys_open(const_userptr_t file, int flags, mode_t mode, int *returnvalue) {
 	curproc->filedescriptor[index]->filelock = lock_create(filename);
 	curproc->filedescriptor[index]->vnode = vnode;
 
-	filedescriptor[index] = filehandle;
+//	filedescriptor[index] = filehandle;
 	kfree(filename);
-	8returnvalue = index;
+	*returnvalue = index;
 	return 0;
 }
 
 int filedescriptor_init(void) {
 	
-	char *filename = NULL;
+	char *filename;
 	filename = kstrdup("con:");
 	struct vnode *vn1;
 	struct vnode *vn2;
@@ -81,7 +69,7 @@ int filedescriptor_init(void) {
 	curproc->filedescriptor[0]->flags = O_RDONLY;
 	curproc->filedescriptor[0]->offset = 0;
 	curproc->filedescriptor[0]->refcount = 1;
-	curproc->filedescriptor[0]->lock = lock_create("stdin_lock");
+	curproc->filedescriptor[0]->filelock = lock_create("stdin_lock");
 	curproc->filedescriptor[0]->vnode = vn1; 
 
 	curproc->filedescriptor[1] = (struct filehandle*) kmalloc(sizeof(struct filehandle*));
@@ -99,7 +87,7 @@ int filedescriptor_init(void) {
 	curproc->filedescriptor[1]->flags = O_WRONLY;
 	curproc->filedescriptor[1]->offset = 0;
 	curproc->filedescriptor[1]->refcount = 1;
-	curproc->filedescriptor[1]->lock = lock_create("stdout_lock");
+	curproc->filedescriptor[1]->filelock = lock_create("stdout_lock");
 	curproc->filedescriptor[1]->vnode = vn2;
 
 
@@ -118,6 +106,8 @@ int filedescriptor_init(void) {
 	curproc->filedescriptor[2]->flags = O_WRONLY;
 	curproc->filedescriptor[2]->offset = 0;
 	curproc->filedescriptor[2]->refcount = 1;
-	curproc->filedescriptor[2]->lock = lock_create("stderr_lock");
+	curproc->filedescriptor[2]->filelock = lock_create("stderr_lock");
 	curproc->filedescriptor[2]->vnode = vn2;
+
+	return 0;
 }	
