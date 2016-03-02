@@ -4475,7 +4475,7 @@ buflen	common/libc/printf/snprintf.c	/^	size_t buflen;$/;"	m	struct:__anon5	file
 bufpos	common/libc/printf/snprintf.c	/^	size_t bufpos;$/;"	m	struct:__anon5	file:
 buftest	userland/testbin/badcall/common_buf.c	/^struct buftest {$/;"	s	file:
 buildconfig	kern/compile/DUMBVM/vers.c	/^const char buildconfig[] = "DUMBVM";$/;"	v
-buildversion	kern/compile/DUMBVM/vers.c	/^const int buildversion = 76;$/;"	v
+buildversion	kern/compile/DUMBVM/vers.c	/^const int buildversion = 87;$/;"	v
 builtins	userland/bin/sh/sh.c	/^} builtins[] = {$/;"	v	typeref:struct:__anon15	file:
 builtins	userland/testbin/shll/shll.c	/^} builtins[] = {$/;"	v	typeref:struct:__anon37	file:
 bus_map_area	kern/arch/sys161/include/bus.h	49;"	d
@@ -5152,6 +5152,11 @@ file	userland/testbin/frack/ops.c	/^struct file {$/;"	s	file:
 file	userland/testbin/frack/pool.h	/^	const char *file;$/;"	m	struct:poolctl
 file_randomwrite	userland/testbin/frack/workloads.c	/^file_randomwrite(struct file *f, enum sizes sz,$/;"	f	file:
 fileblocks	userland/sbin/sfsck/pass1.c	/^	uint32_t fileblocks;	\/* file size in blocks (constant) *\/$/;"	m	struct:ibstate	file:
+filedescriptor	kern/include/proc.h	/^	struct filehandle *filedescriptor[OPEN_MAX];$/;"	m	struct:proc	typeref:struct:proc::filehandle
+filedescriptor_init	kern/syscall/file.c	/^int filedescriptor_init() {$/;"	f
+filehandle	kern/include/file.h	/^struct filehandle {$/;"	s
+filelock	kern/include/file.h	/^	struct lock  *filelock;$/;"	m	struct:filehandle	typeref:struct:filehandle::lock
+filename	kern/include/file.h	/^	char *filename;$/;"	m	struct:filehandle
 fill	userland/testbin/bigexec/bigexec.c	/^fill(char *buf, size_t buflen)$/;"	f	file:
 fill_deadbeef	kern/vm/kmalloc.c	/^fill_deadbeef(void *vptr, size_t len)$/;"	f	file:
 fillchar	common/libc/printf/__printf.c	/^	int fillchar;$/;"	m	struct:__anon6	file:
@@ -5172,6 +5177,7 @@ firstfree	kern/arch/mips/vm/ram.c	/^vaddr_t firstfree;   \/* first free virtual 
 firstpaddr	kern/arch/mips/vm/ram.c	/^static paddr_t firstpaddr;  \/* address of first free physical page *\/$/;"	v	file:
 firstpage	userland/testbin/bloat/bloat.c	/^static void *firstpage;$/;"	v	file:
 firstread	userland/testbin/dirseek/dirseek.c	/^firstread(void)$/;"	f	file:
+flags	kern/include/file.h	/^	int flags;$/;"	m	struct:filehandle
 flock	.root/hostinclude/kern/fcntl.h	/^struct flock {$/;"	s
 flock	.root/include/kern/fcntl.h	/^struct flock {$/;"	s
 flock	build/install/hostinclude/kern/fcntl.h	/^struct flock {$/;"	s
@@ -6096,6 +6102,7 @@ off_t	.root/include/sys/types.h	/^typedef __off_t off_t;$/;"	t
 off_t	build/install/include/sys/types.h	/^typedef __off_t off_t;$/;"	t
 off_t	kern/include/types.h	/^typedef __off_t off_t;$/;"	t
 off_t	userland/include/sys/types.h	/^typedef __off_t off_t;$/;"	t
+offset	kern/include/file.h	/^	int offset;$/;"	m	struct:filehandle
 ok	kern/test/hmacunit.c	/^ok(void)$/;"	f	file:
 ok	kern/test/semunit.c	/^ok(void)$/;"	f	file:
 oldfilesize	userland/testbin/frack/check.c	/^			off_t oldfilesize;$/;"	m	struct:fschange::__anon20::__anon23	file:
@@ -6123,6 +6130,7 @@ open_badpath	userland/testbin/badcall/common_path.c	/^open_badpath(const char *p
 open_empty	userland/testbin/badcall/bad_open.c	/^open_empty(void)$/;"	f	file:
 open_testfile	userland/testbin/badcall/driver.c	/^open_testfile(const char *string)$/;"	f
 opendisk	userland/sbin/mksfs/disk.c	/^opendisk(const char *path)$/;"	f
+openfile	kern/syscall/openfile.c	/^int openfile (userptr_t usr_filename_ptr, userptr_t usr_mode_ptr,$/;"	f
 openfiles	userland/bin/tac/tac.c	/^openfiles(void)$/;"	f	file:
 openfiles	userland/testbin/frack/workloads.c	/^openfiles(unsigned testcode,$/;"	f	file:
 openit	userland/testbin/dirseek/dirseek.c	/^openit(void)$/;"	f	file:
@@ -6354,6 +6362,7 @@ recursedir	userland/bin/ls/ls.c	/^recursedir(const char *path)$/;"	f	file:
 recursedir	userland/sbin/dumpsfs/dumpsfs.c	/^recursedir(uint32_t ino, const struct sfs_dinode *sfi)$/;"	f	file:
 recursedirblock	userland/sbin/dumpsfs/dumpsfs.c	/^recursedirblock(uint32_t fileblock, uint32_t diskblock)$/;"	f	file:
 recursive_cleanup	userland/testbin/dirconc/dirconc.c	/^recursive_cleanup(const char *sofar, int depth)$/;"	f	file:
+refcount	kern/include/file.h	/^	int refcount;$/;"	m	struct:filehandle
 refcount	userland/testbin/frack/check.c	/^	unsigned refcount;$/;"	m	struct:fsobject	file:
 refs	kern/vm/kmalloc.c	/^	struct pageref refs[NPAGEREFS_PER_PAGE];$/;"	m	struct:pagerefpage	typeref:struct:pagerefpage::pageref	file:
 remember_bg	userland/bin/sh/sh.c	/^remember_bg(pid_t pid)$/;"	f	file:
@@ -6432,6 +6441,7 @@ rmrandtree_sub	userland/testbin/frack/workloads.c	/^rmrandtree_sub(unsigned dept
 rootdirnum	userland/testbin/frack/check.c	/^			unsigned rootdirnum;$/;"	m	struct:fschange::__anon20::__anon21	file:
 rotate	kern/test/fstest.c	/^rotate(char *str, int amt)$/;"	f	file:
 rptr	userland/lib/libc/stdlib/random.c	/^static long *rptr = &randtbl[1];$/;"	v	file:
+rreq	kern/include/synch.h	/^	int rreq;$/;"	m	struct:rwlock
 rs_dev	kern/dev/generic/random.h	/^	struct device rs_dev;$/;"	m	struct:random_softc	typeref:struct:random_softc::device
 rs_devdata	kern/dev/generic/random.h	/^	void *rs_devdata;$/;"	m	struct:random_softc
 rs_randmax	kern/dev/generic/random.h	/^	uint32_t (*rs_randmax)(void *devdata);$/;"	m	struct:random_softc
@@ -7353,6 +7363,7 @@ sys_nerr	.root/include/kern/errmsg.h	/^const int sys_nerr = sizeof(sys_errlist)\
 sys_nerr	build/install/hostinclude/kern/errmsg.h	/^const int sys_nerr = sizeof(sys_errlist)\/sizeof(const char *);$/;"	v
 sys_nerr	build/install/include/kern/errmsg.h	/^const int sys_nerr = sizeof(sys_errlist)\/sizeof(const char *);$/;"	v
 sys_nerr	kern/include/kern/errmsg.h	/^const int sys_nerr = sizeof(sys_errlist)\/sizeof(const char *);$/;"	v
+sys_open	kern/syscall/file.c	/^int sys_open(const_userptr_t file, int flags, mode_t mode, int *returnvalue) {$/;"	f
 sys_reboot	kern/main/main.c	/^sys_reboot(int code)$/;"	f
 syscall	kern/arch/mips/syscall/syscall.c	/^syscall(struct trapframe *tf)$/;"	f
 system	userland/lib/libc/stdlib/system.c	/^system(const char *cmd)$/;"	f
@@ -8165,6 +8176,7 @@ vn_data	kern/include/vnode.h	/^	void *vn_data;                  \/* Filesystem-s
 vn_fs	kern/include/vnode.h	/^	struct fs *vn_fs;               \/* Filesystem vnode belongs to *\/$/;"	m	struct:vnode	typeref:struct:vnode::fs
 vn_ops	kern/include/vnode.h	/^	const struct vnode_ops *vn_ops; \/* Functions on this vnode *\/$/;"	m	struct:vnode	typeref:struct:vnode::vnode_ops
 vn_refcount	kern/include/vnode.h	/^	int vn_refcount;                \/* Reference count *\/$/;"	m	struct:vnode
+vnode	kern/include/file.h	/^	struct vnode *vnode;$/;"	m	struct:filehandle	typeref:struct:filehandle::vnode
 vnode	kern/include/vnode.h	/^struct vnode {$/;"	s
 vnode_check	kern/vfs/vnode.c	/^vnode_check(struct vnode *v, const char *opstr)$/;"	f
 vnode_cleanup	kern/vfs/vnode.c	/^vnode_cleanup(struct vnode *vn)$/;"	f
@@ -8356,6 +8368,7 @@ write_to_code	userland/testbin/crash/crash.c	/^write_to_code(void)$/;"	f	file:
 write_to_inval	userland/testbin/crash/crash.c	/^write_to_inval(void)$/;"	f	file:
 write_to_kernel	userland/testbin/crash/crash.c	/^write_to_kernel(void)$/;"	f	file:
 write_to_null	userland/testbin/crash/crash.c	/^write_to_null(void)$/;"	f	file:
+write_wchan	kern/include/synch.h	/^	struct wchan *write_wchan;$/;"	m	struct:rwlock	typeref:struct:rwlock::wchan
 writebuf	userland/testbin/fileonlytest/fileonlytest.c	/^static int writebuf[BUFFER_SIZE];$/;"	v	file:
 writecount	kern/test/rwtest.c	/^int writecount;$/;"	v
 writeemptyfile	userland/testbin/frack/workloads.c	/^writeemptyfile(unsigned filenum)$/;"	f	file:

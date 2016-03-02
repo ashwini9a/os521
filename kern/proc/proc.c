@@ -82,6 +82,12 @@ proc_create(const char *name)
 	/* VFS fields */
 	proc->p_cwd = NULL;
 
+	/* fields I added */
+	int index = 0;
+	while(index<=OPEN_MAX) {
+		proc->filedescriptor[index] = NULL;
+		index++;
+	}
 	return proc;
 }
 
@@ -203,6 +209,13 @@ proc_create_runprogram(const char *name)
 	/* VM fields */
 
 	newproc->p_addrspace = NULL;
+	
+	/* Since this is the first user process, initialize con; */
+
+	int res = filedescriptor_init();
+	if (res) {
+		kprintf("could not initialize console for runprog\n");
+	}
 
 	/* VFS fields */
 
@@ -217,6 +230,7 @@ proc_create_runprogram(const char *name)
 		newproc->p_cwd = curproc->p_cwd;
 	}
 	spinlock_release(&curproc->p_lock);
+	
 
 	return newproc;
 }
