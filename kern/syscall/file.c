@@ -120,4 +120,82 @@ int filedescriptor_init(void) {
 	curproc->filedescriptor[2]->refcount = 1;
 	curproc->filedescriptor[2]->lock = lock_create("stderr_lock");
 	curproc->filedescriptor[2]->vnode = vn2;
-}	
+}
+
+bool isFdReadValid(int fd)
+{
+	if(curproc->filedescriptor[fd]==NULL)
+		return false;
+	if(curproc->filedescriptor[fd]->flags != O_RDONLY ||  curproc->filedescriptor[fd]->flags != O_RDWR)
+		return false;
+	return true;
+}
+
+bool isFdWriteValid(int fd)
+{
+        if(curproc->filedescriptor[fd]==NULL)
+                return false;
+        if(curproc->filedescriptor[fd]->flags != O_WRONLY ||  curproc->filedescriptor[fd]->flags != O_RDWR)
+                return false;
+        return true;
+
+}
+
+filehandle* getfileHandle(int fd)
+{
+	return curproc->filedescriptor[fd];
+}
+ssize_t sys_read(int fd, const void *buf, size_t buflen)
+{
+        if(!(isFdReadValid(fd)))
+                return EBADF;
+        if(buf==NULL)
+                return EFAULT;
+        struct filehandle *fh;
+        struct uio *uiotemp;
+	int result;
+        uiotemp = (struct uio*)kmalloc(sizeof(struct uio*));
+
+        fh=(struct filehandle*)kmalloc(sizeof(struct filehandle*));
+        fh = getfileHandle(int fd);
+	uiotemp->uio_iov = ;
+	uiotemp->uio_iovcnt = ;
+	uiotemp->uio_offset = ;
+	uiotemp->uio_resid = ;
+	uiotemp->uio_segflg = UIO_USERSPACE;
+        uiotemp->uio_rw = UIO_READ ;
+	uiotemp->uio_space = ;
+
+        result = VOP_READ(fh->vnode,uiotemp);
+	if(result)
+		return EIO;
+        return;
+}
+
+
+ssize_t sys_write(int fd, const void *buf, size_t nbytes)
+{
+        if(!(isFdWriteValid(fd)))
+                return EBADF;
+        if(buf==NULL)
+                return EFAULT;
+        struct filehandle *fh;
+        struct uio *uiotemp;
+	int result;
+        uiotemp = (struct uio*)kmalloc(sizeof(struct uio*));
+
+        fh=(struct filehandle*)kmalloc(sizeof(struct filehandle*));
+        fh = getfileHandle(int fd);
+        uiotemp->uio_iov = ;
+        uiotemp->uio_iovcnt = ;
+        uiotemp->uio_offset = ;
+        uiotemp->uio_resid = ;
+        uiotemp->uio_segflg = UIO_USERSPACE;
+        uiotemp->uio_rw = UIO_READ ;
+        uiotemp->uio_space = ;
+        result = VOP_WRITE(fh->vnode,uiotemp);
+	if(result)
+		return EIO;
+        return;
+}
+	
