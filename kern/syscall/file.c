@@ -139,7 +139,7 @@ bool isFdWriteValid(int fd)
 
 filehandle* getfileHandle(int fd)
 {
-	return curproc->filedescriptor[fd];
+	return &(curproc->filedescriptor[fd]);
 }
 ssize_t sys_read(int fd, const void *buf, size_t buflen)
 {
