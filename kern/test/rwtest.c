@@ -15,7 +15,8 @@
 
 #define NTHREADS 32
 
-static bool status = FAIL;
+//static bool status = FAIL;
+//static bool status = 0;
 struct rwlock * rwlock;
 int readcount;
 int writecount;
@@ -91,7 +92,7 @@ int rwtest(int nargs, char **args) {
 
 	int i,result;
 	init();
-	status = SUCCESS;
+	//status = SUCCESS;
 	for (i=0; i<NTHREADS; i++) {
 		result = thread_fork("rwtest", NULL, rwtestthread, NULL, i);
 		if (result) {
@@ -105,7 +106,7 @@ int rwtest(int nargs, char **args) {
 	
 	cleanup();
 	kprintf_n("rwt1 unimplemented\n");
-	success(status, SECRET, "rwt1");
+	success(TEST161_FAIL, SECRET, "rwt1");
 
 	return 0;
 }

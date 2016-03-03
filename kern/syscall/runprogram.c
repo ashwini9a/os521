@@ -59,6 +59,12 @@ runprogram(char *progname)
 	vaddr_t entrypoint, stackptr;
 	int result;
 
+	result = filedescriptor_init();
+	if (result) {
+		kprintf("initializaton of file table failed");
+		return result;
+	}
+
 	/* Open the file. */
 	result = vfs_open(progname, O_RDONLY, 0, &v);
 	if (result) {
