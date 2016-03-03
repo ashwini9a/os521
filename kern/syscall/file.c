@@ -2,16 +2,18 @@
 
 int sys_open(const_userptr_t file, int flags, mode_t mode, int *returnvalue) {
 	int index;
-	char *filename = (char*)kmalloc(PATH_MAX + 1);
+	char *filename = kmalloc(PATH_MAX+1);
 	struct vnode *vnode;
-	int offset =0;
+	off_t offset = 0;
+	size_t length;
 
 	if (filename == NULL) {
-		kprintf("Kmalloc failed to  give a filename");
+		kprintf("kmalloc failed to  assign space for filename in file.c\n");
 		return ENOSPC;
 	}
-	copyin(file, &filename, sizeof(file));
-
+	copyinstr(file, filename, PATH_MAX, &length);
+	filename = (char*)file;
+	kprintf("filename according to kernel is %s:\n",filename);
 	index = 3;
 	while(curproc->filedescriptor[index]!=NULL) {
 		index++;
@@ -19,17 +21,24 @@ int sys_open(const_userptr_t file, int flags, mode_t mode, int *returnvalue) {
 
 	if (index == OPEN_MAX) {
 		kprintf("Can't open more files. Close some");
+		filename = NULL;
+		kfree(filename);
 		return EMFILE;
 	}
 
 	curproc->filedescriptor[index] =(struct filehandle*)kmalloc(sizeof(struct filehandle));
 	if (curproc->filedescriptor[index] == NULL) {
 		kprintf("could not allocate memory to filehandle");
+		filename = NULL;
+		kfree(filename);
 		return ENFILE;
 	}
 	int result = vfs_open(filename, flags, mode, &vnode);
 	if (result) {
 		kprintf("file open failed");
+		filename = NULL;
+		kfree(filename);
+		kfree(curproc->filedescriptor[index]);
 		return result;
 	}
 	curproc->filedescriptor[index]->filename = filename;
@@ -40,6 +49,7 @@ int sys_open(const_userptr_t file, int flags, mode_t mode, int *returnvalue) {
 	curproc->filedescriptor[index]->vnode = vnode;
 
 //	filedescriptor[index] = filehandle;
+	filename = NULL;
 	kfree(filename);
 	*returnvalue = index;
 	return 0;
@@ -117,4 +127,58 @@ int filedescriptor_init(void) {
 	}
 
 	return 0;
+}
+
+
+int sys_lseek(int fd, off_t pos, int whence, int *returnvalue) {
+	off_t present_offset = 0;
+	off_t new_pos = 0;
+	struct stat temp;
+	int result;
+
+	if (fd == 0 || fd == 1 || fd == 2) {
+		kprintf("The user is mad.... Trying to seek in con :(\n");
+		return ESPIPE;
+	}
+	if (fd > OPEN_MAX || fd < 0) {
+		kprintf("Stupid malicious user...\n");
+		return EBADF;
+	}
+	if (curproc->filedescriptor[fd] == NULL) {
+		kprintf("Stupid malicious user...\n");
+		return EBADF;
+	}
+
+	if (VOP_ISSEEKABLE(curproc->filedescriptor[fd]->vnode)) {
+		present_offset = curproc->filedescriptor[fd]->offset;	
+		switch(whence) {
+	
+			case SEEK_SET :
+				new_pos = pos;
+				break;
+		
+			case SEEK_CUR :	
+				new_pos = present_offset + pos;
+				break;
+
+			case SEEK_END :
+				result = VOP_STAT(curproc->filedescriptor[fd]->vnode, &temp);
+				if (result) {
+					kprintf("the kernel screwed up... couldn't vop_stat");
+					return result;
+				}
+				present_offset = temp.st_size;
+				new_pos = present_offset + pos;
+				break;
+
+			default :
+				kprintf("whence is invalid");
+				return EINVAL;
+		}
+	
+		curproc->filedescriptor[fd]->offset = new_pos;
+		*returnvalue =(int) new_pos;
+		return 0;
+	}
+	return ESPIPE;
 }	
