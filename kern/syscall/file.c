@@ -128,12 +128,17 @@ int filedescriptor_init(void) {
 	return 0;
 }
 
+struct filehandle* getfileHandle(int fd)
+{
+	return curproc->filedescriptor[fd];
+}
 
 int sys_lseek(int fd, off_t pos, int whence, int *returnvalue) {
 	off_t present_offset = 0;
 	off_t new_pos = 0;
 	struct stat temp;
 	int result;
+//	struct filehandle *fh;
 
 	if (fd == 0 || fd == 1 || fd == 2) {
 		kprintf("The user is mad.... Trying to seek in con :(\n");
@@ -143,6 +148,9 @@ int sys_lseek(int fd, off_t pos, int whence, int *returnvalue) {
 		kprintf("Stupid malicious user...\n");
 		return EBADF;
 	}
+
+//	fh = getfileHandle(fd);
+
 	if (curproc->filedescriptor[fd] == NULL) {
 		kprintf("Stupid malicious user...\n");
 		return EBADF;
@@ -185,78 +193,128 @@ int sys_lseek(int fd, off_t pos, int whence, int *returnvalue) {
 
 bool isFdReadValid(int fd)
 {
-	if(curproc->filedescriptor[fd]==NULL)
+	if(curproc->filedescriptor[fd]==NULL) {
 		return false;
-	if(curproc->filedescriptor[fd]->flags != O_RDONLY ||  curproc->filedescriptor[fd]->flags != O_RDWR)
-		return false;
+	}
+//	if(curproc->filedescriptor[fd]->flags != O_RDONLY ||  curproc->filedescriptor[fd]->flags != O_RDWR)
+//		return false;
 	return true;
 }
 
 bool isFdWriteValid(int fd)
 {
-        if(curproc->filedescriptor[fd]==NULL)
+        if(curproc->filedescriptor[fd]==NULL) {
+		kprintf("haha someone tried to write to a null space");
                 return false;
-        if(curproc->filedescriptor[fd]->flags != O_WRONLY ||  curproc->filedescriptor[fd]->flags != O_RDWR)
-                return false;
+	}
+//        if(curproc->filedescriptor[fd]->flags != O_WRONLY ||  curproc->filedescriptor[fd]->flags != O_RDWR) {
+//                return false;
+//	}
         return true;
 
 }
 
-filehandle* getfileHandle(int fd)
-{
-	return curproc->filedescriptor[fd];
-}
 
-ssize_t sys_read(int fd, const void *buf, size_t buflen)
+int sys_read(int fd, void *buf, size_t buflen, int *returnvalue)
 {
-        if(!(isFdReadValid(fd)))
-                return EBADF;
-        if(buf==NULL)
-                return EFAULT;
-        struct filehandle *fh;
-        struct uio *uiotemp;
+        if(!(isFdReadValid(fd))) {
+                *returnvalue = EBADF;
+		return -1;
+	}
+        if(buf==NULL) {
+                *returnvalue = EFAULT;
+		return -1;
+	}
+//        struct filehandle *fh;
+        struct uio uiotemp;
+	struct iovec iov;
 	int result;
-        uiotemp = (struct uio*)kmalloc(sizeof(struct uio*));
 
-        fh=(struct filehandle*)kmalloc(sizeof(struct filehandle*));
-        fh = getfileHandle(int fd);
-	uiotemp->uio_iov = ;
-	uiotemp->uio_iovcnt = ;
-	uiotemp->uio_offset = ;
-	uiotemp->uio_resid = ;
-	uiotemp->uio_segflg = UIO_USERSPACE;
-        uiotemp->uio_rw = UIO_READ ;
-	uiotemp->uio_space = ;
+//        uiotemp = (struct uio*)kmalloc(sizeof(struct uio));	
+//        fh = (struct filehandle*)kmalloc(sizeof(struct filehandle));
+//	uio_kinit(&iov, &uiotemp, buf, buflen, fh->offset, );
+//
+//        fh = getfileHandle(fd);
+	lock_acquire(curproc->filedescriptor[fd]->filelock);
+	iov.iov_ubase =(userptr_t) buf;		/*convert buf to type userptr_t coz ubase expects it*/
+	uiotemp.uio_iov = &iov;		/*I/O to...*/
+	uiotemp.uio_iovcnt = 1;		/*Number of devices/buffers */
+	uiotemp.uio_offset = curproc->filedescriptor[fd]->offset;	/*Start reading from */
+	uiotemp.uio_resid = buflen;		/*Read upto */
+	uiotemp.uio_segflg = UIO_USERSPACE;	/*Read to userspace */
+        uiotemp.uio_rw = UIO_READ ;
+	uiotemp.uio_space = curproc->p_addrspace;
 
-        result = VOP_READ(fh->vnode,uiotemp);
-	if(result)
-		return EIO;
-        return;
+        result = VOP_READ(curproc->filedescriptor[fd]->vnode, &uiotemp);
+	if(result) {
+		kprintf("Some read error occoured \n");
+		*returnvalue = EIO;
+		lock_release(curproc->filedescriptor[fd]->filelock);
+		return -1;
+	}
+	curproc->filedescriptor[fd]->offset = uiotemp.uio_offset;
+	*returnvalue = buflen - uiotemp.uio_resid;
+	lock_release(curproc->filedescriptor[fd]->filelock);
+        return 0;
 }
 
 
-ssize_t sys_write(int fd, const void *buf, size_t nbytes)
-{
+int sys_write(int fd, const void *buf, size_t nbytes, int *returnvalue) {
         if(!(isFdWriteValid(fd)))
                 return EBADF;
         if(buf==NULL)
                 return EFAULT;
-        struct filehandle *fh;
-        struct uio *uiotemp;
+//        struct filehandle *fh;
+        struct uio uiotemp;
+	struct iovec iov;
 	int result;
-        uiotemp = (struct uio*)kmalloc(sizeof(struct uio*));
+	
+//        uiotemp = (struct uio*)kmalloc(sizeof(struct uio));
 
-        fh=(struct filehandle*)kmalloc(sizeof(struct filehandle*));
-        fh = getfileHandle(int fd);
-        uiotemp->uio_iov = ;
-        uiotemp->uio_iovcnt = ;
-        uiotemp->uio_offset = ;
-        uiotemp->uio_resid = ;
-        uiotemp->uio_segflg = UIO_USERSPACE;
-        uiotemp->uio_rw = UIO_READ ;
-        uiotemp->uio_space = ;
-        result = VOP_WRITE(fh->vnode,uiotemp);
-	if(result)
-		return EIO;
-        return;
+//        fh=(struct filehandle*)kmalloc(sizeof(struct filehandle));
+//        fh = getfileHandle(fd);
+	lock_acquire(curproc->filedescriptor[fd]->filelock);
+	iov.iov_ubase = (userptr_t) buf;
+        uiotemp.uio_iov = &iov;
+        uiotemp.uio_iovcnt = 1;
+        uiotemp.uio_offset = curproc->filedescriptor[fd]->offset;
+        uiotemp.uio_resid = nbytes;
+        uiotemp.uio_segflg = UIO_USERSPACE;
+        uiotemp.uio_rw = UIO_WRITE;
+        uiotemp.uio_space = curproc->p_addrspace;
+        result = VOP_WRITE(curproc->filedescriptor[fd]->vnode,&uiotemp);
+	if(result) {
+		*returnvalue = EIO;
+		lock_release(curproc->filedescriptor[fd]->filelock);
+		return -1;
+	}
+	curproc->filedescriptor[fd]->offset = uiotemp.uio_offset;
+//	kfree(fh);
+//	kfree(uiotemp);
+	*returnvalue = nbytes - uiotemp.uio_resid;
+	lock_release(curproc->filedescriptor[fd]->filelock);
+        return 0;
+}
+
+int sys_close(int fd) {
+//	struct filehandle fh;	
+	if (fd > OPEN_MAX) {
+		return EBADF;
+	}
+
+//	fh = getfileHandle(fd);
+
+	if (curproc->filedescriptor[fd] == NULL) {
+		return EBADF;	
+	}
+
+	curproc->filedescriptor[fd]->refcount--;
+
+	if (curproc->filedescriptor[fd]->refcount == 0) {
+		vfs_close(curproc->filedescriptor[fd]->vnode);
+		lock_destroy(curproc->filedescriptor[fd]->filelock);
+		kfree(curproc->filedescriptor[fd]);
+		curproc->filedescriptor[fd] = NULL;
+	}
+	return 0;
 }
