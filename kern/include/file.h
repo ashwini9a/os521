@@ -1,6 +1,7 @@
 #ifndef _FILE_H_
 #define _FILE_H_
 
+#include <types.h>
 #include <thread.h>
 #include <current.h>
 #include <kern/errno.h>
@@ -8,8 +9,9 @@
 #include <vfs.h>
 #include <vnode.h>
 #include <synch.h>
-
-
+#include <kern/fcntl.h>
+#include <copyinout.h>
+#include <proc.h>
 struct vnode;
 struct lock;
 

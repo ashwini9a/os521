@@ -176,6 +176,12 @@ proc_destroy(struct proc *proc)
 
 	kfree(proc->p_name);
 	kfree(proc);
+	int i = 0;
+	for (i=0;i<OPEN_MAX;i++) {
+		if (proc->filedescriptor[i] != NULL){
+			kfree(proc->filedescriptor[i]);
+		}
+	}
 }
 
 /*
@@ -212,10 +218,10 @@ proc_create_runprogram(const char *name)
 	
 	/* Since this is the first user process, initialize con; */
 
-	int res = filedescriptor_init();
-	if (res) {
-		kprintf("could not initialize console for runprog\n");
-	}
+	//int res = filedescriptor_init();
+//	if (res) {
+//		kprintf("could not initialize console for runprog\n");
+//	}
 
 	/* VFS fields */
 
