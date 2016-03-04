@@ -81,6 +81,8 @@ syscall(struct trapframe *tf)
 	int callno;
 	int32_t retval;
 	int err;
+	int whence;
+	off_t total64;
 
 	KASSERT(curthread != NULL);
 	KASSERT(curthread->t_curspl == 0);
@@ -117,11 +119,14 @@ syscall(struct trapframe *tf)
 		break;
 	    /* Add stuff here */
 	    case SYS_lseek:
+		copyin ((const_userptr_t)tf->tf_sp+16, &whence, sizeof(int));
 		err = sys_lseek(tf->tf_a0,
-				tf->tf_a2,
-				tf->tf_sp+16,
-				&retval);
-				
+				((off_t)tf->tf_a2)<<32 | tf->tf_a3,	/*http://stackoverflow.com/questions/13039055/how-can-i-store-an-unsigned-64-bit-value-in-two-signed-integers-and-recover-them */
+				whence,
+				&total64);
+
+		retval = total64 >> 32;
+		tf->tf_v1 = total64 & 0xffffffff;
 		break;	
 
 	    case SYS_read:
@@ -140,6 +145,10 @@ syscall(struct trapframe *tf)
 
 	    case SYS_close:
 		err = sys_close(tf->tf_a0);
+		break;
+
+	    case SYS_getpid:
+		err = sys_getpid(&retval);
 		break;
 
 	    default:

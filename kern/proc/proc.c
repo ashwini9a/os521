@@ -53,6 +53,7 @@
  * The process for the kernel; this holds all the kernel-only threads.
  */
 struct proc *kproc;
+static pid_t pid_array[PID_MAX];
 
 /*
  * Create a proc structure.
@@ -88,6 +89,12 @@ proc_create(const char *name)
 		proc->filedescriptor[index] = NULL;
 		index++;
 	}
+
+	proc->proc_pid = request_pid();
+	if (!proc->proc_pid || proc->proc_pid == -1) {
+		panic("unable to assign pid \n");
+	}
+	
 	return proc;
 }
 
@@ -179,6 +186,10 @@ proc_destroy(struct proc *proc)
 	int i = 0;
 	for (i=0;i<OPEN_MAX;i++) {
 		if (proc->filedescriptor[i] != NULL){
+			if (proc->filedescriptor[i]->refcount <= 1) {	
+				lock_destroy(proc->filedescriptor[i]->filelock);
+				kfree(proc->filedescriptor[i]->vnode);
+			}
 			kfree(proc->filedescriptor[i]);
 		}
 	}
@@ -190,10 +201,20 @@ proc_destroy(struct proc *proc)
 void
 proc_bootstrap(void)
 {
+//	int result;
+	int i=1;
 	kproc = proc_create("[kernel]");
 	if (kproc == NULL) {
 		panic("proc_create for kproc failed\n");
 	}
+
+	for (i=1;i<PID_MAX;i++) {
+		pid_array[i] = -1;
+	}
+//	result = proc_init();
+//	if (result) {
+//		panic("failed to initialize proc_array \n");
+//	}
 }
 
 /*
@@ -337,4 +358,14 @@ proc_setas(struct addrspace *newas)
 	proc->p_addrspace = newas;
 	spinlock_release(&proc->p_lock);
 	return oldas;
+}
+
+pid_t request_pid() {
+	int i=1;
+	for (i=1;i<PID_MAX;i++) {
+		if (pid_array[i] == -1)
+		break;
+	}
+	pid_array[i] = 1;
+	return (pid_t)i;
 }

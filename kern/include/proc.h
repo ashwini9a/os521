@@ -38,6 +38,8 @@
 
 #include <spinlock.h>
 #include <file.h>
+//#include <procsyscalls.h>
+//#include <sys/types.h>
 
 struct addrspace;
 struct thread;
@@ -73,6 +75,7 @@ struct proc {
 
 	/* add more material here as needed */
 	struct filehandle *filedescriptor[OPEN_MAX];
+	pid_t proc_pid;
 };
 
 /* This is the process structure for the kernel and for kernel-only threads. */
@@ -99,5 +102,5 @@ struct addrspace *proc_getas(void);
 /* Change the address space of the current process, and return the old one. */
 struct addrspace *proc_setas(struct addrspace *);
 
-
+pid_t request_pid(void);
 #endif /* _PROC_H_ */
