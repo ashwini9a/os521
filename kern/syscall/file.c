@@ -192,9 +192,9 @@ int sys_lseek(int fd, off_t pos, int whence, off_t *returnvalue) {
 }	
 
 
-bool isFdReadValid(int fd)
+bool isFdValid(int fd)
 {
-	if(curproc->filedescriptor[fd]==NULL) {
+	if(curproc->filedescriptor[fd]==NULL || fd >= OPEN_MAX) {
 		return false;
 	}
 //	if(curproc->filedescriptor[fd]->flags != O_RDONLY ||  curproc->filedescriptor[fd]->flags != O_RDWR)
@@ -202,23 +202,11 @@ bool isFdReadValid(int fd)
 	return true;
 }
 
-bool isFdWriteValid(int fd)
-{
-        if(curproc->filedescriptor[fd]==NULL) {
-		kprintf("haha someone tried to write to a null space");
-                return false;
-	}
-//        if(curproc->filedescriptor[fd]->flags != O_WRONLY ||  curproc->filedescriptor[fd]->flags != O_RDWR) {
-//                return false;
-//	}
-        return true;
-
-}
 
 
 int sys_read(int fd, void *buf, size_t buflen, int *returnvalue)
 {
-        if(!(isFdReadValid(fd))) {
+        if(!(isFdValid(fd))) {
                 *returnvalue = EBADF;
 		return -1;
 	}
@@ -261,7 +249,7 @@ int sys_read(int fd, void *buf, size_t buflen, int *returnvalue)
 
 
 int sys_write(int fd, const void *buf, size_t nbytes, int *returnvalue) {
-        if(!(isFdWriteValid(fd)))
+        if(!(isFdValid(fd)))
                 return EBADF;
         if(buf==NULL)
                 return EFAULT;
@@ -320,6 +308,7 @@ int sys_close(int fd) {
 	return 0;
 }
 
+
 int sys_chdir (const_userptr_t directory) {
 	char *newdir;
 	size_t len;
@@ -340,4 +329,61 @@ int sys_chdir (const_userptr_t directory) {
 		return result;
 	}
 	return 0;	
+}
+int sys_dup2(int oldfd, int newfd)
+{
+        int result;
+	if(oldfd==newfd)
+		return 0;
+        if(!(isFdValid(oldfd)))
+	{
+		//*returnvalue = EBADF;
+                return EBADF;
+	}
+	if(newfd > OPEN_MAX)
+		//*returnvalue = EBADF;
+		return EBADF;
+	
+        if(curproc->filedescriptor[newfd]!= NULL)
+                result = sys_close(newfd);
+        if(result)
+	//	*returnvalue= result;
+                return result;
+	
+	//lock_acquire(curproc->filedescriptor[oldfd]->filelock);
+        //curproc->filedescriptor[newfd] =(struct filehandle*) kmalloc(sizeof(struct filehandle));
+        //curproc->filedescriptor[newfd]->filename = curproc->filedescriptor[oldfd]->filename;
+        //curproc->filedescriptor[newfd]->flags = curproc->filedescriptor[oldfd]->flags;
+        //curproc->filedescriptor[newfd]->offset = curproc->filedescriptor[oldfd]->offset;
+        //curproc->filedescriptor[newfd]->refcount = curproc->filedescriptor[oldfd]->refcount+1;
+	curproc->filedescriptor[newfd] = curproc->filedescriptor[oldfd];
+	curproc->filedescriptor[newfd]->refcount++;
+	//curproc->filedescriptor[newfd]->vnode->vn_refcount++;
+        //curproc->filedescriptor[newfd]->filelock = curproc->filedescriptor[oldfd]->filelock;
+        //curproc->filedescriptor[newfd]->vnode = curproc->filedescriptor[oldfd]->vnode;
+	//lock_release(curproc->filedescriptor[oldfd]->filelock);
+        return 0;
+}
+
+int sys__getcwd(char *buf, size_t buflen)
+{
+	int result;
+	if(buf == NULL)
+		return EFAULT;
+	struct uio uiotemp;
+        struct iovec iov;
+        iov.iov_ubase = (userptr_t) buf;
+	iov.iov_len = buflen;
+        uiotemp.uio_iov = &iov;
+        uiotemp.uio_iovcnt = 1;
+        uiotemp.uio_offset = 0;
+        uiotemp.uio_resid = PATH_MAX;
+        uiotemp.uio_segflg = UIO_USERSPACE;
+        uiotemp.uio_rw = UIO_READ;
+        uiotemp.uio_space = curproc->p_addrspace;
+	result = vfs_getcwd(uiotemp);
+	if(result)
+		return EIO;
+	return 0;
+
 }
