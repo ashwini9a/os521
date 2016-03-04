@@ -54,7 +54,8 @@
  */
 struct proc *kproc;
 static pid_t pid_array[PID_MAX];
-
+static int total_pids;
+static struct lock* pid_lock;
 /*
  * Create a proc structure.
  */
@@ -89,11 +90,13 @@ proc_create(const char *name)
 		proc->filedescriptor[index] = NULL;
 		index++;
 	}
-
+//	lock_acquire(pid_lock);
 	proc->proc_pid = request_pid();
+//	lock_release(pid_lock);
 	if (!proc->proc_pid || proc->proc_pid == -1) {
 		panic("unable to assign pid \n");
 	}
+	proc->parent_pid = 0;
 	
 	return proc;
 }
@@ -193,6 +196,12 @@ proc_destroy(struct proc *proc)
 			kfree(proc->filedescriptor[i]);
 		}
 	}
+//	proc->proc_pid = NULL;
+//	lock_acquire(pid_lock);
+	i = (int) proc->proc_pid;
+	pid_array[i] = -2;
+	total_pids--;
+//	lock_release(pid_lock);
 }
 
 /*
@@ -201,7 +210,6 @@ proc_destroy(struct proc *proc)
 void
 proc_bootstrap(void)
 {
-//	int result;
 	int i=1;
 	kproc = proc_create("[kernel]");
 	if (kproc == NULL) {
@@ -209,12 +217,10 @@ proc_bootstrap(void)
 	}
 
 	for (i=1;i<PID_MAX;i++) {
-		pid_array[i] = -1;
+		pid_array[i] = -2;
 	}
-//	result = proc_init();
-//	if (result) {
-//		panic("failed to initialize proc_array \n");
-//	}
+	pid_lock = lock_create("pid_lock");
+	total_pids = 0;
 }
 
 /*
@@ -236,13 +242,6 @@ proc_create_runprogram(const char *name)
 	/* VM fields */
 
 	newproc->p_addrspace = NULL;
-	
-	/* Since this is the first user process, initialize con; */
-
-	//int res = filedescriptor_init();
-//	if (res) {
-//		kprintf("could not initialize console for runprog\n");
-//	}
 
 	/* VFS fields */
 
@@ -361,11 +360,20 @@ proc_setas(struct addrspace *newas)
 }
 
 pid_t request_pid() {
+//	lock_acquire(pid_lock);
 	int i=1;
 	for (i=1;i<PID_MAX;i++) {
-		if (pid_array[i] == -1)
+		if (pid_array[i] == -2)
 		break;
 	}
+//	if (i < PID_MAX) {
+		//kprintf("something bad is happening.... I exceeded max pids");
+//		panic("something bad is happening");
+//		return -1;
+//	}
+//	KASSERT(i<PID_MAX);
+	++total_pids;
 	pid_array[i] = 1;
+//	lock_release(pid_lock);
 	return (pid_t)i;
 }

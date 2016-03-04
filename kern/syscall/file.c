@@ -197,8 +197,6 @@ bool isFdValid(int fd)
 	if(curproc->filedescriptor[fd]==NULL || fd >= OPEN_MAX) {
 		return false;
 	}
-//	if(curproc->filedescriptor[fd]->flags != O_RDONLY ||  curproc->filedescriptor[fd]->flags != O_RDWR)
-//		return false;
 	return true;
 }
 
@@ -210,29 +208,13 @@ int sys_read(int fd, void *buf, size_t buflen, int *returnvalue)
                 *returnvalue = EBADF;
 		return -1;
 	}
-        if(buf==NULL) {
-                *returnvalue = EFAULT;
-		return -1;
-	}
-//        struct filehandle *fh;
         struct uio uiotemp;
 	struct iovec iov;
 	int result;
+	char kbuf[buflen];
 
-//        uiotemp = (struct uio*)kmalloc(sizeof(struct uio));	
-//        fh = (struct filehandle*)kmalloc(sizeof(struct filehandle));
-//	uio_kinit(&iov, &uiotemp, buf, buflen, fh->offset, );
-//
-//        fh = getfileHandle(fd);
+	uio_kinit(&iov, &uiotemp, kbuf, buflen, curproc->filedescriptor[fd]->offset,UIO_READ );
 	lock_acquire(curproc->filedescriptor[fd]->filelock);
-	iov.iov_ubase =(userptr_t) buf;		/*convert buf to type userptr_t coz ubase expects it*/
-	uiotemp.uio_iov = &iov;		/*I/O to...*/
-	uiotemp.uio_iovcnt = 1;		/*Number of devices/buffers */
-	uiotemp.uio_offset = curproc->filedescriptor[fd]->offset;	/*Start reading from */
-	uiotemp.uio_resid = buflen;		/*Read upto */
-	uiotemp.uio_segflg = UIO_USERSPACE;	/*Read to userspace */
-        uiotemp.uio_rw = UIO_READ ;
-	uiotemp.uio_space = curproc->p_addrspace;
 
         result = VOP_READ(curproc->filedescriptor[fd]->vnode, &uiotemp);
 	if(result) {
@@ -242,6 +224,7 @@ int sys_read(int fd, void *buf, size_t buflen, int *returnvalue)
 		return -1;
 	}
 	curproc->filedescriptor[fd]->offset = uiotemp.uio_offset;
+	copyout(kbuf, buf, buflen);
 	*returnvalue = buflen - uiotemp.uio_resid;
 	lock_release(curproc->filedescriptor[fd]->filelock);
         return 0;
@@ -251,26 +234,15 @@ int sys_read(int fd, void *buf, size_t buflen, int *returnvalue)
 int sys_write(int fd, const void *buf, size_t nbytes, int *returnvalue) {
         if(!(isFdValid(fd)))
                 return EBADF;
-        if(buf==NULL)
-                return EFAULT;
-//        struct filehandle *fh;
+
         struct uio uiotemp;
 	struct iovec iov;
 	int result;
-	
-//        uiotemp = (struct uio*)kmalloc(sizeof(struct uio));
+	char kbuf[nbytes];
+	result = copyin((const_userptr_t)buf, kbuf, nbytes);
 
-//        fh=(struct filehandle*)kmalloc(sizeof(struct filehandle));
-//        fh = getfileHandle(fd);
+	uio_kinit(&iov, &uiotemp, kbuf, nbytes, curproc->filedescriptor[fd]->offset,UIO_WRITE );
 	lock_acquire(curproc->filedescriptor[fd]->filelock);
-	iov.iov_ubase = (userptr_t) buf;
-        uiotemp.uio_iov = &iov;
-        uiotemp.uio_iovcnt = 1;
-        uiotemp.uio_offset = curproc->filedescriptor[fd]->offset;
-        uiotemp.uio_resid = nbytes;
-        uiotemp.uio_segflg = UIO_USERSPACE;
-        uiotemp.uio_rw = UIO_WRITE;
-        uiotemp.uio_space = curproc->p_addrspace;
         result = VOP_WRITE(curproc->filedescriptor[fd]->vnode,&uiotemp);
 	if(result) {
 		*returnvalue = EIO;
@@ -278,8 +250,6 @@ int sys_write(int fd, const void *buf, size_t nbytes, int *returnvalue) {
 		return -1;
 	}
 	curproc->filedescriptor[fd]->offset = uiotemp.uio_offset;
-//	kfree(fh);
-//	kfree(uiotemp);
 	*returnvalue = nbytes - uiotemp.uio_resid;
 	lock_release(curproc->filedescriptor[fd]->filelock);
         return 0;
@@ -368,20 +338,24 @@ int sys_dup2(int oldfd, int newfd)
 int sys__getcwd(char *buf, size_t buflen)
 {
 	int result;
-	if(buf == NULL)
-		return EFAULT;
+//	if(buf == NULL)
+//		return EFAULT;
 	struct uio uiotemp;
         struct iovec iov;
-        iov.iov_ubase = (userptr_t) buf;
-	iov.iov_len = buflen;
-        uiotemp.uio_iov = &iov;
-        uiotemp.uio_iovcnt = 1;
-        uiotemp.uio_offset = 0;
-        uiotemp.uio_resid = PATH_MAX;
-        uiotemp.uio_segflg = UIO_USERSPACE;
-        uiotemp.uio_rw = UIO_READ;
-        uiotemp.uio_space = curproc->p_addrspace;
+	char kbuf[buflen];
+	
+	uio_kinit(&iov, &uiotemp, kbuf, buflen, 0,UIO_READ );
+//        iov.iov_ubase = (userptr_t) buf;
+//	iov.iov_len = buflen;
+//      uiotemp.uio_iov = &iov;
+//        uiotemp.uio_iovcnt = 1;
+//        uiotemp.uio_offset = 0;
+//        uiotemp.uio_resid = PATH_MAX;
+//        uiotemp.uio_segflg = UIO_USERSPACE;
+//        uiotemp.uio_rw = UIO_READ;
+//        uiotemp.uio_space = curproc->p_addrspace;
 	result = vfs_getcwd(uiotemp);
+	copyout(kbuf, buf, buflen);
 	if(result)
 		return EIO;
 	return 0;

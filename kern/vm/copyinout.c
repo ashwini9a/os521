@@ -157,7 +157,7 @@ copyin(const_userptr_t usersrc, void *dest, size_t len)
 
 	result = copycheck(usersrc, len, &stoplen);
 	if (result) {
-		kprintf("are u mad.... have u seen the filesize...");
+//		kprintf("are u mad.... have u seen the filesize...");
 		return result;
 	}
 	if (stoplen != len) {
