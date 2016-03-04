@@ -12,7 +12,7 @@ int sys_open(const_userptr_t file, int flags, mode_t mode, int *returnvalue) {
 		return ENOSPC;
 	}
 	copyinstr(file, filename, PATH_MAX, &length);
-	filename = (char*)file;
+//	filename = (char*)file;
 	kprintf("filename according to kernel is %s:\n",filename);
 	index = 3;
 	while(curproc->filedescriptor[index]!=NULL) {
@@ -133,45 +133,44 @@ struct filehandle* getfileHandle(int fd)
 	return curproc->filedescriptor[fd];
 }
 
-int sys_lseek(int fd, off_t pos, int whence, int *returnvalue) {
+int sys_lseek(int fd, off_t pos, int whence, off_t *returnvalue) {
 	off_t present_offset = 0;
 	off_t new_pos = 0;
 	struct stat temp;
 	int result;
-//	struct filehandle *fh;
 
 	if (fd == 0 || fd == 1 || fd == 2) {
 		kprintf("The user is mad.... Trying to seek in con :(\n");
 		return ESPIPE;
 	}
 	if (fd > OPEN_MAX || fd < 0) {
-		kprintf("Stupid malicious user...\n");
+		kprintf("Stupid malicious user... file descriptor\n");
 		return EBADF;
 	}
-
-//	fh = getfileHandle(fd);
 
 	if (curproc->filedescriptor[fd] == NULL) {
-		kprintf("Stupid malicious user...\n");
+		kprintf("Stupid malicious user...NULL\n");
 		return EBADF;
 	}
-
+	lock_acquire(curproc->filedescriptor[fd]->filelock);
+//	kprintf("offset is %llu\n" , pos);
 	if (VOP_ISSEEKABLE(curproc->filedescriptor[fd]->vnode)) {
 		present_offset = curproc->filedescriptor[fd]->offset;	
 		switch(whence) {
 	
-			case SEEK_SET :
+			case SEEK_SET:
 				new_pos = pos;
 				break;
 		
-			case SEEK_CUR :	
+			case SEEK_CUR:	
 				new_pos = present_offset + pos;
 				break;
 
-			case SEEK_END :
+			case SEEK_END:
 				result = VOP_STAT(curproc->filedescriptor[fd]->vnode, &temp);
 				if (result) {
 					kprintf("the kernel screwed up... couldn't vop_stat");
+					lock_release(curproc->filedescriptor[fd]->filelock);
 					return result;
 				}
 				present_offset = temp.st_size;
@@ -180,11 +179,13 @@ int sys_lseek(int fd, off_t pos, int whence, int *returnvalue) {
 
 			default :
 				kprintf("whence is invalid");
+				lock_release(curproc->filedescriptor[fd]->filelock);
 				return EINVAL;
 		}
 	
 		curproc->filedescriptor[fd]->offset = new_pos;
-		*returnvalue =(int) new_pos;
+		*returnvalue =new_pos;
+		lock_release(curproc->filedescriptor[fd]->filelock);
 		return 0;
 	}
 	return ESPIPE;
@@ -317,4 +318,26 @@ int sys_close(int fd) {
 		curproc->filedescriptor[fd] = NULL;
 	}
 	return 0;
+}
+
+int sys_chdir (const_userptr_t directory) {
+	char *newdir;
+	size_t len;
+	
+	newdir = kmalloc(sizeof(PATH_MAX +1));
+	if (newdir == NULL) {
+		kprintf("kmalloc failed for newdir");
+		return EFAULT;
+	}
+	int result = copyinstr(directory, newdir, PATH_MAX, &len);
+	if (result) {
+		kprintf("could not copy user specified path to kernel space\n");
+		return result;
+	}
+	result = vfs_chdir(newdir); 
+	if (result) {
+		kprintf("chdir failed");
+		return result;
+	}
+	return 0;	
 }
