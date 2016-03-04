@@ -27,39 +27,36 @@
  * SUCH DAMAGE.
  */
 
-#ifndef _SYSCALL_H_
-#define _SYSCALL_H_
-
-
-#include <cdefs.h> /* for __DEAD */
-#include <file.h>
-#include <procsyscalls.h>
-
-struct trapframe; /* from <machine/trapframe.h> */
-
 /*
- * The system call dispatcher.
+ * consoletest.c
+ *
+ * 	Tests whether console can be written to.
+ *
+ * This should run correctly when open and write syscalls are correctly implemented
  */
 
-void syscall(struct trapframe *tf);
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <err.h>
+#include <test161/test161.h>
 
-/*
- * Support functions.
- */
+int
+main(int argc, char **argv)
+{
 
-/* Helper for fork(). You write this. */
-void enter_forked_process(struct trapframe *tf);
+	// Assume argument passing is *not* supported.
 
-/* Enter user mode. Does not return. */
-__DEAD void enter_new_process(int argc, userptr_t argv, userptr_t env,
-		       vaddr_t stackptr, vaddr_t entrypoint);
+	(void) argc;
+	(void) argv;
 
+        tprintf("accessing getpid \n");
+        pid_t temp = getpid();
+        tprintf("value of temp is %d \n",temp);
+	success(TEST161_SUCCESS, SECRET, "/testbin/opentest");
 
-/*
- * Prototypes for IN-KERNEL entry points for system call implementations.
- */
-
-int sys_reboot(int code);
-int sys___time(userptr_t user_seconds, userptr_t user_nanoseconds);
-
-#endif /* _SYSCALL_H_ */
+	// Exit may not be implemented. So crash.
+	crash_prog();
+	return 0;
+}
