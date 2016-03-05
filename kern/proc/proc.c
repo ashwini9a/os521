@@ -53,9 +53,9 @@
  * The process for the kernel; this holds all the kernel-only threads.
  */
 struct proc *kproc;
-static pid_t pid_array[PID_MAX];
-static int total_pids;
-static struct lock* pid_lock;
+struct proc *pid_array[PID_MAX];
+int total_pids;
+struct lock* pid_lock;
 /*
  * Create a proc structure.
  */
@@ -91,7 +91,9 @@ proc_create(const char *name)
 		index++;
 	}
 //	lock_acquire(pid_lock);
-	proc->proc_pid = request_pid();
+	proc->proc_pid = request_pid(proc);
+//     
+//
 //	lock_release(pid_lock);
 	if (!proc->proc_pid || proc->proc_pid == -1) {
 		panic("unable to assign pid \n");
@@ -199,7 +201,7 @@ proc_destroy(struct proc *proc)
 //	proc->proc_pid = NULL;
 //	lock_acquire(pid_lock);
 	i = (int) proc->proc_pid;
-	pid_array[i] = -2;
+	pid_array[i] = NULL;
 	total_pids--;
 //	lock_release(pid_lock);
 }
@@ -216,10 +218,11 @@ proc_bootstrap(void)
 		panic("proc_create for kproc failed\n");
 	}
 
-	for (i=1;i<PID_MAX;i++) {
-		pid_array[i] = -2;
+	for (i=2;i<PID_MAX;i++) {
+		pid_array[i] = NULL;
 	}
 	pid_lock = lock_create("pid_lock");
+//	fork_lock = lock_create("fork_lock");
 	total_pids = 0;
 }
 
@@ -359,11 +362,11 @@ proc_setas(struct addrspace *newas)
 	return oldas;
 }
 
-pid_t request_pid() {
+pid_t request_pid(struct proc *proc) {
 //	lock_acquire(pid_lock);
-	int i=1;
-	for (i=1;i<PID_MAX;i++) {
-		if (pid_array[i] == -2)
+	int i=2;
+	for (i=2;i<PID_MAX;i++) {
+		if (pid_array[i] == NULL)
 		break;
 	}
 //	if (i < PID_MAX) {
@@ -373,7 +376,7 @@ pid_t request_pid() {
 //	}
 //	KASSERT(i<PID_MAX);
 	++total_pids;
-	pid_array[i] = 1;
+	pid_array[i] = proc;
 //	lock_release(pid_lock);
 	return (pid_t)i;
 }

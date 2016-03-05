@@ -213,8 +213,8 @@ int sys_read(int fd, void *buf, size_t buflen, int *returnvalue)
 	int result;
 	char kbuf[buflen];
 
-	uio_kinit(&iov, &uiotemp, kbuf, buflen, curproc->filedescriptor[fd]->offset,UIO_READ );
 	lock_acquire(curproc->filedescriptor[fd]->filelock);
+	uio_kinit(&iov, &uiotemp, kbuf, buflen, curproc->filedescriptor[fd]->offset,UIO_READ );
 
         result = VOP_READ(curproc->filedescriptor[fd]->vnode, &uiotemp);
 	if(result) {
@@ -227,6 +227,7 @@ int sys_read(int fd, void *buf, size_t buflen, int *returnvalue)
 	copyout(kbuf, buf, buflen);
 	*returnvalue = buflen - uiotemp.uio_resid;
 	lock_release(curproc->filedescriptor[fd]->filelock);
+
         return 0;
 }
 
@@ -239,10 +240,10 @@ int sys_write(int fd, const void *buf, size_t nbytes, int *returnvalue) {
 	struct iovec iov;
 	int result;
 	char kbuf[nbytes];
+	lock_acquire(curproc->filedescriptor[fd]->filelock);
 	result = copyin((const_userptr_t)buf, kbuf, nbytes);
 
 	uio_kinit(&iov, &uiotemp, kbuf, nbytes, curproc->filedescriptor[fd]->offset,UIO_WRITE );
-	lock_acquire(curproc->filedescriptor[fd]->filelock);
         result = VOP_WRITE(curproc->filedescriptor[fd]->vnode,&uiotemp);
 	if(result) {
 		*returnvalue = EIO;
@@ -335,7 +336,7 @@ int sys_dup2(int oldfd, int newfd)
         return 0;
 }
 
-int sys__getcwd(char *buf, size_t buflen)
+int sys__getcwd(void *buf, size_t buflen)
 {
 	int result;
 //	if(buf == NULL)
@@ -354,8 +355,8 @@ int sys__getcwd(char *buf, size_t buflen)
 //        uiotemp.uio_segflg = UIO_USERSPACE;
 //        uiotemp.uio_rw = UIO_READ;
 //        uiotemp.uio_space = curproc->p_addrspace;
-	result = vfs_getcwd(uiotemp);
-	copyout(kbuf, buf, buflen);
+	result = vfs_getcwd(&uiotemp);
+	copyout(kbuf,buf, buflen);
 	if(result)
 		return EIO;
 	return 0;

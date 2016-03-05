@@ -39,9 +39,9 @@ bool isFdValid(int fd);
 int sys_read(int fd, void *buf, size_t buflen, int *returnvalue);
 int sys_write(int fd, const void *buf, size_t nbytes, int *returnvalue);
 int sys_close(int fd);
-<<<<<<< Updated upstream
+
 int sys_chdir(const_userptr_t directory);
-=======
+int sys__getcwd(void *buf, size_t buflen);
 int sys_dup2(int oldfd,int newfd);
->>>>>>> Stashed changes
+
 #endif

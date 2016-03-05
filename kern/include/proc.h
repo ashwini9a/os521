@@ -45,6 +45,9 @@ struct addrspace;
 struct thread;
 struct vnode;
 
+extern struct proc *pid_array[PID_MAX];
+extern int total_pids;
+extern struct lock* pid_lock;
 /*
  * Process structure.
  *
@@ -103,5 +106,5 @@ struct addrspace *proc_getas(void);
 /* Change the address space of the current process, and return the old one. */
 struct addrspace *proc_setas(struct addrspace *);
 
-pid_t request_pid(void);
+pid_t request_pid(struct proc *proc);
 #endif /* _PROC_H_ */

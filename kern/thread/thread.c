@@ -541,6 +541,15 @@ thread_fork(const char *name,
 	/* Set up the switchframe so entrypoint() gets called */
 	switchframe_init(newthread, entrypoint, data1, data2);
 
+	/* Copy in calling threads' file table contents */
+	
+	for(int i=0;i<OPEN_MAX;i++) {
+		if (curproc->filedescriptor[i] != NULL) {
+			proc->filedescriptor[i] = curproc->filedescriptor[i];
+			curproc->filedescriptor[i]->refcount++;
+		}
+	}
+
 	/* Lock the current cpu's run queue and make the new thread runnable */
 	thread_make_runnable(newthread, false);
 

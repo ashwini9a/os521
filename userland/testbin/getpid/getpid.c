@@ -41,7 +41,7 @@
 #include <unistd.h>
 #include <err.h>
 #include <test161/test161.h>
-
+//#include </media/yash/489CF58F9CF577B0/trinity/src/os161/kern/include/proc.h>
 int
 main(int argc, char **argv)
 {
@@ -55,7 +55,8 @@ main(int argc, char **argv)
         pid_t temp = getpid();
         tprintf("value of temp is %d \n",temp);
 	success(TEST161_SUCCESS, SECRET, "/testbin/opentest");
-
+//	struct proc *p = pid_array[temp];
+//	tprintf("process name is %s\n", p->n_name);
 	// Exit may not be implemented. So crash.
 	crash_prog();
 	return 0;
