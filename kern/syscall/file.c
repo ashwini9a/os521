@@ -6,13 +6,17 @@ int sys_open(const_userptr_t file, int flags, mode_t mode, int *returnvalue) {
 	struct vnode *vnode;
 	off_t offset = 0;
 	size_t length;
-
+	int result;
+	
 	if (filename == NULL) {
 		kprintf("kmalloc failed to  assign space for filename in file.c\n");
 		return ENOSPC;
 	}
-	copyinstr(file, filename, PATH_MAX, &length);
-//	filename = (char*)file;
+	result =  copyinstr(file, filename, PATH_MAX, &length);
+	if (result) {
+		return result;
+	}
+
 	kprintf("filename according to kernel is %s:\n",filename);
 	index = 3;
 	while(curproc->filedescriptor[index]!=NULL) {
@@ -33,7 +37,7 @@ int sys_open(const_userptr_t file, int flags, mode_t mode, int *returnvalue) {
 		kfree(filename);
 		return ENFILE;
 	}
-	int result = vfs_open(filename, flags, mode, &vnode);
+	result = vfs_open(filename, flags, mode, &vnode);
 	if (result) {
 		kprintf("file open failed");
 		filename = NULL;

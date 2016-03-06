@@ -88,13 +88,15 @@ cmd_progthread(void *ptr, unsigned long nargs)
 	KASSERT(strlen(args[0]) < sizeof(progname));
 
 	strcpy(progname, args[0]);
-
+	kprintf("I think I am the child.... My pid is %d and my parents pid is:%d\n",curproc->proc_pid,curproc->parent_pid);
 	result = runprogram(progname);
 	if (result) {
 		kprintf("Running program %s failed: %s\n", args[0],
 			strerror(result));
+	//	sys_exit(1);
 		return;
 	}
+	sys_exit(0);
 
 	/* NOTREACHED: runprogram only returns on error. */
 }
@@ -117,6 +119,7 @@ common_prog(int nargs, char **args)
 {
 	struct proc *proc;
 	int result;
+	int status, returnvalue;
 
 	/* Create a process for the new program to run in. */
 	proc = proc_create_runprogram(args[0] /* name */);
@@ -138,7 +141,11 @@ common_prog(int nargs, char **args)
 	 * The new process will be destroyed when the program exits...
 	 * once you write the code for handling that.
 	 */
-
+	kprintf("Kernel process: I am %d and my parent is %d I'm waiting on the child whose pid is :%d\n",curproc->proc_pid, curproc->parent_pid,proc->proc_pid);
+	result = sys_waitpid(proc->proc_pid, (userptr_t)&status, 0, &returnvalue);
+	if (result) {
+		kprintf("???? WAITING FAILED???");
+	}
 	return 0;
 }
 

@@ -531,6 +531,9 @@ thread_fork(const char *name,
 		return result;
 	}
 
+	/* Making the __exited false*/
+	proc->__exited = false;
+	proc->parent_pid = curproc->proc_pid;
 	/*
 	 * Because new threads come out holding the cpu runqueue lock
 	 * (see notes at bottom of thread_switch), we need to account

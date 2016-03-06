@@ -48,6 +48,60 @@ struct vnode;
 extern struct proc *pid_array[PID_MAX];
 extern int total_pids;
 extern struct lock* pid_lock;
+extern bool pid_initialized;
+
+//static struct proc *pid_array[PID_MAX];
+//for (int i=0;i<PID_MAX;i++) {
+//	pid_array[i] = NULL;
+//}
+//static int total_pids = 0;
+//static struct lock* pid_lock = lock_create("pid_lock");
+
+//static struct proc *pid_array[PID_MAX];
+//static int total_pids;
+//static struct lock *pid_lock;
+//static bool pid_initialized = false;
+
+pid_t request_pid(struct proc *proc);
+int pid_destroy(pid_t pid);
+void pid_initialize(void);
+
+//void pid_initialize() {
+//	for(int i=0;i<PID_MAX;i++) {
+//		pid_array[i] =NULL;
+//	}
+//	pid_lock = lock_create("pid_lock");
+//}
+
+
+//pid_t request_pid(struct proc *proc) {
+	
+//	if (pid_initialized == false) {
+//		pid_initialize();
+//		pid_initialized = true;
+//	}	
+
+//	int i=2;
+//	while(i<PID_MAX) {
+//		if (pid_array[i] == NULL) {
+//			break;
+//		}
+//		i++;
+//	}
+//	total_pids++;
+//	pid_array[i] = proc;	
+//	return (pid_t)i;
+//	
+//}
+
+//int pid_destroy(pid_t pid) {
+//	int i = (int)pid;
+//	pid_array[i] = NULL;
+//	total_pids--;
+//	return 0;
+//}
+
+
 /*
  * Process structure.
  *
@@ -80,6 +134,9 @@ struct proc {
 	struct filehandle *filedescriptor[OPEN_MAX];
 	pid_t proc_pid;
 	pid_t parent_pid;
+	struct semaphore *proc_sem;
+	bool __exited;
+	int exitstatus;
 };
 
 /* This is the process structure for the kernel and for kernel-only threads. */
@@ -106,5 +163,5 @@ struct addrspace *proc_getas(void);
 /* Change the address space of the current process, and return the old one. */
 struct addrspace *proc_setas(struct addrspace *);
 
-pid_t request_pid(struct proc *proc);
+//pid_t request_pid(struct proc *proc);
 #endif /* _PROC_H_ */

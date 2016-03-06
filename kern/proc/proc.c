@@ -56,6 +56,12 @@ struct proc *kproc;
 struct proc *pid_array[PID_MAX];
 int total_pids;
 struct lock* pid_lock;
+bool pid_initialized = false;
+
+//static struct proc *pid_array[PID_MAX];
+//static int total_pids;
+//static struct lock* pid_lock;
+//static bool pid_initialized = false;
 /*
  * Create a proc structure.
  */
@@ -99,7 +105,10 @@ proc_create(const char *name)
 		panic("unable to assign pid \n");
 	}
 	proc->parent_pid = 0;
-	
+
+	proc->proc_sem = sem_create("proc_semaphore",0);
+	proc->__exited = true;
+	proc->exitstatus = -100;
 	return proc;
 }
 
@@ -200,10 +209,13 @@ proc_destroy(struct proc *proc)
 	}
 //	proc->proc_pid = NULL;
 //	lock_acquire(pid_lock);
-	i = (int) proc->proc_pid;
-	pid_array[i] = NULL;
-	total_pids--;
+//	i = (int) proc->proc_pid;
+//	pid_array[i] = NULL;
+//	total_pids--;
 //	lock_release(pid_lock);
+	pid_destroy(proc->proc_pid);
+
+	sem_destroy(proc->proc_sem);
 }
 
 /*
@@ -212,18 +224,18 @@ proc_destroy(struct proc *proc)
 void
 proc_bootstrap(void)
 {
-	int i=1;
+//	int i=1;
 	kproc = proc_create("[kernel]");
 	if (kproc == NULL) {
 		panic("proc_create for kproc failed\n");
 	}
 
-	for (i=2;i<PID_MAX;i++) {
-		pid_array[i] = NULL;
-	}
-	pid_lock = lock_create("pid_lock");
+//	for (i=2;i<PID_MAX;i++) {
+//		pid_array[i] = NULL;
+//	}
+//	pid_lock = lock_create("pid_lock");
 //	fork_lock = lock_create("fork_lock");
-	total_pids = 0;
+//	total_pids = 0;
 }
 
 /*
@@ -236,8 +248,9 @@ struct proc *
 proc_create_runprogram(const char *name)
 {
 	struct proc *newproc;
-
+//	lock_acquire(pid_lock);
 	newproc = proc_create(name);
+//	lock_release(pid_lock);
 	if (newproc == NULL) {
 		return NULL;
 	}
@@ -260,7 +273,7 @@ proc_create_runprogram(const char *name)
 	}
 	spinlock_release(&curproc->p_lock);
 	
-
+//	lock_release(pid_lock);
 	return newproc;
 }
 
@@ -364,10 +377,16 @@ proc_setas(struct addrspace *newas)
 
 pid_t request_pid(struct proc *proc) {
 //	lock_acquire(pid_lock);
+	if (pid_initialized == false) {
+		pid_initialize();
+//		pid_initoalized = true;
+	}
 	int i=2;
-	for (i=2;i<PID_MAX;i++) {
-		if (pid_array[i] == NULL)
-		break;
+	while(i<PID_MAX) {
+		if (pid_array[i] == NULL) {
+			break;
+		}
+		i++;
 	}
 //	if (i < PID_MAX) {
 		//kprintf("something bad is happening.... I exceeded max pids");
@@ -375,8 +394,24 @@ pid_t request_pid(struct proc *proc) {
 //		return -1;
 //	}
 //	KASSERT(i<PID_MAX);
-	++total_pids;
+	total_pids++;
 	pid_array[i] = proc;
 //	lock_release(pid_lock);
 	return (pid_t)i;
+}
+
+void pid_initialize() {
+	pid_initialized = true;
+	for (int i=0;i<PID_MAX;i++) {
+		pid_array[i] = NULL;
+	}
+	total_pids = 0;
+	pid_lock = lock_create("pid_lock");	
+}
+
+int pid_destroy (pid_t pid) {
+	total_pids--;
+	int i = (int) pid;
+	pid_array[i] = NULL;
+	return 0;
 }
