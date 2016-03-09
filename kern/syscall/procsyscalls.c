@@ -28,19 +28,23 @@ int sys_fork(struct trapframe *tf, int *returnvalue) {
 		lock_release(pid_lock);
 	}
 	
-	child_proc = proc_create_runprogram("childproc");
-//	child_proc->parent_pid = curproc->proc_pid;		// ?????
+	// child_proc = proc_create_runprogram("childproc");
+	child_proc = proc_fork("childproc");
+	lock_release(pid_lock);
+//	child_proc->parent_pid = curproc->proc_pid;
 	thread_fork("child_thread", child_proc, enter_forked_process, (void*)child_tf, (unsigned long)child_addrspace);
 
 	*returnvalue = child_proc->proc_pid;
-	lock_release(pid_lock);
 	return 0;
 }
 	
 
 int sys_waitpid (pid_t pid, userptr_t status, int options, int *returnvalue) {
 
-	(void) options;
+	if (options != 0) {
+		kprintf("I dont accept options");
+		return EINVAL;
+	}
 	int result;
 	struct proc *proc;
 	proc = pid_array[pid];

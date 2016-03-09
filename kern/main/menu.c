@@ -46,7 +46,7 @@
 #include "opt-net.h"
 #include "opt-synchprobs.h"
 #include "opt-automationtest.h"
-
+#include <../include/procsyscalls.h>
 /*
  * In-kernel menu and command dispatcher.
  */

@@ -234,7 +234,7 @@ int sys_read(int fd, void *buf, size_t buflen, int *returnvalue)
 
         return 0;
 }
-
+//ssize_t
 
 int sys_write(int fd, const void *buf, size_t nbytes, int *returnvalue) {
         if(!(isFdValid(fd)))
@@ -325,7 +325,7 @@ int sys_dup2(int oldfd, int newfd)
 	//	*returnvalue= result;
                 return result;
 	
-	//lock_acquire(curproc->filedescriptor[oldfd]->filelock);
+	lock_acquire(curproc->filedescriptor[oldfd]->filelock);
         //curproc->filedescriptor[newfd] =(struct filehandle*) kmalloc(sizeof(struct filehandle));
         //curproc->filedescriptor[newfd]->filename = curproc->filedescriptor[oldfd]->filename;
         //curproc->filedescriptor[newfd]->flags = curproc->filedescriptor[oldfd]->flags;
@@ -336,7 +336,7 @@ int sys_dup2(int oldfd, int newfd)
 	//curproc->filedescriptor[newfd]->vnode->vn_refcount++;
         //curproc->filedescriptor[newfd]->filelock = curproc->filedescriptor[oldfd]->filelock;
         //curproc->filedescriptor[newfd]->vnode = curproc->filedescriptor[oldfd]->vnode;
-	//lock_release(curproc->filedescriptor[oldfd]->filelock);
+	lock_release(curproc->filedescriptor[oldfd]->filelock);
         return 0;
 }
 

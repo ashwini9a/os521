@@ -167,9 +167,14 @@ syscall(struct trapframe *tf)
 				  (userptr_t)tf->tf_a1,
 				   tf->tf_a2,
 				   &retval);
+<<<<<<< Updated upstream
 	   case SYS_execv:
 		//err= sys_execv((const_userptr_t)tf->tf_a0,);
 		break;
+=======
+		break;
+
+>>>>>>> Stashed changes
 	    default:
 		kprintf("Unknown syscall %d\n", callno);
 		err = ENOSYS;

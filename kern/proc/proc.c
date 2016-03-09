@@ -56,8 +56,9 @@ struct proc *kproc;
 struct proc *pid_array[PID_MAX];
 int total_pids;
 struct lock* pid_lock;
-bool pid_initialized = false;
 struct spinlock pid_slock; 
+static bool pid_initialized = false;
+
 //static struct proc *pid_array[PID_MAX];
 //static int total_pids;
 //static struct lock* pid_lock;
@@ -110,6 +111,10 @@ proc_create(const char *name)
 	proc->__exited = true;
 	proc->exitstatus = -100;
 	return proc;
+}
+
+struct proc *proc_fork(const char *temp) {
+	return proc_create(temp);
 }
 
 /*
