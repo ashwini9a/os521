@@ -9,7 +9,7 @@ int sys_open(const_userptr_t file, int flags, mode_t mode, int *returnvalue) {
 	int result;
 	
 	if (filename == NULL) {
-		kprintf("kmalloc failed to  assign space for filename in file.c\n");
+//		kprintf("kmalloc failed to  assign space for filename in file.c\n");
 		return ENOSPC;
 	}
 	result =  copyinstr(file, filename, PATH_MAX, &length);
@@ -17,14 +17,14 @@ int sys_open(const_userptr_t file, int flags, mode_t mode, int *returnvalue) {
 		return result;
 	}
 
-	kprintf("filename according to kernel is %s:\n",filename);
+//	kprintf("filename according to kernel is %s:\n",filename);
 	index = 3;
 	while(curproc->filedescriptor[index]!=NULL) {
 		index++;
 	}
 
 	if (index == OPEN_MAX) {
-		kprintf("Can't open more files. Close some");
+//		kprintf("Can't open more files. Close some");
 		filename = NULL;
 		kfree(filename);
 		return EMFILE;
@@ -32,14 +32,14 @@ int sys_open(const_userptr_t file, int flags, mode_t mode, int *returnvalue) {
 
 	curproc->filedescriptor[index] =(struct filehandle*)kmalloc(sizeof(struct filehandle));
 	if (curproc->filedescriptor[index] == NULL) {
-		kprintf("could not allocate memory to filehandle");
+//		kprintf("could not allocate memory to filehandle");
 		filename = NULL;
 		kfree(filename);
 		return ENFILE;
 	}
 	result = vfs_open(filename, flags, mode, &vnode);
 	if (result) {
-		kprintf("file open failed");
+//		kprintf("file open failed");
 		filename = NULL;
 		kfree(filename);
 		kfree(curproc->filedescriptor[index]);
@@ -72,13 +72,13 @@ int filedescriptor_init(void) {
 	if (curproc->filedescriptor[0] == NULL) {
 		curproc->filedescriptor[0] =(struct filehandle*) kmalloc(sizeof(struct filehandle));
 		if (curproc->filedescriptor[0] == NULL) {
-			kprintf("could not allocate memory for std in");
+//			kprintf("could not allocate memory for std in");
 			return ENFILE;
 		}
 	
 		int result = vfs_open(filename, O_RDONLY, 0664, &vn1);
 		if (result) {
-			kprintf("Console 0 open failed");
+//			kprintf("Console 0 open failed");
 			return EINVAL;
 		}
 
@@ -93,12 +93,12 @@ int filedescriptor_init(void) {
 	if (curproc->filedescriptor[1] == NULL) {
 		curproc->filedescriptor[1] = (struct filehandle*) kmalloc(sizeof(struct filehandle));
 		if (curproc->filedescriptor[1] == NULL) {
-			kprintf("Could not allocate memory for std out");
+//			kprintf("Could not allocate memory for std out");
 			return ENFILE;
 		}
 		int result = vfs_open(out, O_WRONLY, 0664, &vn2);
 		if (result) {
-			kprintf("could not open std output");
+//			kprintf("could not open std output");
 			return EINVAL;
 		}
 
@@ -113,12 +113,12 @@ int filedescriptor_init(void) {
 	if (curproc->filedescriptor[2] == NULL) {
 		curproc->filedescriptor[2] = (struct filehandle*) kmalloc(sizeof(struct filehandle));
 		if (curproc->filedescriptor[2] == NULL) {
-			kprintf("Could not allocate memory for std err");
+//			kprintf("Could not allocate memory for std err");
 			return ENFILE;
 		}
 		int result = vfs_open(err, O_WRONLY, 0664, &vn3);
 		if (result) {
-			kprintf("could not open std err");
+//			kprintf("could not open std err");
 			return EINVAL;
 		}
 

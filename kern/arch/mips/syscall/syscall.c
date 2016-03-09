@@ -167,14 +167,11 @@ syscall(struct trapframe *tf)
 				  (userptr_t)tf->tf_a1,
 				   tf->tf_a2,
 				   &retval);
-<<<<<<< Updated upstream
+		break;
 	   case SYS_execv:
 		//err= sys_execv((const_userptr_t)tf->tf_a0,);
 		break;
-=======
-		break;
 
->>>>>>> Stashed changes
 	    default:
 		kprintf("Unknown syscall %d\n", callno);
 		err = ENOSYS;
@@ -222,6 +219,7 @@ void
 enter_forked_process(void *child_trapframe, unsigned long child_addrspace) 
 {
 	struct trapframe *tf = (struct trapframe *)child_trapframe;
+	struct trapframe temp;
 
 	//tf = *child_trapframe;
         struct addrspace *adspc = (struct addrspace *)child_addrspace;
@@ -232,7 +230,7 @@ enter_forked_process(void *child_trapframe, unsigned long child_addrspace)
 
         proc_setas(adspc);
         as_activate();
-        struct trapframe temp = *tf;
+        temp = *tf;
         mips_usermode(&temp);
 
 }

@@ -28,8 +28,9 @@ int sys_fork(struct trapframe *tf, int *returnvalue) {
 		lock_release(pid_lock);
 	}
 	
-	// child_proc = proc_create_runprogram("childproc");
-	child_proc = proc_fork("childproc");
+	child_proc = proc_create_runprogram("childproc");
+//	child_proc = proc_fork("childproc");
+//	child_proc->p_addrspace = child_addrspace;
 	lock_release(pid_lock);
 //	child_proc->parent_pid = curproc->proc_pid;
 	thread_fork("child_thread", child_proc, enter_forked_process, (void*)child_tf, (unsigned long)child_addrspace);
@@ -73,7 +74,7 @@ int sys_waitpid (pid_t pid, userptr_t status, int options, int *returnvalue) {
 	}
 	
 	proc_destroy(proc);	
-	pid_array[pid] = NULL;
+//	pid_array[pid] = NULL;
 	
 	*returnvalue = pid;	/*Coz the man page says so.... */
 	return 0;

@@ -7,6 +7,7 @@
 A	userland/testbin/matmult/matmult-orig.c	/^int A[Dim][Dim];$/;"	v
 A	userland/testbin/matmult/matmult.c	/^int A[Dim][Dim];$/;"	v
 A	userland/testbin/sort/sort.c	/^static int A[SIZE];$/;"	v	file:
+ABORTED	userland/testbin/badcall/test.h	45;"	d
 ABSTOP	mk/os161.config.mk	/^ABSTOP=$(.CURDIR:C\/$(ABSTOP_PATTERN)\\$\/\/)$/;"	m
 ABSTOP_PATTERN	mk/os161.config.mk	/^ABSTOP_PATTERN=$(TOP:S\/.\/\\\\.\/g:S\/\\\\.\\\\.\/[^\\\/]*\/g)$/;"	m
 ABSURD_OVERHEAD	userland/testbin/malloctest/malloctest.c	64;"	d	file:
@@ -97,7 +98,9 @@ BINDIR	userland/testbin/bigfile/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/bigfork/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/bigseek/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/bloat/Makefile	/^BINDIR=\/testbin$/;"	m
+BINDIR	userland/testbin/closetest/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/conman/Makefile	/^BINDIR=\/testbin$/;"	m
+BINDIR	userland/testbin/consoletest/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/crash/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/ctest/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/dirconc/Makefile	/^BINDIR=\/testbin$/;"	m
@@ -112,6 +115,7 @@ BINDIR	userland/testbin/filetest/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/forkbomb/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/forktest/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/frack/Makefile	/^BINDIR=\/testbin$/;"	m
+BINDIR	userland/testbin/getpid/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/guzzle/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/hash/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/hog/Makefile	/^BINDIR=\/testbin$/;"	m
@@ -120,6 +124,7 @@ BINDIR	userland/testbin/kitchen/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/malloctest/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/matmult/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/multiexec/Makefile	/^BINDIR=\/testbin$/;"	m
+BINDIR	userland/testbin/opentest/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/palin/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/parallelvm/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/poisondisk/Makefile	/^BINDIR=\/testbin$/;"	m
@@ -128,11 +133,13 @@ BINDIR	userland/testbin/quinthuge/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/quintmat/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/quintsort/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/randcall/Makefile	/^BINDIR=\/testbin$/;"	m
+BINDIR	userland/testbin/readwritetest/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/redirect/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/rmdirtest/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/rmtest/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/sbrktest/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/schedpong/Makefile	/^BINDIR=\/testbin$/;"	m
+BINDIR	userland/testbin/shelltest/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/shll/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/sink/Makefile	/^BINDIR=\/testbin$/;"	m
 BINDIR	userland/testbin/sort/Makefile	/^BINDIR=\/testbin$/;"	m
@@ -159,9 +166,11 @@ BREAK_1	userland/lib/libc/stdlib/random.c	128;"	d	file:
 BREAK_2	userland/lib/libc/stdlib/random.c	133;"	d	file:
 BREAK_3	userland/lib/libc/stdlib/random.c	138;"	d	file:
 BREAK_4	userland/lib/libc/stdlib/random.c	143;"	d	file:
-BUFFER_COUNT	userland/testbin/fileonlytest/fileonlytest.c	47;"	d	file:
+BUFFER_COUNT	userland/testbin/fileonlytest/fileonlytest.c	50;"	d	file:
+BUFFER_LEN	common/libtest161/secure.c	36;"	d	file:
+BUFFER_SIZE	common/libtest161/test161.c	21;"	d	file:
 BUFFER_SIZE	userland/testbin/f_test/f_test.c	54;"	d	file:
-BUFFER_SIZE	userland/testbin/fileonlytest/fileonlytest.c	48;"	d	file:
+BUFFER_SIZE	userland/testbin/fileonlytest/fileonlytest.c	51;"	d	file:
 BUFSIZE	userland/testbin/tail/tail.c	43;"	d	file:
 BUILDSYMLINKS	mk/os161.config.mk	/^BUILDSYMLINKS=yes		# yes => link build -> $(BUILDTOP)\/$(HERE).$/;"	m
 BUILDTOP	mk/os161.config.mk	/^BUILDTOP=$(WORKDIR)		# Top of directory for compiler output.$/;"	m
@@ -220,6 +229,7 @@ CMDLINE_MAX	userland/testbin/shll/shll.c	30;"	d	file:
 COMBINE	common/gcc-millicode/qdivrem.c	48;"	d	file:
 COMMON	userland/lib/hostcompat/Makefile	/^COMMON=$(TOP)\/common\/libc$/;"	m
 COMMON	userland/lib/libc/Makefile	/^COMMON=$(TOP)\/common\/libc$/;"	m
+COMMON	userland/lib/libtest161/Makefile	/^COMMON=$(TOP)\/common\/libtest161$/;"	m
 COMMONGCC	userland/lib/libc/Makefile	/^COMMONGCC=$(TOP)\/common\/gcc-millicode$/;"	m
 COMPARE	userland/lib/libc/stdlib/qsort.c	45;"	d	file:
 COMPAT_CFLAGS	defs.mk	/^COMPAT_CFLAGS= -DNEED_NTOHLL$/;"	m
@@ -802,10 +812,9 @@ Elf32_Ehdr	kern/include/elf.h	/^} Elf32_Ehdr;$/;"	t	typeref:struct:__anon9
 Elf32_Phdr	kern/include/elf.h	/^} Elf32_Phdr;$/;"	t	typeref:struct:__anon10
 Elf_Ehdr	kern/include/elf.h	/^typedef Elf32_Ehdr Elf_Ehdr;$/;"	t
 Elf_Phdr	kern/include/elf.h	/^typedef Elf32_Phdr Elf_Phdr;$/;"	t
-F0	common/libc/secure/sha256.c	169;"	d	file:
-F1	common/libc/secure/sha256.c	170;"	d	file:
-FAIL	kern/include/test.h	182;"	d
-FAIL	kern/test/synchprobs.c	19;"	d	file:
+F0	common/libtest161/sha256.c	169;"	d	file:
+F1	common/libtest161/sha256.c	170;"	d	file:
+FAILED	userland/testbin/badcall/test.h	44;"	d
 FAKE_MAGIC	kern/test/threadlisttest.c	52;"	d	file:
 FALSE	userland/testbin/tictac/tictac.c	/^typedef enum { FALSE, TRUE } bool;$/;"	e	enum:__anon38	file:
 FC_CREAT	userland/testbin/frack/check.c	/^	FC_CREAT,		\/* create a file *\/$/;"	e	enum:fschanges	file:
@@ -825,9 +834,11 @@ FD_CLOEXEC	build/install/include/kern/fcntl.h	83;"	d
 FD_CLOEXEC	kern/include/kern/fcntl.h	83;"	d
 FEMALE	kern/test/synchprobs.c	72;"	d	file:
 FILENAME	kern/test/fstest.c	54;"	d	file:
+FILENAME	userland/testbin/readwritetest/readwritetest.c	47;"	d	file:
 FNAME	userland/testbin/f_test/f_read.c	49;"	d	file:
 FNAME	userland/testbin/f_test/f_test.c	69;"	d	file:
 FNAME	userland/testbin/f_test/f_write.c	49;"	d	file:
+FORKTEST_FILENAME_BASE	userland/testbin/forktest/forktest.c	47;"	d	file:
 FREEMAP_H	userland/sbin/sfsck/freemap.h	31;"	d
 FSIZE	userland/testbin/f_test/f_read.c	47;"	d	file:
 FSIZE	userland/testbin/f_test/f_test.c	71;"	d	file:
@@ -917,7 +928,7 @@ GET_III	userland/sbin/sfsck/ibmacros.h	124;"	d
 GET_III	userland/sbin/sfsck/ibmacros.h	127;"	d
 GET_III	userland/sbin/sfsck/ibmacros.h	130;"	d
 GET_STATUS	kern/arch/mips/thread/cpu.c	195;"	d	file:
-GET_UINT32_BE	common/libc/secure/sha256.c	65;"	d	file:
+GET_UINT32_BE	common/libtest161/sha256.c	65;"	d	file:
 GNUTARGET	mk/os161.config.mk	/^GNUTARGET=$(MACHINE)-harvard-os161$/;"	m
 GO_STRAIGHT	kern/test/synchprobs.c	419;"	d	file:
 GROUP_VERSION	kern/include/version.h	42;"	d
@@ -934,9 +945,9 @@ HALF_BITS	common/gcc-millicode/longlong.h	98;"	d
 HASHP	userland/testbin/hash/hash.c	50;"	d	file:
 HAS_NO_SIZED_TYPES	userland/sbin/mksfs/support.h	33;"	d
 HAS_NO_SIZED_TYPES	userland/sbin/mksfs/support.h	38;"	d
-HEXLEN	common/libc/secure/secure.c	18;"	d	file:
+HEXLEN	common/libtest161/secure.c	21;"	d	file:
 HHALF	common/gcc-millicode/longlong.h	110;"	d
-HIGHEST	userland/testbin/badcall/driver.c	193;"	d	file:
+HIGHEST	userland/testbin/badcall/driver.c	195;"	d	file:
 HIGH_VERSION	kern/dev/lamebus/lnet_att.c	38;"	d	file:
 HIGH_VERSION	kern/dev/lamebus/lscreen_att.c	42;"	d	file:
 HOSTBINDIR	userland/bin/sh/Makefile	/^HOSTBINDIR=\/hostbin$/;"	m
@@ -973,7 +984,7 @@ IMPOSSIBLE_FD	userland/testbin/badcall/config.h	51;"	d
 INCLUDELINKS	userland/Makefile	/^INCLUDELINKS=\\$/;"	m
 INCLUDES	kern/Makefile	/^INCLUDES=\\$/;"	m
 INCLUDES	userland/Makefile	/^INCLUDES=\\$/;"	m
-INFILE	userland/testbin/redirect/redirect.c	48;"	d	file:
+INFILE	userland/testbin/redirect/redirect.c	49;"	d	file:
 INIT_CURCPU	kern/arch/mips/include/current.h	71;"	d
 INIT_CURCPU	kern/compile/DUMBVM/includelinks/machine/current.h	71;"	d
 INIT_CURCPU	kern/compile/DUMBVM/includelinks/mips/current.h	71;"	d
@@ -985,7 +996,7 @@ INOMAX_D	userland/sbin/sfsck/ibmacros.h	153;"	d
 INOMAX_I	userland/sbin/sfsck/ibmacros.h	154;"	d
 INOMAX_II	userland/sbin/sfsck/ibmacros.h	155;"	d
 INOMAX_III	userland/sbin/sfsck/ibmacros.h	156;"	d
-INSN_TYPE	userland/testbin/crash/crash.c	53;"	d	file:
+INSN_TYPE	userland/testbin/crash/crash.c	55;"	d	file:
 INSTALLTOP	mk/os161.config.mk	/^INSTALLTOP=$(WORKDIR)\/install	# Staging area for installation.$/;"	m
 INTSZ	common/libc/printf/__printf.c	/^		INTSZ,$/;"	e	enum:__anon6::__anon7	file:
 INTTYPE	common/libc/printf/__printf.c	70;"	d	file:
@@ -993,10 +1004,10 @@ INTTYPE	common/libc/printf/__printf.c	72;"	d	file:
 INT_BITS	common/gcc-millicode/longlong.h	97;"	d
 INUSE_WORDS	kern/vm/kmalloc.c	194;"	d	file:
 INVALID_OFFSET	kern/vm/kmalloc.c	156;"	d	file:
-INVAL_ADDR	userland/testbin/crash/crash.c	52;"	d	file:
-INVAL_INSN	userland/testbin/crash/crash.c	54;"	d	file:
+INVAL_ADDR	userland/testbin/crash/crash.c	54;"	d	file:
+INVAL_INSN	userland/testbin/crash/crash.c	56;"	d	file:
 INVAL_PTR	userland/testbin/badcall/config.h	39;"	d
-IOCTL	userland/testbin/badcall/bad_ioctl.c	64;"	d	file:
+IOCTL	userland/testbin/badcall/bad_ioctl.c	68;"	d	file:
 IOV_MAX	.root/include/limits.h	50;"	d
 IOV_MAX	build/install/include/limits.h	50;"	d
 IOV_MAX	kern/include/limits.h	50;"	d
@@ -1027,13 +1038,13 @@ ITIMER_VIRTUAL	build/install/hostinclude/kern/time.h	60;"	d
 ITIMER_VIRTUAL	build/install/include/kern/time.h	60;"	d
 ITIMER_VIRTUAL	kern/include/kern/time.h	60;"	d
 JOBSIZE	userland/testbin/parallelvm/parallelvm.c	53;"	d	file:
-K	common/libc/secure/sha256.c	/^static const uint32_t K[] =$/;"	v	file:
+K	common/libtest161/sha256.c	/^static const uint32_t K[] =$/;"	v	file:
 KASSERT	kern/include/lib.h	63;"	d
 KASSERT	kern/include/lib.h	65;"	d
 KCFLAGS	mk/os161.config.mk	/^KCFLAGS=$(KDEBUG) $(WARNINGS) $(WERROR) -std=gnu99$/;"	m
 KDEBUG	kern/compile/DUMBVM/Makefile	/^KDEBUG=-g$/;"	m
 KERNEL	mk/os161.kernel.mk	/^KERNEL=kernel$/;"	m
-KERNEL_ADDR	userland/testbin/crash/crash.c	51;"	d	file:
+KERNEL_ADDR	userland/testbin/crash/crash.c	53;"	d	file:
 KERNEL_PROMPT	kern/include/prompt.h	45;"	d
 KERN_PTR	userland/testbin/badcall/config.h	38;"	d
 KLDFLAGS	mk/os161.config.mk	/^KLDFLAGS=$/;"	m
@@ -1089,6 +1100,7 @@ LHUP	common/gcc-millicode/longlong.h	112;"	d
 LIB	userland/lib/hostcompat/Makefile	/^LIB=hostcompat$/;"	m
 LIB	userland/lib/libc/Makefile	/^LIB=c$/;"	m
 LIB	userland/lib/libtest/Makefile	/^LIB=test$/;"	m
+LIB	userland/lib/libtest161/Makefile	/^LIB=test161$/;"	m
 LIBDIR	mk/os161.lib.mk	/^LIBDIR?=\/lib$/;"	m
 LIBS	mk/os161.config.mk	/^LIBS=$/;"	m
 LIBS	userland/testbin/quinthuge/Makefile	/^LIBS=-ltest$/;"	m
@@ -1127,7 +1139,7 @@ LONGLONG_BITS	common/gcc-millicode/longlong.h	96;"	d
 LONGSZ	common/libc/printf/__printf.c	/^		LONGSZ,$/;"	e	enum:__anon6::__anon7	file:
 LOOPCOUNT	userland/testbin/schedpong/think.c	51;"	d	file:
 LOOPS	userland/testbin/usemtest/usemtest.c	51;"	d	file:
-LOWEST	userland/testbin/badcall/driver.c	192;"	d	file:
+LOWEST	userland/testbin/badcall/driver.c	194;"	d	file:
 LOW_VERSION	kern/dev/lamebus/emu_att.c	41;"	d	file:
 LOW_VERSION	kern/dev/lamebus/lhd_att.c	40;"	d	file:
 LOW_VERSION	kern/dev/lamebus/lnet_att.c	36;"	d	file:
@@ -1167,7 +1179,8 @@ LT_REG_SEC	kern/dev/lamebus/ltimer.c	42;"	d	file:
 LT_REG_SPKR	kern/dev/lamebus/ltimer.c	47;"	d	file:
 MACHINE	defs.mk	/^MACHINE=mips$/;"	m
 MACHINE	mk/os161.config.mk	/^MACHINE=mips$/;"	m
-MAGIC	userland/testbin/crash/crash.c	59;"	d	file:
+MAGIC	userland/testbin/crash/crash.c	61;"	d	file:
+MAGIC	userland/testbin/readwritetest/readwritetest.c	/^static const char *MAGIC = "h4xa0rRq0Vgbc96tiYJ^!#nXzZSAKPO";$/;"	v	file:
 MAGIC_STATUS	userland/testbin/badcall/config.h	57;"	d
 MAIN_H	userland/sbin/sfsck/main.h	31;"	d
 MAKENAME	kern/test/fstest.c	111;"	d	file:
@@ -1216,132 +1229,132 @@ MAXPROCS	userland/testbin/sty/sty.c	44;"	d	file:
 MAXSTRING	userland/testbin/tictac/tictac.c	52;"	d	file:
 MAX_SPINNERS	kern/test/automationtest.c	44;"	d	file:
 MAX_TYPES	userland/lib/libc/stdlib/random.c	151;"	d	file:
-MBEDTLS_AESNI_C	common/libc/secure/config.h	1363;"	d
-MBEDTLS_AES_C	common/libc/secure/config.h	1438;"	d
-MBEDTLS_ARC4_C	common/libc/secure/config.h	1461;"	d
-MBEDTLS_ASN1_PARSE_C	common/libc/secure/config.h	1475;"	d
-MBEDTLS_ASN1_WRITE_C	common/libc/secure/config.h	1489;"	d
-MBEDTLS_BASE64_C	common/libc/secure/config.h	1501;"	d
-MBEDTLS_BIGNUM_C	common/libc/secure/config.h	1517;"	d
-MBEDTLS_BLOWFISH_C	common/libc/secure/config.h	1526;"	d
-MBEDTLS_CAMELLIA_C	common/libc/secure/config.h	1581;"	d
-MBEDTLS_CCM_C	common/libc/secure/config.h	1595;"	d
-MBEDTLS_CERTS_C	common/libc/secure/config.h	1607;"	d
-MBEDTLS_CIPHER_C	common/libc/secure/config.h	1619;"	d
-MBEDTLS_CIPHER_MODE_CBC	common/libc/secure/config.h	316;"	d
-MBEDTLS_CIPHER_MODE_CFB	common/libc/secure/config.h	323;"	d
-MBEDTLS_CIPHER_MODE_CTR	common/libc/secure/config.h	330;"	d
-MBEDTLS_CIPHER_PADDING_ONE_AND_ZEROS	common/libc/secure/config.h	377;"	d
-MBEDTLS_CIPHER_PADDING_PKCS7	common/libc/secure/config.h	376;"	d
-MBEDTLS_CIPHER_PADDING_ZEROS	common/libc/secure/config.h	379;"	d
-MBEDTLS_CIPHER_PADDING_ZEROS_AND_LEN	common/libc/secure/config.h	378;"	d
-MBEDTLS_CONFIG_H	common/libc/secure/config.h	29;"	d
-MBEDTLS_CTR_DRBG_C	common/libc/secure/config.h	1633;"	d
-MBEDTLS_DEBUG_C	common/libc/secure/config.h	1647;"	d
-MBEDTLS_DES_C	common/libc/secure/config.h	1673;"	d
-MBEDTLS_DHM_C	common/libc/secure/config.h	1687;"	d
-MBEDTLS_ECDH_C	common/libc/secure/config.h	1703;"	d
-MBEDTLS_ECDSA_C	common/libc/secure/config.h	1718;"	d
-MBEDTLS_ECDSA_DETERMINISTIC	common/libc/secure/config.h	453;"	d
-MBEDTLS_ECP_C	common/libc/secure/config.h	1751;"	d
-MBEDTLS_ECP_DP_BP256R1_ENABLED	common/libc/secure/config.h	425;"	d
-MBEDTLS_ECP_DP_BP384R1_ENABLED	common/libc/secure/config.h	426;"	d
-MBEDTLS_ECP_DP_BP512R1_ENABLED	common/libc/secure/config.h	427;"	d
-MBEDTLS_ECP_DP_CURVE25519_ENABLED	common/libc/secure/config.h	428;"	d
-MBEDTLS_ECP_DP_SECP192K1_ENABLED	common/libc/secure/config.h	422;"	d
-MBEDTLS_ECP_DP_SECP192R1_ENABLED	common/libc/secure/config.h	417;"	d
-MBEDTLS_ECP_DP_SECP224K1_ENABLED	common/libc/secure/config.h	423;"	d
-MBEDTLS_ECP_DP_SECP224R1_ENABLED	common/libc/secure/config.h	418;"	d
-MBEDTLS_ECP_DP_SECP256K1_ENABLED	common/libc/secure/config.h	424;"	d
-MBEDTLS_ECP_DP_SECP256R1_ENABLED	common/libc/secure/config.h	419;"	d
-MBEDTLS_ECP_DP_SECP384R1_ENABLED	common/libc/secure/config.h	420;"	d
-MBEDTLS_ECP_DP_SECP521R1_ENABLED	common/libc/secure/config.h	421;"	d
-MBEDTLS_ECP_NIST_OPTIM	common/libc/secure/config.h	439;"	d
-MBEDTLS_ENTROPY_C	common/libc/secure/config.h	1765;"	d
-MBEDTLS_ERROR_C	common/libc/secure/config.h	1777;"	d
-MBEDTLS_ERROR_STRERROR_DUMMY	common/libc/secure/config.h	743;"	d
-MBEDTLS_FS_IO	common/libc/secure/config.h	759;"	d
-MBEDTLS_GCM_C	common/libc/secure/config.h	1791;"	d
-MBEDTLS_GENPRIME	common/libc/secure/config.h	752;"	d
-MBEDTLS_HAVE_ASM	common/libc/secure/config.h	56;"	d
-MBEDTLS_HAVE_TIME	common/libc/secure/config.h	76;"	d
-MBEDTLS_HAVE_TIME_DATE	common/libc/secure/config.h	88;"	d
-MBEDTLS_HMAC_DRBG_C	common/libc/secure/config.h	1828;"	d
-MBEDTLS_KEY_EXCHANGE_DHE_PSK_ENABLED	common/libc/secure/config.h	499;"	d
-MBEDTLS_KEY_EXCHANGE_DHE_RSA_ENABLED	common/libc/secure/config.h	598;"	d
-MBEDTLS_KEY_EXCHANGE_ECDHE_ECDSA_ENABLED	common/libc/secure/config.h	647;"	d
-MBEDTLS_KEY_EXCHANGE_ECDHE_PSK_ENABLED	common/libc/secure/config.h	519;"	d
-MBEDTLS_KEY_EXCHANGE_ECDHE_RSA_ENABLED	common/libc/secure/config.h	623;"	d
-MBEDTLS_KEY_EXCHANGE_ECDH_ECDSA_ENABLED	common/libc/secure/config.h	671;"	d
-MBEDTLS_KEY_EXCHANGE_ECDH_RSA_ENABLED	common/libc/secure/config.h	695;"	d
-MBEDTLS_KEY_EXCHANGE_PSK_ENABLED	common/libc/secure/config.h	475;"	d
-MBEDTLS_KEY_EXCHANGE_RSA_ENABLED	common/libc/secure/config.h	572;"	d
-MBEDTLS_KEY_EXCHANGE_RSA_PSK_ENABLED	common/libc/secure/config.h	544;"	d
-MBEDTLS_MD5_C	common/libc/secure/config.h	1879;"	d
-MBEDTLS_MD_C	common/libc/secure/config.h	1840;"	d
-MBEDTLS_NET_C	common/libc/secure/config.h	1906;"	d
-MBEDTLS_OID_C	common/libc/secure/config.h	1929;"	d
-MBEDTLS_PADLOCK_C	common/libc/secure/config.h	1943;"	d
-MBEDTLS_PEM_PARSE_C	common/libc/secure/config.h	1961;"	d
-MBEDTLS_PEM_WRITE_C	common/libc/secure/config.h	1977;"	d
-MBEDTLS_PKCS12_C	common/libc/secure/config.h	2066;"	d
-MBEDTLS_PKCS1_V15	common/libc/secure/config.h	844;"	d
-MBEDTLS_PKCS1_V21	common/libc/secure/config.h	855;"	d
-MBEDTLS_PKCS5_C	common/libc/secure/config.h	2035;"	d
-MBEDTLS_PK_C	common/libc/secure/config.h	1993;"	d
-MBEDTLS_PK_PARSE_C	common/libc/secure/config.h	2008;"	d
-MBEDTLS_PK_PARSE_EC_EXTENDED	common/libc/secure/config.h	728;"	d
-MBEDTLS_PK_RSA_ALT_SUPPORT	common/libc/secure/config.h	833;"	d
-MBEDTLS_PK_WRITE_C	common/libc/secure/config.h	2022;"	d
-MBEDTLS_PLATFORM_C	common/libc/secure/config.h	2086;"	d
-MBEDTLS_REMOVE_ARC4_CIPHERSUITES	common/libc/secure/config.h	407;"	d
-MBEDTLS_RIPEMD160_C	common/libc/secure/config.h	2097;"	d
-MBEDTLS_RSA_C	common/libc/secure/config.h	2115;"	d
-MBEDTLS_SHA1_C	common/libc/secure/config.h	2131;"	d
-MBEDTLS_SHA256_C	common/libc/secure/config.h	2148;"	d
-MBEDTLS_SHA256_H	common/libc/secure/sha256.h	24;"	d
-MBEDTLS_SHA512_C	common/libc/secure/config.h	2163;"	d
-MBEDTLS_SSL_ALL_ALERT_MESSAGES	common/libc/secure/config.h	914;"	d
-MBEDTLS_SSL_ALPN	common/libc/secure/config.h	1121;"	d
-MBEDTLS_SSL_CACHE_C	common/libc/secure/config.h	2175;"	d
-MBEDTLS_SSL_CBC_RECORD_SPLITTING	common/libc/secure/config.h	1005;"	d
-MBEDTLS_SSL_CLI_C	common/libc/secure/config.h	2211;"	d
-MBEDTLS_SSL_COOKIE_C	common/libc/secure/config.h	2185;"	d
-MBEDTLS_SSL_DTLS_ANTI_REPLAY	common/libc/secure/config.h	1136;"	d
-MBEDTLS_SSL_DTLS_BADMAC_LIMIT	common/libc/secure/config.h	1181;"	d
-MBEDTLS_SSL_DTLS_CLIENT_PORT_REUSE	common/libc/secure/config.h	1170;"	d
-MBEDTLS_SSL_DTLS_HELLO_VERIFY	common/libc/secure/config.h	1154;"	d
-MBEDTLS_SSL_ENCRYPT_THEN_MAC	common/libc/secure/config.h	948;"	d
-MBEDTLS_SSL_EXPORT_KEYS	common/libc/secure/config.h	1205;"	d
-MBEDTLS_SSL_EXTENDED_MASTER_SECRET	common/libc/secure/config.h	966;"	d
-MBEDTLS_SSL_FALLBACK_SCSV	common/libc/secure/config.h	983;"	d
-MBEDTLS_SSL_MAX_FRAGMENT_LENGTH	common/libc/secure/config.h	1049;"	d
-MBEDTLS_SSL_PROTO_DTLS	common/libc/secure/config.h	1112;"	d
-MBEDTLS_SSL_PROTO_SSL3	common/libc/secure/config.h	1061;"	d
-MBEDTLS_SSL_PROTO_TLS1	common/libc/secure/config.h	1073;"	d
-MBEDTLS_SSL_PROTO_TLS1_1	common/libc/secure/config.h	1085;"	d
-MBEDTLS_SSL_PROTO_TLS1_2	common/libc/secure/config.h	1097;"	d
-MBEDTLS_SSL_RENEGOTIATION	common/libc/secure/config.h	1020;"	d
-MBEDTLS_SSL_SERVER_NAME_INDICATION	common/libc/secure/config.h	1216;"	d
-MBEDTLS_SSL_SESSION_TICKETS	common/libc/secure/config.h	1195;"	d
-MBEDTLS_SSL_SRV_C	common/libc/secure/config.h	2225;"	d
-MBEDTLS_SSL_TICKET_C	common/libc/secure/config.h	2197;"	d
-MBEDTLS_SSL_TLS_C	common/libc/secure/config.h	2241;"	d
-MBEDTLS_SSL_TRUNCATED_HMAC	common/libc/secure/config.h	1225;"	d
-MBEDTLS_TIMING_C	common/libc/secure/config.h	2274;"	d
-MBEDTLS_VERSION_C	common/libc/secure/config.h	2285;"	d
-MBEDTLS_VERSION_FEATURES	common/libc/secure/config.h	1260;"	d
-MBEDTLS_X509_CHECK_EXTENDED_KEY_USAGE	common/libc/secure/config.h	1309;"	d
-MBEDTLS_X509_CHECK_KEY_USAGE	common/libc/secure/config.h	1296;"	d
-MBEDTLS_X509_CREATE_C	common/libc/secure/config.h	2359;"	d
-MBEDTLS_X509_CRL_PARSE_C	common/libc/secure/config.h	2332;"	d
-MBEDTLS_X509_CRT_PARSE_C	common/libc/secure/config.h	2318;"	d
-MBEDTLS_X509_CRT_WRITE_C	common/libc/secure/config.h	2372;"	d
-MBEDTLS_X509_CSR_PARSE_C	common/libc/secure/config.h	2346;"	d
-MBEDTLS_X509_CSR_WRITE_C	common/libc/secure/config.h	2385;"	d
-MBEDTLS_X509_RSASSA_PSS_SUPPORT	common/libc/secure/config.h	1319;"	d
-MBEDTLS_X509_USE_C	common/libc/secure/config.h	2302;"	d
-MBEDTLS_XTEA_C	common/libc/secure/config.h	2395;"	d
+MBEDTLS_AESNI_C	common/libtest161/config.h	1363;"	d
+MBEDTLS_AES_C	common/libtest161/config.h	1438;"	d
+MBEDTLS_ARC4_C	common/libtest161/config.h	1461;"	d
+MBEDTLS_ASN1_PARSE_C	common/libtest161/config.h	1475;"	d
+MBEDTLS_ASN1_WRITE_C	common/libtest161/config.h	1489;"	d
+MBEDTLS_BASE64_C	common/libtest161/config.h	1501;"	d
+MBEDTLS_BIGNUM_C	common/libtest161/config.h	1517;"	d
+MBEDTLS_BLOWFISH_C	common/libtest161/config.h	1526;"	d
+MBEDTLS_CAMELLIA_C	common/libtest161/config.h	1581;"	d
+MBEDTLS_CCM_C	common/libtest161/config.h	1595;"	d
+MBEDTLS_CERTS_C	common/libtest161/config.h	1607;"	d
+MBEDTLS_CIPHER_C	common/libtest161/config.h	1619;"	d
+MBEDTLS_CIPHER_MODE_CBC	common/libtest161/config.h	316;"	d
+MBEDTLS_CIPHER_MODE_CFB	common/libtest161/config.h	323;"	d
+MBEDTLS_CIPHER_MODE_CTR	common/libtest161/config.h	330;"	d
+MBEDTLS_CIPHER_PADDING_ONE_AND_ZEROS	common/libtest161/config.h	377;"	d
+MBEDTLS_CIPHER_PADDING_PKCS7	common/libtest161/config.h	376;"	d
+MBEDTLS_CIPHER_PADDING_ZEROS	common/libtest161/config.h	379;"	d
+MBEDTLS_CIPHER_PADDING_ZEROS_AND_LEN	common/libtest161/config.h	378;"	d
+MBEDTLS_CONFIG_H	common/libtest161/config.h	29;"	d
+MBEDTLS_CTR_DRBG_C	common/libtest161/config.h	1633;"	d
+MBEDTLS_DEBUG_C	common/libtest161/config.h	1647;"	d
+MBEDTLS_DES_C	common/libtest161/config.h	1673;"	d
+MBEDTLS_DHM_C	common/libtest161/config.h	1687;"	d
+MBEDTLS_ECDH_C	common/libtest161/config.h	1703;"	d
+MBEDTLS_ECDSA_C	common/libtest161/config.h	1718;"	d
+MBEDTLS_ECDSA_DETERMINISTIC	common/libtest161/config.h	453;"	d
+MBEDTLS_ECP_C	common/libtest161/config.h	1751;"	d
+MBEDTLS_ECP_DP_BP256R1_ENABLED	common/libtest161/config.h	425;"	d
+MBEDTLS_ECP_DP_BP384R1_ENABLED	common/libtest161/config.h	426;"	d
+MBEDTLS_ECP_DP_BP512R1_ENABLED	common/libtest161/config.h	427;"	d
+MBEDTLS_ECP_DP_CURVE25519_ENABLED	common/libtest161/config.h	428;"	d
+MBEDTLS_ECP_DP_SECP192K1_ENABLED	common/libtest161/config.h	422;"	d
+MBEDTLS_ECP_DP_SECP192R1_ENABLED	common/libtest161/config.h	417;"	d
+MBEDTLS_ECP_DP_SECP224K1_ENABLED	common/libtest161/config.h	423;"	d
+MBEDTLS_ECP_DP_SECP224R1_ENABLED	common/libtest161/config.h	418;"	d
+MBEDTLS_ECP_DP_SECP256K1_ENABLED	common/libtest161/config.h	424;"	d
+MBEDTLS_ECP_DP_SECP256R1_ENABLED	common/libtest161/config.h	419;"	d
+MBEDTLS_ECP_DP_SECP384R1_ENABLED	common/libtest161/config.h	420;"	d
+MBEDTLS_ECP_DP_SECP521R1_ENABLED	common/libtest161/config.h	421;"	d
+MBEDTLS_ECP_NIST_OPTIM	common/libtest161/config.h	439;"	d
+MBEDTLS_ENTROPY_C	common/libtest161/config.h	1765;"	d
+MBEDTLS_ERROR_C	common/libtest161/config.h	1777;"	d
+MBEDTLS_ERROR_STRERROR_DUMMY	common/libtest161/config.h	743;"	d
+MBEDTLS_FS_IO	common/libtest161/config.h	759;"	d
+MBEDTLS_GCM_C	common/libtest161/config.h	1791;"	d
+MBEDTLS_GENPRIME	common/libtest161/config.h	752;"	d
+MBEDTLS_HAVE_ASM	common/libtest161/config.h	56;"	d
+MBEDTLS_HAVE_TIME	common/libtest161/config.h	76;"	d
+MBEDTLS_HAVE_TIME_DATE	common/libtest161/config.h	88;"	d
+MBEDTLS_HMAC_DRBG_C	common/libtest161/config.h	1828;"	d
+MBEDTLS_KEY_EXCHANGE_DHE_PSK_ENABLED	common/libtest161/config.h	499;"	d
+MBEDTLS_KEY_EXCHANGE_DHE_RSA_ENABLED	common/libtest161/config.h	598;"	d
+MBEDTLS_KEY_EXCHANGE_ECDHE_ECDSA_ENABLED	common/libtest161/config.h	647;"	d
+MBEDTLS_KEY_EXCHANGE_ECDHE_PSK_ENABLED	common/libtest161/config.h	519;"	d
+MBEDTLS_KEY_EXCHANGE_ECDHE_RSA_ENABLED	common/libtest161/config.h	623;"	d
+MBEDTLS_KEY_EXCHANGE_ECDH_ECDSA_ENABLED	common/libtest161/config.h	671;"	d
+MBEDTLS_KEY_EXCHANGE_ECDH_RSA_ENABLED	common/libtest161/config.h	695;"	d
+MBEDTLS_KEY_EXCHANGE_PSK_ENABLED	common/libtest161/config.h	475;"	d
+MBEDTLS_KEY_EXCHANGE_RSA_ENABLED	common/libtest161/config.h	572;"	d
+MBEDTLS_KEY_EXCHANGE_RSA_PSK_ENABLED	common/libtest161/config.h	544;"	d
+MBEDTLS_MD5_C	common/libtest161/config.h	1879;"	d
+MBEDTLS_MD_C	common/libtest161/config.h	1840;"	d
+MBEDTLS_NET_C	common/libtest161/config.h	1906;"	d
+MBEDTLS_OID_C	common/libtest161/config.h	1929;"	d
+MBEDTLS_PADLOCK_C	common/libtest161/config.h	1943;"	d
+MBEDTLS_PEM_PARSE_C	common/libtest161/config.h	1961;"	d
+MBEDTLS_PEM_WRITE_C	common/libtest161/config.h	1977;"	d
+MBEDTLS_PKCS12_C	common/libtest161/config.h	2066;"	d
+MBEDTLS_PKCS1_V15	common/libtest161/config.h	844;"	d
+MBEDTLS_PKCS1_V21	common/libtest161/config.h	855;"	d
+MBEDTLS_PKCS5_C	common/libtest161/config.h	2035;"	d
+MBEDTLS_PK_C	common/libtest161/config.h	1993;"	d
+MBEDTLS_PK_PARSE_C	common/libtest161/config.h	2008;"	d
+MBEDTLS_PK_PARSE_EC_EXTENDED	common/libtest161/config.h	728;"	d
+MBEDTLS_PK_RSA_ALT_SUPPORT	common/libtest161/config.h	833;"	d
+MBEDTLS_PK_WRITE_C	common/libtest161/config.h	2022;"	d
+MBEDTLS_PLATFORM_C	common/libtest161/config.h	2086;"	d
+MBEDTLS_REMOVE_ARC4_CIPHERSUITES	common/libtest161/config.h	407;"	d
+MBEDTLS_RIPEMD160_C	common/libtest161/config.h	2097;"	d
+MBEDTLS_RSA_C	common/libtest161/config.h	2115;"	d
+MBEDTLS_SHA1_C	common/libtest161/config.h	2131;"	d
+MBEDTLS_SHA256_C	common/libtest161/config.h	2148;"	d
+MBEDTLS_SHA256_H	common/libtest161/sha256.h	24;"	d
+MBEDTLS_SHA512_C	common/libtest161/config.h	2163;"	d
+MBEDTLS_SSL_ALL_ALERT_MESSAGES	common/libtest161/config.h	914;"	d
+MBEDTLS_SSL_ALPN	common/libtest161/config.h	1121;"	d
+MBEDTLS_SSL_CACHE_C	common/libtest161/config.h	2175;"	d
+MBEDTLS_SSL_CBC_RECORD_SPLITTING	common/libtest161/config.h	1005;"	d
+MBEDTLS_SSL_CLI_C	common/libtest161/config.h	2211;"	d
+MBEDTLS_SSL_COOKIE_C	common/libtest161/config.h	2185;"	d
+MBEDTLS_SSL_DTLS_ANTI_REPLAY	common/libtest161/config.h	1136;"	d
+MBEDTLS_SSL_DTLS_BADMAC_LIMIT	common/libtest161/config.h	1181;"	d
+MBEDTLS_SSL_DTLS_CLIENT_PORT_REUSE	common/libtest161/config.h	1170;"	d
+MBEDTLS_SSL_DTLS_HELLO_VERIFY	common/libtest161/config.h	1154;"	d
+MBEDTLS_SSL_ENCRYPT_THEN_MAC	common/libtest161/config.h	948;"	d
+MBEDTLS_SSL_EXPORT_KEYS	common/libtest161/config.h	1205;"	d
+MBEDTLS_SSL_EXTENDED_MASTER_SECRET	common/libtest161/config.h	966;"	d
+MBEDTLS_SSL_FALLBACK_SCSV	common/libtest161/config.h	983;"	d
+MBEDTLS_SSL_MAX_FRAGMENT_LENGTH	common/libtest161/config.h	1049;"	d
+MBEDTLS_SSL_PROTO_DTLS	common/libtest161/config.h	1112;"	d
+MBEDTLS_SSL_PROTO_SSL3	common/libtest161/config.h	1061;"	d
+MBEDTLS_SSL_PROTO_TLS1	common/libtest161/config.h	1073;"	d
+MBEDTLS_SSL_PROTO_TLS1_1	common/libtest161/config.h	1085;"	d
+MBEDTLS_SSL_PROTO_TLS1_2	common/libtest161/config.h	1097;"	d
+MBEDTLS_SSL_RENEGOTIATION	common/libtest161/config.h	1020;"	d
+MBEDTLS_SSL_SERVER_NAME_INDICATION	common/libtest161/config.h	1216;"	d
+MBEDTLS_SSL_SESSION_TICKETS	common/libtest161/config.h	1195;"	d
+MBEDTLS_SSL_SRV_C	common/libtest161/config.h	2225;"	d
+MBEDTLS_SSL_TICKET_C	common/libtest161/config.h	2197;"	d
+MBEDTLS_SSL_TLS_C	common/libtest161/config.h	2241;"	d
+MBEDTLS_SSL_TRUNCATED_HMAC	common/libtest161/config.h	1225;"	d
+MBEDTLS_TIMING_C	common/libtest161/config.h	2274;"	d
+MBEDTLS_VERSION_C	common/libtest161/config.h	2285;"	d
+MBEDTLS_VERSION_FEATURES	common/libtest161/config.h	1260;"	d
+MBEDTLS_X509_CHECK_EXTENDED_KEY_USAGE	common/libtest161/config.h	1309;"	d
+MBEDTLS_X509_CHECK_KEY_USAGE	common/libtest161/config.h	1296;"	d
+MBEDTLS_X509_CREATE_C	common/libtest161/config.h	2359;"	d
+MBEDTLS_X509_CRL_PARSE_C	common/libtest161/config.h	2332;"	d
+MBEDTLS_X509_CRT_PARSE_C	common/libtest161/config.h	2318;"	d
+MBEDTLS_X509_CRT_WRITE_C	common/libtest161/config.h	2372;"	d
+MBEDTLS_X509_CSR_PARSE_C	common/libtest161/config.h	2346;"	d
+MBEDTLS_X509_CSR_WRITE_C	common/libtest161/config.h	2385;"	d
+MBEDTLS_X509_RSASSA_PSS_SUPPORT	common/libtest161/config.h	1319;"	d
+MBEDTLS_X509_USE_C	common/libtest161/config.h	2302;"	d
+MBEDTLS_XTEA_C	common/libtest161/config.h	2395;"	d
 MBLOCKSHIFT	userland/lib/libc/stdlib/malloc.c	75;"	d	file:
 MBLOCKSIZE	userland/lib/libc/stdlib/malloc.c	74;"	d	file:
 MEDIUMSIZE	userland/testbin/malloctest/malloctest.c	56;"	d	file:
@@ -1369,6 +1382,7 @@ MKPAB	kern/vm/kmalloc.c	160;"	d	file:
 MMAGIC	userland/lib/libc/stdlib/malloc.c	76;"	d	file:
 MORECFLAGS	mk/os161.config.mk	/^MORECFLAGS=$/;"	m
 MORELIBS	mk/os161.config.mk	/^MORELIBS=$/;"	m
+MSEC_PER_SEC	common/libtest161/secure.c	44;"	d	file:
 MYBUILDDIR	mk/os161.config.mk	/^MYBUILDDIR=$(BUILDTOP)$/;"	m
 MYBUILDDIR	mk/os161.config.mk	/^MYBUILDDIR=$(BUILDTOP)\/$(MYDIR)$/;"	m
 MYDIR	mk/os161.config.mk	/^MYDIR=$(.CURDIR:S\/^$(ABSTOP)\/\/)$/;"	m
@@ -1412,6 +1426,7 @@ NONEXIST_PID	userland/testbin/badcall/config.h	54;"	d
 NO_REALLOC	userland/sbin/sfsck/compat.h	60;"	d
 NPAGEREFS_PER_PAGE	kern/vm/kmalloc.c	183;"	d	file:
 NPROCS	userland/testbin/dirconc/dirconc.c	48;"	d	file:
+NSEC_PER_MSEC	common/libtest161/secure.c	43;"	d	file:
 NSEMLOOPS	kern/test/synchtest.c	47;"	d	file:
 NSIZES	kern/vm/kmalloc.c	130;"	d	file:
 NTH	kern/test/arraytest.c	37;"	d	file:
@@ -1431,7 +1446,8 @@ NULL	userland/include/sys/null.h	37;"	d
 NUMBER_BUF_SIZE	common/libc/printf/__printf.c	84;"	d	file:
 NUMJOBS	userland/testbin/usemtest/usemtest.c	52;"	d	file:
 NUMNAMES	kern/test/threadlisttest.c	36;"	d	file:
-NUMSIZE	userland/testbin/factorial/factorial.c	58;"	d	file:
+NUMSIZE	userland/testbin/factorial/factorial.c	59;"	d	file:
+NUM_BUFFERS	common/libtest161/secure.c	35;"	d	file:
 NUM_D	userland/sbin/sfsck/ibmacros.h	83;"	d
 NUM_I	userland/sbin/sfsck/ibmacros.h	84;"	d
 NUM_II	userland/sbin/sfsck/ibmacros.h	85;"	d
@@ -1460,9 +1476,9 @@ OPT_NOASSERTS	kern/compile/DUMBVM/opt-noasserts.h	4;"	d
 OPT_SEMFS	kern/compile/DUMBVM/opt-semfs.h	4;"	d
 OPT_SFS	kern/compile/DUMBVM/opt-sfs.h	4;"	d
 OPT_SYNCHPROBS	kern/compile/DUMBVM/opt-synchprobs.h	4;"	d
-OSTREE	defs.mk	/^OSTREE=\/media\/yash\/489CF58F9CF577B0\/os161\/root\/$/;"	m
+OSTREE	defs.mk	/^OSTREE=\/media\/yash\/489CF58F9CF577B0\/trinity\/root\/$/;"	m
 OSTREE	mk/os161.config.mk	/^OSTREE=$(HOME)\/os161\/root	# Root directory to install into.$/;"	m
-OUTFILE	userland/testbin/redirect/redirect.c	49;"	d	file:
+OUTFILE	userland/testbin/redirect/redirect.c	50;"	d	file:
 OVERHEAD	userland/testbin/malloctest/malloctest.c	61;"	d	file:
 O_ACCMODE	.root/hostinclude/kern/fcntl.h	54;"	d
 O_ACCMODE	.root/include/kern/fcntl.h	54;"	d
@@ -1511,7 +1527,7 @@ O_WRONLY	.root/include/kern/fcntl.h	44;"	d
 O_WRONLY	build/install/hostinclude/kern/fcntl.h	44;"	d
 O_WRONLY	build/install/include/kern/fcntl.h	44;"	d
 O_WRONLY	kern/include/kern/fcntl.h	44;"	d
-P	common/libc/secure/sha256.c	178;"	d	file:
+P	common/libtest161/sha256.c	178;"	d	file:
 P	kern/thread/synch.c	/^P(struct semaphore *sem)$/;"	f
 P	userland/testbin/schedpong/usem.c	/^P(struct usem *sem)$/;"	f
 P	userland/testbin/usemtest/usemtest.c	/^P(struct usem *sem)$/;"	f	file:
@@ -1530,7 +1546,7 @@ PAGE_SIZE	userland/testbin/bloat/bloat.c	20;"	d	file:
 PAGE_SIZE	userland/testbin/sbrktest/sbrktest.c	46;"	d	file:
 PASSED_CAR	kern/test/synchprobs.c	417;"	d	file:
 PASSES_H	userland/sbin/sfsck/passes.h	31;"	d
-PATH_CAT	userland/testbin/redirect/redirect.c	47;"	d	file:
+PATH_CAT	userland/testbin/redirect/redirect.c	48;"	d	file:
 PATH_KEYS	userland/testbin/psort/psort.c	56;"	d	file:
 PATH_MAX	.root/include/limits.h	42;"	d
 PATH_MAX	build/install/include/limits.h	42;"	d
@@ -1540,8 +1556,8 @@ PATH_RANDOM	userland/testbin/psort/psort.c	59;"	d	file:
 PATH_SORTED	userland/testbin/psort/psort.c	57;"	d	file:
 PATH_TESTDIR	userland/testbin/psort/psort.c	58;"	d	file:
 PF	common/libc/printf/__printf.c	/^} PF;$/;"	t	typeref:struct:__anon6	file:
-PF	userland/testbin/badcall/test.h	35;"	d
 PF	userland/testbin/badcall/test.h	37;"	d
+PF	userland/testbin/badcall/test.h	39;"	d
 PF_INET	.root/hostinclude/kern/socket.h	56;"	d
 PF_INET	.root/include/kern/socket.h	56;"	d
 PF_INET	build/install/hostinclude/kern/socket.h	56;"	d
@@ -1640,7 +1656,9 @@ PROG	userland/testbin/bigfile/Makefile	/^PROG=bigfile$/;"	m
 PROG	userland/testbin/bigfork/Makefile	/^PROG=bigfork$/;"	m
 PROG	userland/testbin/bigseek/Makefile	/^PROG=bigseek$/;"	m
 PROG	userland/testbin/bloat/Makefile	/^PROG=bloat$/;"	m
+PROG	userland/testbin/closetest/Makefile	/^PROG=closetest$/;"	m
 PROG	userland/testbin/conman/Makefile	/^PROG=conman$/;"	m
+PROG	userland/testbin/consoletest/Makefile	/^PROG=consoletest$/;"	m
 PROG	userland/testbin/crash/Makefile	/^PROG=crash$/;"	m
 PROG	userland/testbin/ctest/Makefile	/^PROG=ctest$/;"	m
 PROG	userland/testbin/dirconc/Makefile	/^PROG=dirconc$/;"	m
@@ -1655,6 +1673,7 @@ PROG	userland/testbin/filetest/Makefile	/^PROG=filetest$/;"	m
 PROG	userland/testbin/forkbomb/Makefile	/^PROG=forkbomb$/;"	m
 PROG	userland/testbin/forktest/Makefile	/^PROG=forktest$/;"	m
 PROG	userland/testbin/frack/Makefile	/^PROG=frack$/;"	m
+PROG	userland/testbin/getpid/Makefile	/^PROG=getpid$/;"	m
 PROG	userland/testbin/guzzle/Makefile	/^PROG=guzzle$/;"	m
 PROG	userland/testbin/hash/Makefile	/^PROG=hash$/;"	m
 PROG	userland/testbin/hog/Makefile	/^PROG=hog$/;"	m
@@ -1663,6 +1682,7 @@ PROG	userland/testbin/kitchen/Makefile	/^PROG=kitchen$/;"	m
 PROG	userland/testbin/malloctest/Makefile	/^PROG=malloctest$/;"	m
 PROG	userland/testbin/matmult/Makefile	/^PROG=matmult$/;"	m
 PROG	userland/testbin/multiexec/Makefile	/^PROG=multiexec$/;"	m
+PROG	userland/testbin/opentest/Makefile	/^PROG=opentest$/;"	m
 PROG	userland/testbin/palin/Makefile	/^PROG=palin$/;"	m
 PROG	userland/testbin/parallelvm/Makefile	/^PROG=parallelvm$/;"	m
 PROG	userland/testbin/poisondisk/Makefile	/^PROG=poisondisk$/;"	m
@@ -1671,11 +1691,13 @@ PROG	userland/testbin/quinthuge/Makefile	/^PROG=quinthuge$/;"	m
 PROG	userland/testbin/quintmat/Makefile	/^PROG=quintmat$/;"	m
 PROG	userland/testbin/quintsort/Makefile	/^PROG=quintsort$/;"	m
 PROG	userland/testbin/randcall/Makefile	/^PROG=randcall$/;"	m
+PROG	userland/testbin/readwritetest/Makefile	/^PROG=readwritetest$/;"	m
 PROG	userland/testbin/redirect/Makefile	/^PROG=redirect$/;"	m
 PROG	userland/testbin/rmdirtest/Makefile	/^PROG=rmdirtest$/;"	m
 PROG	userland/testbin/rmtest/Makefile	/^PROG=rmtest$/;"	m
 PROG	userland/testbin/sbrktest/Makefile	/^PROG=sbrktest$/;"	m
 PROG	userland/testbin/schedpong/Makefile	/^PROG=schedpong$/;"	m
+PROG	userland/testbin/shelltest/Makefile	/^PROG=shelltest$/;"	m
 PROG	userland/testbin/shll/Makefile	/^PROG=shll$/;"	m
 PROG	userland/testbin/sink/Makefile	/^PROG=sink$/;"	m
 PROG	userland/testbin/sort/Makefile	/^PROG=sort$/;"	m
@@ -1702,15 +1724,16 @@ PT_NULL	kern/include/elf.h	180;"	d
 PT_NUM	kern/include/elf.h	187;"	d
 PT_PHDR	kern/include/elf.h	186;"	d
 PT_SHLIB	kern/include/elf.h	185;"	d
-PUT_UINT32_BE	common/libc/secure/sha256.c	75;"	d	file:
+PUT_UINT32_BE	common/libtest161/sha256.c	75;"	d	file:
 PageSize	userland/testbin/huge/huge.c	43;"	d	file:
 Pn	userland/testbin/schedpong/usem.c	/^Pn(struct usem *sem, unsigned count)$/;"	f
-R	common/libc/secure/sha256.c	172;"	d	file:
+R	common/libtest161/sha256.c	172;"	d	file:
 RANDOM_MAX	kern/include/lib.h	118;"	d
 RANDOM_MAX	userland/testbin/psort/psort.c	53;"	d	file:
 RAND_MAX	.root/include/stdlib.h	67;"	d
 RAND_MAX	build/install/include/stdlib.h	67;"	d
 RAND_MAX	userland/include/stdlib.h	67;"	d
+RANGE	test161/tests/stability/crash/script.py	/^RANGE=[chr(i) for i in range(ord('a'), ord('p'))]$/;"	v
 RANGE_D	userland/sbin/sfsck/ibmacros.h	146;"	d
 RANGE_I	userland/sbin/sfsck/ibmacros.h	147;"	d
 RANGE_II	userland/sbin/sfsck/ibmacros.h	148;"	d
@@ -1795,7 +1818,7 @@ RLIM_INFINITY	.root/include/kern/resource.h	90;"	d
 RLIM_INFINITY	build/install/hostinclude/kern/resource.h	90;"	d
 RLIM_INFINITY	build/install/include/kern/resource.h	90;"	d
 RLIM_INFINITY	kern/include/kern/resource.h	90;"	d
-ROTR	common/libc/secure/sha256.c	161;"	d	file:
+ROTR	common/libtest161/sha256.c	161;"	d	file:
 ROUNDUP	kern/include/lib.h	196;"	d
 ROUNDUP	userland/testbin/frack/pool.h	40;"	d
 RUNBIGFILE	userland/testbin/f_test/f_test.c	302;"	d	file:
@@ -1855,11 +1878,11 @@ R_MIPS_REL32	kern/arch/mips/include/elf.h	45;"	d
 R_MIPS_REL32	kern/compile/DUMBVM/includelinks/machine/elf.h	45;"	d
 R_MIPS_REL32	kern/compile/DUMBVM/includelinks/mips/elf.h	45;"	d
 Ropt	userland/bin/ls/ls.c	/^static int Ropt=0;$/;"	v	file:
-S0	common/libc/secure/sha256.c	163;"	d	file:
-S1	common/libc/secure/sha256.c	164;"	d	file:
-S2	common/libc/secure/sha256.c	166;"	d	file:
-S3	common/libc/secure/sha256.c	167;"	d	file:
-SALT_BYTES	common/libc/secure/secure.c	24;"	d	file:
+S0	common/libtest161/sha256.c	163;"	d	file:
+S1	common/libtest161/sha256.c	164;"	d	file:
+S2	common/libtest161/sha256.c	166;"	d	file:
+S3	common/libtest161/sha256.c	167;"	d	file:
+SALT_BYTES	common/libtest161/secure.c	27;"	d	file:
 SAME_STACK	kern/include/thread.h	56;"	d
 SA_ONSTACK	.root/hostinclude/kern/signal.h	95;"	d
 SA_ONSTACK	.root/include/kern/signal.h	95;"	d
@@ -2036,11 +2059,9 @@ SFS_VOLNAME_SIZE	.root/include/kern/sfs.h	41;"	d
 SFS_VOLNAME_SIZE	build/install/hostinclude/kern/sfs.h	41;"	d
 SFS_VOLNAME_SIZE	build/install/include/kern/sfs.h	41;"	d
 SFS_VOLNAME_SIZE	kern/include/kern/sfs.h	41;"	d
-SHA256_BLOCK_SIZE	common/libc/secure/secure.c	20;"	d	file:
-SHA256_BLOCK_SIZE	common/libc/secure/secure.h	4;"	d
-SHA256_OUTPUT_SIZE	common/libc/secure/secure.c	21;"	d	file:
-SHA256_OUTPUT_SIZE	common/libc/secure/secure.h	5;"	d
-SHR	common/libc/secure/sha256.c	160;"	d	file:
+SHA256_BLOCK_SIZE	common/libtest161/secure.c	23;"	d	file:
+SHA256_OUTPUT_SIZE	common/libtest161/secure.c	24;"	d	file:
+SHR	common/libtest161/sha256.c	160;"	d	file:
 SIGABRT	.root/hostinclude/kern/signal.h	61;"	d
 SIGABRT	.root/include/kern/signal.h	61;"	d
 SIGABRT	build/install/hostinclude/kern/signal.h	61;"	d
@@ -2235,6 +2256,7 @@ SIZE_LARGEPLUS	userland/testbin/frack/workloads.c	/^	SIZE_LARGEPLUS,$/;"	e	enum:
 SIZE_MEDIUM	userland/testbin/frack/workloads.c	/^	SIZE_MEDIUM,$/;"	e	enum:sizes	file:
 SIZE_ONE	userland/testbin/frack/workloads.c	/^	SIZE_ONE,$/;"	e	enum:sizes	file:
 SIZE_SMALL	userland/testbin/frack/workloads.c	/^	SIZE_SMALL,$/;"	e	enum:sizes	file:
+SKIPPED	userland/testbin/badcall/test.h	43;"	d
 SLEEPALOT_ITERS	kern/test/tt3.c	46;"	d	file:
 SLEEPALOT_PRINTS	kern/test/tt3.c	45;"	d	file:
 SLOGAN	kern/test/fstest.c	53;"	d	file:
@@ -2298,7 +2320,9 @@ SRCS	userland/testbin/bigfile/Makefile	/^SRCS=bigfile.c$/;"	m
 SRCS	userland/testbin/bigfork/Makefile	/^SRCS=bigfork.c$/;"	m
 SRCS	userland/testbin/bigseek/Makefile	/^SRCS=bigseek.c$/;"	m
 SRCS	userland/testbin/bloat/Makefile	/^SRCS=bloat.c$/;"	m
+SRCS	userland/testbin/closetest/Makefile	/^SRCS=closetest.c$/;"	m
 SRCS	userland/testbin/conman/Makefile	/^SRCS=conman.c$/;"	m
+SRCS	userland/testbin/consoletest/Makefile	/^SRCS=consoletest.c$/;"	m
 SRCS	userland/testbin/crash/Makefile	/^SRCS=crash.c$/;"	m
 SRCS	userland/testbin/ctest/Makefile	/^SRCS=ctest.c$/;"	m
 SRCS	userland/testbin/dirconc/Makefile	/^SRCS=dirconc.c$/;"	m
@@ -2313,6 +2337,7 @@ SRCS	userland/testbin/filetest/Makefile	/^SRCS=filetest.c$/;"	m
 SRCS	userland/testbin/forkbomb/Makefile	/^SRCS=forkbomb.c$/;"	m
 SRCS	userland/testbin/forktest/Makefile	/^SRCS=forktest.c$/;"	m
 SRCS	userland/testbin/frack/Makefile	/^SRCS=main.c workloads.c ops.c do.c check.c pool.c data.c name.c$/;"	m
+SRCS	userland/testbin/getpid/Makefile	/^SRCS=getpid.c$/;"	m
 SRCS	userland/testbin/guzzle/Makefile	/^SRCS=guzzle.c$/;"	m
 SRCS	userland/testbin/hash/Makefile	/^SRCS=hash.c$/;"	m
 SRCS	userland/testbin/hog/Makefile	/^SRCS=hog.c$/;"	m
@@ -2321,6 +2346,7 @@ SRCS	userland/testbin/kitchen/Makefile	/^SRCS=kitchen.c$/;"	m
 SRCS	userland/testbin/malloctest/Makefile	/^SRCS=malloctest.c$/;"	m
 SRCS	userland/testbin/matmult/Makefile	/^SRCS=matmult.c$/;"	m
 SRCS	userland/testbin/multiexec/Makefile	/^SRCS=multiexec.c$/;"	m
+SRCS	userland/testbin/opentest/Makefile	/^SRCS=opentest.c$/;"	m
 SRCS	userland/testbin/palin/Makefile	/^SRCS=palin.c$/;"	m
 SRCS	userland/testbin/parallelvm/Makefile	/^SRCS=parallelvm.c$/;"	m
 SRCS	userland/testbin/poisondisk/Makefile	/^SRCS=poisondisk.c \\$/;"	m
@@ -2329,11 +2355,13 @@ SRCS	userland/testbin/quinthuge/Makefile	/^SRCS=quinthuge.c$/;"	m
 SRCS	userland/testbin/quintmat/Makefile	/^SRCS=quintmat.c$/;"	m
 SRCS	userland/testbin/quintsort/Makefile	/^SRCS=quintsort.c$/;"	m
 SRCS	userland/testbin/randcall/Makefile	/^SRCS=$(MYBUILDDIR)\/calls.c main.c$/;"	m
+SRCS	userland/testbin/readwritetest/Makefile	/^SRCS=readwritetest.c$/;"	m
 SRCS	userland/testbin/redirect/Makefile	/^SRCS=redirect.c$/;"	m
 SRCS	userland/testbin/rmdirtest/Makefile	/^SRCS=rmdirtest.c$/;"	m
 SRCS	userland/testbin/rmtest/Makefile	/^SRCS=rmtest.c$/;"	m
 SRCS	userland/testbin/sbrktest/Makefile	/^SRCS=sbrktest.c$/;"	m
 SRCS	userland/testbin/schedpong/Makefile	/^SRCS=main.c think.c grind.c pong.c results.c usem.c$/;"	m
+SRCS	userland/testbin/shelltest/Makefile	/^SRCS=shelltest.c$/;"	m
 SRCS	userland/testbin/shll/Makefile	/^SRCS=shll.c$/;"	m
 SRCS	userland/testbin/sink/Makefile	/^SRCS=sink.c$/;"	m
 SRCS	userland/testbin/sort/Makefile	/^SRCS=sort.c$/;"	m
@@ -2373,11 +2401,10 @@ SUBARGC_MAX	userland/testbin/multiexec/multiexec.c	156;"	d	file:
 SUBDIRS	man/Makefile	/^SUBDIRS=bin sbin testbin libc syscall dev misc$/;"	m
 SUBDIRS	userland/Makefile	/^SUBDIRS=lib .WAIT bin sbin testbin$/;"	m
 SUBDIRS	userland/bin/Makefile	/^SUBDIRS=true false sync mkdir rmdir pwd cat cp ln mv rm ls sh tac$/;"	m
-SUBDIRS	userland/lib/Makefile	/^SUBDIRS=crt0 libc libtest hostcompat$/;"	m
+SUBDIRS	userland/lib/Makefile	/^SUBDIRS=crt0 libc libtest libtest161 hostcompat$/;"	m
 SUBDIRS	userland/sbin/Makefile	/^SUBDIRS=reboot halt poweroff mksfs dumpsfs sfsck$/;"	m
 SUBDIRS	userland/testbin/Makefile	/^SUBDIRS=add argtest badcall bigexec bigfile bigfork bigseek bloat conman \\$/;"	m
-SUCCESS	kern/include/test.h	181;"	d
-SUCCESS	kern/test/synchprobs.c	18;"	d	file:
+SUCCESS	userland/testbin/badcall/test.h	42;"	d
 SUM_OF_DATA_STUFF	userland/testbin/zero/zero.c	60;"	d	file:
 SUPPORTED_TARGETS	mk/os161.config.mk	/^SUPPORTED_TARGETS=sys161 mips$/;"	m
 SWAP16	userland/sbin/dumpsfs/dumpsfs.c	55;"	d	file:
@@ -2899,22 +2926,34 @@ S_ZOMBIE	kern/include/thread.h	/^	S_ZOMBIE,	\/* zombie; exited but not yet delet
 SectorSize	userland/testbin/f_test/f_read.c	44;"	d	file:
 SectorSize	userland/testbin/f_test/f_write.c	44;"	d	file:
 Strcmp	userland/testbin/tictac/tictac.c	/^Strcmp(const char *a, const char *b)$/;"	f
-T	userland/testbin/badcall/common_buf.c	202;"	d	file:
-T	userland/testbin/badcall/common_fds.c	211;"	d	file:
-T	userland/testbin/badcall/common_path.c	186;"	d	file:
+T	userland/testbin/badcall/common_buf.c	215;"	d	file:
+T	userland/testbin/badcall/common_fds.c	227;"	d	file:
+T	userland/testbin/badcall/common_path.c	198;"	d	file:
 T	userland/testbin/matmult/matmult.c	/^int T[Dim][Dim][Dim];$/;"	v
-T2	userland/testbin/badcall/common_path.c	203;"	d	file:
+T2	userland/testbin/badcall/common_path.c	215;"	d	file:
 TAGS_HEADERS	mk/os161.kernel.mk	/^TAGS_HEADERS=\\$/;"	m
-TC	userland/testbin/badcall/common_fds.c	218;"	d	file:
+TC	userland/testbin/badcall/common_fds.c	234;"	d	file:
 TEST	userland/testbin/rmtest/rmtest.c	46;"	d	file:
+TEST161_FAIL	.root/hostinclude/kern/test161.h	34;"	d
+TEST161_FAIL	.root/include/kern/test161.h	34;"	d
+TEST161_FAIL	build/install/hostinclude/kern/test161.h	34;"	d
+TEST161_FAIL	build/install/include/kern/test161.h	34;"	d
+TEST161_FAIL	kern/include/kern/test161.h	34;"	d
+TEST161_FAIL	kern/test/synchprobs.c	19;"	d	file:
+TEST161_SUCCESS	.root/hostinclude/kern/test161.h	33;"	d
+TEST161_SUCCESS	.root/include/kern/test161.h	33;"	d
+TEST161_SUCCESS	build/install/hostinclude/kern/test161.h	33;"	d
+TEST161_SUCCESS	build/install/include/kern/test161.h	33;"	d
+TEST161_SUCCESS	kern/include/kern/test161.h	33;"	d
+TEST161_SUCCESS	kern/test/synchprobs.c	18;"	d	file:
 TESTDATA	userland/testbin/rmtest/rmtest.c	47;"	d	file:
-TESTDIR	userland/testbin/badcall/test.h	31;"	d
+TESTDIR	userland/testbin/badcall/test.h	33;"	d
 TESTDIR	userland/testbin/dirconc/dirconc.c	50;"	d	file:
 TESTDIR	userland/testbin/dirseek/dirseek.c	57;"	d	file:
-TESTFILE	userland/testbin/badcall/test.h	30;"	d
+TESTFILE	userland/testbin/badcall/test.h	32;"	d
 TESTFILE	userland/testbin/bigseek/bigseek.c	63;"	d	file:
 TESTLEN	userland/testbin/rmtest/rmtest.c	48;"	d	file:
-TESTLINK	userland/testbin/badcall/test.h	32;"	d
+TESTLINK	userland/testbin/badcall/test.h	34;"	d
 TESTSIZE	kern/test/arraytest.c	35;"	d	file:
 TESTSIZE	kern/test/bitmaptest.c	35;"	d	file:
 THREADINLINE	kern/include/thread.h	115;"	d
@@ -2953,7 +2992,6 @@ TMULT	userland/testbin/f_test/f_test.c	70;"	d	file:
 TMULT	userland/testbin/f_test/f_write.c	46;"	d	file:
 TO	kern/lib/bswap.c	106;"	d	file:
 TO	kern/lib/bswap.c	95;"	d	file:
-TOHEX	common/libc/secure/secure.h	7;"	d
 TOOLDIR	mk/os161.config.mk	/^TOOLDIR=$(WORKDIR)\/tooldir	# Place for host progs used in the build.$/;"	m
 TOP	Makefile	/^TOP=.$/;"	m
 TOP	kern/Makefile	/^TOP=..$/;"	m
@@ -2987,6 +3025,7 @@ TOP	userland/lib/crt0/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/lib/hostcompat/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/lib/libc/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/lib/libtest/Makefile	/^TOP=..\/..\/..$/;"	m
+TOP	userland/lib/libtest161/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/sbin/Makefile	/^TOP=..\/..$/;"	m
 TOP	userland/sbin/dumpsfs/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/sbin/halt/Makefile	/^TOP=..\/..\/..$/;"	m
@@ -3003,7 +3042,9 @@ TOP	userland/testbin/bigfile/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/bigfork/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/bigseek/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/bloat/Makefile	/^TOP=..\/..\/..$/;"	m
+TOP	userland/testbin/closetest/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/conman/Makefile	/^TOP=..\/..\/..$/;"	m
+TOP	userland/testbin/consoletest/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/crash/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/ctest/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/dirconc/Makefile	/^TOP=..\/..\/..$/;"	m
@@ -3018,6 +3059,7 @@ TOP	userland/testbin/filetest/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/forkbomb/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/forktest/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/frack/Makefile	/^TOP=..\/..\/..$/;"	m
+TOP	userland/testbin/getpid/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/guzzle/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/guzzle/guzzle.c	40;"	d	file:
 TOP	userland/testbin/hash/Makefile	/^TOP=..\/..\/..$/;"	m
@@ -3027,6 +3069,7 @@ TOP	userland/testbin/kitchen/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/malloctest/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/matmult/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/multiexec/Makefile	/^TOP=..\/..\/..$/;"	m
+TOP	userland/testbin/opentest/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/palin/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/parallelvm/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/poisondisk/Makefile	/^TOP=..\/..\/..$/;"	m
@@ -3035,11 +3078,13 @@ TOP	userland/testbin/quinthuge/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/quintmat/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/quintsort/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/randcall/Makefile	/^TOP=..\/..\/..$/;"	m
+TOP	userland/testbin/readwritetest/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/redirect/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/rmdirtest/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/rmtest/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/sbrktest/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/schedpong/Makefile	/^TOP=..\/..\/..$/;"	m
+TOP	userland/testbin/shelltest/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/shll/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/sink/Makefile	/^TOP=..\/..\/..$/;"	m
 TOP	userland/testbin/sort/Makefile	/^TOP=..\/..\/..$/;"	m
@@ -3221,7 +3266,7 @@ _CLOCK_H_	kern/include/clock.h	31;"	d
 _COMPATLIB_	mk/os161.hostprog.mk	/^_COMPATLIB_=$(TOOLDIR)\/hostlib\/libhostcompat.a$/;"	m
 _COPYINOUT_H_	kern/include/copyinout.h	31;"	d
 _CPU_H_	kern/include/cpu.h	31;"	d
-_CRT_SECURE_NO_DEPRECATE	common/libc/secure/config.h	32;"	d
+_CRT_SECURE_NO_DEPRECATE	common/libtest161/config.h	32;"	d
 _CURRENT_H_	kern/include/current.h	31;"	d
 _DEVICE_H_	kern/include/device.h	31;"	d
 _ELF_H_	kern/include/elf.h	31;"	d
@@ -3233,6 +3278,7 @@ _ERRNO_H_	userland/include/errno.h	31;"	d
 _ERR_H_	.root/include/err.h	31;"	d
 _ERR_H_	build/install/include/err.h	31;"	d
 _ERR_H_	userland/include/err.h	31;"	d
+_FILE_H_	kern/include/file.h	2;"	d
 _FS_H_	kern/include/fs.h	31;"	d
 _GENERIC_BEEP_H_	kern/dev/generic/beep.h	31;"	d
 _GENERIC_CONSOLE_H_	kern/dev/generic/console.h	31;"	d
@@ -3388,6 +3434,11 @@ _KERN_SYSCALL_H_	.root/include/kern/syscall.h	31;"	d
 _KERN_SYSCALL_H_	build/install/hostinclude/kern/syscall.h	31;"	d
 _KERN_SYSCALL_H_	build/install/include/kern/syscall.h	31;"	d
 _KERN_SYSCALL_H_	kern/include/kern/syscall.h	31;"	d
+_KERN_TEST161_H_	.root/hostinclude/kern/test161.h	31;"	d
+_KERN_TEST161_H_	.root/include/kern/test161.h	31;"	d
+_KERN_TEST161_H_	build/install/hostinclude/kern/test161.h	31;"	d
+_KERN_TEST161_H_	build/install/include/kern/test161.h	31;"	d
+_KERN_TEST161_H_	kern/include/kern/test161.h	31;"	d
 _KERN_TIME_H_	.root/hostinclude/kern/time.h	31;"	d
 _KERN_TIME_H_	.root/include/kern/time.h	31;"	d
 _KERN_TIME_H_	build/install/hostinclude/kern/time.h	31;"	d
@@ -3518,16 +3569,17 @@ _OPT_NOASSERTS_H_	kern/compile/DUMBVM/opt-noasserts.h	3;"	d
 _OPT_SEMFS_H_	kern/compile/DUMBVM/opt-semfs.h	3;"	d
 _OPT_SFS_H_	kern/compile/DUMBVM/opt-sfs.h	3;"	d
 _OPT_SYNCHPROBS_H_	kern/compile/DUMBVM/opt-synchprobs.h	3;"	d
-_PATH_MYSELF	userland/testbin/bigexec/bigexec.c	45;"	d	file:
+_PATH_MYSELF	userland/testbin/bigexec/bigexec.c	47;"	d	file:
 _PATH_RANDOM	userland/testbin/malloctest/malloctest.c	53;"	d	file:
 _PATH_RANDOM	userland/testbin/sbrktest/sbrktest.c	39;"	d	file:
-_PATH_SELF	userland/testbin/factorial/factorial.c	36;"	d	file:
+_PATH_SELF	userland/testbin/factorial/factorial.c	37;"	d	file:
 _PATH_SHELL	kern/main/menu.c	54;"	d	file:
 _PDP_ENDIAN	.root/hostinclude/kern/endian.h	44;"	d
 _PDP_ENDIAN	.root/include/kern/endian.h	44;"	d
 _PDP_ENDIAN	build/install/hostinclude/kern/endian.h	44;"	d
 _PDP_ENDIAN	build/install/include/kern/endian.h	44;"	d
 _PDP_ENDIAN	kern/include/kern/endian.h	44;"	d
+_PROCSYSCALLS_H_	kern/include/procsyscalls.h	2;"	d
 _PROC_H_	kern/include/proc.h	31;"	d
 _PROG_	mk/os161.hostprog.mk	/^_PROG_=host-$(PROG)$/;"	m
 _PROMPT_H_	kern/include/prompt.h	38;"	d
@@ -3536,10 +3588,11 @@ _SECRET_H_	.root/include/kern/secret.h	38;"	d
 _SECRET_H_	build/install/hostinclude/kern/secret.h	38;"	d
 _SECRET_H_	build/install/include/kern/secret.h	38;"	d
 _SECRET_H_	kern/include/kern/secret.h	38;"	d
-_SECURE_H	common/libc/secure/secure.h	2;"	d
 _SECURE_H_	.root/include/secure.h	2;"	d
+_SECURE_H_	.root/include/test161/secure.h	2;"	d
 _SECURE_H_	build/install/include/secure.h	2;"	d
-_SECURE_H_	userland/include/secure.h	2;"	d
+_SECURE_H_	build/install/include/test161/secure.h	2;"	d
+_SECURE_H_	userland/include/test161/secure.h	2;"	d
 _SETJMP_H_	.root/include/setjmp.h	31;"	d
 _SETJMP_H_	build/install/include/setjmp.h	31;"	d
 _SETJMP_H_	kern/include/setjmp.h	31;"	d
@@ -3637,6 +3690,9 @@ _S_IFSOCK	.root/include/kern/stattypes.h	50;"	d
 _S_IFSOCK	build/install/hostinclude/kern/stattypes.h	50;"	d
 _S_IFSOCK	build/install/include/kern/stattypes.h	50;"	d
 _S_IFSOCK	kern/include/kern/stattypes.h	50;"	d
+_TEST161_H_	.root/include/test161/test161.h	2;"	d
+_TEST161_H_	build/install/include/test161/test161.h	2;"	d
+_TEST161_H_	userland/include/test161/test161.h	2;"	d
 _TEST_H_	kern/include/test.h	31;"	d
 _THREADLIST_H_	kern/include/threadlist.h	31;"	d
 _THREADPRIVATE_H_	kern/include/threadprivate.h	31;"	d
@@ -3825,6 +3881,7 @@ __dev_t	build/install/include/kern/types.h	/^typedef __u32 __dev_t;     \/* Hard
 __dev_t	kern/include/kern/types.h	/^typedef __u32 __dev_t;     \/* Hardware device ID *\/$/;"	t
 __divdi3	common/gcc-millicode/divdi3.c	/^__divdi3(long long a, long long b)$/;"	f
 __environ	userland/lib/libc/unix/errno.c	/^char **__environ;$/;"	v
+__exited	kern/include/proc.h	/^	bool __exited;$/;"	m	struct:proc
 __fsid_t	.root/hostinclude/kern/types.h	/^typedef __u32 __fsid_t;    \/* Filesystem ID *\/$/;"	t
 __fsid_t	.root/include/kern/types.h	/^typedef __u32 __fsid_t;    \/* Filesystem ID *\/$/;"	t
 __fsid_t	build/install/hostinclude/kern/types.h	/^typedef __u32 __fsid_t;    \/* Filesystem ID *\/$/;"	t
@@ -4224,9 +4281,11 @@ __va_list	build/install/include/kern/types.h	/^typedef __builtin_va_list __va_li
 __va_list	kern/include/kern/types.h	/^typedef __builtin_va_list __va_list;$/;"	t
 __vprintf	common/libc/printf/__printf.c	/^__vprintf(void (*func)(void *clientdata, const char *str, size_t len),$/;"	f
 __xordi3	common/gcc-millicode/xordi3.c	/^__xordi3(long long a, long long b)$/;"	f
-_alloc	common/libc/secure/secure.c	/^static void * _alloc(size_t size)$/;"	f	file:
+_alloc	common/libtest161/secure.c	/^static void * _alloc(size_t size)$/;"	f	file:
+_alloc	common/libtest161/test161.c	/^static inline void * _alloc(size_t size)$/;"	f	file:
 _dummy	kern/include/types.h	/^struct __userptr { char _dummy; };$/;"	m	struct:__userptr
-_free	common/libc/secure/secure.c	/^static void _free(void *ptr)$/;"	f	file:
+_free	common/libtest161/secure.c	/^static void _free(void *ptr)$/;"	f	file:
+_free	common/libtest161/test161.c	/^static inline void _free(void *ptr)$/;"	f	file:
 a0	.root/hostinclude/kern/machine/regdefs.h	44;"	d
 a0	.root/hostinclude/kern/mips/regdefs.h	44;"	d
 a0	.root/include/kern/machine/regdefs.h	44;"	d
@@ -4291,6 +4350,7 @@ abort	userland/lib/libc/stdlib/abort.c	/^abort(void)$/;"	f
 acqlock	kern/synchprobs/stoplight.c	/^static struct lock *acqlock;$/;"	v	typeref:struct:lock	file:
 acquired	kern/include/synch.h	/^	volatile bool acquired;$/;"	m	struct:lock
 add	userland/testbin/bigfork/bigfork.c	/^add(int *x, const int *a, const int *b)$/;"	f	file:
+add_sys161_opts	test161/tests/stability/crash/script.py	/^def add_sys161_opts(content, sys161_opts):$/;"	f
 addeq	userland/testbin/parallelvm/parallelvm.c	/^addeq(struct matrix *m1, const struct matrix *m2)$/;"	f	file:
 addrspace	kern/include/addrspace.h	/^struct addrspace {$/;"	s
 advancestateto	userland/testbin/frack/check.c	/^advancestateto(struct fschange *targetchange)$/;"	f	file:
@@ -4307,9 +4367,9 @@ altcmp	userland/testbin/schedpong/grind.c	/^altcmp(const void *av, const void *b
 altformat	common/libc/printf/__printf.c	/^	int altformat;$/;"	m	struct:__anon6	file:
 answer	userland/testbin/parallelvm/parallelvm.c	/^answer(void)$/;"	f	file:
 any_badbuf	userland/testbin/badcall/bad_stat.c	/^any_badbuf(int (*statfunc)(struct stat *), const char *call)$/;"	f	file:
-any_badbuf	userland/testbin/badcall/common_buf.c	/^any_badbuf(struct buftest *info)$/;"	f	file:
+any_badbuf	userland/testbin/badcall/common_buf.c	/^any_badbuf(struct buftest *info, int *ntests, int *lost_points)$/;"	f	file:
 any_badfd	userland/testbin/badcall/common_fds.c	/^any_badfd(int (*func)(int fd), void (*cleanup)(void), const char *callname,$/;"	f	file:
-any_badpath	userland/testbin/badcall/common_path.c	/^any_badpath(int (*func)(const char *path), const char *call, int mk, int rm)$/;"	f	file:
+any_badpath	userland/testbin/badcall/common_path.c	/^any_badpath(int (*func)(const char *path), const char *call, int mk, int rm,$/;"	f	file:
 any_empty	userland/testbin/badcall/bad_stat.c	/^any_empty(int (*statfunc)(const char *, struct stat *), const char *call)$/;"	f	file:
 any_ioctl_badbuf	userland/testbin/badcall/bad_ioctl.c	/^any_ioctl_badbuf(int fd, int code, const char *codename)$/;"	f	file:
 aopt	userland/bin/ls/ls.c	/^static int aopt=0;$/;"	v	file:
@@ -4329,7 +4389,7 @@ array_preallocate	kern/lib/array.c	/^array_preallocate(struct array *a, unsigned
 array_remove	kern/lib/array.c	/^array_remove(struct array *a, unsigned index)$/;"	f
 array_set	kern/include/array.h	/^array_set(const struct array *a, unsigned index, void *val)$/;"	f
 array_setsize	kern/lib/array.c	/^array_setsize(struct array *a, unsigned num)$/;"	f
-array_to_hex	common/libc/secure/secure.c	/^static void array_to_hex(unsigned char *a, size_t len, char *res)$/;"	f	file:
+array_to_hex	common/libtest161/secure.c	/^static void array_to_hex(unsigned char *a, size_t len, char *res)$/;"	f	file:
 arraytest	kern/test/arraytest.c	/^arraytest(int nargs, char **args)$/;"	f
 arraytest2	kern/test/arraytest.c	/^arraytest2(int nargs, char **args)$/;"	f
 as_activate	kern/arch/mips/vm/dumbvm.c	/^as_activate(void)$/;"	f
@@ -4466,7 +4526,8 @@ buf	common/libc/printf/snprintf.c	/^	char *buf;$/;"	m	struct:__anon5	file:
 buf	userland/bin/tac/tac.c	/^static char buf[4096];$/;"	v	file:
 buf	userland/testbin/factorial/factorial.c	/^	char buf[NUMSIZE+1];	\/* includes space for a null-terminator *\/$/;"	m	struct:number	file:
 buf_fd	userland/testbin/badcall/common_buf.c	/^static int buf_fd;$/;"	v	file:
-buffer	common/libc/secure/sha256.h	/^    unsigned char buffer[64];   \/*!< data block being processed *\/$/;"	m	struct:__anon8
+buf_num	common/libtest161/secure.c	/^static int buf_num = 0;$/;"	v	file:
+buffer	common/libtest161/sha256.h	/^    unsigned char buffer[64];   \/*!< data block being processed *\/$/;"	m	struct:__anon8
 buffer	userland/testbin/bigfile/bigfile.c	/^static char buffer[8192 + 1];$/;"	v	file:
 buffer	userland/testbin/f_test/f_read.c	/^static char buffer[SectorSize + 1];$/;"	v	file:
 buffer	userland/testbin/f_test/f_write.c	/^static char buffer[SectorSize + 1];$/;"	v	file:
@@ -4475,7 +4536,7 @@ buflen	common/libc/printf/snprintf.c	/^	size_t buflen;$/;"	m	struct:__anon5	file
 bufpos	common/libc/printf/snprintf.c	/^	size_t bufpos;$/;"	m	struct:__anon5	file:
 buftest	userland/testbin/badcall/common_buf.c	/^struct buftest {$/;"	s	file:
 buildconfig	kern/compile/DUMBVM/vers.c	/^const char buildconfig[] = "DUMBVM";$/;"	v
-buildversion	kern/compile/DUMBVM/vers.c	/^const int buildversion = 87;$/;"	v
+buildversion	kern/compile/DUMBVM/vers.c	/^const int buildversion = 205;$/;"	v
 builtins	userland/bin/sh/sh.c	/^} builtins[] = {$/;"	v	typeref:struct:__anon15	file:
 builtins	userland/testbin/shll/shll.c	/^} builtins[] = {$/;"	v	typeref:struct:__anon37	file:
 bus_map_area	kern/arch/sys161/include/bus.h	49;"	d
@@ -4758,6 +4819,8 @@ cpu_start_secondary	kern/arch/sys161/main/start.S	/^cpu_start_secondary:$/;"	l
 cpu_startup_sem	kern/thread/thread.c	/^static struct semaphore *cpu_startup_sem;$/;"	v	typeref:struct:semaphore	file:
 cpustacks	kern/arch/mips/thread/cpu.c	/^vaddr_t cpustacks[MAXCPUS];$/;"	v
 cputhreads	kern/arch/mips/thread/cpu.c	/^vaddr_t cputhreads[MAXCPUS];$/;"	v
+crash_prog	userland/lib/libc/unix/err.c	/^crash_prog(void)$/;"	f
+create_crash	test161/tests/stability/crash/script.py	/^def create_crash(char, sys161_opts=None):$/;"	f
 create_testdir	userland/testbin/badcall/driver.c	/^create_testdir(void)$/;"	f
 create_testfile	userland/testbin/badcall/driver.c	/^create_testfile(void)$/;"	f
 create_testlink	userland/testbin/badcall/driver.c	/^create_testlink(void)$/;"	f
@@ -4846,6 +4909,7 @@ devnull_create	kern/vfs/devnull.c	/^devnull_create(void)$/;"	f
 devop_eachopen	kern/include/device.h	/^	int (*devop_eachopen)(struct device *, int flags_from_open);$/;"	m	struct:device_ops
 devop_io	kern/include/device.h	/^	int (*devop_io)(struct device *, struct uio *);$/;"	m	struct:device_ops
 devop_ioctl	kern/include/device.h	/^	int (*devop_ioctl)(struct device *, int op, userptr_t data);$/;"	m	struct:device_ops
+did_random	common/libtest161/secure.c	/^static int did_random = 0;$/;"	v	file:
 die	userland/testbin/frack/check.c	/^die(const char *fmt, ...)$/;"	f	file:
 diffs	userland/testbin/schedpong/grind.c	/^diffs(unsigned *p, unsigned n)$/;"	f	file:
 digit	common/gcc-millicode/qdivrem.c	/^typedef unsigned int digit;$/;"	t	file:
@@ -5068,7 +5132,7 @@ emufs_write	kern/dev/lamebus/emu.c	/^emufs_write(struct vnode *v, struct uio *ui
 end_ptr	userland/lib/libc/stdlib/random.c	/^static long *end_ptr = &randtbl[DEG_3 + 1];$/;"	v	file:
 endsem	kern/test/synchprobs.c	/^static struct semaphore *endsem;$/;"	v	typeref:struct:semaphore	file:
 enforce_sbrk	userland/testbin/badcall/bad_sbrk.c	/^enforce_sbrk(long val, const char *desc, int err)$/;"	f	file:
-enter_forked_process	kern/arch/mips/syscall/syscall.c	/^enter_forked_process(struct trapframe *tf)$/;"	f
+enter_forked_process	kern/arch/mips/syscall/syscall.c	/^enter_forked_process(void *child_trapframe, unsigned long child_addrspace) $/;"	f
 enter_new_process	kern/arch/mips/locore/trap.c	/^enter_new_process(int argc, userptr_t argv, userptr_t env,$/;"	f
 entries	userland/testbin/frack/check.c	/^			struct fsdirent *entries;$/;"	m	struct:fsobject::__anon31::__anon33	typeref:struct:fsobject::__anon31::__anon33::fsdirent	file:
 entry	userland/testbin/ctest/ctest.c	/^struct entry {$/;"	s	file:
@@ -5085,7 +5149,7 @@ ev_v	kern/include/emufs.h	/^	struct vnode ev_v;		\/* abstract vnode structure *\
 exception_return	kern/arch/mips/locore/exception-mips1.S	/^exception_return:$/;"	l
 exec_badargs	userland/testbin/badcall/bad_execv.c	/^exec_badargs(void *args, const char *desc)$/;"	f	file:
 exec_badprog	userland/testbin/badcall/bad_execv.c	/^exec_badprog(const void *prog, const char *desc)$/;"	f	file:
-exec_common_fork	userland/testbin/badcall/bad_execv.c	/^exec_common_fork(void)$/;"	f	file:
+exec_common_fork	userland/testbin/badcall/bad_execv.c	/^exec_common_fork(int *result)$/;"	f	file:
 exec_emptyprog	userland/testbin/badcall/bad_execv.c	/^exec_emptyprog(void)$/;"	f	file:
 exec_onearg	userland/testbin/badcall/bad_execv.c	/^exec_onearg(void *ptr, const char *desc)$/;"	f	file:
 execvp	userland/lib/libc/unix/execvp.c	/^execvp(const char *prog, char *const *args)$/;"	f
@@ -5095,6 +5159,7 @@ exitinfo	userland/testbin/shll/shll.c	/^struct exitinfo {$/;"	s	file:
 exitinfo_exit	userland/bin/sh/sh.c	/^exitinfo_exit(struct exitinfo *ei, int code)$/;"	f	file:
 exitinfo_exit	userland/testbin/shll/shll.c	/^exitinfo_exit(struct exitinfo *ei, int code)$/;"	f	file:
 exitsem	kern/test/synchtest.c	/^static struct semaphore *exitsem;$/;"	v	typeref:struct:semaphore	file:
+exitstatus	kern/include/proc.h	/^	int exitstatus;$/;"	m	struct:proc
 exorcise	kern/thread/thread.c	/^exorcise(void)$/;"	f	file:
 f	userland/testbin/badcall/driver.c	/^	void (*f)(void);$/;"	m	struct:__anon17	file:
 f	userland/testbin/crash/crash.c	/^	func f;$/;"	m	struct:__anon18	file:
@@ -5153,10 +5218,11 @@ file	userland/testbin/frack/pool.h	/^	const char *file;$/;"	m	struct:poolctl
 file_randomwrite	userland/testbin/frack/workloads.c	/^file_randomwrite(struct file *f, enum sizes sz,$/;"	f	file:
 fileblocks	userland/sbin/sfsck/pass1.c	/^	uint32_t fileblocks;	\/* file size in blocks (constant) *\/$/;"	m	struct:ibstate	file:
 filedescriptor	kern/include/proc.h	/^	struct filehandle *filedescriptor[OPEN_MAX];$/;"	m	struct:proc	typeref:struct:proc::filehandle
-filedescriptor_init	kern/syscall/file.c	/^int filedescriptor_init() {$/;"	f
+filedescriptor_init	kern/syscall/file.c	/^int filedescriptor_init(void) {$/;"	f
 filehandle	kern/include/file.h	/^struct filehandle {$/;"	s
 filelock	kern/include/file.h	/^	struct lock  *filelock;$/;"	m	struct:filehandle	typeref:struct:filehandle::lock
 filename	kern/include/file.h	/^	char *filename;$/;"	m	struct:filehandle
+filename	userland/testbin/forktest/forktest.c	/^static char filename[32];$/;"	v	file:
 fill	userland/testbin/bigexec/bigexec.c	/^fill(char *buf, size_t buflen)$/;"	f	file:
 fill_deadbeef	kern/vm/kmalloc.c	/^fill_deadbeef(void *vptr, size_t len)$/;"	f	file:
 fillchar	common/libc/printf/__printf.c	/^	int fillchar;$/;"	m	struct:__anon6	file:
@@ -5290,6 +5356,7 @@ getdirentry_badfd	userland/testbin/badcall/common_fds.c	/^getdirentry_badfd(int 
 getdirentry_cleanup	userland/testbin/badcall/common_buf.c	/^getdirentry_cleanup(void)$/;"	f	file:
 getdirentry_setup	userland/testbin/badcall/common_buf.c	/^getdirentry_setup(void)$/;"	f	file:
 getenv	userland/lib/libc/stdlib/getenv.c	/^getenv(const char *var)$/;"	f
+getfileHandle	kern/syscall/file.c	/^struct filehandle* getfileHandle(int fd)$/;"	f
 geti	userland/testbin/malloctest/malloctest.c	/^geti(void)$/;"	f	file:
 geti	userland/testbin/sbrktest/sbrktest.c	/^geti(void)$/;"	f	file:
 getmykeys	userland/testbin/psort/psort.c	/^getmykeys(void)$/;"	f	file:
@@ -5328,6 +5395,7 @@ grind	userland/testbin/bigfork/bigfork.c	/^grind(void)$/;"	f	file:
 grind	userland/testbin/schedpong/grind.c	/^grind(unsigned groupid, unsigned id)$/;"	f
 handle	userland/testbin/frack/ops.c	/^	int handle;$/;"	m	struct:dir	file:
 handle	userland/testbin/frack/ops.c	/^	int handle;$/;"	m	struct:file	file:
+handle_result	userland/testbin/badcall/report.c	/^handle_result(int result, int *lost_points)$/;"	f
 hardclock	kern/thread/clock.c	/^hardclock(void)$/;"	f
 hardclock_bootstrap	kern/thread/clock.c	/^hardclock_bootstrap(void)$/;"	f
 hargv	userland/testbin/farm/farm.c	/^static char *hargv[2] = { (char *)"hog", NULL };$/;"	v	file:
@@ -5335,9 +5403,9 @@ hargv	userland/testbin/sty/sty.c	/^static char *hargv[2] = { (char *)"hog", NULL
 harvard_copyright	kern/main/main.c	/^static const char harvard_copyright[] =$/;"	v	file:
 hashes1	kern/test/hmacunit.c	/^static const char *hashes1[] = {$/;"	v	file:
 havetimerclock	kern/dev/lamebus/ltimer.c	/^static bool havetimerclock;$/;"	v	file:
-hmac	common/libc/secure/secure.c	/^int hmac(const char *msg, size_t msg_len, const char *key, size_t key_len, $/;"	f
-hmac_salted	common/libc/secure/secure.c	/^int hmac_salted(const char *msg, size_t msg_len, const char *key, size_t key_len, $/;"	f
-hmac_sha256	common/libc/secure/secure.c	/^static int hmac_sha256(const char *msg, size_t msg_len, const char *key, size_t key_len, $/;"	f	file:
+hmac	common/libtest161/secure.c	/^int hmac(const char *msg, size_t msg_len, const char *key, size_t key_len, $/;"	f
+hmac_salted	common/libtest161/secure.c	/^int hmac_salted(const char *msg, size_t msg_len, const char *key, size_t key_len, $/;"	f
+hmac_sha256	common/libtest161/secure.c	/^static int hmac_sha256(const char *msg, size_t msg_len, const char *key, size_t key_len, $/;"	f	file:
 hmacu1	kern/test/hmacunit.c	/^hmacu1(int nargs, char **args)$/;"	f
 hog	userland/testbin/farm/farm.c	/^hog(void)$/;"	f	file:
 hog	userland/testbin/sty/sty.c	/^hog(void)$/;"	f	file:
@@ -5353,9 +5421,9 @@ hostcompat_stop	userland/lib/hostcompat/hostcompat.c	/^hostcompat_stop(int sig)$
 hostcompat_ttyreset	userland/lib/hostcompat/hostcompat.c	/^hostcompat_ttyreset(void)$/;"	f	file:
 hostcompat_ttyresume	userland/lib/hostcompat/hostcompat.c	/^hostcompat_ttyresume(void)$/;"	f	file:
 hostcompat_ttysetup	userland/lib/hostcompat/hostcompat.c	/^hostcompat_ttysetup(void)$/;"	f	file:
-htonll	.root/hostinclude/hostcompat.h	47;"	d
-htonll	build/install/hostinclude/hostcompat.h	47;"	d
-htonll	userland/lib/hostcompat/hostcompat.h	47;"	d
+htonll	.root/hostinclude/hostcompat.h	45;"	d
+htonll	build/install/hostinclude/hostcompat.h	45;"	d
+htonll	userland/lib/hostcompat/hostcompat.h	45;"	d
 ibmap	userland/sbin/sfsck/sfs.c	/^ibmap(uint32_t iblock, uint32_t offset, uint32_t entrysize)$/;"	f	file:
 ibstate	userland/sbin/sfsck/pass1.c	/^struct ibstate {$/;"	s	file:
 ibuffer	userland/testbin/f_test/f_test.c	/^char ibuffer[32];$/;"	v
@@ -5456,11 +5524,12 @@ iovec	.root/include/kern/iovec.h	/^struct iovec {$/;"	s
 iovec	build/install/hostinclude/kern/iovec.h	/^struct iovec {$/;"	s
 iovec	build/install/include/kern/iovec.h	/^struct iovec {$/;"	s
 iovec	kern/include/kern/iovec.h	/^struct iovec {$/;"	s
-ipad	common/libc/secure/secure.c	/^static const unsigned char ipad[SHA256_BLOCK_SIZE] = { [0 ... SHA256_BLOCK_SIZE-1] = 0x36 };$/;"	v	file:
+ipad	common/libtest161/secure.c	/^static const unsigned char ipad[SHA256_BLOCK_SIZE] = { [0 ... SHA256_BLOCK_SIZE-1] = 0x36 };$/;"	v	file:
 ipi_broadcast	kern/thread/thread.c	/^ipi_broadcast(int code)$/;"	f
 ipi_send	kern/thread/thread.c	/^ipi_send(struct cpu *target, int code)$/;"	f
 ipi_tlbshootdown	kern/thread/thread.c	/^ipi_tlbshootdown(struct cpu *target, const struct tlbshootdown *mapping)$/;"	f
-is224	common/libc/secure/sha256.h	/^    int is224;                  \/*!< 0 => SHA-256, else SHA-224 *\/$/;"	m	struct:__anon8
+is224	common/libtest161/sha256.h	/^    int is224;                  \/*!< 0 => SHA-256, else SHA-224 *\/$/;"	m	struct:__anon8
+isFdValid	kern/syscall/file.c	/^bool isFdValid(int fd)$/;"	f
 is_win	userland/testbin/tictac/tictac.c	/^is_win(int x, int y)$/;"	f
 isdir	userland/bin/ls/ls.c	/^isdir(const char *path)$/;"	f	file:
 isdir	userland/testbin/frack/check.c	/^	unsigned isdir;$/;"	m	struct:fsobject	file:
@@ -5561,13 +5630,12 @@ knowndevs	kern/vfs/vfslist.c	/^static struct knowndevarray *knowndevs;$/;"	v	typ
 kprintf	kern/lib/kprintf.c	/^kprintf(const char *fmt, ...)$/;"	f
 kprintf_bootstrap	kern/lib/kprintf.c	/^kprintf_bootstrap(void)$/;"	f
 kprintf_lock	kern/lib/kprintf.c	/^static struct lock *kprintf_lock;$/;"	v	typeref:struct:lock	file:
-kprintf_n	kern/include/test.h	197;"	d
-kprintf_n	kern/include/test.h	200;"	d
+kprintf_n	kern/include/test.h	190;"	d
+kprintf_n	kern/include/test.h	193;"	d
 kprintf_spinlock	kern/lib/kprintf.c	/^static struct spinlock kprintf_spinlock;$/;"	v	typeref:struct:spinlock	file:
-kprintf_t	kern/include/test.h	196;"	d
-kprintf_t	kern/include/test.h	199;"	d
+kprintf_t	kern/include/test.h	189;"	d
+kprintf_t	kern/include/test.h	192;"	d
 kproc	kern/proc/proc.c	/^struct proc *kproc;$/;"	v	typeref:struct:proc
-ksecprintf	kern/test/lib.c	/^ksecprintf(const char * secret, const char * msg, const char * name)$/;"	f
 kstrdup	kern/lib/misc.c	/^kstrdup(const char *s)$/;"	f
 l_len	.root/hostinclude/kern/fcntl.h	/^	off_t l_len;            \/* length of locked region *\/$/;"	m	struct:flock
 l_len	.root/include/kern/fcntl.h	/^	off_t l_len;            \/* length of locked region *\/$/;"	m	struct:flock
@@ -5778,7 +5846,9 @@ main	userland/testbin/bigfile/bigfile.c	/^main(int argc, char *argv[])$/;"	f
 main	userland/testbin/bigfork/bigfork.c	/^main(void)$/;"	f
 main	userland/testbin/bigseek/bigseek.c	/^main(void)$/;"	f
 main	userland/testbin/bloat/bloat.c	/^main(int argc, char *argv[])$/;"	f
+main	userland/testbin/closetest/closetest.c	/^main(int argc, char **argv)$/;"	f
 main	userland/testbin/conman/conman.c	/^main(void)$/;"	f
+main	userland/testbin/consoletest/consoletest.c	/^main(int argc, char **argv)$/;"	f
 main	userland/testbin/crash/crash.c	/^main(int argc, char **argv)$/;"	f
 main	userland/testbin/ctest/ctest.c	/^main(int argc, char **argv)$/;"	f
 main	userland/testbin/dirconc/dirconc.c	/^main(int argc, char *argv[])$/;"	f
@@ -5793,6 +5863,7 @@ main	userland/testbin/filetest/filetest.c	/^main(int argc, char *argv[])$/;"	f
 main	userland/testbin/forkbomb/forkbomb.c	/^main(void)$/;"	f
 main	userland/testbin/forktest/forktest.c	/^main(int argc, char *argv[])$/;"	f
 main	userland/testbin/frack/main.c	/^main(int argc, char *argv[])$/;"	f
+main	userland/testbin/getpid/getpid.c	/^main(int argc, char **argv)$/;"	f
 main	userland/testbin/guzzle/guzzle.c	/^main(int argc, char *argv[])$/;"	f
 main	userland/testbin/hash/hash.c	/^main(int argc, char *argv[])$/;"	f
 main	userland/testbin/hog/hog.c	/^main(void)$/;"	f
@@ -5802,6 +5873,7 @@ main	userland/testbin/malloctest/malloctest.c	/^main(int argc, char *argv[])$/;"
 main	userland/testbin/matmult/matmult-orig.c	/^main(void)$/;"	f
 main	userland/testbin/matmult/matmult.c	/^main(void)$/;"	f
 main	userland/testbin/multiexec/multiexec.c	/^main(int argc, char *argv[])$/;"	f
+main	userland/testbin/opentest/opentest.c	/^main(int argc, char **argv)$/;"	f
 main	userland/testbin/palin/palin.c	/^main(void)$/;"	f
 main	userland/testbin/parallelvm/parallelvm.c	/^main(int argc, char *argv[])$/;"	f
 main	userland/testbin/poisondisk/poisondisk.c	/^main(int argc, char *argv[])$/;"	f
@@ -5810,11 +5882,13 @@ main	userland/testbin/quinthuge/quinthuge.c	/^main(void)$/;"	f
 main	userland/testbin/quintmat/quintmat.c	/^main(void)$/;"	f
 main	userland/testbin/quintsort/quintsort.c	/^main(void)$/;"	f
 main	userland/testbin/randcall/main.c	/^main(int argc, char *argv[])$/;"	f
+main	userland/testbin/readwritetest/readwritetest.c	/^main(int argc, char **argv)$/;"	f
 main	userland/testbin/redirect/redirect.c	/^main(void)$/;"	f
 main	userland/testbin/rmdirtest/rmdirtest.c	/^main(void)$/;"	f
 main	userland/testbin/rmtest/rmtest.c	/^main(void)$/;"	f
 main	userland/testbin/sbrktest/sbrktest.c	/^main(int argc, char *argv[])$/;"	f
 main	userland/testbin/schedpong/main.c	/^main(int argc, char *argv[])$/;"	f
+main	userland/testbin/shelltest/shelltest.c	/^main(int argc, char **argv)$/;"	f
 main	userland/testbin/shll/shll.c	/^main(int argc, char *argv[])$/;"	f
 main	userland/testbin/sink/sink.c	/^main(void)$/;"	f
 main	userland/testbin/sort/sort.c	/^main(void)$/;"	f
@@ -5842,7 +5916,7 @@ mainbus_start_cpus	kern/arch/sys161/dev/lamebus_machdep.c	/^mainbus_start_cpus(v
 mainmenu	kern/main/menu.c	/^static const char *mainmenu[] = {$/;"	v	file:
 make_computes	kern/test/tt3.c	/^make_computes(int howmany)$/;"	f	file:
 make_it	userland/testbin/dirseek/dirseek.c	/^	int make_it;$/;"	m	struct:__anon19	file:
-make_salt	common/libc/secure/secure.c	/^static void make_salt(char *salt_str)$/;"	f	file:
+make_salt	common/libtest161/secure.c	/^static void make_salt(char *salt_str)$/;"	f	file:
 make_sleepalots	kern/test/tt3.c	/^make_sleepalots(int howmany)$/;"	f	file:
 makeprocs	userland/testbin/parallelvm/parallelvm.c	/^makeprocs(bool dowait)$/;"	f	file:
 makesem	kern/test/semunit.c	/^makesem(unsigned count)$/;"	f	file:
@@ -5881,18 +5955,18 @@ max_car_count	kern/test/synchprobs.c	/^static volatile int max_car_count;$/;"	v	
 max_concurrent_matchmakers	kern/test/synchprobs.c	/^static volatile int max_concurrent_matchmakers;$/;"	v	file:
 maxinodes	userland/sbin/sfsck/inode.c	/^static unsigned ninodes = 0, maxinodes = 0;$/;"	v	file:
 maxname	userland/testbin/frack/pool.h	/^	const char *maxname;$/;"	m	struct:poolctl
-mbedtls_printf	common/libc/secure/sha256.c	50;"	d	file:
-mbedtls_sha256	common/libc/secure/sha256.c	/^void mbedtls_sha256( const unsigned char *input, size_t ilen,$/;"	f
-mbedtls_sha256_clone	common/libc/secure/sha256.c	/^void mbedtls_sha256_clone( mbedtls_sha256_context *dst,$/;"	f
-mbedtls_sha256_context	common/libc/secure/sha256.h	/^mbedtls_sha256_context;$/;"	t	typeref:struct:__anon8
-mbedtls_sha256_finish	common/libc/secure/sha256.c	/^void mbedtls_sha256_finish( mbedtls_sha256_context *ctx, unsigned char output[32] )$/;"	f
-mbedtls_sha256_free	common/libc/secure/sha256.c	/^void mbedtls_sha256_free( mbedtls_sha256_context *ctx )$/;"	f
-mbedtls_sha256_init	common/libc/secure/sha256.c	/^void mbedtls_sha256_init( mbedtls_sha256_context *ctx )$/;"	f
-mbedtls_sha256_process	common/libc/secure/sha256.c	/^void mbedtls_sha256_process( mbedtls_sha256_context *ctx, const unsigned char data[64] )$/;"	f
-mbedtls_sha256_self_test	common/libc/secure/sha256.c	/^int mbedtls_sha256_self_test( int verbose )$/;"	f
-mbedtls_sha256_starts	common/libc/secure/sha256.c	/^void mbedtls_sha256_starts( mbedtls_sha256_context *ctx, int is224 )$/;"	f
-mbedtls_sha256_update	common/libc/secure/sha256.c	/^void mbedtls_sha256_update( mbedtls_sha256_context *ctx, const unsigned char *input,$/;"	f
-mbedtls_zeroize	common/libc/secure/sha256.c	/^static void mbedtls_zeroize( void *v, size_t n ) {$/;"	f	file:
+mbedtls_printf	common/libtest161/sha256.c	50;"	d	file:
+mbedtls_sha256	common/libtest161/sha256.c	/^void mbedtls_sha256( const unsigned char *input, size_t ilen,$/;"	f
+mbedtls_sha256_clone	common/libtest161/sha256.c	/^void mbedtls_sha256_clone( mbedtls_sha256_context *dst,$/;"	f
+mbedtls_sha256_context	common/libtest161/sha256.h	/^mbedtls_sha256_context;$/;"	t	typeref:struct:__anon8
+mbedtls_sha256_finish	common/libtest161/sha256.c	/^void mbedtls_sha256_finish( mbedtls_sha256_context *ctx, unsigned char output[32] )$/;"	f
+mbedtls_sha256_free	common/libtest161/sha256.c	/^void mbedtls_sha256_free( mbedtls_sha256_context *ctx )$/;"	f
+mbedtls_sha256_init	common/libtest161/sha256.c	/^void mbedtls_sha256_init( mbedtls_sha256_context *ctx )$/;"	f
+mbedtls_sha256_process	common/libtest161/sha256.c	/^void mbedtls_sha256_process( mbedtls_sha256_context *ctx, const unsigned char data[64] )$/;"	f
+mbedtls_sha256_self_test	common/libtest161/sha256.c	/^int mbedtls_sha256_self_test( int verbose )$/;"	f
+mbedtls_sha256_starts	common/libtest161/sha256.c	/^void mbedtls_sha256_starts( mbedtls_sha256_context *ctx, int is224 )$/;"	f
+mbedtls_sha256_update	common/libtest161/sha256.c	/^void mbedtls_sha256_update( mbedtls_sha256_context *ctx, const unsigned char *input,$/;"	f
+mbedtls_zeroize	common/libtest161/sha256.c	/^static void mbedtls_zeroize( void *v, size_t n ) {$/;"	f	file:
 me	userland/testbin/psort/psort.c	/^static int me = NOBODY;$/;"	v	file:
 membar_any_any	kern/arch/mips/include/membar.h	/^membar_any_any(void)$/;"	f
 membar_any_any	kern/compile/DUMBVM/includelinks/machine/membar.h	/^membar_any_any(void)$/;"	f
@@ -6102,7 +6176,7 @@ off_t	.root/include/sys/types.h	/^typedef __off_t off_t;$/;"	t
 off_t	build/install/include/sys/types.h	/^typedef __off_t off_t;$/;"	t
 off_t	kern/include/types.h	/^typedef __off_t off_t;$/;"	t
 off_t	userland/include/sys/types.h	/^typedef __off_t off_t;$/;"	t
-offset	kern/include/file.h	/^	int offset;$/;"	m	struct:filehandle
+offset	kern/include/file.h	/^	off_t offset;$/;"	m	struct:filehandle
 ok	kern/test/hmacunit.c	/^ok(void)$/;"	f	file:
 ok	kern/test/semunit.c	/^ok(void)$/;"	f	file:
 oldfilesize	userland/testbin/frack/check.c	/^			off_t oldfilesize;$/;"	m	struct:fschange::__anon20::__anon23	file:
@@ -6123,7 +6197,7 @@ op_sync	userland/testbin/frack/ops.c	/^op_sync(void)$/;"	f
 op_truncate	userland/testbin/frack/ops.c	/^op_truncate(struct file *f, off_t len)$/;"	f
 op_unlink	userland/testbin/frack/ops.c	/^op_unlink(unsigned name)$/;"	f
 op_write	userland/testbin/frack/ops.c	/^op_write(struct file *f, off_t pos, off_t len)$/;"	f
-opad	common/libc/secure/secure.c	/^static const unsigned char opad[SHA256_BLOCK_SIZE] = { [0 ... SHA256_BLOCK_SIZE-1] = 0x5c };$/;"	v	file:
+opad	common/libtest161/secure.c	/^static const unsigned char opad[SHA256_BLOCK_SIZE] = { [0 ... SHA256_BLOCK_SIZE-1] = 0x5c };$/;"	v	file:
 open	userland/testbin/badcall/common_path.c	/^T(open);$/;"	v
 open_badflags	userland/testbin/badcall/bad_open.c	/^open_badflags(void)$/;"	f	file:
 open_badpath	userland/testbin/badcall/common_path.c	/^open_badpath(const char *path)$/;"	f	file:
@@ -6167,7 +6241,9 @@ palindrome	userland/testbin/palin/palin.c	/^char palindrome[8000] =$/;"	v
 panic	kern/lib/kprintf.c	/^panic(const char *fmt, ...)$/;"	f
 panicstr	kern/arch/sys161/main/start.S	/^panicstr:$/;"	l
 parent	userland/testbin/frack/check.c	/^			struct fsobject *parent;$/;"	m	struct:fsobject::__anon31::__anon33	typeref:struct:fsobject::__anon31::__anon33::fsobject	file:
+parent_pid	kern/include/proc.h	/^	pid_t parent_pid;$/;"	m	struct:proc
 partial	userland/testbin/frack/check.c	/^	int partial;$/;"	m	struct:fschange	file:
+partial_credit	common/libtest161/test161.c	/^partial_credit(const char *secret, const char *name, int scored, int total)$/;"	f
 pass1	userland/sbin/sfsck/pass1.c	/^pass1(void)$/;"	f
 pass1_dir	userland/sbin/sfsck/pass1.c	/^pass1_dir(uint32_t ino, const char *pathsofar)$/;"	f	file:
 pass1_direntry	userland/sbin/sfsck/pass1.c	/^pass1_direntry(const char *path, uint32_t index, struct sfs_direntry *sfd)$/;"	f	file:
@@ -6181,6 +6257,12 @@ pasteofcount	userland/sbin/sfsck/pass1.c	/^	unsigned pasteofcount;	\/* number of
 percent	userland/testbin/shll/shll.c	/^static int percent = 5;$/;"	v	file:
 pickpage	userland/testbin/bloat/bloat.c	/^pickpage(unsigned numpages)$/;"	f	file:
 pid	userland/testbin/forkbomb/forkbomb.c	/^static volatile int pid;$/;"	v	file:
+pid_array	kern/proc/proc.c	/^struct proc *pid_array[PID_MAX];$/;"	v	typeref:struct:proc
+pid_destroy	kern/proc/proc.c	/^int pid_destroy (pid_t pid) {$/;"	f
+pid_initialize	kern/proc/proc.c	/^void pid_initialize() {$/;"	f
+pid_initialized	kern/proc/proc.c	/^static bool pid_initialized = false;$/;"	v	file:
+pid_lock	kern/proc/proc.c	/^struct lock* pid_lock;$/;"	v	typeref:struct:lock
+pid_slock	kern/proc/proc.c	/^struct spinlock pid_slock; $/;"	v	typeref:struct:spinlock
 pid_t	.root/include/sys/types.h	/^typedef __pid_t pid_t;$/;"	t
 pid_t	build/install/include/sys/types.h	/^typedef __pid_t pid_t;$/;"	t
 pid_t	kern/include/types.h	/^typedef __pid_t pid_t;$/;"	t
@@ -6206,6 +6288,7 @@ populate_initial_matrixes	userland/testbin/parallelvm/parallelvm.c	/^populate_in
 pos	userland/bin/tac/tac.c	/^	off_t pos;$/;"	m	struct:indexentry	file:
 pos	userland/testbin/dirseek/dirseek.c	/^	off_t pos;$/;"	m	struct:__anon19	file:
 pos	userland/testbin/frack/check.c	/^			off_t pos;$/;"	m	struct:fschange::__anon20::__anon23	file:
+pow_int	userland/testbin/forktest/forktest.c	/^int pow_int(int x, int y) {$/;"	f	file:
 prep	userland/testbin/frack/workloads.c	/^prep(unsigned testcode, unsigned *exists, unsigned numfiles,$/;"	f	file:
 prepdata	userland/testbin/frack/data.c	/^prepdata(unsigned code, unsigned seq, char *buf, off_t len)$/;"	f	file:
 prepwords	userland/testbin/bigexec/bigexec.c	/^prepwords(void)$/;"	f	file:
@@ -6237,7 +6320,6 @@ printheader	userland/bin/ls/ls.c	/^printheader(const char *file)$/;"	f	file:
 printit	mk/fixdepends.sh	/^	printit();$/;"	f
 printit	mk/fixdepends.sh	/^    function printit() {$/;"	f
 printsettings	userland/testbin/bloat/bloat.c	/^printsettings(void)$/;"	f	file:
-printsf	common/libc/printf/tprintf.c	/^printsf(const char *fmt, ...)$/;"	f
 printstatus	userland/bin/sh/sh.c	/^printstatus(const struct exitinfo *ei, int printexitzero)$/;"	f	file:
 printstatus	userland/testbin/shll/shll.c	/^printstatus(const struct exitinfo *ei, int printexitzero)$/;"	f	file:
 printworkloads	userland/testbin/frack/main.c	/^printworkloads(void)$/;"	f	file:
@@ -6247,8 +6329,11 @@ proc_bootstrap	kern/proc/proc.c	/^proc_bootstrap(void)$/;"	f
 proc_create	kern/proc/proc.c	/^proc_create(const char *name)$/;"	f	file:
 proc_create_runprogram	kern/proc/proc.c	/^proc_create_runprogram(const char *name)$/;"	f
 proc_destroy	kern/proc/proc.c	/^proc_destroy(struct proc *proc)$/;"	f
+proc_fork	kern/proc/proc.c	/^struct proc *proc_fork(const char *temp) {$/;"	f
 proc_getas	kern/proc/proc.c	/^proc_getas(void)$/;"	f
+proc_pid	kern/include/proc.h	/^	pid_t proc_pid;$/;"	m	struct:proc
 proc_remthread	kern/proc/proc.c	/^proc_remthread(struct thread *t)$/;"	f
+proc_sem	kern/include/proc.h	/^	struct semaphore *proc_sem;$/;"	m	struct:proc	typeref:struct:proc::semaphore
 proc_setas	kern/proc/proc.c	/^proc_setas(struct addrspace *newas)$/;"	f
 processline	kern/conf/config	/^    function processline(filename, lineno) {$/;"	f
 progname	userland/testbin/psort/psort.c	/^static const char *progname;$/;"	v	file:
@@ -6383,7 +6468,7 @@ rename_empty1	userland/testbin/badcall/bad_rename.c	/^rename_empty1(void)$/;"	f	
 rename_empty2	userland/testbin/badcall/bad_rename.c	/^rename_empty2(void)$/;"	f	file:
 rename_proc	userland/testbin/dirconc/dirconc.c	/^rename_proc(void)$/;"	f	file:
 reopen_testfile	userland/testbin/badcall/driver.c	/^reopen_testfile(int openflags)$/;"	f
-report_aborted	userland/testbin/badcall/report.c	/^report_aborted(void)$/;"	f
+report_aborted	userland/testbin/badcall/report.c	/^report_aborted(int *status)$/;"	f
 report_begin	userland/testbin/badcall/report.c	/^report_begin(const char *descfmt, ...)$/;"	f
 report_beginsub	userland/testbin/badcall/report.c	/^report_beginsub(const char *descfmt, ...)$/;"	f
 report_check	userland/testbin/badcall/report.c	/^report_check(int rv, int error, int right_error)$/;"	f
@@ -6391,16 +6476,17 @@ report_check2	userland/testbin/badcall/report.c	/^report_check2(int rv, int erro
 report_check3	userland/testbin/badcall/report.c	/^report_check3(int rv, int error, int okerr1, int okerr2, int okerr3)$/;"	f
 report_checkN	userland/testbin/badcall/report.c	/^report_checkN(int rv, int error, int *right_errors, int right_num)$/;"	f	file:
 report_end	userland/testbin/badcall/report.c	/^report_end(const char *msg)$/;"	f	file:
-report_failure	userland/testbin/badcall/report.c	/^report_failure(void)$/;"	f
+report_failure	userland/testbin/badcall/report.c	/^report_failure(int *status)$/;"	f
 report_hassubs	userland/testbin/badcall/report.c	/^report_hassubs(void)$/;"	f
-report_passed	userland/testbin/badcall/report.c	/^report_passed(void)$/;"	f
+report_passed	userland/testbin/badcall/report.c	/^report_passed(int *status)$/;"	f
 report_result	userland/testbin/badcall/report.c	/^report_result(int rv, int error)$/;"	f
 report_saw_enosys	userland/testbin/badcall/report.c	/^report_saw_enosys(void)$/;"	f
-report_skipped	userland/testbin/badcall/report.c	/^report_skipped(void)$/;"	f
-report_survival	userland/testbin/badcall/report.c	/^report_survival(int rv, int error)$/;"	f
+report_skipped	userland/testbin/badcall/report.c	/^report_skipped(int *status)$/;"	f
+report_survival	userland/testbin/badcall/report.c	/^report_survival(int rv, int error, int *result)$/;"	f
 report_warn	userland/testbin/badcall/report.c	/^report_warn(const char *fmt, ...)$/;"	f
 report_warnx	userland/testbin/badcall/report.c	/^report_warnx(const char *fmt, ...)$/;"	f
 reportfreemap	userland/sbin/sfsck/freemap.c	/^reportfreemap(uint32_t mapblock, uint32_t byte, uint8_t val, const char *what)$/;"	f	file:
+request_pid	kern/proc/proc.c	/^pid_t request_pid(struct proc *proc) {$/;"	f
 reserved	.root/hostinclude/kern/sfs.h	/^	uint32_t reserved[118];			\/* unused, set to 0 *\/$/;"	m	struct:sfs_superblock
 reserved	.root/include/kern/sfs.h	/^	uint32_t reserved[118];			\/* unused, set to 0 *\/$/;"	m	struct:sfs_superblock
 reserved	build/install/hostinclude/kern/sfs.h	/^	uint32_t reserved[118];			\/* unused, set to 0 *\/$/;"	m	struct:sfs_superblock
@@ -6732,6 +6818,7 @@ same	userland/testbin/rmtest/rmtest.c	/^same(const char *a, const char *b, int l
 samestring	kern/vfs/vfslist.c	/^samestring(const char *a, const char *b)$/;"	f	file:
 samestring3	kern/vfs/vfslist.c	/^samestring3(const char *a, const char *b, const char *c, const char *d)$/;"	f	file:
 sargv	userland/testbin/kitchen/kitchen.c	/^static char *sargv[2] = { (char *)"sink", NULL };$/;"	v	file:
+say	common/libtest161/test161.c	/^say(const char *fmt, ...)$/;"	f	file:
 say	userland/testbin/badcall/report.c	/^say(const char *fmt, ...)$/;"	f	file:
 say	userland/testbin/dirconc/dirconc.c	/^say(const char *fmt, ...)$/;"	f	file:
 say	userland/testbin/parallelvm/parallelvm.c	/^say(const char *fmt, ...)$/;"	f	file:
@@ -6766,6 +6853,7 @@ sbrk_unalignedpos	userland/testbin/badcall/bad_sbrk.c	/^sbrk_unalignedpos(void)$
 scale	userland/testbin/bigfork/bigfork.c	/^scale(int *x, const int *a, int b)$/;"	f	file:
 schedule	kern/thread/thread.c	/^schedule(void)$/;"	f
 scratch	userland/testbin/factorial/factorial.c	/^static struct number scratch;$/;"	v	typeref:struct:number	file:
+secprintf	common/libtest161/test161.c	/^secprintf(const char * secret, const char * msg, const char * name)$/;"	f
 seeds	userland/testbin/psort/psort.c	/^static long *seeds;$/;"	v	file:
 seekmyplace	userland/testbin/psort/psort.c	/^seekmyplace(const char *name, int fd)$/;"	f	file:
 self	userland/testbin/factorial/factorial.c	/^self(const char *arg1, const char *arg2)$/;"	f	file:
@@ -7036,10 +7124,10 @@ sfs_writeinode	userland/sbin/sfsck/sfs.c	/^sfs_writeinode(uint32_t ino, struct s
 sfs_writesb	userland/sbin/sfsck/sfs.c	/^sfs_writesb(uint32_t blocknum, struct sfs_superblock *sb)$/;"	f
 sfsdir_sort	userland/sbin/sfsck/sfs.c	/^sfsdir_sort(struct sfs_direntry *d, unsigned nd, int *vector)$/;"	f
 sfsdir_tryadd	userland/sbin/sfsck/sfs.c	/^sfsdir_tryadd(struct sfs_direntry *d, int nd, const char *name, uint32_t ino)$/;"	f
-sha256_padding	common/libc/secure/sha256.c	/^static const unsigned char sha256_padding[64] =$/;"	v	file:
-sha256_test_buf	common/libc/secure/sha256.c	/^static const unsigned char sha256_test_buf[3][57] =$/;"	v	file:
-sha256_test_buflen	common/libc/secure/sha256.c	/^static const int sha256_test_buflen[3] =$/;"	v	file:
-sha256_test_sum	common/libc/secure/sha256.c	/^static const unsigned char sha256_test_sum[6][32] =$/;"	v	file:
+sha256_padding	common/libtest161/sha256.c	/^static const unsigned char sha256_padding[64] =$/;"	v	file:
+sha256_test_buf	common/libtest161/sha256.c	/^static const unsigned char sha256_test_buf[3][57] =$/;"	v	file:
+sha256_test_buflen	common/libtest161/sha256.c	/^static const int sha256_test_buflen[3] =$/;"	v	file:
+sha256_test_sum	common/libtest161/sha256.c	/^static const unsigned char sha256_test_sum[6][32] =$/;"	v	file:
 shl	common/gcc-millicode/qdivrem.c	/^shl(digit *p, int len, int sh)$/;"	f	file:
 showmenu	kern/main/menu.c	/^showmenu(const char *name, const char *x[])$/;"	f	file:
 shutdown	kern/main/main.c	/^shutdown(void)$/;"	f	file:
@@ -7296,10 +7384,9 @@ stat	build/install/include/kern/stat.h	/^struct stat {$/;"	s
 stat	kern/include/kern/stat.h	/^struct stat {$/;"	s
 stat	userland/testbin/badcall/common_path.c	/^T(stat);$/;"	v
 stat_badpath	userland/testbin/badcall/common_path.c	/^stat_badpath(const char *name)$/;"	f	file:
-state	common/libc/secure/sha256.h	/^    uint32_t state[8];          \/*!< intermediate digest state  *\/$/;"	m	struct:__anon8
+state	common/libtest161/sha256.h	/^    uint32_t state[8];          \/*!< intermediate digest state  *\/$/;"	m	struct:__anon8
 state	userland/lib/libc/stdlib/random.c	/^static long *state = &randtbl[1];$/;"	v	file:
 state	userland/testbin/frack/check.c	/^static struct fsobject *state;$/;"	v	typeref:struct:fsobject	file:
-status	kern/test/rwtest.c	/^static bool status = FAIL;$/;"	v	file:
 status_is_failure	userland/testbin/parallelvm/parallelvm.c	/^status_is_failure(int status)$/;"	f	file:
 status_lock	kern/test/synchprobs.c	/^struct spinlock status_lock;$/;"	v	typeref:struct:spinlock
 status_lock	kern/test/synchtest.c	/^struct spinlock status_lock;$/;"	v	typeref:struct:spinlock
@@ -7329,7 +7416,7 @@ subpage_stats	kern/vm/kmalloc.c	/^subpage_stats(struct pageref *pr, bool quiet)$
 subpos	userland/testbin/badcall/report.c	/^static size_t subpos;$/;"	v	file:
 subproc_read	userland/testbin/f_test/f_read.c	/^subproc_read(void)$/;"	f
 subproc_write	userland/testbin/f_test/f_write.c	/^subproc_write(void)$/;"	f
-success	kern/test/lib.c	/^success(bool status, const char * secret, const char * name) {$/;"	f
+success	common/libtest161/test161.c	/^success(int status, const char * secret, const char * name) {$/;"	f
 sum	userland/testbin/schedpong/grind.c	/^sum(const unsigned *p, unsigned n)$/;"	f	file:
 sv_absvn	kern/include/sfs.h	/^	struct vnode sv_absvn;          \/* abstract vnode structure *\/$/;"	m	struct:sfs_vnode	typeref:struct:sfs_vnode::vnode
 sv_dirty	kern/include/sfs.h	/^	bool sv_dirty;                  \/* true if sv_i modified *\/$/;"	m	struct:sfs_vnode
@@ -7353,18 +7440,29 @@ symlink_badpath2	userland/testbin/badcall/common_path.c	/^symlink_badpath2(const
 symlink_empty1	userland/testbin/badcall/bad_symlink.c	/^symlink_empty1(void)$/;"	f	file:
 symlink_empty2	userland/testbin/badcall/bad_symlink.c	/^symlink_empty2(void)$/;"	f	file:
 sys___time	kern/syscall/time_syscalls.c	/^sys___time(userptr_t user_seconds_ptr, userptr_t user_nanoseconds_ptr)$/;"	f
+sys__getcwd	kern/syscall/file.c	/^int sys__getcwd(void *buf, size_t buflen)$/;"	f
+sys_chdir	kern/syscall/file.c	/^int sys_chdir (const_userptr_t directory) {$/;"	f
+sys_close	kern/syscall/file.c	/^int sys_close(int fd) {$/;"	f
+sys_dup2	kern/syscall/file.c	/^int sys_dup2(int oldfd, int newfd)$/;"	f
 sys_errlist	.root/hostinclude/kern/errmsg.h	/^const char *const sys_errlist[] = {$/;"	v
 sys_errlist	.root/include/kern/errmsg.h	/^const char *const sys_errlist[] = {$/;"	v
 sys_errlist	build/install/hostinclude/kern/errmsg.h	/^const char *const sys_errlist[] = {$/;"	v
 sys_errlist	build/install/include/kern/errmsg.h	/^const char *const sys_errlist[] = {$/;"	v
 sys_errlist	kern/include/kern/errmsg.h	/^const char *const sys_errlist[] = {$/;"	v
+sys_exit	kern/syscall/procsyscalls.c	/^void sys_exit(int exitcode) {$/;"	f
+sys_fork	kern/syscall/procsyscalls.c	/^int sys_fork(struct trapframe *tf, int *returnvalue) {$/;"	f
+sys_getpid	kern/syscall/procsyscalls.c	/^int sys_getpid(int *retval) {$/;"	f
+sys_lseek	kern/syscall/file.c	/^int sys_lseek(int fd, off_t pos, int whence, off_t *returnvalue) {$/;"	f
 sys_nerr	.root/hostinclude/kern/errmsg.h	/^const int sys_nerr = sizeof(sys_errlist)\/sizeof(const char *);$/;"	v
 sys_nerr	.root/include/kern/errmsg.h	/^const int sys_nerr = sizeof(sys_errlist)\/sizeof(const char *);$/;"	v
 sys_nerr	build/install/hostinclude/kern/errmsg.h	/^const int sys_nerr = sizeof(sys_errlist)\/sizeof(const char *);$/;"	v
 sys_nerr	build/install/include/kern/errmsg.h	/^const int sys_nerr = sizeof(sys_errlist)\/sizeof(const char *);$/;"	v
 sys_nerr	kern/include/kern/errmsg.h	/^const int sys_nerr = sizeof(sys_errlist)\/sizeof(const char *);$/;"	v
 sys_open	kern/syscall/file.c	/^int sys_open(const_userptr_t file, int flags, mode_t mode, int *returnvalue) {$/;"	f
+sys_read	kern/syscall/file.c	/^int sys_read(int fd, void *buf, size_t buflen, int *returnvalue)$/;"	f
 sys_reboot	kern/main/main.c	/^sys_reboot(int code)$/;"	f
+sys_waitpid	kern/syscall/procsyscalls.c	/^int sys_waitpid (pid_t pid, userptr_t status, int options, int *returnvalue) {$/;"	f
+sys_write	kern/syscall/file.c	/^int sys_write(int fd, const void *buf, size_t nbytes, int *returnvalue) {$/;"	f
 syscall	kern/arch/mips/syscall/syscall.c	/^syscall(struct trapframe *tf)$/;"	f
 system	userland/lib/libc/stdlib/system.c	/^system(const char *cmd)$/;"	f
 t0	.root/hostinclude/kern/machine/regdefs.h	48;"	d
@@ -7533,6 +7631,9 @@ tables	build/userland/testbin/randcall/calls.c	/^static tryfunc *tables[4] = {$/
 tables	userland/build/testbin/randcall/calls.c	/^static tryfunc *tables[4] = {$/;"	v	file:
 tables	userland/testbin/randcall/build/calls.c	/^static tryfunc *tables[4] = {$/;"	v	file:
 tail	userland/testbin/tail/tail.c	/^tail(int file, off_t where, const char *filename)$/;"	f	file:
+temp_buffer	common/libtest161/test161.c	/^static char temp_buffer[BUFFER_SIZE];$/;"	v	file:
+temp_buffers	common/libtest161/secure.c	/^static char temp_buffers[NUM_BUFFERS][BUFFER_LEN];$/;"	v	file:
+template	test161/tests/stability/crash/script.py	/^template = open('crash-template').read()$/;"	v
 test	userland/testbin/forktest/forktest.c	/^test(int nowait)$/;"	f	file:
 test1	userland/testbin/malloctest/malloctest.c	/^test1(void)$/;"	f	file:
 test1	userland/testbin/rmdirtest/rmdirtest.c	/^test1(void)$/;"	f	file:
@@ -7596,8 +7697,8 @@ test_rename	userland/testbin/badcall/bad_rename.c	/^test_rename(void)$/;"	f
 test_rmdir	userland/testbin/badcall/bad_rmdir.c	/^test_rmdir(void)$/;"	f
 test_sbrk	userland/testbin/badcall/bad_sbrk.c	/^test_sbrk(void)$/;"	f
 test_stat	userland/testbin/badcall/bad_stat.c	/^test_stat(void)$/;"	f
-test_status	kern/test/synchprobs.c	/^static bool test_status = FAIL;$/;"	v	file:
-test_status	kern/test/synchtest.c	/^static bool test_status = FAIL;$/;"	v	file:
+test_status	kern/test/synchprobs.c	/^static bool test_status = TEST161_FAIL;$/;"	v	file:
+test_status	kern/test/synchtest.c	/^static bool test_status = TEST161_FAIL;$/;"	v	file:
 test_symlink	userland/testbin/badcall/bad_symlink.c	/^test_symlink(void)$/;"	f
 test_time	userland/testbin/badcall/bad_time.c	/^test_time(void)$/;"	f
 test_waitpid	userland/testbin/badcall/bad_waitpid.c	/^test_waitpid(void)$/;"	f
@@ -7830,7 +7931,7 @@ tm_badfaultfunc	kern/compile/DUMBVM/includelinks/mips/thread.h	/^	badfaultfunc_t
 tm_copyjmp	kern/arch/mips/include/thread.h	/^	jmp_buf tm_copyjmp;		\/* longjmp area used by copyin\/out *\/$/;"	m	struct:thread_machdep
 tm_copyjmp	kern/compile/DUMBVM/includelinks/machine/thread.h	/^	jmp_buf tm_copyjmp;		\/* longjmp area used by copyin\/out *\/$/;"	m	struct:thread_machdep
 tm_copyjmp	kern/compile/DUMBVM/includelinks/mips/thread.h	/^	jmp_buf tm_copyjmp;		\/* longjmp area used by copyin\/out *\/$/;"	m	struct:thread_machdep
-to_hex	common/libc/secure/secure.c	/^static inline char to_hex(int n)$/;"	f	file:
+to_hex	common/libtest161/secure.c	/^static inline char to_hex(int n)$/;"	f	file:
 todir	userland/testbin/frack/check.c	/^			unsigned todir;$/;"	m	struct:fschange::__anon20::__anon28	file:
 todir	userland/testbin/frack/check.c	/^			unsigned todir;$/;"	m	struct:fschange::__anon20::__anon29	file:
 todir	userland/testbin/frack/check.c	/^			unsigned todir;$/;"	m	struct:fschange::__anon20::__anon30	file:
@@ -7838,7 +7939,8 @@ tofreedata	userland/sbin/sfsck/freemap.c	/^static uint8_t *tofreedata;$/;"	v	fil
 toname	userland/testbin/frack/check.c	/^			unsigned toname;$/;"	m	struct:fschange::__anon20::__anon28	file:
 toname	userland/testbin/frack/check.c	/^			unsigned toname;$/;"	m	struct:fschange::__anon20::__anon29	file:
 toname	userland/testbin/frack/check.c	/^			unsigned toname;$/;"	m	struct:fschange::__anon20::__anon30	file:
-total	common/libc/secure/sha256.h	/^    uint32_t total[2];          \/*!< number of bytes processed  *\/$/;"	m	struct:__anon8
+total	common/libtest161/sha256.h	/^    uint32_t total[2];          \/*!< number of bytes processed  *\/$/;"	m	struct:__anon8
+total_pids	kern/proc/proc.c	/^int total_pids;$/;"	v
 touchmem	userland/testbin/bloat/bloat.c	/^touchmem(void)$/;"	f	file:
 touchpage	userland/testbin/bloat/bloat.c	/^touchpage(unsigned pagenum)$/;"	f	file:
 touchpages	userland/testbin/bloat/bloat.c	/^static unsigned touchpages;$/;"	v	file:
@@ -8358,6 +8460,7 @@ wreq	kern/include/synch.h	/^	int wreq;$/;"	m	struct:rwlock
 write	userland/testbin/badcall/common_buf.c	/^T(write);$/;"	v
 write_badbuf	userland/testbin/badcall/common_buf.c	/^write_badbuf(void *ptr)$/;"	f	file:
 write_badfd	userland/testbin/badcall/common_fds.c	/^write_badfd(int fd)$/;"	f	file:
+write_buffer	common/libtest161/test161.c	/^static char write_buffer[BUFFER_SIZE];$/;"	v	file:
 write_cfg_register	kern/dev/lamebus/lamebus.c	/^write_cfg_register(struct lamebus_softc *lb, int slot, uint32_t offset,$/;"	f	file:
 write_cleanup	userland/testbin/badcall/common_buf.c	/^write_cleanup(void)$/;"	f	file:
 write_ctl_register	kern/dev/lamebus/lamebus.c	/^write_ctl_register(struct lamebus_softc *lb, uint32_t offset, uint32_t val)$/;"	f	file:

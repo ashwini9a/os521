@@ -114,7 +114,23 @@ proc_create(const char *name)
 }
 
 struct proc *proc_fork(const char *temp) {
-	return proc_create(temp);
+
+	struct proc *newproc =  proc_create(temp);
+	
+	if (newproc == NULL) {
+		return NULL;
+	}
+
+//	newproc->p_addrspace = as;
+
+	spinlock_acquire(&curproc->p_lock);
+	if (curproc->p_cwd != NULL) {
+		VOP_INCREF(curproc->p_cwd);
+		newproc->p_cwd = curproc->p_cwd;
+	}
+	spinlock_release(&curproc->p_lock);
+
+	return newproc;
 }
 
 /*
@@ -200,27 +216,29 @@ proc_destroy(struct proc *proc)
 	KASSERT(proc->p_numthreads == 0);
 	spinlock_cleanup(&proc->p_lock);
 
+//	for (int i=0;i<OPEN_MAX;i++) {
+//		if (proc->filedescriptor[i] != NULL){
+//			if (proc->filedescriptor[i]->refcount <= 1) {	
+//				lock_destroy(proc->filedescriptor[i]->filelock);
+//				kfree(proc->filedescriptor[i]->vnode);
+//			}
+//			kfree(proc->filedescriptor[i]);
+//		}
+//	}
+	pid_destroy(proc->proc_pid);
+
+	sem_destroy(proc->proc_sem);
+
+
 	kfree(proc->p_name);
 	kfree(proc);
-	int i = 0;
-	for (i=0;i<OPEN_MAX;i++) {
-		if (proc->filedescriptor[i] != NULL){
-			if (proc->filedescriptor[i]->refcount <= 1) {	
-				lock_destroy(proc->filedescriptor[i]->filelock);
-				kfree(proc->filedescriptor[i]->vnode);
-			}
-			kfree(proc->filedescriptor[i]);
-		}
-	}
+//	int i = 0;
 //	proc->proc_pid = NULL;
 //	lock_acquire(pid_lock);
 //	i = (int) proc->proc_pid;
 //	pid_array[i] = NULL;
 //	total_pids--;
 //	lock_release(pid_lock);
-	pid_destroy(proc->proc_pid);
-
-	sem_destroy(proc->proc_sem);
 }
 
 /*
