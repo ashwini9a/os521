@@ -799,13 +799,20 @@ thread_exit(void)
 	 * around, depending on how your wait/exit works.
 	 */
 	proc_remthread(cur);
+//	if(pid_array[curproc->pid]== NULL && cur->threds == 0)
+//	{
+//		proc_destroy(cur);
+//	}
 
 	/* Make sure we *are* detached (move this only if you're sure!) */
 	KASSERT(cur->t_proc == NULL);
 
 	/* Check the stack guard band. */
 	thread_checkstack(cur);
-
+//	if(pid_array[curproc->proc_pid]== NULL && curproc->p_numthreads <= 1)
+//        {
+//                proc_destroy(curproc);
+  //      }
 	/* Interrupts off on this processor */
         splhigh();
 	thread_switch(S_ZOMBIE, NULL, NULL);

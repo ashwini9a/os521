@@ -57,7 +57,7 @@ struct proc *pid_array[PID_MAX];
 int total_pids;
 struct lock* pid_lock;
 bool pid_initialized = false;
-
+struct spinlock pid_slock; 
 //static struct proc *pid_array[PID_MAX];
 //static int total_pids;
 //static struct lock* pid_lock;
@@ -233,6 +233,7 @@ proc_bootstrap(void)
 //	for (i=2;i<PID_MAX;i++) {
 //		pid_array[i] = NULL;
 //	}
+	spinlock_init(&pid_slock);
 //	pid_lock = lock_create("pid_lock");
 //	fork_lock = lock_create("fork_lock");
 //	total_pids = 0;
@@ -376,7 +377,7 @@ proc_setas(struct addrspace *newas)
 }
 
 pid_t request_pid(struct proc *proc) {
-//	lock_acquire(pid_lock);
+	spinlock_acquire(&pid_slock);
 	if (pid_initialized == false) {
 		pid_initialize();
 //		pid_initoalized = true;
@@ -396,7 +397,7 @@ pid_t request_pid(struct proc *proc) {
 //	KASSERT(i<PID_MAX);
 	total_pids++;
 	pid_array[i] = proc;
-//	lock_release(pid_lock);
+	spinlock_release(&pid_slock);
 	return (pid_t)i;
 }
 

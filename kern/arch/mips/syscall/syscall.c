@@ -35,7 +35,7 @@
 #include <thread.h>
 #include <current.h>
 #include <syscall.h>
-
+#include <procsyscalls.h>
 
 /*
  * System call dispatcher.
@@ -167,7 +167,9 @@ syscall(struct trapframe *tf)
 				  (userptr_t)tf->tf_a1,
 				   tf->tf_a2,
 				   &retval);
-
+	   case SYS_execv:
+		//err= sys_execv((const_userptr_t)tf->tf_a0,);
+		break;
 	    default:
 		kprintf("Unknown syscall %d\n", callno);
 		err = ENOSYS;
@@ -215,6 +217,8 @@ void
 enter_forked_process(void *child_trapframe, unsigned long child_addrspace) 
 {
 	struct trapframe *tf = (struct trapframe *)child_trapframe;
+
+	//tf = *child_trapframe;
         struct addrspace *adspc = (struct addrspace *)child_addrspace;
 
         tf->tf_v0 = 0;
