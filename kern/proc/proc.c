@@ -53,7 +53,7 @@
  * The process for the kernel; this holds all the kernel-only threads.
  */
 struct proc *kproc;
-struct proc *pid_array[PID_MAX];
+struct proc *pid_array[PROC_MAX];
 int total_pids;
 struct lock* pid_lock;
 struct spinlock pid_slock; 
@@ -402,7 +402,7 @@ pid_t request_pid(struct proc *proc) {
 //		pid_initoalized = true;
 	}
 	int i=2;
-	while(i<PID_MAX) {
+	while(i<PROC_MAX) {
 		if (pid_array[i] == NULL) {
 			break;
 		}
@@ -422,7 +422,7 @@ pid_t request_pid(struct proc *proc) {
 
 void pid_initialize() {
 	pid_initialized = true;
-	for (int i=0;i<PID_MAX;i++) {
+	for (int i=0;i<PROC_MAX;i++) {
 		pid_array[i] = NULL;
 	}
 	total_pids = 0;

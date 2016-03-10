@@ -44,8 +44,8 @@
 struct addrspace;
 struct thread;
 struct vnode;
-
-extern struct proc *pid_array[PID_MAX];
+#define PROC_MAX 100
+extern struct proc *pid_array[PROC_MAX];
 extern int total_pids;
 extern struct lock* pid_lock;
 //extern bool pid_initialized;

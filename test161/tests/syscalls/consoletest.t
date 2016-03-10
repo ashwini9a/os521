@@ -5,6 +5,6 @@ description: >
 tags: [console]
 depends: [boot]
 sys161:
-  ram: 512K
+  ram: 2048K
 ---
 p /testbin/consoletest
