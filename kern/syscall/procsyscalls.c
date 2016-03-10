@@ -48,6 +48,9 @@ int sys_waitpid (pid_t pid, userptr_t status, int options, int *returnvalue) {
 	}
 	int result;
 	struct proc *proc;
+	if (!status) {
+		return EFAULT;
+	}
 	proc = pid_array[pid];
 	if (!proc) {
 //		kprintf("can't wait on a process that does not exist");

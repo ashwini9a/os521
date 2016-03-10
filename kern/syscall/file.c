@@ -143,17 +143,21 @@ int sys_lseek(int fd, off_t pos, int whence, off_t *returnvalue) {
 	struct stat temp;
 	int result;
 
+	if (fd < 0) {
+		return EBADF;
+	}
+	
 	if (fd == 0 || fd == 1 || fd == 2) {
-		kprintf("The user is mad.... Trying to seek in con :(\n");
+//		kprintf("The user is mad.... Trying to seek in con :(\n");
 		return ESPIPE;
 	}
-	if (fd > OPEN_MAX || fd < 0) {
-		kprintf("Stupid malicious user... file descriptor\n");
+	if (fd >= OPEN_MAX || fd < 0) {
+//		kprintf("Stupid malicious user... file descriptor\n");
 		return EBADF;
 	}
 
 	if (curproc->filedescriptor[fd] == NULL) {
-		kprintf("Stupid malicious user...NULL\n");
+//		kprintf("Stupid malicious user...NULL\n");
 		return EBADF;
 	}
 	lock_acquire(curproc->filedescriptor[fd]->filelock);
@@ -164,25 +168,38 @@ int sys_lseek(int fd, off_t pos, int whence, off_t *returnvalue) {
 	
 			case SEEK_SET:
 				new_pos = pos;
+				if (new_pos <0) {
+					
+					lock_release(curproc->filedescriptor[fd]->filelock);
+					return EINVAL;
+				}
 				break;
 		
 			case SEEK_CUR:	
 				new_pos = present_offset + pos;
+				if (new_pos < 0) {
+					lock_release(curproc->filedescriptor[fd]->filelock);
+					return EINVAL;
+				}
 				break;
 
 			case SEEK_END:
 				result = VOP_STAT(curproc->filedescriptor[fd]->vnode, &temp);
 				if (result) {
-					kprintf("the kernel screwed up... couldn't vop_stat");
+//					kprintf("the kernel screwed up... couldn't vop_stat");
 					lock_release(curproc->filedescriptor[fd]->filelock);
 					return result;
 				}
 				present_offset = temp.st_size;
 				new_pos = present_offset + pos;
+				if (new_pos < 0) {
+					lock_release(curproc->filedescriptor[fd]->filelock);
+					return EINVAL;
+				}
 				break;
 
 			default :
-				kprintf("whence is invalid");
+//				kprintf("whence is invalid");
 				lock_release(curproc->filedescriptor[fd]->filelock);
 				return EINVAL;
 		}
@@ -192,13 +209,18 @@ int sys_lseek(int fd, off_t pos, int whence, off_t *returnvalue) {
 		lock_release(curproc->filedescriptor[fd]->filelock);
 		return 0;
 	}
+	lock_release(curproc->filedescriptor[fd]->filelock);
 	return ESPIPE;
 }	
 
 
 bool isFdValid(int fd)
 {
-	if(curproc->filedescriptor[fd]==NULL || fd >= OPEN_MAX) {
+	if (fd >= OPEN_MAX) {
+		return false;
+	}
+
+	if(curproc->filedescriptor[fd]==NULL) {
 		return false;
 	}
 	return true;
@@ -209,8 +231,14 @@ bool isFdValid(int fd)
 int sys_read(int fd, void *buf, size_t buflen, int *returnvalue)
 {
         if(!(isFdValid(fd))) {
-                *returnvalue = EBADF;
-		return -1;
+                *returnvalue = 0;
+		return EBADF;
+	}
+	if (fd <0) {
+		return EBADF;
+	}
+	if (curproc->filedescriptor[fd]->flags == (O_WRONLY | O_CREAT | O_TRUNC)||curproc->filedescriptor[fd]->flags == (O_WRONLY) || curproc->filedescriptor[fd]->flags == (O_WRONLY | O_EXCL | O_TRUNC) || curproc->filedescriptor[fd]->flags == (O_WRONLY | O_CREAT | O_APPEND) || curproc->filedescriptor[fd]->flags == (O_WRONLY | O_EXCL | O_APPEND) || curproc->filedescriptor[fd]->flags == (O_WRONLY | O_TRUNC) || curproc->filedescriptor[fd]->flags == (O_WRONLY |O_APPEND)) {
+		return EBADF;
 	}
         struct uio uiotemp;
 	struct iovec iov;
@@ -222,13 +250,17 @@ int sys_read(int fd, void *buf, size_t buflen, int *returnvalue)
 
         result = VOP_READ(curproc->filedescriptor[fd]->vnode, &uiotemp);
 	if(result) {
-		kprintf("Some read error occoured \n");
-		*returnvalue = EIO;
+//		kprintf("Some read error occoured \n");
+		*returnvalue = 0;
 		lock_release(curproc->filedescriptor[fd]->filelock);
-		return -1;
+		return EIO;
 	}
 	curproc->filedescriptor[fd]->offset = uiotemp.uio_offset;
-	copyout(kbuf, buf, buflen);
+	result = copyout(kbuf, buf, buflen);
+	if (result) {
+		lock_release(curproc->filedescriptor[fd]->filelock);
+		return EFAULT;
+	}
 	*returnvalue = buflen - uiotemp.uio_resid;
 	lock_release(curproc->filedescriptor[fd]->filelock);
 
@@ -240,19 +272,31 @@ int sys_write(int fd, const void *buf, size_t nbytes, int *returnvalue) {
         if(!(isFdValid(fd)))
                 return EBADF;
 
+	if (fd <0) {
+		return EBADF;
+	}
+
+	if (curproc->filedescriptor[fd]->flags == O_RDONLY) {
+		return EBADF;
+	}
+
         struct uio uiotemp;
 	struct iovec iov;
 	int result;
 	char kbuf[nbytes];
 	lock_acquire(curproc->filedescriptor[fd]->filelock);
 	result = copyin((const_userptr_t)buf, kbuf, nbytes);
+	if (result) {
+		lock_release(curproc->filedescriptor[fd]->filelock);
+		return EFAULT;
+	}
 
 	uio_kinit(&iov, &uiotemp, kbuf, nbytes, curproc->filedescriptor[fd]->offset,UIO_WRITE );
         result = VOP_WRITE(curproc->filedescriptor[fd]->vnode,&uiotemp);
 	if(result) {
-		*returnvalue = EIO;
+		*returnvalue = 0;
 		lock_release(curproc->filedescriptor[fd]->filelock);
-		return -1;
+		return EIO;
 	}
 	curproc->filedescriptor[fd]->offset = uiotemp.uio_offset;
 	*returnvalue = nbytes - uiotemp.uio_resid;
@@ -262,7 +306,7 @@ int sys_write(int fd, const void *buf, size_t nbytes, int *returnvalue) {
 
 int sys_close(int fd) {
 //	struct filehandle fh;	
-	if (fd > OPEN_MAX) {
+	if (fd >= OPEN_MAX) {
 		return EBADF;
 	}
 
@@ -271,11 +315,16 @@ int sys_close(int fd) {
 	if (curproc->filedescriptor[fd] == NULL) {
 		return EBADF;	
 	}
+	
+	if (fd < 0) {
+		return EBADF;
+	} 
 
 	curproc->filedescriptor[fd]->refcount--;
 
 	if (curproc->filedescriptor[fd]->refcount == 0) {
 		vfs_close(curproc->filedescriptor[fd]->vnode);
+//		lock_release(curproc->filedescriptor[fd]->filelock);
 		lock_destroy(curproc->filedescriptor[fd]->filelock);
 		kfree(curproc->filedescriptor[fd]);
 		curproc->filedescriptor[fd] = NULL;
@@ -290,17 +339,17 @@ int sys_chdir (const_userptr_t directory) {
 	
 	newdir = kmalloc(sizeof(PATH_MAX +1));
 	if (newdir == NULL) {
-		kprintf("kmalloc failed for newdir");
+//		kprintf("kmalloc failed for newdir");
 		return EFAULT;
 	}
 	int result = copyinstr(directory, newdir, PATH_MAX, &len);
 	if (result) {
-		kprintf("could not copy user specified path to kernel space\n");
+//		kprintf("could not copy user specified path to kernel space\n");
 		return result;
 	}
 	result = vfs_chdir(newdir); 
 	if (result) {
-		kprintf("chdir failed");
+//		kprintf("chdir failed");
 		return result;
 	}
 	return 0;	
@@ -360,9 +409,12 @@ int sys__getcwd(void *buf, size_t buflen)
 //        uiotemp.uio_rw = UIO_READ;
 //        uiotemp.uio_space = curproc->p_addrspace;
 	result = vfs_getcwd(&uiotemp);
-	copyout(kbuf,buf, buflen);
+	if (result) {
+		return result;
+	}
+	result = copyout(kbuf,buf, buflen);
 	if(result)
-		return EIO;
+		return EFAULT;
 	return 0;
 
 }
