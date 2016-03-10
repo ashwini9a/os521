@@ -216,15 +216,11 @@ proc_destroy(struct proc *proc)
 	KASSERT(proc->p_numthreads == 0);
 	spinlock_cleanup(&proc->p_lock);
 
-//	for (int i=0;i<OPEN_MAX;i++) {
-//		if (proc->filedescriptor[i] != NULL){
-//			if (proc->filedescriptor[i]->refcount <= 1) {	
-//				lock_destroy(proc->filedescriptor[i]->filelock);
-//				kfree(proc->filedescriptor[i]->vnode);
-//			}
-//			kfree(proc->filedescriptor[i]);
-//		}
-//	}
+	for (int i=0;i<OPEN_MAX;i++) {
+		if (proc->filedescriptor[i] != NULL){
+			sys_close(i);
+		}
+	}
 	pid_destroy(proc->proc_pid);
 
 	sem_destroy(proc->proc_sem);

@@ -143,9 +143,11 @@ common_prog(int nargs, char **args)
 	 */
 //	kprintf("Kernel process: I am %d and my parent is %d I'm waiting on the child whose pid is :%d\n",curproc->proc_pid, curproc->parent_pid,proc->proc_pid);
 	result = sys_waitpid(proc->proc_pid, (userptr_t)&status, 0, &returnvalue);
-	if (result) {
+//	kprintf("result is %d", result);
+	if (result == 0) {
 		kprintf("???? WAITING FAILED???");
 	}
+//	kprintf("I am done waiting");
 	return 0;
 }
 

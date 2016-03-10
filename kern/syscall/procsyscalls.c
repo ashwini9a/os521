@@ -14,24 +14,24 @@ int sys_fork(struct trapframe *tf, int *returnvalue) {
 	int result;
 	struct proc *child_proc;
 	struct addrspace *child_addrspace;
-	lock_acquire(pid_lock);	
+//	lock_acquire(pid_lock);	
 	struct trapframe *child_tf = (struct trapframe*)kmalloc(sizeof(struct trapframe));
 	if (child_tf == NULL) {
 //		kprintf("could not allocate memory for trapframe");
 		return ENOMEM;
-		lock_release(pid_lock);
+//		lock_release(pid_lock);
 	}
 	*child_tf = *tf;
 	result = as_copy(proc_getas(), &child_addrspace);
 	if (result) {
 		return ENOMEM;
-		lock_release(pid_lock);
+//		lock_release(pid_lock);
 	}
 	
 	child_proc = proc_create_runprogram("childproc");
 //	child_proc = proc_fork("childproc");
 //	child_proc->p_addrspace = child_addrspace;
-	lock_release(pid_lock);
+//	lock_release(pid_lock);
 //	child_proc->parent_pid = curproc->proc_pid;
 	thread_fork("child_thread", child_proc, enter_forked_process, (void*)child_tf, (unsigned long)child_addrspace);
 
@@ -43,7 +43,7 @@ int sys_fork(struct trapframe *tf, int *returnvalue) {
 int sys_waitpid (pid_t pid, userptr_t status, int options, int *returnvalue) {
 
 	if (options != 0) {
-		kprintf("I dont accept options");
+//		kprintf("I dont accept options");
 		return EINVAL;
 	}
 	int result;
@@ -73,6 +73,7 @@ int sys_waitpid (pid_t pid, userptr_t status, int options, int *returnvalue) {
 		return EFAULT;
 	}
 	
+	
 	proc_destroy(proc);	
 //	pid_array[pid] = NULL;
 	
@@ -83,21 +84,23 @@ int sys_waitpid (pid_t pid, userptr_t status, int options, int *returnvalue) {
 void sys_exit(int exitcode) {
 	pid_t pid = curproc->proc_pid;
 	struct proc *proc = pid_array[pid];
-	pid_t part_pid =  proc->parent_pid; 	//	added in case parent has exited 
+//	pid_t part_pid =  proc->parent_pid; 	//	added in case parent has exited
+//	lock_acquire(pid_lock); 
 	if (!proc) {
 //		kprintf("process id not found...");
 	}
-	if(pid_array[part_pid]->__exited)		// added in case parent has exited
-	{
+//	if(pid_array[part_pid]->__exited)		// added in case parent has exited
+//	{
 //		kprintf("this threads parent has exited, No need to store the exitcode");
 		//proc_destroy(proc);
-		pid_array[pid] = NULL;
-	}
-	else if (proc->__exited == false) {
+//		pid_array[pid] = NULL;
+//	}
+	if (proc->__exited == false) {
 		proc->__exited = true;
 		proc->exitstatus = _MKWAIT_EXIT(exitcode);
 		V(proc->proc_sem);
 	}
+//	lock_release(pid_lock);
 	thread_exit();
 }
 
