@@ -187,7 +187,8 @@ int sys_execv(const_userptr_t program, const_userptr_t args)
 	tempstk=stackptr + sizeof(char *)*i;
 	while(cnt<i)
 	{
-		* stackptr = tempstk;
+//		* stackptr = tempstk;
+		copyout((const void*) tempstk, (userptr_t)stackptr, sizeof(stcksize));
 		tlen=0;
 		if((strlen(buff[cnt])+1)%4)
 			tlen = ((strlen(buff[cnt])+1)/4)+4;
@@ -200,7 +201,8 @@ int sys_execv(const_userptr_t program, const_userptr_t args)
 		{
 			strcat(temstr,"\0");
 		} 
-		* tempstk= temstr;
+		//* tempstk= temstr;
+		copyout((const void*)temstr, (userptr_t)tempstk, sizeof(tlen));
 		tempstk+=tlen;
 		stackptr = stackptr+sizeof(char *);
 		cnt++;	
