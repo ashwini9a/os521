@@ -14,6 +14,7 @@ int sys_open(const_userptr_t file, int flags, mode_t mode, int *returnvalue) {
 	}
 	result =  copyinstr(file, filename, PATH_MAX, &length);
 	if (result) {
+		kfree(filename);
 		return result;
 	}
 
@@ -43,6 +44,7 @@ int sys_open(const_userptr_t file, int flags, mode_t mode, int *returnvalue) {
 		filename = NULL;
 		kfree(filename);
 		kfree(curproc->filedescriptor[index]);
+		curproc->filedescriptor[index] = NULL;
 		return result;
 	}
 	curproc->filedescriptor[index]->filename = filename;
@@ -73,11 +75,19 @@ int filedescriptor_init(void) {
 		curproc->filedescriptor[0] =(struct filehandle*) kmalloc(sizeof(struct filehandle));
 		if (curproc->filedescriptor[0] == NULL) {
 //			kprintf("could not allocate memory for std in");
+			kfree(filename);
+//			kfree(out);
+//			kfree(err);
 			return ENFILE;
 		}
 	
 		int result = vfs_open(filename, O_RDONLY, 0664, &vn1);
 		if (result) {
+			kfree(curproc->filedescriptor[0]);
+			curproc->filedescriptor[0] = NULL;
+			kfree(filename);
+//			kfree(out);
+//			kfree(err);
 //			kprintf("Console 0 open failed");
 			return EINVAL;
 		}
@@ -94,11 +104,15 @@ int filedescriptor_init(void) {
 		curproc->filedescriptor[1] = (struct filehandle*) kmalloc(sizeof(struct filehandle));
 		if (curproc->filedescriptor[1] == NULL) {
 //			kprintf("Could not allocate memory for std out");
+			kfree(out);
 			return ENFILE;
 		}
 		int result = vfs_open(out, O_WRONLY, 0664, &vn2);
 		if (result) {
 //			kprintf("could not open std output");
+			kfree(curproc->filedescriptor[1]);
+			curproc->filedescriptor[1] = NULL;
+			kfree(out);
 			return EINVAL;
 		}
 
@@ -114,11 +128,15 @@ int filedescriptor_init(void) {
 		curproc->filedescriptor[2] = (struct filehandle*) kmalloc(sizeof(struct filehandle));
 		if (curproc->filedescriptor[2] == NULL) {
 //			kprintf("Could not allocate memory for std err");
+			kfree(err);
 			return ENFILE;
 		}
 		int result = vfs_open(err, O_WRONLY, 0664, &vn3);
 		if (result) {
 //			kprintf("could not open std err");
+			kfree(curproc->filedescriptor[2]);
+			curproc->filedescriptor[2] = NULL;
+			kfree(err);
 			return EINVAL;
 		}
 
@@ -129,6 +147,9 @@ int filedescriptor_init(void) {
 		curproc->filedescriptor[2]->filelock = lock_create("stderr_lock");
 		curproc->filedescriptor[2]->vnode = vn2;
 	}
+	kfree(filename);
+	kfree(err);
+	kfree(out);
 	return 0;
 }
 
@@ -284,6 +305,11 @@ int sys_write(int fd, const void *buf, size_t nbytes, int *returnvalue) {
 	struct iovec iov;
 	int result;
 	char kbuf[nbytes];
+//	char *kbuf;
+//	kbuf = kmalloc(sizeof(nbytes));
+	if (kbuf == NULL) {
+		return ENOMEM;
+	}
 	lock_acquire(curproc->filedescriptor[fd]->filelock);
 	result = copyin((const_userptr_t)buf, kbuf, nbytes);
 	if (result) {
@@ -295,12 +321,14 @@ int sys_write(int fd, const void *buf, size_t nbytes, int *returnvalue) {
         result = VOP_WRITE(curproc->filedescriptor[fd]->vnode,&uiotemp);
 	if(result) {
 		*returnvalue = 0;
+//		kfree(kbuf);
 		lock_release(curproc->filedescriptor[fd]->filelock);
 		return EIO;
 	}
 	curproc->filedescriptor[fd]->offset = uiotemp.uio_offset;
 	*returnvalue = nbytes - uiotemp.uio_resid;
 	lock_release(curproc->filedescriptor[fd]->filelock);
+//	kfree(kbuf);
         return 0;
 }
 
@@ -344,14 +372,17 @@ int sys_chdir (const_userptr_t directory) {
 	}
 	int result = copyinstr(directory, newdir, PATH_MAX, &len);
 	if (result) {
+		kfree(newdir);
 //		kprintf("could not copy user specified path to kernel space\n");
 		return result;
 	}
 	result = vfs_chdir(newdir); 
 	if (result) {
+		kfree(newdir);
 //		kprintf("chdir failed");
 		return result;
 	}
+	kfree(newdir);
 	return 0;	
 }
 int sys_dup2(int oldfd, int newfd)
@@ -392,22 +423,11 @@ int sys_dup2(int oldfd, int newfd)
 int sys__getcwd(void *buf, size_t buflen)
 {
 	int result;
-//	if(buf == NULL)
-//		return EFAULT;
 	struct uio uiotemp;
         struct iovec iov;
 	char kbuf[buflen];
 	
 	uio_kinit(&iov, &uiotemp, kbuf, buflen, 0,UIO_READ );
-//        iov.iov_ubase = (userptr_t) buf;
-//	iov.iov_len = buflen;
-//      uiotemp.uio_iov = &iov;
-//        uiotemp.uio_iovcnt = 1;
-//        uiotemp.uio_offset = 0;
-//        uiotemp.uio_resid = PATH_MAX;
-//        uiotemp.uio_segflg = UIO_USERSPACE;
-//        uiotemp.uio_rw = UIO_READ;
-//        uiotemp.uio_space = curproc->p_addrspace;
 	result = vfs_getcwd(&uiotemp);
 	if (result) {
 		return result;

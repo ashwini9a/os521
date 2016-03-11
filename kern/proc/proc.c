@@ -221,6 +221,7 @@ proc_destroy(struct proc *proc)
 			sys_close(i);
 		}
 	}
+	
 	pid_destroy(proc->proc_pid);
 
 	sem_destroy(proc->proc_sem);

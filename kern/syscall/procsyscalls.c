@@ -24,6 +24,7 @@ int sys_fork(struct trapframe *tf, int *returnvalue) {
 	*child_tf = *tf;
 	result = as_copy(proc_getas(), &child_addrspace);
 	if (result) {
+		kfree(child_addrspace);
 		return ENOMEM;
 //		lock_release(pid_lock);
 	}
@@ -111,28 +112,58 @@ void sys_exit(int exitcode) {
 {
 	(void)args;
 	char *newprog = kmalloc(PATH_MAX+1);
-	char **kargs;
+	char **kargs = kmalloc(sizeof(char **));
 	size_t len;
 	int i=0;
+	int result;
+
+	result = copyin((constuserptr_t)args, kargs, sizeof(char **));
+	if (result) {
+		kfree(newprog);
+		kfree(kargs);
+		return EFAULT;
+	}
+
 	while(i<ARG_MAX && args[i]!=NULL)
 	{
 		kargs[i]= kmalloc(sizeof(char) * strlen(*args[i])+1);
-		copyinstr(args[i], kargs[i], strlen(*args[i])+1,&len );
+		kargs[i] = kmalloc(sizeof(char) * PATH_MAX);
+		result = copyinstr(args[i], kargs[i], strlen(*args[i])+1,&len );
+		if (result) {
+			kfree(newprog);
+			kfree(kargs);
+			return EFAULT;
+		}
 		i++;
 	}
+	kargs[i] = NULL;
 
         size_t length;
 	if (newprog == NULL) {
-                kprintf("kmalloc failed to  assign space for newprog in file.c\n");
+//                kprintf("kmalloc failed to  assign space for newprog in file.c\n");
+		kfree(kargs);
                 return ENOSPC;
         }
         int result =  copyinstr(program, newprog, PATH_MAX, &length);
+	if (result) {
+		kfree(kargs);
+		kfree(newprog);
+		return EFAULT;
+	}
+	if (length ==1) {
+		kfree(kargs);
+		kfree(newprog);
+		return EINVAL;
+	}
+
 	struct addrspace *as;
 	struct vnode *v;
 	vaddr_t entrypoint, stackptr;
 
 	result = vfs_open(newprog, O_RDONLY, 0, &v);
 	if (result) {
+		kfree(newprog);
+		kfree(kargs);
 		return result;
 	}
 
@@ -140,6 +171,8 @@ void sys_exit(int exitcode) {
 	as = as_create();
 	if (as == NULL) {
 		vfs_close(v);
+		kfree(newprog);
+		kfree(kargs);
 		return ENOMEM;
 	}
 
@@ -150,7 +183,8 @@ void sys_exit(int exitcode) {
 
 	result = load_elf(v, &entrypoint);
 	if (result) {
-	
+		kfree(newprog);
+		kfree(kargs);
 		vfs_close(v);
 		return result;
 	}
@@ -159,14 +193,43 @@ void sys_exit(int exitcode) {
 	vfs_close(v);
 
 
-	result = as_define_stack(as, &stackptr);
+	result = as_define_stack(curproc->p_addrspace, &stackptr);
 	if (result) {
 	//	 p_addrspace will go away when curproc is destroyed 
+		kfree(newprog);
+		kfree(kargs);
 		return result;
 	}
 	//Copy data from kernel buffer to stckptr
 		
+	i = 0;
+	while (kargs[i] != NULL) {
+		char *arg;
+		int len = strlen(kargs[i]) + 1;
+
+		int origin = len;
+		if (len % 4 != 0) {
+			len = len + (4 - (len%4));
+		}
 	
+		arg = kstrdup(kargs[i]);
+		if (arg == NULL) {	
+			kfree(kargs);
+			kfree(newprog);
+			return ENOMEM;
+		}
+
+		for (int index; index<len;index++) {
+			if (index >= origin) {
+				arg[index] = '\0';
+			}
+			else {
+				arg[index] = kargs[i][index];
+			}
+		}
+		stackptr = stackptr - len;
+		  
+	}	
 */
 
 	// Warp to user mode. 
