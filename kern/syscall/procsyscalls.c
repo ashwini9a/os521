@@ -108,31 +108,46 @@ void sys_exit(int exitcode) {
 	thread_exit();
 }
 
-int sys_execv(const_userptr_t program, const_userptr_t args)
+int sys_execv(const char *program, char **args)
 {
 	//just a comment
-	(void)args;
+//	(void)args;
 	char *newprog = kmalloc(PATH_MAX+1);
 	char **kargs; 
 	//char *buff[];
-	size_t len, total_len=0, stcksize;
-	int i=0, cnt;
-	size_t MAX_PTRS = 64000, MAX_ARG_SIZE=4000, actlen;
-	char *buff[MAX_PTRS];
-	kargs = kmalloc(MAX_PTRS*sizeof(char *));
+	size_t len, total_len=0;
+	int i=0, cnt, result;
+	size_t MAX_ARG_SIZE=4000, actlen;
+	//char *buff[MAX_PTRS];
+//	kargs = kmalloc(MAX_PTRS*sizeof(char *));
+	kargs = kmalloc(sizeof(char **));
+	if (kargs == NULL) {
+		kfree(newprog);
+		return ENOMEM;
+	}
 	// Copy userdata to kernel buffer
-	copyin(args,*kargs,MAX_PTRS*sizeof(char *));
-	while(kargs[i] != NULL)
+//	copyin(args,*kargs,MAX_PTRS*sizeof(char *));
+	result = copyin ((userptr_t)args, kargs, sizeof(char **));
+	if (result) {
+		return EINVAL;
+	}
+	while(args[i] != NULL)
 	{
-		char *tempstr=kmalloc(MAX_ARG_SIZE);
-		copyinstr((const_userptr_t)kargs[i], tempstr,MAX_ARG_SIZE,&actlen);
-		buff[i]=tempstr;
+		kargs[i]=kmalloc(MAX_ARG_SIZE);
+		result = copyinstr((const_userptr_t)args[i], kargs[i],MAX_ARG_SIZE,&actlen);
+		if (result) {
+			kfree(kargs);
+			kfree(newprog);
+			return EFAULT;
+		}
+		//buff[i]=tempstr;
 		total_len+=actlen;				
 		i++;
 	}
+	kargs[i] = NULL;
 	cnt=0;
 	total_len=total_len+i;
-	stcksize = total_len + sizeof(char *)*(i);
+	//stcksize = total_len + (sizeof(char *) * i);
 	
 	if(total_len>ARG_MAX)
 	{
@@ -143,10 +158,13 @@ int sys_execv(const_userptr_t program, const_userptr_t args)
                 kprintf("kmalloc failed to  assign space for newprog in file.c\n");
                 return ENOSPC;
         }
-        int result =  copyinstr(program, newprog, PATH_MAX, &len);
+        result =  copyinstr((const_userptr_t)program, newprog, PATH_MAX, &len);
+	if (result) {
+		return EFAULT;
+	}
 	struct addrspace *as;
 	struct vnode *v;
-	vaddr_t entrypoint, stackptr, tempstk;
+	vaddr_t entrypoint, stackptr;
 
 	result = vfs_open(newprog, O_RDONLY, 0, &v);
 	if (result) {
@@ -176,50 +194,70 @@ int sys_execv(const_userptr_t program, const_userptr_t args)
 	vfs_close(v);
 
 
-	result = as_define_stack(as, &stackptr);
+	result = as_define_stack(curproc->p_addrspace, &stackptr);
 	if (result) {
 	//	 p_addrspace will go away when curproc is destroyed 
 		return result;
 	}
 	//Copy data from kernel buffer to stckptr
-	stackptr = stackptr - stcksize;
+	//stackptr = stackptr - stcksize;
 	size_t tlen;
-	tempstk=stackptr + sizeof(char *)*i;
+	size_t len2;
+	//tempstk=stackptr + sizeof(char *)*i;
 	while(cnt<i)
 	{
 //		* stackptr = tempstk;
-		copyout((const void*) tempstk, (userptr_t)stackptr, sizeof(stcksize));
+		//copyout((const void*) tempstk, (userptr_t)stackptr, sizeof(stcksize));
 		tlen=0;
-		if((strlen(buff[cnt])+1)%4)
-			tlen = ((strlen(buff[cnt])+1)/4)+4;
-		else
-			tlen = strlen(buff[cnt])+1;
-		char temstr[tlen];
-		strcpy(temstr,buff[cnt]);
+		len2 = strlen(kargs[cnt]) + 1;
+		tlen =len2;
+		if((len2%4) != 0){
+			len2 = len2 + (4 - (len2 % 4));
+		}
+		char *temstr = kmalloc(sizeof(len2));
+		//strcpy(temstr,kargs[cnt]);
+		temstr = kstrdup(kargs[cnt]);
 		size_t ind;
-		for(ind=0;ind<tlen - strlen(buff[cnt])-1;ind++)
+		for(ind=0; ind<len2; ind++)
 		{
-			strcat(temstr,"\0");
+			if (ind>=tlen) {
+				//strcat(temstr,"\0");
+				temstr[ind] = '\0';
+			}
+			else {
+				temstr[ind] = kargs[cnt][ind];
+			}
 		} 
 		//* tempstk= temstr;
-		copyout((const void*)temstr, (userptr_t)tempstk, sizeof(tlen));
-		tempstk+=tlen;
-		stackptr = stackptr+sizeof(char *);
+		stackptr-= len2;
+		result = copyout((const void*)temstr, (userptr_t)stackptr, sizeof(len2));
+		if (result) {
+			return EFAULT;
+		}
+		//tempstk+=tlen;
+		//stackptr = stackptr+sizeof(char *);
+		kfree(temstr);
+		kargs[cnt] = (char *)stackptr;
 		cnt++;	
 	}
-	stackptr = stackptr - sizeof(char *)*i;
+	//stackptr = stackptr - sizeof(char *)*i;
+	if (kargs[cnt] == NULL) {
+		stackptr -=4*sizeof(char);
+	}
+
+	for (int i=(cnt-1); i>=0; i--) {
+		stackptr = stackptr - sizeof(char*);
+		result = copyout((const void *)(kargs +i), (userptr_t)stackptr, sizeof(char *));
+		if (result) {
+			return EFAULT;
+		}
+	}
 	// Warp to user mode. 
-	enter_new_process(0 /*argc*/, NULL /*userspace addr of argv*/,
+	enter_new_process(cnt /*argc*/, (userptr_t)stackptr /*userspace addr of argv*/,
 			  NULL /*userspace addr of environment*/,
 			  stackptr, entrypoint);
 
 	/* enter_new_process does not return. */
 	panic("enter_new_process returned\n");
 	return EINVAL;
-
 }
-
-
-
-
-
