@@ -108,8 +108,3 @@ void sys_exit(int exitcode) {
 	thread_exit();
 }
 
-
-
-
-
-
