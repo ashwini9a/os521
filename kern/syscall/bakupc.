@@ -1,0 +1,51 @@
+
+int sys_execv(const_userptr_t program, const_userptr_t args)
+{
+/*	(void)args;
+	char *newprog = kmalloc(PATH_MAX+1);
+
+	char **kargs = kmalloc(sizeof(char **));
+	size_t len;
+	int i=0;
+	int result;
+
+	result = copyin((constuserptr_t)args, kargs, sizeof(char **));
+	if (result) {
+		kfree(newprog);
+		kfree(kargs);
+		return EFAULT;
+	}
+
+	while(i<ARG_MAX && args[i]!=NULL)
+	{
+		kargs[i]= kmalloc(sizeof(char) * strlen(*args[i])+1);
+		kargs[i] = kmalloc(sizeof(char) * PATH_MAX);
+		result = copyinstr(args[i], kargs[i], strlen(*args[i])+1,&len );
+		if (result) {
+			kfree(newprog);
+			kfree(kargs);
+			return EFAULT;
+		}
+		i++;
+	}
+	kargs[i] = NULL;
+*/
+        size_t length;
+
+	char **kargs; 
+	//char *buff[];
+	size_t len, total_len=0, stcksize;
+	int i=0, cnt;
+	size_t MAX_PTRS = 64000, MAX_ARG_SIZE=4000, actlen;
+	char *buff[MAX_PTRS];
+	kargs = kmalloc(MAX_PTRS*sizeof(char *));
+	// Copy userdata to kernel buffer
+	copyin(args,*kargs,MAX_PTRS*sizeof(char *));
+	while(kargs[i] != NULL)
+	{
+		char *tempstr=kmalloc(MAX_ARG_SIZE);
+		copyinstr((const_userptr_t)kargs[i], tempstr,MAX_ARG_SIZE,&actlen);
+		buff[i]=tempstr;
+		total_len+=actlen;				
+		i++;
+	}
