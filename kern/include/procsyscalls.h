@@ -17,5 +17,5 @@ void child_forkentry(void *child_trapframe, unsigned long child_addrspace);
 int sys_fork(struct trapframe *tf, int *returnvalue);
 void sys_exit(int exitcode);
 int sys_waitpid(pid_t pid, userptr_t status, int options, int *returnvalue);
-int sys_execv(const_userptr_t program,const_userptr_t **args);
+int sys_execv(const_userptr_t program,const_userptr_t args);
 #endif
