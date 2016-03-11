@@ -385,11 +385,14 @@ int sys_chdir (const_userptr_t directory) {
 	kfree(newdir);
 	return 0;	
 }
-int sys_dup2(int oldfd, int newfd)
+int sys_dup2(int oldfd, int newfd, int *retval)
 {
         int result;
 	if(oldfd==newfd)
+	{
+		*retval=newfd;
 		return 0;
+	}
         if(!(isFdValid(oldfd)))
 	{
 		//*returnvalue = EBADF;
@@ -416,6 +419,7 @@ int sys_dup2(int oldfd, int newfd)
 	//curproc->filedescriptor[newfd]->vnode->vn_refcount++;
         //curproc->filedescriptor[newfd]->filelock = curproc->filedescriptor[oldfd]->filelock;
         //curproc->filedescriptor[newfd]->vnode = curproc->filedescriptor[oldfd]->vnode;
+	*retval =newfd; 
 	lock_release(curproc->filedescriptor[oldfd]->filelock);
         return 0;
 }
