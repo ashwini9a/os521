@@ -47,6 +47,10 @@ int sys_waitpid (pid_t pid, userptr_t status, int options, int *returnvalue) {
 //		kprintf("I dont accept options");
 		return EINVAL;
 	}
+//	if (!((int)status & 0x3)) {
+//		return EFAULT;
+//	}
+
 	int result;
 	struct proc *proc;
 	if (!status) {
@@ -117,7 +121,7 @@ int sys_execv(const char *program, char **args)
 	//char *buff[];
 	size_t len, total_len=0;
 	int i=0, cnt, result;
-	size_t MAX_ARG_SIZE=4000, actlen;
+	size_t actlen;
 	size_t stcksize;
 	//char *buff[MAX_PTRS];
 //	kargs = kmalloc(MAX_PTRS*sizeof(char *));
@@ -134,8 +138,8 @@ int sys_execv(const char *program, char **args)
 	}
 	while(args[i] != NULL)
 	{
-		kargs[i]=kmalloc(sizeof(char*) * MAX_ARG_SIZE);
-		result = copyinstr((const_userptr_t)args[i], kargs[i],MAX_ARG_SIZE,&actlen);
+		kargs[i]=kmalloc(1024 * sizeof(char));
+		result = copyinstr((const_userptr_t)args[i], kargs[i],PATH_MAX,&actlen);
 		if (result) {
 			kfree(kargs);
 			kfree(newprog);
@@ -163,14 +167,14 @@ int sys_execv(const char *program, char **args)
         	kfree(kargs);
                 return ENOSPC;
         }
-//	if (strcmp(newprog, "") ==0) {
-//		return ENOEXEC;
-//	}
         result =  copyinstr((const_userptr_t)program, newprog, PATH_MAX, &len);
 	if (result) {
 		kfree(newprog);
 		kfree(kargs);
 		return EFAULT;
+	}
+	if (strcmp(newprog, "") ==0) {
+		return ENOEXEC;
 	}
 	struct addrspace *as;
 	struct vnode *v;
