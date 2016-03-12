@@ -118,6 +118,7 @@ int sys_execv(const char *program, char **args)
 	size_t len, total_len=0;
 	int i=0, cnt, result;
 	size_t MAX_ARG_SIZE=4000, actlen;
+	size_t stcksize;
 	//char *buff[MAX_PTRS];
 //	kargs = kmalloc(MAX_PTRS*sizeof(char *));
 	kargs = kmalloc(sizeof(char **));
@@ -133,7 +134,7 @@ int sys_execv(const char *program, char **args)
 	}
 	while(args[i] != NULL)
 	{
-		kargs[i]=kmalloc(MAX_ARG_SIZE);
+		kargs[i]=kmalloc(sizeof(char*) * MAX_ARG_SIZE);
 		result = copyinstr((const_userptr_t)args[i], kargs[i],MAX_ARG_SIZE,&actlen);
 		if (result) {
 			kfree(kargs);
@@ -146,20 +147,29 @@ int sys_execv(const char *program, char **args)
 	}
 	kargs[i] = NULL;
 	cnt=0;
-	total_len=total_len+i;
-	//stcksize = total_len + (sizeof(char *) * i);
 	
+	total_len=total_len+i;		//including /0
+	stcksize = total_len + (sizeof(char *) * (i+1));
+	(void) stcksize;
 	if(total_len>ARG_MAX)
 	{
+		kfree(kargs);
+		kfree(newprog);
 		return E2BIG;
 	}
 	
 	if (newprog == NULL) {
-                kprintf("kmalloc failed to  assign space for newprog in file.c\n");
+        //       kprintf("kmalloc failed to  assign space for newprog in file.c\n");
+        	kfree(kargs);
                 return ENOSPC;
         }
+//	if (strcmp(newprog, "") ==0) {
+//		return ENOEXEC;
+//	}
         result =  copyinstr((const_userptr_t)program, newprog, PATH_MAX, &len);
 	if (result) {
+		kfree(newprog);
+		kfree(kargs);
 		return EFAULT;
 	}
 	struct addrspace *as;
@@ -168,6 +178,8 @@ int sys_execv(const char *program, char **args)
 
 	result = vfs_open(newprog, O_RDONLY, 0, &v);
 	if (result) {
+		kfree(newprog);
+		kfree(kargs);
 		return result;
 	}
 
@@ -175,6 +187,8 @@ int sys_execv(const char *program, char **args)
 	as = as_create();
 	if (as == NULL) {
 		vfs_close(v);
+		kfree(kargs);
+		kfree(newprog);
 		return ENOMEM;
 	}
 
@@ -194,55 +208,57 @@ int sys_execv(const char *program, char **args)
 	vfs_close(v);
 
 
-	result = as_define_stack(curproc->p_addrspace, &stackptr);
+	result = as_define_stack(as, &stackptr);
 	if (result) {
 	//	 p_addrspace will go away when curproc is destroyed 
 		return result;
 	}
 	//Copy data from kernel buffer to stckptr
 	//stackptr = stackptr - stcksize;
-	size_t tlen;
+	size_t tlen = 0;
 	size_t len2;
 	//tempstk=stackptr + sizeof(char *)*i;
 	while(cnt<i)
 	{
 //		* stackptr = tempstk;
 		//copyout((const void*) tempstk, (userptr_t)stackptr, sizeof(stcksize));
-		tlen=0;
+		//tlen=0;
 		len2 = strlen(kargs[cnt]) + 1;
 		tlen =len2;
 		if((len2%4) != 0){
 			len2 = len2 + (4 - (len2 % 4));
 		}
-		char *temstr = kmalloc(sizeof(len2));
-		//strcpy(temstr,kargs[cnt]);
-		temstr = kstrdup(kargs[cnt]);
-		size_t ind;
-		for(ind=0; ind<len2; ind++)
+		//char *temstr = kmalloc(sizeof(len2));
+		char temstr[len2];
+		strcpy(temstr,kargs[cnt]);
+		//temstr = kstrdup(kargs[cnt]);
+		for(size_t ind=0; ind<=len2; ind++)
 		{
 			if (ind>=tlen) {
-				//strcat(temstr,"\0");
+			//		strcat(temstr,'\0');
 				temstr[ind] = '\0';
 			}
-			else {
-				temstr[ind] = kargs[cnt][ind];
-			}
-		} 
+			//else {
+			//	temstr[ind] = kargs[cnt][ind];
+			//}
+		}
 		//* tempstk= temstr;
 		stackptr-= len2;
 		result = copyout((const void*)temstr, (userptr_t)stackptr, sizeof(len2));
 		if (result) {
+			kfree(kargs);
+			kfree(newprog);
 			return EFAULT;
 		}
 		//tempstk+=tlen;
 		//stackptr = stackptr+sizeof(char *);
-		kfree(temstr);
+		//kfree(temstr);
 		kargs[cnt] = (char *)stackptr;
 		cnt++;	
 	}
 	//stackptr = stackptr - sizeof(char *)*i;
 	if (kargs[cnt] == NULL) {
-		stackptr -=4*sizeof(char);
+		stackptr -= sizeof(char*);
 	}
 
 	for (int i=(cnt-1); i>=0; i--) {
@@ -252,6 +268,7 @@ int sys_execv(const char *program, char **args)
 			return EFAULT;
 		}
 	}
+//	as_destroy(curproc->p_addrspace);
 	// Warp to user mode. 
 	enter_new_process(cnt /*argc*/, (userptr_t)stackptr /*userspace addr of argv*/,
 			  NULL /*userspace addr of environment*/,
