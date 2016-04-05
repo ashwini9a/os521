@@ -828,13 +828,23 @@ unsigned long
 kheap_getused(void) {
 	struct pageref *pr;
 	unsigned long total = 0;
+	unsigned int num_pages = 0, coremap_bytes = 0;
 
 	/* compute with interrupts off */
 	spinlock_acquire(&kmalloc_spinlock);
 	for (pr = allbase; pr != NULL; pr = pr->next_all) {
 		total += subpage_stats(pr, true);
+		num_pages++;
 	}
-	total += coremap_used_bytes();
+
+	coremap_bytes = coremap_used_bytes();
+
+	// Don't double-count the pages we're using for subpage allocation;
+	// we've already accounted for the used portion.
+	if (coremap_bytes > 0) {
+		total += coremap_bytes - (num_pages * PAGE_SIZE);
+	}
+
 	spinlock_release(&kmalloc_spinlock);
 
 	return total;
@@ -1005,12 +1015,7 @@ subpage_kmalloc(size_t sz
 	prpage = alloc_kpages(1);
 	if (prpage==0) {
 		/* Out of memory. */
-		kprintf("kmalloc: Subpage allocator couldn't get a page\n");
-		static int already_printed = 0;
-		if(!already_printed) {
-			already_printed = 1;
-			secprintf(SECRET, "out of memory", "kmalloc");
-		}
+		silent("kmalloc: Subpage allocator couldn't get a page\n");
 		return NULL;
 	}
 	KASSERT(prpage % PAGE_SIZE == 0);
