@@ -221,6 +221,7 @@ int sys_execv(const char *program, char **args)
 	//stackptr = stackptr - stcksize;
 	size_t tlen = 0;
 	size_t len2;
+	//char **buf = NULL;
 	//tempstk=stackptr + sizeof(char *)*i;
 	while(cnt<i)
 	{
@@ -267,7 +268,7 @@ int sys_execv(const char *program, char **args)
 
 	for (int i=(cnt-1); i>=0; i--) {
 		stackptr = stackptr - sizeof(char*);
-		result = copyout((const void *)(kargs +i), (userptr_t)stackptr, sizeof(char *));
+		result = copyout((const void *)kargs+i, (userptr_t)stackptr, sizeof(char *));
 		if (result) {
 			return EFAULT;
 		}
