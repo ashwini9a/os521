@@ -53,7 +53,7 @@ enum PageState
 };
 
 extern struct spinlock splock_coremap;
-
+extern unsigned int c_used_bytes;
 extern unsigned coremapsize;
 extern struct coremap_entry *coremap;
 

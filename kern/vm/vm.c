@@ -7,7 +7,7 @@
 //extern unsigned coremapsize;
 
 struct spinlock splock_coremap;
-
+unsigned int c_used_bytes;
 unsigned coremapsize;
 struct coremap_entry *coremap;
 
@@ -20,6 +20,7 @@ void vm_bootstrap(void)
 	paddr_t firstpaddr = ram_getfirstfree();
 //	coremapsize = lastpaddr/PAGE_SIZE;
 	unsigned reserved;
+	c_used_bytes= 0;
 //	struct coremap_entry cm[coremapsize];
 //	coremap = cm;
 	if(firstpaddr % PAGE_SIZE ==0)
@@ -36,12 +37,14 @@ void vm_bootstrap(void)
 	{
 		cm[i].state=fixed;
 		cm[i].chunksize=1;
+		c_used_bytes= c_used_bytes + PAGE_SIZE;
 	}
 	for(unsigned i=reserved;i<coremapsize;i++)
 	{
 		cm[i].state=free;
 		cm[i].chunksize=0;
 	}
+	
 	coremap=cm;
 }
 
@@ -86,6 +89,7 @@ paddr_t getppages(unsigned long npages)
 			tcoremap->chunksize=pg;
 		}
 		addr=(coreindex)*PAGE_SIZE;
+		c_used_bytes= c_used_bytes + pg*PAGE_SIZE;
 	}
 	else
 	{
@@ -106,6 +110,7 @@ vaddr_t alloc_kpages(unsigned npages)
 	if (pa==0) {
 		return 0;
 	}
+	//c_used_bytes= c_used_bytes + npages*PAGE_SIZE;
 	return PADDR_TO_KVADDR(pa);
 }
 void free_kpages(vaddr_t addr)
@@ -123,7 +128,7 @@ void free_kpages(vaddr_t addr)
 		tcoremap->state = free;
 		tcoremap->chunksize=0;
 	}
-	
+	c_used_bytes= c_used_bytes - pg*PAGE_SIZE;
 	spinlock_release(&splock_coremap);
 	
 }
@@ -135,14 +140,14 @@ void free_kpages(vaddr_t addr)
  */
 unsigned int coremap_used_bytes(void)
 {
-        struct coremap_entry *tcoremap = coremap;
+/*        struct coremap_entry *tcoremap = coremap;
 	unsigned int nbytes=0;
 	unsigned long count=0;
 	spinlock_acquire(&splock_coremap);
 
-	for(unsigned i=0;i<coremapsize;i++,tcoremap)
+	for(unsigned i=0;i<coremapsize;i++,tcoremap++)
         {
-                if(tcoremap->state==free)
+                if(tcoremap->state==fixed)
                 {
                         count++;
                 }
@@ -151,7 +156,8 @@ unsigned int coremap_used_bytes(void)
 	spinlock_release(&splock_coremap);
 
 	nbytes=count * PAGE_SIZE;
-	return nbytes;
+	return nbytes; */
+	return c_used_bytes;
 	
 }
 
