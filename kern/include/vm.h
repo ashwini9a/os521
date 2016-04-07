@@ -43,7 +43,8 @@
 #define VM_FAULT_READ        0    /* A read was attempted */
 #define VM_FAULT_WRITE       1    /* A write was attempted */
 #define VM_FAULT_READONLY    2    /* A write to a readonly page was attempted*/
-
+//Ashwini
+/*
 enum PageState
 {
 	free,
@@ -61,6 +62,7 @@ struct coremap_entry{
 	unsigned chunksize;
 	enum PageState state;
 };
+*///Ashwini
 /* Initialization function */
 void vm_bootstrap(void);
 
@@ -68,7 +70,7 @@ void vm_bootstrap(void);
 int vm_fault(int faulttype, vaddr_t faultaddress);
 
 /* Allocate/free kernel heap pages (called by kmalloc/kfree) */
-paddr_t getppages(unsigned long npages);
+//paddr_t getppages(unsigned long npages);	Ashwini
 vaddr_t alloc_kpages(unsigned npages);
 void free_kpages(vaddr_t addr);
 
