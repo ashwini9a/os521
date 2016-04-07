@@ -16,11 +16,14 @@ void vm_bootstrap(void)
 	spinlock_init(&splock_coremap);
 	paddr_t lastpaddr = ram_getsize();
 	coremapsize = lastpaddr/PAGE_SIZE;
-	struct coremap_entry cm[coremapsize];
+//	struct coremap_entry cm[coremapsize];
 	paddr_t firstpaddr = ram_getfirstfree();
+	coremap = (struct coremap_entry*)PADDR_TO_KVADDR(firstpaddr);
+	firstpaddr+= sizeof(struct coremap_entry)*coremapsize;
 //	coremapsize = lastpaddr/PAGE_SIZE;
 	unsigned reserved;
 	c_used_bytes= 0;
+//	coremap = (struct coremap_entry*)PADDR_TO_KVADDR(firstpaddr);
 //	struct coremap_entry cm[coremapsize];
 //	coremap = cm;
 	if(firstpaddr % PAGE_SIZE ==0)
@@ -35,17 +38,21 @@ void vm_bootstrap(void)
 //	unsigned reserved = firstpaddr/PAGE_SIZE;
 	for(unsigned i=0;i<reserved;i++)
 	{
-		cm[i].state=fixed;
-		cm[i].chunksize=1;
+		struct coremap_entry cm;
+		cm.state=fixed;
+		cm.chunksize=1;
+		coremap[i]=cm;
 		c_used_bytes= c_used_bytes + PAGE_SIZE;
 	}
 	for(unsigned i=reserved;i<coremapsize;i++)
 	{
-		cm[i].state=free;
-		cm[i].chunksize=0;
+		struct coremap_entry cm;
+		cm.state=free;
+		cm.chunksize=0;
+		coremap[i]=cm;
 	}
 	
-	coremap=cm;
+	//coremap=cm;
 }
 
 
@@ -54,7 +61,7 @@ paddr_t getppages(unsigned long npages)
 	struct coremap_entry *tcoremap = coremap;
 	paddr_t addr;
 	unsigned long pg=npages, count=0;
-	bool status=true;
+//	bool status=true;
 	unsigned coreindex=0;
 	spinlock_acquire(&splock_coremap);
 	unsigned i=0;
@@ -74,27 +81,23 @@ paddr_t getppages(unsigned long npages)
 		{count=0;}
 
 	}
-	if(count<pg && i==coremapsize)
+	if(count==0 || count<pg || (i==coremapsize && count<pg))
 	{
-		status=false;
+		 addr= 0;
 	}			
-	
-	if(status)
+	if(i<coremapsize){	
+	tcoremap = coremap;
+	for(unsigned ind=0;ind<coreindex;ind++){tcoremap++;}
+	for(unsigned j=coreindex;j<coreindex+pg;j++,tcoremap++)
 	{
-		tcoremap = coremap;
-		for(unsigned ind=0;ind<coreindex;ind++){tcoremap++;}
-		for(unsigned j=coreindex;j<coreindex+pg;j++,tcoremap++)
-		{
-			tcoremap->state=fixed;
-			tcoremap->chunksize=pg;
-		}
-		addr=(coreindex)*PAGE_SIZE;
-		c_used_bytes= c_used_bytes + pg*PAGE_SIZE;
+		tcoremap->state=fixed;
+		tcoremap->chunksize=pg;
+	}
+	addr=(coreindex)*PAGE_SIZE;
+	c_used_bytes= c_used_bytes + pg*PAGE_SIZE;
 	}
 	else
-	{
-		addr=0;
-	}
+	{addr =0;}
 	spinlock_release(&splock_coremap);
 
 	return addr;
