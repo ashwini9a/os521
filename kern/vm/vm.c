@@ -137,7 +137,7 @@ void free_kpages(vaddr_t addr)
 }
 
 /*
- * Return amount of memory (in bytes) used by allocated coremap pages.  If
+
  * there are ongoing allocations, this value could change after it is returned
  * to the caller. But it should have been correct at some point in time.
  */
