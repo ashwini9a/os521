@@ -25,12 +25,16 @@ int sys_fork(struct trapframe *tf, int *returnvalue) {
 	*child_tf = *tf;
 	result = as_copy(proc_getas(), &child_addrspace);
 	if (result) {
-		kfree(child_addrspace);
+	//	kfree(child_addrspace);
+		kfree(child_tf);
 		return ENOMEM;
 //		lock_release(pid_lock);
 	}
 	
 	child_proc = proc_create_runprogram("childproc");
+	if (child_proc == NULL) {
+		return ENOMEM;
+	}
 //	lock_release(pid_lock);
 //	child_proc->parent_pid = curproc->proc_pid;
 	thread_fork("child_thread", child_proc, enter_forked_process, (void*)child_tf, (unsigned long)child_addrspace);
@@ -107,7 +111,6 @@ void sys_exit(int exitcode) {
 	thread_exit();
 }
 
-
 int sys_execv(userptr_t progname, userptr_t args)
 {
 	char *newprog;
@@ -131,7 +134,8 @@ int sys_execv(userptr_t progname, userptr_t args)
 		return ENOMEM;
 	}
 	userptr_t arg_start;
-	offset = kmalloc(64 * sizeof(char*));
+
+	offset = kmalloc(7000 * sizeof(char*));
 	if (offset == NULL) {
 		//kfree(buffer);
 		kfree(newprog);
@@ -143,7 +147,6 @@ int sys_execv(userptr_t progname, userptr_t args)
 		kfree(offset);
 		return ENOMEM;
 	}
-
 	buffer_end = buffer;
 
 	result = copyinstr(progname, newprog, PATH_MAX, NULL);
@@ -154,10 +157,10 @@ int sys_execv(userptr_t progname, userptr_t args)
 		return result;
 	}
 
-	for (arg_tot = 0; arg_tot<64;arg_tot++) {
+	for (arg_tot = 0; arg_tot<4000;arg_tot++) {
 		result = copyin(args, &arg_start, sizeof(char*));
 		if (result) {
-			kfree(progname);
+			kfree(newprog);
 			kfree(buffer);
 			kfree(offset);
 			return result;
@@ -165,15 +168,15 @@ int sys_execv(userptr_t progname, userptr_t args)
 		if (arg_start == NULL) {
 			break;
 		}
-		if (arg_tot > 64) {
-			kfree(progname);
+		if (arg_tot > 4000) {
+			kfree(newprog);
 			kfree(buffer);
 			kfree(offset);
 			return E2BIG;
 		}
 		result = copyinstr(arg_start, buffer_end, buffer_rem, &arg_len);
 		if (result) {
-			kfree(progname);
+			kfree(newprog);
 			kfree(buffer);
 			kfree(offset);
 			return result;
@@ -184,6 +187,10 @@ int sys_execv(userptr_t progname, userptr_t args)
 		args += sizeof(char*);
 	}
 
+	if (arg_tot <= 0) {
+		return EFAULT;
+	}
+
 	result = vfs_open(newprog, O_RDONLY, 0, &v);
 	if (result) {
 		kfree(newprog);
@@ -191,6 +198,8 @@ int sys_execv(userptr_t progname, userptr_t args)
 		kfree(offset);
 		return result;
 	}
+
+	struct addrspace *cur = proc_getas();
 
 	//Create a new address space. 
 	as = as_create();
@@ -212,6 +221,10 @@ int sys_execv(userptr_t progname, userptr_t args)
 		kfree(buffer);
 		kfree(newprog);
 		kfree(offset);
+		if (cur) {
+			as_destroy(curproc->p_addrspace);
+			proc_setas(cur);
+		}
 		return result;
 	}
 
@@ -238,7 +251,9 @@ int sys_execv(userptr_t progname, userptr_t args)
 	if (result) {
 		kfree(buffer);
 		kfree(offset);
+		return result;
 	}
+	kfree(buffer);
 	stackptr -= (arg_tot+1) * sizeof(char*);
 	addr_start = (userptr_t) stackptr;
 
@@ -246,8 +261,9 @@ int sys_execv(userptr_t progname, userptr_t args)
 		address = stack_start + offset[i];
 		result = copyout(&address, addr_start, sizeof(char*));
 		if (result) {
-			kfree(buffer);
+			//kfree(buffer);
 			kfree(offset);
+			return result;
 		}
 		addr_start = addr_start + sizeof(char*);
 	}
@@ -256,8 +272,9 @@ int sys_execv(userptr_t progname, userptr_t args)
 	copyout(&address, addr_start, sizeof(char*));
 	argc = arg_tot;
 
-	kfree(buffer);
+	//kfree(buffer);
 	kfree(offset);
+	as_destroy(cur);
 	/*enter user mode.... No comingback from here */
 	enter_new_process(argc, (userptr_t)stackptr, NULL,stackptr, entrypoint);
 	// No program should ever reach here
