@@ -1,4 +1,6 @@
 #include <procsyscalls.h>
+
+
 int sys_getpid(int *retval) {
 	pid_t retpid = curproc->proc_pid;
 	if (!retpid) {
@@ -112,87 +114,98 @@ void sys_exit(int exitcode) {
 	thread_exit();
 }
 
-int sys_execv(const char *program, char **args)
+
+int sys_execv(userptr_t progname, userptr_t args)
 {
-	//just a comment
-//	(void)args;
-	char *newprog = kmalloc(PATH_MAX+1);
-	char **kargs; 
-	//char *buff[];
-	size_t len, total_len=0;
-	int i=0, cnt, result;
-	size_t actlen;
-	size_t stcksize;
-	//char *buff[MAX_PTRS];
-//	kargs = kmalloc(MAX_PTRS*sizeof(char *));
-	kargs = kmalloc(sizeof(char **));
-	if (kargs == NULL) {
+	char *newprog;
+	char *buffer_end;
+	vaddr_t entrypoint, stackptr;
+	size_t buffer_max = ARG_MAX;
+	size_t buffer_rem = ARG_MAX;
+	int argc;
+	userptr_t address;
+	userptr_t addr_start;
+	int result;
+	char *buffer;
+	size_t arg_len;
+	size_t *offset;
+	int arg_tot;
+	struct addrspace *as;
+	struct vnode *v;
+	userptr_t stack_start;
+	newprog = kmalloc(PATH_MAX);
+	if (newprog == NULL) {
+		return ENOMEM;
+	}
+	userptr_t arg_start;
+	offset = kmalloc(64 * sizeof(char*));
+	if (offset == NULL) {
+		//kfree(buffer);
 		kfree(newprog);
 		return ENOMEM;
 	}
-	// Copy userdata to kernel buffer
-//	copyin(args,*kargs,MAX_PTRS*sizeof(char *));
-	result = copyin ((userptr_t)args, kargs, sizeof(char **));
-	if (result) {
-		return EINVAL;
+	buffer = kmalloc(ARG_MAX);
+	if (buffer == NULL) {
+		kfree(newprog);
+		kfree(offset);
+		return ENOMEM;
 	}
-	while(args[i] != NULL)
-	{
-		kargs[i]=kmalloc(1024 * sizeof(char));
-		result = copyinstr((const_userptr_t)args[i], kargs[i],PATH_MAX,&actlen);
+
+	buffer_end = buffer;
+
+	result = copyinstr(progname, newprog, PATH_MAX, NULL);
+	if (result) {
+		kfree(newprog);
+		kfree(buffer);
+		kfree(offset);
+		return result;
+	}
+
+	for (arg_tot = 0; arg_tot<64;arg_tot++) {
+		result = copyin(args, &arg_start, sizeof(char*));
 		if (result) {
-			kfree(kargs);
-			kfree(newprog);
-			return EFAULT;
+			kfree(progname);
+			kfree(buffer);
+			kfree(offset);
+			return result;
 		}
-		//buff[i]=tempstr;
-		total_len+=actlen;				
-		i++;
+		if (arg_start == NULL) {
+			break;
+		}
+		if (arg_tot > 64) {
+			kfree(progname);
+			kfree(buffer);
+			kfree(offset);
+			return E2BIG;
+		}
+		result = copyinstr(arg_start, buffer_end, buffer_rem, &arg_len);
+		if (result) {
+			kfree(progname);
+			kfree(buffer);
+			kfree(offset);
+			return result;
+		}
+		offset[arg_tot] = buffer_max - buffer_rem;
+		buffer_end = buffer_end + arg_len;
+		buffer_rem = buffer_rem - arg_len;
+		args += sizeof(char*);
 	}
-	kargs[i] = NULL;
-	cnt=0;
-	
-	total_len=total_len+i;		//including /0
-	stcksize = total_len + (sizeof(char *) * (i+1));
-	(void) stcksize;
-	if(total_len>ARG_MAX)
-	{
-		kfree(kargs);
-		kfree(newprog);
-		return E2BIG;
-	}
-	
-	if (newprog == NULL) {
-        //       kprintf("kmalloc failed to  assign space for newprog in file.c\n");
-        	kfree(kargs);
-                return ENOSPC;
-        }
-        result =  copyinstr((const_userptr_t)program, newprog, PATH_MAX, &len);
-	if (result) {
-		kfree(newprog);
-		kfree(kargs);
-		return EFAULT;
-	}
-	if (strcmp(newprog, "") ==0) {
-		return ENOEXEC;
-	}
-	struct addrspace *as;
-	struct vnode *v;
-	vaddr_t entrypoint, stackptr;
 
 	result = vfs_open(newprog, O_RDONLY, 0, &v);
 	if (result) {
 		kfree(newprog);
-		kfree(kargs);
+		kfree(buffer);
+		kfree(offset);
 		return result;
 	}
 
-	 //Create a new address space. 
+	//Create a new address space. 
 	as = as_create();
 	if (as == NULL) {
 		vfs_close(v);
-		kfree(kargs);
+		kfree(buffer);
 		kfree(newprog);
+		kfree(offset);
 		return ENOMEM;
 	}
 
@@ -200,86 +213,60 @@ int sys_execv(const char *program, char **args)
 	proc_setas(as);
 	as_activate();
 
-
 	result = load_elf(v, &entrypoint);
 	if (result) {
-	
 		vfs_close(v);
+		kfree(buffer);
+		kfree(newprog);
+		kfree(offset);
 		return result;
 	}
 
 	// Done with the file now. 
 	vfs_close(v);
 
-
 	result = as_define_stack(as, &stackptr);
 	if (result) {
 	//	 p_addrspace will go away when curproc is destroyed 
+		kfree(buffer);
+		kfree(newprog);
+		kfree(offset);
 		return result;
 	}
-	//Copy data from kernel buffer to stckptr
-	//stackptr = stackptr - stcksize;
-	size_t tlen = 0;
-	size_t len2;
-	//char **buf = NULL;
-	//tempstk=stackptr + sizeof(char *)*i;
-	while(cnt<i)
-	{
-//		* stackptr = tempstk;
-		//copyout((const void*) tempstk, (userptr_t)stackptr, sizeof(stcksize));
-		//tlen=0;
-		len2 = strlen(kargs[cnt]) + 1;
-		tlen =len2;
-		if((len2%4) != 0){
-			len2 = len2 + (4 - (len2 % 4));
-		}
-		//char *temstr = kmalloc(sizeof(len2));
-		char temstr[len2];
-		strcpy(temstr,kargs[cnt]);
-		//temstr = kstrdup(kargs[cnt]);
-		for(size_t ind=0; ind<=len2; ind++)
-		{
-			if (ind>=tlen) {
-			//		strcat(temstr,'\0');
-				temstr[ind] = '\0';
-			}
-			//else {
-			//	temstr[ind] = kargs[cnt][ind];
-			//}
-		}
-		//* tempstk= temstr;
-		stackptr-= len2;
-		result = copyout((const void*)temstr, (userptr_t)stackptr, sizeof(len2));
-		if (result) {
-			kfree(kargs);
-			kfree(newprog);
-			return EFAULT;
-		}
-		//tempstk+=tlen;
-		//stackptr = stackptr+sizeof(char *);
-		//kfree(temstr);
-		kargs[cnt] = (char *)stackptr;
-		cnt++;	
+
+	kfree(newprog);
+	
+	size_t stack_size = buffer_end - buffer;
+	stackptr -= stack_size;
+	stackptr -= (stackptr & (sizeof(void *) - 1));
+	stack_start = (userptr_t)stackptr;
+	result = copyout(buffer, stack_start, stack_size);
+
+	if (result) {
+		kfree(buffer);
+		kfree(offset);
 	}
-	//stackptr = stackptr - sizeof(char *)*i;
-	if (kargs[cnt] == NULL) {
-		stackptr -= sizeof(char*);
+	stackptr -= (arg_tot+1) * sizeof(char*);
+	addr_start = (userptr_t) stackptr;
+
+	for (int i=0; i<arg_tot; i++) {
+		address = stack_start + offset[i];
+		result = copyout(&address, addr_start, sizeof(char*));
+		if (result) {
+			kfree(buffer);
+			kfree(offset);
+		}
+		addr_start = addr_start + sizeof(char*);
 	}
 
-	for (int i=(cnt-1); i>=0; i--) {
-		stackptr = stackptr - sizeof(char*);
-		result = copyout((const void *)kargs+i, (userptr_t)stackptr, sizeof(char *));
-		if (result) {
-			return EFAULT;
-		}
-	}
-//	as_destroy(curproc->p_addrspace);
-	// Warp to user mode. 
-	enter_new_process(cnt /*argc*/, (userptr_t)stackptr /*userspace addr of argv*/,
-			  NULL /*userspace addr of environment*/,
-			  stackptr, entrypoint);
+	address = NULL;
+	copyout(&address, addr_start, sizeof(char*));
+	argc = arg_tot;
 
-	/* enter_new_process does not return. */
-	panic("enter_new_process returned\n");
+	kfree(buffer);
+	kfree(offset);
+	/*enter user mode.... No comingback from here */
+	enter_new_process(argc, (userptr_t)stackptr, NULL,stackptr, entrypoint);
+	// No program should ever reach here
 	return EINVAL;
 }
