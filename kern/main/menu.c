@@ -120,12 +120,15 @@ common_prog(int nargs, char **args)
 	struct proc *proc;
 	int result;
 	int status, returnvalue;
+	unsigned tc;
 
 	/* Create a process for the new program to run in. */
 	proc = proc_create_runprogram(args[0] /* name */);
 	if (proc == NULL) {
 		return ENOMEM;
 	}
+
+	tc = thread_count;
 
 	result = thread_fork(args[0] /* thread name */,
 			proc /* new process */,
@@ -141,6 +144,7 @@ common_prog(int nargs, char **args)
 	 * The new process will be destroyed when the program exits...
 	 * once you write the code for handling that.
 	 */
+
 //	kprintf("Kernel process: I am %d and my parent is %d I'm waiting on the child whose pid is :%d\n",curproc->proc_pid, curproc->parent_pid,proc->proc_pid);
 	result = sys_waitpid(proc->proc_pid, (userptr_t)&status, 0, &returnvalue);
 //	kprintf("result is %d", result);
@@ -148,6 +152,11 @@ common_prog(int nargs, char **args)
 		kprintf("???? WAITING FAILED???");
 	}
 //	kprintf("I am done waiting");
+
+	// Wait for all threads to finish cleanup, otherwise khu be a bit behind,
+	// especially once swapping is enabled.
+	thread_wait_for_count(tc);
+
 	return 0;
 }
 
