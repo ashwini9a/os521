@@ -19,7 +19,6 @@ int sys_fork(struct trapframe *tf, int *returnvalue) {
 //	lock_acquire(pid_lock);	
 	struct trapframe *child_tf = (struct trapframe*)kmalloc(sizeof(struct trapframe));
 	if (child_tf == NULL) {
-//		kprintf("could not allocate memory for trapframe");
 		return ENOMEM;
 //		lock_release(pid_lock);
 	}
@@ -32,8 +31,6 @@ int sys_fork(struct trapframe *tf, int *returnvalue) {
 	}
 	
 	child_proc = proc_create_runprogram("childproc");
-//	child_proc = proc_fork("childproc");
-//	child_proc->p_addrspace = child_addrspace;
 //	lock_release(pid_lock);
 //	child_proc->parent_pid = curproc->proc_pid;
 	thread_fork("child_thread", child_proc, enter_forked_process, (void*)child_tf, (unsigned long)child_addrspace);
@@ -60,17 +57,14 @@ int sys_waitpid (pid_t pid, userptr_t status, int options, int *returnvalue) {
 	}
 	proc = pid_array[pid];
 	if (!proc) {
-//		kprintf("can't wait on a process that does not exist");
 		return ESRCH;
 	}
 
 	if (curproc->parent_pid == pid) {
-//		kprintf("I don't think I'm allowed to wait for my parent to die !!!");
 		return -1;
 	}
 
 	if (curproc->proc_pid != proc->parent_pid) {
-//		kprintf("I am not allowed to wait for someone else's child...");
 		return ECHILD;
 	}
 
@@ -82,8 +76,7 @@ int sys_waitpid (pid_t pid, userptr_t status, int options, int *returnvalue) {
 	if (result) {
 		return EFAULT;
 	}
-	
-	
+		
 	proc_destroy(proc);	
 //	pid_array[pid] = NULL;
 	

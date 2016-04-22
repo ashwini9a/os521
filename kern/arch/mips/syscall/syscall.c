@@ -242,5 +242,4 @@ enter_forked_process(void *child_trapframe, unsigned long child_addrspace)
         as_activate();
         temp = *tf;
         mips_usermode(&temp);
-
 }
