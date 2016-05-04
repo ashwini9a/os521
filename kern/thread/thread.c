@@ -831,18 +831,21 @@ thread_exit(void)
 
 	/* Check the stack guard band. */
 	thread_checkstack(cur);
+
+
+
 //	if(pid_array[curproc->proc_pid]== NULL && curproc->p_numthreads <= 1)
 //        {
 //                proc_destroy(curproc);
   //      }
-
-	// Decrement the thread count and notify anyone interested.
+//Decrement the thread count and notify anyone interested.
 	if (thread_count) {
 		spinlock_acquire(&thread_count_lock);
 		--thread_count;
 		wchan_wakeall(thread_count_wchan, &thread_count_lock);
 		spinlock_release(&thread_count_lock);
 	}
+
 
 	/* Interrupts off on this processor */
 	splhigh();

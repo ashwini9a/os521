@@ -280,3 +280,41 @@ int sys_execv(userptr_t progname, userptr_t args)
 	// No program should ever reach here
 	return EINVAL;
 }
+
+int sys_sbrk(intptr_t amount,int *returnvalue)
+{
+	struct addrspace *as;
+
+        as = proc_getas();
+        if (as == NULL) {
+                /*
+                 * Kernel thread without an address space; leave the
+                 * prior address space in place.
+                 */
+                return -1;
+        }
+	if((amount % 4) != 0)
+	{
+		amount += (4 - (amount % 4));
+	}
+	
+	vaddr_t heap_start = as->heap_start;
+	vaddr_t heap_end = heap_start + amount;
+	if(heap_end > as->stackBot)
+	{
+		*returnvalue = -1;
+		return ENOMEM;
+	}
+	if(heap_start > heap_end)
+	{
+		*returnvalue = -1;
+                return EINVAL;
+	}
+	if(as->heap_end > heap_end)
+	{
+		//deallocate pages
+	}
+	*returnvalue = as->heap_end;
+	as->heap_end = heap_end;
+	return 0;
+}

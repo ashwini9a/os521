@@ -47,7 +47,38 @@ struct vnode;
  *
  * You write this.
  */
+//Ashwini start
+extern struct spinlock splock_addr;
+/*struct permission
+{
+	bool Read;
+	bool Write;
+	bool Execute;
+};
 
+struct regions {
+	vaddr_t start;
+	vaddr_t end;
+	size_t size;
+	struct permission *perm;
+	struct regions *next;
+
+};
+
+struct page_table_entry
+{
+	int vpn;
+	int ppn;
+	struct permission *perm;
+	struct permission *bk_perm;
+	enum PageState *state;
+	//reference
+	struct page_table_entry *next;
+};
+
+*/
+
+//Ashwini end
 struct addrspace {
 #if OPT_DUMBVM
         vaddr_t as_vbase1;
@@ -58,7 +89,15 @@ struct addrspace {
         size_t as_npages2;
         paddr_t as_stackpbase;
 #else
-        /* Put stuff here for your VM system */
+        /* Put stuff here for your VM system *////Ashwini
+	struct regions *region_info;
+	vaddr_t stackTop;
+	vaddr_t stackBot;
+	vaddr_t heap_start;
+	vaddr_t heap_end;
+	struct page_table_entry *pg_entry;
+//Ashwini
+	
 #endif
 };
 
@@ -127,6 +166,9 @@ int               as_define_stack(struct addrspace *as, vaddr_t *initstackptr);
  */
 
 int load_elf(struct vnode *v, vaddr_t *entrypoint);
+int region_walk(vaddr_t faultaddress, struct addrspace *as, struct permission *perm);
+void pg_dir_walk(struct addrspace *as,vaddr_t faultaddress, struct permission *perm);
+void write_to_tlb(vaddr_t faultaddress, struct permission *perm, paddr_t ppn);
 
 
 #endif /* _ADDRSPACE_H_ */

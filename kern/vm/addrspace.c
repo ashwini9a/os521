@@ -33,26 +33,34 @@
 #include <addrspace.h>
 #include <vm.h>
 #include <proc.h>
-
+#include<machine/vm.h>
 /*
  * Note! If OPT_DUMBVM is set, as is the case until you start the VM
  * assignment, this file is not compiled or linked or in any way
  * used. The cheesy hack versions in dumbvm.c are used instead.
  */
+struct spinlock splock_addr;
 
-struct addrspace *
-as_create(void)
+struct addrspace *as_create(void)
 {
+	spinlock_init(&splock_addr);
 	struct addrspace *as;
-
+	
 	as = kmalloc(sizeof(struct addrspace));
 	if (as == NULL) {
 		return NULL;
 	}
-
+	
 	/*
 	 * Initialize as needed.
 	 */
+	as->region_info = NULL;
+        as->stackTop = 0;
+        as->stackBot = 0;
+        as->heap_start = 0;
+        as->heap_end = 0;
+        as->pg_entry = NULL;
+
 
 	return as;
 }
@@ -60,20 +68,90 @@ as_create(void)
 int
 as_copy(struct addrspace *old, struct addrspace **ret)
 {
-	struct addrspace *newas;
+	struct addrspace *new = kmalloc(sizeof(struct addrspace));
 
-	newas = as_create();
-	if (newas==NULL) {
+	new = as_create();
+	if (new==NULL) {
 		return ENOMEM;
 	}
 
 	/*
 	 * Write this.
 	 */
+	//old->region_info = newas->region_info;
+        new->stackTop = old->stackTop;
+        new->stackBot = old->stackBot;
+        new->heap_start = old->heap_start;
+        new->heap_end = old->heap_end;
 
-	(void)old;
+	struct regions *start1 = old->region_info ;
+	struct regions *previous=NULL;
+	new->region_info = NULL;
 
-	*ret = newas;
+	while(start1!=NULL)
+	{
+    		 struct regions *temp =(struct regions *) kmalloc(sizeof(struct regions));
+                 temp->start = start1->start;
+                 temp->end = start1->end;
+                 temp->size = start1->size;
+                 temp->perm = kmalloc(sizeof(struct permission));
+                 temp->perm->Read = start1->perm->Read;
+                 temp->perm->Write = start1->perm->Write;
+                 temp->perm->Execute = start1->perm->Execute;
+		 temp->next=NULL;
+
+		if(new->region_info==NULL)
+        	{
+        		new->region_info=temp;
+	        	previous=temp;
+    		}
+    		else
+    		{
+    		    	previous->next=temp;
+        		previous=temp;          
+    		}
+    		start1=start1->next;
+	}
+	//	(void)old;
+
+	struct page_table_entry *pg_old = old->pg_entry ;
+        struct page_table_entry *previous_pg = NULL;
+        
+        new->pg_entry=NULL;
+
+        while(pg_old!=NULL)
+        {
+                struct page_table_entry *temp = (struct page_table_entry *)kmalloc(sizeof(struct page_table_entry));
+                temp->vpn = pg_old->vpn;
+                temp->ppn = KVADDR_TO_PADDR((vaddr_t)kmalloc(PAGE_SIZE));////////////////////////////////////////Change//////////////////////
+                temp->perm = (struct permission *)kmalloc(sizeof(struct permission));
+                temp->perm->Read = pg_old->perm->Read;
+                temp->perm->Write = pg_old->perm->Write;
+                temp->perm->Execute = pg_old->perm->Execute;
+              //  struct permission *perm = kmalloc(sizeof(struct permission));
+                temp->bk_perm = (struct permission *) kmalloc(sizeof(struct permission));
+                temp->bk_perm->Read = pg_old->bk_perm->Read;
+                temp->bk_perm->Write = pg_old->bk_perm->Write;
+                temp->bk_perm->Execute = pg_old->bk_perm->Execute;
+                temp->state = pg_old->state;
+ 
+                temp->next=NULL;
+
+                if(new->pg_entry==NULL)
+                {
+                        new->pg_entry=temp;
+                        previous_pg=temp;
+                }
+                else
+                {
+                        previous_pg->next=temp;
+                        previous_pg=temp;
+                }
+                pg_old=pg_old->next;
+        }
+
+
+	*ret = new;
 	return 0;
 }
 
@@ -83,7 +161,64 @@ as_destroy(struct addrspace *as)
 	/*
 	 * Clean up as needed.
 	 */
+	struct regions *next = as->region_info ;
+	while(1)
+	{
+		//struct regions *next = as->region_info ;
+		if( next!= NULL)
+		{
+			if(next->perm!=NULL)
+			{
+				kfree(next->perm);
+			}
+			struct regions *temp = next;
+			next = next->next;
+			kfree(temp);
+			//next = next->next;
 
+			
+		}
+		else
+		{
+			break;
+		}
+	}
+	struct page_table_entry *pnext = as->pg_entry ;
+	while(1)
+        {
+                //struct regions *next = as->region_info ;
+                if( pnext!= NULL)
+                {
+                        if(pnext->perm!=NULL)
+                        {
+                                kfree(pnext->perm);
+                        }
+			if(pnext->bk_perm!=NULL)
+                        {
+                                kfree(pnext->bk_perm);
+                        }
+
+                        struct page_table_entry *ptemp = pnext;
+                        pnext = pnext->next;
+                        kfree(ptemp);
+                        //next = next->next;
+                }
+
+                else
+                {
+                        break;
+                }
+        }
+
+//	if( as->pg_entry!=NULL)
+//	{
+//		kfree(as->pg_entry);
+//	}
+	
+	as->stackTop = 0;
+        as->stackBot = 0;
+        as->heap_start = 0;
+        as->heap_end = 0;
 	kfree(as);
 }
 
@@ -100,7 +235,13 @@ as_activate(void)
 		 */
 		return;
 	}
+	spinlock_acquire(&splock_addr);
 
+	for (int i=0; i<NUM_TLB; i++) {
+		tlb_write(TLBHI_INVALID(i), TLBLO_INVALID(), i);
+	}
+	spinlock_release(&splock_addr);
+		
 	/*
 	 * Write this.
 	 */
@@ -133,15 +274,65 @@ as_define_region(struct addrspace *as, vaddr_t vaddr, size_t memsize,
 	/*
 	 * Write this.
 	 */
+	struct regions *region_info = kmalloc(sizeof(struct regions));
+	size_t npages;
+	memsize += vaddr & ~(vaddr_t)PAGE_FRAME;
+	vaddr &= PAGE_FRAME;
 
-	(void)as;
-	(void)vaddr;
-	(void)memsize;
-	(void)readable;
-	(void)writeable;
-	(void)executable;
+	/* ...and now the length. */
+	memsize = (memsize + PAGE_SIZE - 1) & PAGE_FRAME;
+
+	npages = memsize / PAGE_SIZE;
+
+	region_info->start = vaddr;
+        region_info->end = vaddr + npages*PAGE_SIZE;
+	region_info->size = npages*PAGE_SIZE;
+	region_info->perm = kmalloc(sizeof(struct permission));
+//	struct permission *perm = kmalloc(sizeof(struct permission));
+	region_info->perm->Read= false;
+	region_info->perm->Write= false;
+	region_info->perm->Execute= false;	
+//	region_info.perm = &perm;
+	region_info->next = NULL;
+
+	if(readable>0)
+	{
+		region_info->perm->Read= true;
+	}
+        if(writeable>0)
+        {
+                region_info->perm->Write= true;
+        }
+	if(executable>0)
+        {
+                region_info->perm->Execute= true;
+        }
+
+        struct regions *next = as->region_info;
+	as->heap_start = vaddr + npages*PAGE_SIZE ;
+	as->heap_end = as->heap_start;
+	as->stackTop = USERSTACK;
+	as->stackBot = USERSTACK - PAGE_SIZE*4096;
+	while(1)
+	{
+		if(next==NULL)
+		{
+			next = region_info;
+			return 0;
+		}
+		else
+		{
+			next = next->next;
+		}
+	}
+	
+	
 	return ENOSYS;
 }
+
+
+
+
 
 int
 as_prepare_load(struct addrspace *as)
@@ -149,8 +340,17 @@ as_prepare_load(struct addrspace *as)
 	/*
 	 * Write this.
 	 */
+	struct page_table_entry *next = as->pg_entry;
 
-	(void)as;
+	while(next!=NULL)
+	{
+
+			next->perm->Read = 1;
+			next->perm->Write = 1;
+			next = next->next;	
+		
+	}
+//	(void)as;
 	return 0;
 }
 
@@ -161,7 +361,18 @@ as_complete_load(struct addrspace *as)
 	 * Write this.
 	 */
 
-	(void)as;
+	struct page_table_entry *next = as->pg_entry;
+
+        while(next!=NULL)
+        {
+         
+        	next->perm->Read =  next->bk_perm->Read;
+                next->perm->Write =  next->bk_perm->Write;
+		next = next->next;
+         
+        }
+
+//	(void)as;
 	return 0;
 }
 
@@ -173,10 +384,182 @@ as_define_stack(struct addrspace *as, vaddr_t *stackptr)
 	 */
 
 	(void)as;
-
 	/* Initial user-level stack pointer */
 	*stackptr = USERSTACK;
 
 	return 0;
 }
+int region_walk(vaddr_t faultaddress, struct addrspace *as, struct permission *perm)
+{
+        struct regions *next = as->region_info ;
 
+        while(1)
+        {
+                //struct regions *next = as->region_info ;
+                if( next!= NULL)
+                {
+
+                        if((next->start<= faultaddress) && (faultaddress < next->end ))
+                        {
+                                perm->Read = next->perm->Read;
+                                perm->Write = next->perm->Write;
+                                perm->Execute = next->perm->Execute;
+                                return 0;
+                        }
+                        next = next->next;
+
+                        //next = next->next;
+                }
+                else
+                        break;
+
+        }
+        if((faultaddress >= as->heap_start) && (faultaddress < as->heap_end ) )
+        {
+                perm->Read = true;
+                perm->Write = true;
+                perm->Execute = false;
+                return 0;
+        }
+        if((as->stackTop >= faultaddress) && (as->stackBot < faultaddress))
+        {
+                perm->Read = true;
+                perm->Write = true;
+                perm->Execute = false;
+                return 0;
+
+        }
+        return -1;
+
+}
+
+void pg_dir_walk(struct addrspace *as,vaddr_t faultaddress, struct permission *perm)
+{
+        vaddr_t vpn = faultaddress;
+        paddr_t ppn;
+        struct page_table_entry *pnext = as->pg_entry ;
+         while(1)
+        {
+                //struct regions *next = as->region_info ;
+                if( pnext!= NULL)
+                {
+                        if(pnext->vpn == vpn)
+                        {
+                                ppn = pnext->ppn;
+                                write_to_tlb(faultaddress, perm,ppn);
+                                return;
+                        }
+                        pnext = pnext->next;
+                }
+
+                else
+                {
+                        struct page_table_entry *temp = (struct page_table_entry *)kmalloc(sizeof(struct page_table_entry));
+                        temp->vpn = vpn;
+                        temp->ppn = KVADDR_TO_PADDR((vaddr_t)kmalloc(PAGE_SIZE));////////////////////////////////////////******************Change**************//////////////////////
+                        ppn= temp->ppn;
+                        temp->perm = (struct permission *)kmalloc(sizeof(struct permission));
+                        //struct permission perm1 = kmalloc(sizeof(struct permission));
+                        temp->perm->Read =perm->Read;
+                        temp->perm->Write = perm->Write;
+                        temp->perm->Execute = perm->Execute;
+                        temp->bk_perm = (struct permission *)kmalloc(sizeof(struct permission));
+                        temp->bk_perm->Read = perm->Read;
+                        temp->bk_perm->Write = perm->Write;
+                        temp->bk_perm->Execute = perm->Execute;
+                        temp->next = NULL;
+
+                    
+                        break;
+                }
+        }
+        spinlock_acquire(&splock_addr);
+        write_to_tlb(faultaddress, perm,ppn);
+        spinlock_release(&splock_addr);
+
+}
+
+void write_to_tlb(vaddr_t faultaddress, struct permission *perm, paddr_t ppn)
+{
+        uint32_t ehi, elo;
+        ehi = faultaddress;
+        elo=0;
+        if(perm-> Write)
+                elo = ppn | TLBLO_DIRTY | TLBLO_VALID;
+        else
+                elo = ppn | TLBLO_VALID;
+	spinlock_acquire(&splock_addr);
+        tlb_random(ehi, elo);
+	spinlock_release(&splock_addr);
+
+}
+
+int vm_fault(int faulttype, vaddr_t faultaddress)
+{
+//      vaddr_t vbase1, vtop1, vbase2, vtop2, stackbase, stacktop;
+//      paddr_t paddr;
+//      int i;
+        //int vpn = (faultaddress & 0xfffff000)>> 12;
+        uint32_t ehi, elo;
+        struct addrspace *as;
+//        int spl;
+        struct permission *perm=(struct permission *)kmalloc(sizeof(struct permission));
+
+        faultaddress &= PAGE_FRAME;
+        //int vpn = (faultaddress & 0xfffff000)>> 12;
+        if (curproc == NULL) {
+                /*
+                 * No process. This is probably a kernel fault early
+                 * in boot. Return EFAULT so as to panic instead of
+                 * getting into an infinite faulting loop.
+                 */
+                return EFAULT;
+        }
+
+        as = proc_getas();
+        if (as == NULL) {
+                /*
+                 * No address space set up. This is probably also a
+                 * kernel fault early in boot.
+                 */
+                return EFAULT;
+        }
+        int result = region_walk(faultaddress, as, perm);
+        if(result)
+        {
+                return -1;
+        }
+
+        switch (faulttype) {
+            case VM_FAULT_READONLY:
+                if(perm->Write)
+                {
+                       // spl = splhigh();
+			spinlock_acquire(&splock_addr);
+                        ehi =faultaddress;
+                        uint32_t index = tlb_probe(ehi,elo);
+			uint32_t nehi;
+                        tlb_read(&nehi,&elo,index);
+                        elo = elo | TLBLO_DIRTY | TLBLO_VALID;
+                        //set_page_Dirty(elo);
+			tlb_write(nehi,elo,index);
+			spinlock_release(&splock_addr);
+//			set_page_Dirty(elo);		//////////////////////////////////////////////////////////////////
+                      //  splx(spl);
+                }
+                else
+                        panic("\n Tried to write a readonly page");
+                break;
+            case VM_FAULT_READ:
+            case VM_FAULT_WRITE:
+                pg_dir_walk(as,faultaddress,perm);
+        //      write_to_tlb(faultaddress, &perm);
+                return 0;
+                break;
+            default:
+                return EINVAL;
+        }
+
+	return 0;
+
+}

@@ -175,9 +175,177 @@ void vm_tlbshootdown(const struct tlbshootdown *ts)
 	panic("dumbvm tried to do tlb shootdown?!\n");
 }
 
+
+/*
+int region_walk(vaddr_t faultaddress, struct addrspace *as, struct permission *perm)
+{
+	struct regions *next = as->region_info ;
+	
+        while(1)
+        {
+                //struct regions *next = as->region_info ;
+                if( next!= NULL)
+                {
+                        
+                        if((next->start<= faultaddress) && (faultaddress < next->end ))
+			{
+				perm->Read = next->perm->Read;
+				perm->Write = next->perm->Write;
+				perm->Execute = next->perm->Execute;
+				return 0;
+			}
+                        next = next->next;
+                        
+                        //next = next->next;
+		}
+		else
+			break;
+               
+        }
+	if((faultaddress >= as->heap_start) && (faultaddress < as->heap_end ) )
+	{
+		perm->Read = true;
+		perm->Write = true;
+		perm->Execute = false;
+		return 0;
+	}
+	if((as->stackTop >= faultaddress) && (as->stackBot < faultaddress))
+	{
+		perm->Read = true;
+                perm->Write = true;
+                perm->Execute = false;
+                return 0;
+
+	}
+	return -1;
+	
+
+}
+void pg_dir_walk(struct addrspace *as,vaddr_t faultaddress, struct permission *perm)
+{
+	int vpn = (faultaddress & 0xfffff000)>> 12;
+	int ppn;
+	struct regions *pnext = as->pg_entry ;
+	 while(1)
+        {
+                //struct regions *next = as->region_info ;
+                if( pnext!= NULL)
+                {
+			if(pnext->vpn == vpn)
+			{
+				ppn = pnext->ppn;
+				write_to_tlb(faultaddress, perm,ppn);
+				return;
+			}
+                        pnext = pnext->next;
+                }
+
+                else
+                {
+			struct page_table_entry temp = kmalloc(sizeof(struct page_table_entry));
+		        temp.vpn = vpn;
+		        temp.ppn = (KVADDR_TO_PADDR(kmalloc(PAGE_SIZE)) & 0xfffff000)>>12;//////////////////////////////////////////////////////////////
+			ppn= temp.ppn;
+		        temp.perm = kmalloc(sizeof(struct permission*));
+		        struct permission perm1 = kmalloc(sizeof(struct permission));
+		        temp.perm = &perm1;
+		        perm1->Read =perm->Read;
+		        perm1->Write = perm->Write;
+		        perm1->Execute = perm->Execute;
+		        struct permission perm2 = kmalloc(sizeof(struct permission));
+		        temp.bk_perm = &perm2;
+		        temp.bk_perm->Read = perm->Read;
+		        temp.bk_perm->Write = perm->Write;
+		        temp.bk_perm->Execute = perm->Execute;
+		        temp.next = NULL;
+
+                        pnext = &temp;
+                        break;
+                }
+        }
+	spinlock_acquire(&splock_addr);
+	write_to_tlb(faultaddress, perm,ppn);
+	spinlock_release(&splock_addr);
+	
+}
+
+
+void write_to_tlb(vaddr_t faultaddress, struct permission *perm, int ppn)
+{
+	uint32_t ehi, elo;
+	ehi = faultaddress;
+	elo=0;
+	if(perm-> Write)
+		elo = (ppn << 12) | TLBLO_DIRTY | TLBLO_VALID;
+	else
+		elo = (ppn << 12) | TLBLO_VALID;
+	://media.giphy.com/media/xT1XGLtNWBvkESUkzm/giphy.gifandom(ehi, elo);
+}
+
+
 int vm_fault(int faulttype, vaddr_t faultaddress)
 {
-	(void)faulttype;
-	(void)faultaddress;
-	return 0;
-}
+//	vaddr_t vbase1, vtop1, vbase2, vtop2, stackbase, stacktop;
+//	paddr_t paddr;
+//	int i;
+	//int vpn = (faultaddress & 0xfffff000)>> 12;
+	uint32_t ehi, elo;
+	struct addrspace *as;
+	int spl;
+	struct permission perm=kmalloc(sizeof(struct permission));
+
+	faultaddress &= PAGE_FRAME;
+	//int vpn = (faultaddress & 0xfffff000)>> 12;
+        if (curproc == NULL) {
+                *
+                 * No process. This is probably a kernel fault early
+                 * in boot. Return EFAULT so as to panic instead of
+                 * getting into an infinite faulting loop.
+                 *
+                return EFAULT;
+        }
+
+        as = proc_getas();
+        if (as == NULL) {
+                *
+                 * No address space set up. This is probably also a
+                 * kernel fault early in boot.
+                 *
+                return EFAULT;
+        }
+	int result = region_walk(faultaddress, as, &perm); 
+	if(result)
+	{
+		return -1;	
+	}
+
+	switch (faulttype) {
+	    case VM_FAULT_READONLY:
+		if(perm->Write)
+		{
+			spl = splhigh();
+
+			ehi =faultaddress;
+			uint32_t index = tlb_probe(ehi,elo);
+			tlb_read(&nehi,&elo,index);
+			elo = elo | TLBLO_DIRTY | TLBLO_VALID;
+			set_page_Dirty(elo);
+			tlb_write(nehi,elo,index);
+			splx(spl);
+		}
+		else
+			panic("\n Tried to write a readonly page");
+		break;		
+	    case VM_FAULT_READ:
+	    case VM_FAULT_WRITE:
+		pg_dir_walk(as,faultaddress,&perm);
+	//	write_to_tlb(faultaddress, &perm);
+		return 0;
+		break;
+	    default:
+		return EINVAL;
+	}
+
+	
+}*/
+
