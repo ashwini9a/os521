@@ -55,7 +55,7 @@ struct addrspace *as_create(void)
 	 * Initialize as needed.
 	 */
 	as->region_info = NULL;
-        as->stackTop = 0;
+        as->stackTop = USERSTACK;
         as->stackBot = 0;
         as->heap_start = 0;
         as->heap_end = 0;
@@ -98,6 +98,10 @@ as_copy(struct addrspace *old, struct addrspace **ret)
                  temp->perm->Read = start1->perm->Read;
                  temp->perm->Write = start1->perm->Write;
                  temp->perm->Execute = start1->perm->Execute;
+		 temp->bk_perm = kmalloc(sizeof(struct permission));
+                 temp->bk_perm->Read = start1->perm->Read;
+                 temp->bk_perm->Write = start1->perm->Write;
+                 temp->bk_perm->Execute = start1->perm->Execute;
 		 temp->next=NULL;
 
 		if(new->region_info==NULL)
@@ -129,10 +133,10 @@ as_copy(struct addrspace *old, struct addrspace **ret)
                 temp->perm->Write = pg_old->perm->Write;
                 temp->perm->Execute = pg_old->perm->Execute;
               //  struct permission *perm = kmalloc(sizeof(struct permission));
-                temp->bk_perm = (struct permission *) kmalloc(sizeof(struct permission));
+               /* temp->bk_perm = (struct permission *) kmalloc(sizeof(struct permission));
                 temp->bk_perm->Read = pg_old->bk_perm->Read;
                 temp->bk_perm->Write = pg_old->bk_perm->Write;
-                temp->bk_perm->Execute = pg_old->bk_perm->Execute;
+                temp->bk_perm->Execute = pg_old->bk_perm->Execute; */
                 temp->state = pg_old->state;
  
                 temp->next=NULL;
@@ -193,10 +197,10 @@ as_destroy(struct addrspace *as)
                         {
                                 kfree(pnext->perm);
                         }
-			if(pnext->bk_perm!=NULL)
+		/*	if(pnext->bk_perm!=NULL)
                         {
                                 kfree(pnext->bk_perm);
-                        }
+                        }*/
 
                         struct page_table_entry *ptemp = pnext;
                         pnext = pnext->next;
@@ -275,42 +279,57 @@ as_define_region(struct addrspace *as, vaddr_t vaddr, size_t memsize,
 	 * Write this.
 	 */
 	struct regions *region_info = kmalloc(sizeof(struct regions));
-	size_t npages;
+//	size_t npages;
 	memsize += vaddr & ~(vaddr_t)PAGE_FRAME;
 	vaddr &= PAGE_FRAME;
 
 	/* ...and now the length. */
 	memsize = (memsize + PAGE_SIZE - 1) & PAGE_FRAME;
 
-	npages = memsize / PAGE_SIZE;
+//	npages = memsize / PAGE_SIZE;
 
-	region_info->start = vaddr;
-        region_info->end = vaddr + npages*PAGE_SIZE;
-	region_info->size = npages*PAGE_SIZE;
+	region_info->start = vaddr & PAGE_FRAME;
+        region_info->end = vaddr + memsize;
+	region_info->size = memsize;
 	region_info->perm = kmalloc(sizeof(struct permission));
+	region_info->bk_perm = kmalloc(sizeof(struct permission));
 //	struct permission *perm = kmalloc(sizeof(struct permission));
 	region_info->perm->Read= false;
 	region_info->perm->Write= false;
 	region_info->perm->Execute= false;	
+	region_info->bk_perm->Read= false;
+        region_info->bk_perm->Write= false;
+        region_info->bk_perm->Execute= false;
 //	region_info.perm = &perm;
 	region_info->next = NULL;
 
 	if(readable>0)
 	{
 		region_info->perm->Read= true;
+		region_info->bk_perm->Read= true;
 	}
         if(writeable>0)
         {
                 region_info->perm->Write= true;
+		region_info->bk_perm->Write= true;
         }
 	if(executable>0)
         {
                 region_info->perm->Execute= true;
+		region_info->bk_perm->Execute= true;
         }
 
         struct regions *next = as->region_info;
-	as->heap_start = vaddr + npages*PAGE_SIZE ;
-	as->heap_end = as->heap_start;
+	as->heap_start = vaddr + memsize ;
+	if(as->heap_end > as->heap_start)
+	{
+		as->heap_end = as->heap_end;
+	}
+	else
+	{
+		as->heap_end = as->heap_start;
+	}
+//	as->heap_end = as->heap_start;
 	as->stackTop = USERSTACK;
 	as->stackBot = USERSTACK - PAGE_SIZE*4096;
 	while(1)
@@ -340,7 +359,7 @@ as_prepare_load(struct addrspace *as)
 	/*
 	 * Write this.
 	 */
-	struct page_table_entry *next = as->pg_entry;
+	struct regions *next = as->region_info;
 
 	while(next!=NULL)
 	{
@@ -361,7 +380,7 @@ as_complete_load(struct addrspace *as)
 	 * Write this.
 	 */
 
-	struct page_table_entry *next = as->pg_entry;
+	struct regions *next = as->region_info;
 
         while(next!=NULL)
         {
@@ -463,10 +482,10 @@ void pg_dir_walk(struct addrspace *as,vaddr_t faultaddress, struct permission *p
                         temp->perm->Read =perm->Read;
                         temp->perm->Write = perm->Write;
                         temp->perm->Execute = perm->Execute;
-                        temp->bk_perm = (struct permission *)kmalloc(sizeof(struct permission));
+          /*              temp->bk_perm = (struct permission *)kmalloc(sizeof(struct permission));
                         temp->bk_perm->Read = perm->Read;
                         temp->bk_perm->Write = perm->Write;
-                        temp->bk_perm->Execute = perm->Execute;
+                        temp->bk_perm->Execute = perm->Execute;*/
                         temp->next = NULL;
 
                     

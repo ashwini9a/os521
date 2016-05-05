@@ -69,6 +69,7 @@ struct regions {
         vaddr_t end;
         size_t size;
         struct permission *perm;
+	struct permission *bk_perm;
         struct regions *next;
 
 };
@@ -78,7 +79,7 @@ struct page_table_entry
         vaddr_t vpn;
         paddr_t ppn;
         struct permission *perm;
-        struct permission *bk_perm;
+//        struct permission *bk_perm;
         enum PageState *state;
         //reference
         struct page_table_entry *next;
