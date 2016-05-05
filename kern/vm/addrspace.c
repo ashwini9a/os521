@@ -91,14 +91,26 @@ as_copy(struct addrspace *old, struct addrspace **ret)
 	while(start1!=NULL)
 	{
     		 struct regions *temp =(struct regions *) kmalloc(sizeof(struct regions));
+		if (temp==NULL) {
+        	        return ENOMEM;
+	        }
+
                  temp->start = start1->start;
                  temp->end = start1->end;
                  temp->size = start1->size;
                  temp->perm = kmalloc(sizeof(struct permission));
+		if (temp->perm==NULL) {
+	                return ENOMEM;
+       		 }
+
                  temp->perm->Read = start1->perm->Read;
                  temp->perm->Write = start1->perm->Write;
                  temp->perm->Execute = start1->perm->Execute;
 		 temp->bk_perm = kmalloc(sizeof(struct permission));
+		if (temp->bk_perm==NULL) {
+        	        return ENOMEM;
+	        }
+
                  temp->bk_perm->Read = start1->perm->Read;
                  temp->bk_perm->Write = start1->perm->Write;
                  temp->bk_perm->Execute = start1->perm->Execute;
@@ -126,9 +138,17 @@ as_copy(struct addrspace *old, struct addrspace **ret)
         while(pg_old!=NULL)
         {
                 struct page_table_entry *temp = (struct page_table_entry *)kmalloc(sizeof(struct page_table_entry));
+		if (temp==NULL) {
+        	        return ENOMEM;
+	        }
+
                 temp->vpn = pg_old->vpn;
                 temp->ppn = KVADDR_TO_PADDR((vaddr_t)kmalloc(PAGE_SIZE));////////////////////////////////////////Change//////////////////////
                 temp->perm = (struct permission *)kmalloc(sizeof(struct permission));
+		if (temp->perm==NULL) {
+	                return ENOMEM;
+        	}
+
                 temp->perm->Read = pg_old->perm->Read;
                 temp->perm->Write = pg_old->perm->Write;
                 temp->perm->Execute = pg_old->perm->Execute;
@@ -175,6 +195,10 @@ as_destroy(struct addrspace *as)
 			{
 				kfree(next->perm);
 			}
+			if(next->bk_perm!=NULL)
+                        {
+                                kfree(next->bk_perm);
+                        }
 			struct regions *temp = next;
 			next = next->next;
 			kfree(temp);
@@ -278,7 +302,7 @@ as_define_region(struct addrspace *as, vaddr_t vaddr, size_t memsize,
 	/*
 	 * Write this.
 	 */
-	struct regions *region_info = kmalloc(sizeof(struct regions));
+//	struct regions *region_info = kmalloc(sizeof(struct regions));
 //	size_t npages;
 	memsize += vaddr & ~(vaddr_t)PAGE_FRAME;
 	vaddr &= PAGE_FRAME;
@@ -287,12 +311,24 @@ as_define_region(struct addrspace *as, vaddr_t vaddr, size_t memsize,
 	memsize = (memsize + PAGE_SIZE - 1) & PAGE_FRAME;
 
 //	npages = memsize / PAGE_SIZE;
-
+	struct regions *region_info = kmalloc(sizeof(struct regions));
+	if(region_info == NULL)
+	{
+		return ENOMEM;
+	}
 	region_info->start = vaddr & PAGE_FRAME;
         region_info->end = vaddr + memsize;
 	region_info->size = memsize;
 	region_info->perm = kmalloc(sizeof(struct permission));
+	if (region_info->perm==NULL) {
+                return ENOMEM;
+        }
+
 	region_info->bk_perm = kmalloc(sizeof(struct permission));
+	if (region_info->bk_perm==NULL) {
+                return ENOMEM;
+        }
+
 //	struct permission *perm = kmalloc(sizeof(struct permission));
 	region_info->perm->Read= false;
 	region_info->perm->Write= false;
@@ -408,9 +444,14 @@ as_define_stack(struct addrspace *as, vaddr_t *stackptr)
 
 	return 0;
 }
-int region_walk(vaddr_t faultaddress, struct addrspace *as, struct permission *perm)
+int region_walk(vaddr_t faultaddress, struct addrspace *as, struct permission **perm1)
 {
         struct regions *next = as->region_info ;
+	 struct permission *perm = kmalloc(sizeof(struct permission));
+	if (perm==NULL) {
+                return ENOMEM;
+        }
+
 
         while(1)
         {
@@ -423,6 +464,7 @@ int region_walk(vaddr_t faultaddress, struct addrspace *as, struct permission *p
                                 perm->Read = next->perm->Read;
                                 perm->Write = next->perm->Write;
                                 perm->Execute = next->perm->Execute;
+				*perm1 = perm; 
                                 return 0;
                         }
                         next = next->next;
@@ -438,6 +480,7 @@ int region_walk(vaddr_t faultaddress, struct addrspace *as, struct permission *p
                 perm->Read = true;
                 perm->Write = true;
                 perm->Execute = false;
+		*perm1 = perm;
                 return 0;
         }
         if((as->stackTop >= faultaddress) && (as->stackBot < faultaddress))
@@ -445,6 +488,7 @@ int region_walk(vaddr_t faultaddress, struct addrspace *as, struct permission *p
                 perm->Read = true;
                 perm->Write = true;
                 perm->Execute = false;
+		*perm1 = perm;
                 return 0;
 
         }
@@ -452,7 +496,7 @@ int region_walk(vaddr_t faultaddress, struct addrspace *as, struct permission *p
 
 }
 
-void pg_dir_walk(struct addrspace *as,vaddr_t faultaddress, struct permission *perm)
+int pg_dir_walk(struct addrspace *as,vaddr_t faultaddress, struct permission *perm)
 {
         vaddr_t vpn = faultaddress;
         paddr_t ppn;
@@ -466,7 +510,7 @@ void pg_dir_walk(struct addrspace *as,vaddr_t faultaddress, struct permission *p
                         {
                                 ppn = pnext->ppn;
                                 write_to_tlb(faultaddress, perm,ppn);
-                                return;
+                                return 0;
                         }
                         pnext = pnext->next;
                 }
@@ -474,10 +518,23 @@ void pg_dir_walk(struct addrspace *as,vaddr_t faultaddress, struct permission *p
                 else
                 {
                         struct page_table_entry *temp = (struct page_table_entry *)kmalloc(sizeof(struct page_table_entry));
+			if (temp==NULL) {
+                		return ENOMEM;
+		        }
+
                         temp->vpn = vpn;
-                        temp->ppn = KVADDR_TO_PADDR((vaddr_t)kmalloc(PAGE_SIZE));////////////////////////////////////////******************Change**************//////////////////////
+			vaddr_t vaddr1 = (vaddr_t)kmalloc(PAGE_SIZE);
+			if (!vaddr1) {
+                                return ENOMEM;
+                        }
+
+                        temp->ppn = KVADDR_TO_PADDR(vaddr1);////////////////////////////////////////******************Change**************//////////////////////
                         ppn= temp->ppn;
                         temp->perm = (struct permission *)kmalloc(sizeof(struct permission));
+			if (temp->perm==NULL) {
+		                return ENOMEM;
+        		}
+
                         //struct permission perm1 = kmalloc(sizeof(struct permission));
                         temp->perm->Read =perm->Read;
                         temp->perm->Write = perm->Write;
@@ -495,6 +552,7 @@ void pg_dir_walk(struct addrspace *as,vaddr_t faultaddress, struct permission *p
         spinlock_acquire(&splock_addr);
         write_to_tlb(faultaddress, perm,ppn);
         spinlock_release(&splock_addr);
+	return 0;
 
 }
 
@@ -522,7 +580,7 @@ int vm_fault(int faulttype, vaddr_t faultaddress)
         uint32_t ehi, elo;
         struct addrspace *as;
 //        int spl;
-        struct permission *perm=(struct permission *)kmalloc(sizeof(struct permission));
+        struct permission *perm;
 
         faultaddress &= PAGE_FRAME;
         //int vpn = (faultaddress & 0xfffff000)>> 12;
@@ -543,10 +601,10 @@ int vm_fault(int faulttype, vaddr_t faultaddress)
                  */
                 return EFAULT;
         }
-        int result = region_walk(faultaddress, as, perm);
+        int result = region_walk(faultaddress, as, &perm);
         if(result)
         {
-                return -1;
+                return result;
         }
 
         switch (faulttype) {
@@ -571,7 +629,12 @@ int vm_fault(int faulttype, vaddr_t faultaddress)
                 break;
             case VM_FAULT_READ:
             case VM_FAULT_WRITE:
-                pg_dir_walk(as,faultaddress,perm);
+                result = pg_dir_walk(as,faultaddress,perm);
+		if(result)
+	        {
+        	        return result;
+        	}
+
         //      write_to_tlb(faultaddress, &perm);
                 return 0;
                 break;
