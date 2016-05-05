@@ -143,7 +143,11 @@ as_copy(struct addrspace *old, struct addrspace **ret)
 	        }
 
                 temp->vpn = pg_old->vpn;
-                temp->ppn = KVADDR_TO_PADDR((vaddr_t)alloc_kpages(1));////////////////////////////////////////Change//////////////////////
+                temp->ppn =getppages(1);////////////////////////////////////////Change//////////////////////
+		if(!temp->ppn)
+		{
+			return ENOMEM;
+		}
 		memmove((void*)PADDR_TO_KVADDR(temp->ppn),(void const*)PADDR_TO_KVADDR(pg_old->ppn),PAGE_SIZE);
                 temp->perm = (struct permission *)kmalloc(sizeof(struct permission));
 		if (temp->perm==NULL) {
@@ -325,7 +329,7 @@ as_define_region(struct addrspace *as, vaddr_t vaddr, size_t memsize,
 	{
 		return ENOMEM;
 	}
-	region_info->start = vaddr & PAGE_FRAME;
+	region_info->start = vaddr;
         region_info->end = vaddr + npages*PAGE_SIZE;
 	region_info->size = memsize;
 	region_info->perm = kmalloc(sizeof(struct permission));
@@ -554,12 +558,12 @@ int pg_dir_walk(struct addrspace *as,vaddr_t faultaddress, struct permission *pe
 		        }
 
                         temp->vpn = vpn;
-			vaddr_t vaddr1 = (vaddr_t)kmalloc(PAGE_SIZE);
-			if (!vaddr1) {
+			temp->ppn=getppages(1);
+			if (!temp->ppn) {
                                 return ENOMEM;
                         }
 
-                        temp->ppn = KVADDR_TO_PADDR(vaddr1);////////////////////////////////////////******************Change**************//////////////////////
+                       // temp->ppn = KVADDR_TO_PADDR(vaddr1);////////////////////////////////////////******************Change**************//////////////////////
                         ppn= temp->ppn;
                         temp->perm = (struct permission *)kmalloc(sizeof(struct permission));
 			if (temp->perm==NULL) {
