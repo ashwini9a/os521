@@ -355,7 +355,7 @@ as_define_region(struct addrspace *as, vaddr_t vaddr, size_t memsize,
 		region_info->bk_perm->Execute= true;
         }
 
-        struct regions *next = as->region_info;
+        //struct regions *next = as->region_info;
 	as->heap_start = vaddr + memsize ;
 	if(as->heap_end > as->heap_start)
 	{
@@ -368,6 +368,8 @@ as_define_region(struct addrspace *as, vaddr_t vaddr, size_t memsize,
 //	as->heap_end = as->heap_start;
 	as->stackTop = USERSTACK;
 	as->stackBot = USERSTACK - PAGE_SIZE*1024;
+	
+/*	struct regions *next = as->region_info;
 	while(1)
 	{
 		if(next==NULL)
@@ -379,6 +381,22 @@ as_define_region(struct addrspace *as, vaddr_t vaddr, size_t memsize,
 		{
 			next = next->next;
 		}
+	}*/
+	struct regions *next = as->region_info ;
+//        struct regions *previous = NULL;
+
+
+	if(as->region_info == NULL)
+	{
+		as->region_info = region_info;
+	}
+	else
+	{
+		while(next!=NULL)
+		{
+			next = next->next;
+		}
+		next = region_info;
 	}
 	
 	
