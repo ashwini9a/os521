@@ -130,23 +130,41 @@ int sys_execv(userptr_t progname, userptr_t args)
 	struct vnode *v;
 	userptr_t stack_start;
 	newprog = kmalloc(PATH_MAX);
+	userptr_t arg_count = args;
+	int arg_count_tot;
+
+	for (arg_count_tot=0; arg_count_tot<10000; arg_count_tot++) {
+		userptr_t argtemp;
+		result = copyin(arg_count, &argtemp, sizeof(userptr_t));
+		if(result) {
+			return result;
+		}
+		if (argtemp == NULL) {
+			break;
+		}
+		arg_count += sizeof(userptr_t);
+		
+	}
+
 	if (newprog == NULL) {
 		return ENOMEM;
 	}
 	userptr_t arg_start;
 
-	offset = kmalloc(7000 * sizeof(char*));
+	offset = kmalloc(arg_count_tot * sizeof(userptr_t));
 	if (offset == NULL) {
 		//kfree(buffer);
 		kfree(newprog);
 		return ENOMEM;
 	}
+
 	buffer = kmalloc(ARG_MAX);
 	if (buffer == NULL) {
 		kfree(newprog);
 		kfree(offset);
 		return ENOMEM;
 	}
+
 	buffer_end = buffer;
 
 	result = copyinstr(progname, newprog, PATH_MAX, NULL);
