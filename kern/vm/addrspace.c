@@ -56,7 +56,7 @@ struct addrspace *as_create(void)
 	 */
 	as->region_info = NULL;
         as->stackTop = USERSTACK;
-        as->stackBot = 0;
+        as->stackBot =  USERSTACK - PAGE_SIZE*1024;
         as->heap_start = 0;
         as->heap_end = 0;
         as->pg_entry = NULL;
@@ -331,7 +331,7 @@ as_define_region(struct addrspace *as, vaddr_t vaddr, size_t memsize,
 	}
 //	as->heap_end = as->heap_start;
 	as->stackTop = USERSTACK;
-	as->stackBot = USERSTACK - PAGE_SIZE*4096;
+	as->stackBot = USERSTACK - PAGE_SIZE*1024;
 	while(1)
 	{
 		if(next==NULL)
