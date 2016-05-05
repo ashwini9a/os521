@@ -309,7 +309,15 @@ as_define_region(struct addrspace *as, vaddr_t vaddr, size_t memsize,
 
 	/* ...and now the length. */
 	memsize = (memsize + PAGE_SIZE - 1) & PAGE_FRAME;
-
+	int npages;
+	if(memsize%PAGE_SIZE==0)
+	{
+		npages = memsize/PAGE_SIZE;
+	}
+	else
+	{
+		npages =(memsize/PAGE_SIZE)+1;
+	}
 //	npages = memsize / PAGE_SIZE;
 	struct regions *region_info = kmalloc(sizeof(struct regions));
 	if(region_info == NULL)
@@ -317,7 +325,7 @@ as_define_region(struct addrspace *as, vaddr_t vaddr, size_t memsize,
 		return ENOMEM;
 	}
 	region_info->start = vaddr & PAGE_FRAME;
-        region_info->end = vaddr + memsize;
+        region_info->end = vaddr + npages*PAGE_SIZE;
 	region_info->size = memsize;
 	region_info->perm = kmalloc(sizeof(struct permission));
 	if (region_info->perm==NULL) {
@@ -383,20 +391,24 @@ as_define_region(struct addrspace *as, vaddr_t vaddr, size_t memsize,
 		}
 	}*/
 	struct regions *next = as->region_info ;
+	struct regions *prev;
 //        struct regions *previous = NULL;
 
 
 	if(as->region_info == NULL)
 	{
 		as->region_info = region_info;
+		return 0;
 	}
 	else
 	{
 		while(next!=NULL)
 		{
+			prev = next;
 			next = next->next;
 		}
-		next = region_info;
+		prev->next = region_info;
+		return 0;
 	}
 	
 	
@@ -583,9 +595,9 @@ void write_to_tlb(vaddr_t faultaddress, struct permission *perm, paddr_t ppn)
                 elo = ppn | TLBLO_DIRTY | TLBLO_VALID;
         else
                 elo = ppn | TLBLO_VALID;
-	spinlock_acquire(&splock_addr);
+//	spinlock_acquire(&splock_addr);
         tlb_random(ehi, elo);
-	spinlock_release(&splock_addr);
+//	spinlock_release(&splock_addr);
 
 }
 

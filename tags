@@ -971,6 +971,7 @@ Elf32_Ehdr	kern/include/elf.h	/^} Elf32_Ehdr;$/;"	t	typeref:struct:__anon9
 Elf32_Phdr	kern/include/elf.h	/^} Elf32_Phdr;$/;"	t	typeref:struct:__anon10
 Elf_Ehdr	kern/include/elf.h	/^typedef Elf32_Ehdr Elf_Ehdr;$/;"	t
 Elf_Phdr	kern/include/elf.h	/^typedef Elf32_Phdr Elf_Phdr;$/;"	t
+Execute	kern/include/vm.h	/^        bool Execute;$/;"	m	struct:permission
 F0	common/libtest161/sha256.c	169;"	d	file:
 F1	common/libtest161/sha256.c	170;"	d	file:
 FAILED	userland/testbin/badcall/test.h	44;"	d
@@ -1218,6 +1219,7 @@ KM5_ITERATIONS	kern/test/kmalloctest.c	439;"	d	file:
 KTOP	kern/compile/ASST2/Makefile	/^KTOP=..\/..$/;"	m
 KTOP	kern/compile/ASST3/Makefile	/^KTOP=..\/..$/;"	m
 KTOP	kern/compile/DUMBVM/Makefile	/^KTOP=..\/..$/;"	m
+KVADDR_TO_PADDR	kern/include/vm.h	48;"	d
 L	common/gcc-millicode/longlong.h	82;"	d
 L	common/gcc-millicode/longlong.h	87;"	d
 LABELS	kern/vm/kmalloc.c	121;"	d	file:
@@ -1956,6 +1958,7 @@ PT_SHLIB	kern/include/elf.h	185;"	d
 PUT_UINT32_BE	common/libtest161/sha256.c	75;"	d	file:
 PageSize	userland/testbin/huge/huge.c	44;"	d	file:
 PageSize	userland/testbin/stacktest/stacktest.c	48;"	d	file:
+PageState	kern/include/vm.h	/^enum PageState$/;"	g
 Pn	userland/testbin/schedpong/usem.c	/^Pn(struct usem *sem, unsigned count)$/;"	f
 R	common/libtest161/sha256.c	172;"	d	file:
 RANDOM_MAX	kern/include/lib.h	118;"	d
@@ -2159,6 +2162,7 @@ R_MIPS_REL32	kern/compile/ASST3/includelinks/machine/elf.h	45;"	d
 R_MIPS_REL32	kern/compile/ASST3/includelinks/mips/elf.h	45;"	d
 R_MIPS_REL32	kern/compile/DUMBVM/includelinks/machine/elf.h	45;"	d
 R_MIPS_REL32	kern/compile/DUMBVM/includelinks/mips/elf.h	45;"	d
+Read	kern/include/vm.h	/^        bool Read;$/;"	m	struct:permission
 Ropt	userland/bin/ls/ls.c	/^static int Ropt=0;$/;"	v	file:
 S0	common/libtest161/sha256.c	163;"	d	file:
 S1	common/libtest161/sha256.c	164;"	d	file:
@@ -3226,7 +3230,15 @@ TEST161_FAIL	build/install/hostinclude/kern/test161.h	34;"	d
 TEST161_FAIL	build/install/include/kern/test161.h	34;"	d
 TEST161_FAIL	kern/include/kern/test161.h	34;"	d
 TEST161_FAIL	kern/test/synchprobs.c	19;"	d	file:
+TEST161_LPROGRESS	.root/hostinclude/kern/test161.h	55;"	d
+TEST161_LPROGRESS	.root/include/kern/test161.h	55;"	d
+TEST161_LPROGRESS	build/install/hostinclude/kern/test161.h	55;"	d
+TEST161_LPROGRESS	build/install/include/kern/test161.h	55;"	d
 TEST161_LPROGRESS	kern/include/kern/test161.h	55;"	d
+TEST161_LPROGRESS_N	.root/hostinclude/kern/test161.h	54;"	d
+TEST161_LPROGRESS_N	.root/include/kern/test161.h	54;"	d
+TEST161_LPROGRESS_N	build/install/hostinclude/kern/test161.h	54;"	d
+TEST161_LPROGRESS_N	build/install/include/kern/test161.h	54;"	d
 TEST161_LPROGRESS_N	kern/include/kern/test161.h	54;"	d
 TEST161_SUCCESS	.root/hostinclude/kern/test161.h	33;"	d
 TEST161_SUCCESS	.root/include/kern/test161.h	33;"	d
@@ -3234,8 +3246,24 @@ TEST161_SUCCESS	build/install/hostinclude/kern/test161.h	33;"	d
 TEST161_SUCCESS	build/install/include/kern/test161.h	33;"	d
 TEST161_SUCCESS	kern/include/kern/test161.h	33;"	d
 TEST161_SUCCESS	kern/test/synchprobs.c	18;"	d	file:
+TEST161_TPROGRESS	.root/hostinclude/kern/test161.h	61;"	d
+TEST161_TPROGRESS	.root/hostinclude/kern/test161.h	64;"	d
+TEST161_TPROGRESS	.root/include/kern/test161.h	61;"	d
+TEST161_TPROGRESS	.root/include/kern/test161.h	64;"	d
+TEST161_TPROGRESS	build/install/hostinclude/kern/test161.h	61;"	d
+TEST161_TPROGRESS	build/install/hostinclude/kern/test161.h	64;"	d
+TEST161_TPROGRESS	build/install/include/kern/test161.h	61;"	d
+TEST161_TPROGRESS	build/install/include/kern/test161.h	64;"	d
 TEST161_TPROGRESS	kern/include/kern/test161.h	61;"	d
 TEST161_TPROGRESS	kern/include/kern/test161.h	64;"	d
+TEST161_TPROGRESS_N	.root/hostinclude/kern/test161.h	60;"	d
+TEST161_TPROGRESS_N	.root/hostinclude/kern/test161.h	63;"	d
+TEST161_TPROGRESS_N	.root/include/kern/test161.h	60;"	d
+TEST161_TPROGRESS_N	.root/include/kern/test161.h	63;"	d
+TEST161_TPROGRESS_N	build/install/hostinclude/kern/test161.h	60;"	d
+TEST161_TPROGRESS_N	build/install/hostinclude/kern/test161.h	63;"	d
+TEST161_TPROGRESS_N	build/install/include/kern/test161.h	60;"	d
+TEST161_TPROGRESS_N	build/install/include/kern/test161.h	63;"	d
 TEST161_TPROGRESS_N	kern/include/kern/test161.h	60;"	d
 TEST161_TPROGRESS_N	kern/include/kern/test161.h	63;"	d
 TESTDATA	userland/testbin/rmtest/rmtest.c	47;"	d	file:
@@ -3467,9 +3495,9 @@ V	userland/testbin/schedpong/usem.c	/^V(struct usem *sem)$/;"	f
 V	userland/testbin/usemtest/usemtest.c	/^V(struct usem *sem)$/;"	f	file:
 VFSINLINE	kern/include/vfs.h	181;"	d
 VFSINLINE	kern/vfs/vfslist.c	35;"	d	file:
-VM_FAULT_READ	kern/include/vm.h	43;"	d
-VM_FAULT_READONLY	kern/include/vm.h	45;"	d
-VM_FAULT_WRITE	kern/include/vm.h	44;"	d
+VM_FAULT_READ	kern/include/vm.h	44;"	d
+VM_FAULT_READONLY	kern/include/vm.h	46;"	d
+VM_FAULT_WRITE	kern/include/vm.h	45;"	d
 VOP_CREAT	kern/include/vnode.h	244;"	d
 VOP_DECREF	kern/include/vnode.h	267;"	d
 VOP_EACHOPEN	kern/include/vnode.h	228;"	d
@@ -3566,6 +3594,7 @@ WUNTRACED	.root/include/kern/wait.h	40;"	d
 WUNTRACED	build/install/hostinclude/kern/wait.h	40;"	d
 WUNTRACED	build/install/include/kern/wait.h	40;"	d
 WUNTRACED	kern/include/kern/wait.h	40;"	d
+Write	kern/include/vm.h	/^        bool Write;$/;"	m	struct:permission
 X_MARKER	userland/testbin/tictac/tictac.c	48;"	d	file:
 X_PLAYER	userland/testbin/tictac/tictac.c	46;"	d	file:
 _ADDRSPACE_H_	kern/include/addrspace.h	31;"	d
@@ -4142,6 +4171,8 @@ _TEST161_H_	.root/include/test161/test161.h	2;"	d
 _TEST161_H_	build/install/include/test161/test161.h	2;"	d
 _TEST161_H_	userland/include/test161/test161.h	2;"	d
 _TEST_H_	kern/include/test.h	31;"	d
+_TEST_TEST_H_	.root/include/test/test.h	38;"	d
+_TEST_TEST_H_	build/install/include/test/test.h	38;"	d
 _TEST_TEST_H_	userland/include/test/test.h	38;"	d
 _THREADLIST_H_	kern/include/threadlist.h	31;"	d
 _THREADPRIVATE_H_	kern/include/threadprivate.h	31;"	d
@@ -4296,6 +4327,14 @@ __RLIMIT_NUM	.root/include/kern/resource.h	83;"	d
 __RLIMIT_NUM	build/install/hostinclude/kern/resource.h	83;"	d
 __RLIMIT_NUM	build/install/include/kern/resource.h	83;"	d
 __RLIMIT_NUM	kern/include/kern/resource.h	83;"	d
+__TEST161_PROGRESS_N	.root/hostinclude/kern/test161.h	39;"	d
+__TEST161_PROGRESS_N	.root/hostinclude/kern/test161.h	46;"	d
+__TEST161_PROGRESS_N	.root/include/kern/test161.h	39;"	d
+__TEST161_PROGRESS_N	.root/include/kern/test161.h	46;"	d
+__TEST161_PROGRESS_N	build/install/hostinclude/kern/test161.h	39;"	d
+__TEST161_PROGRESS_N	build/install/hostinclude/kern/test161.h	46;"	d
+__TEST161_PROGRESS_N	build/install/include/kern/test161.h	39;"	d
+__TEST161_PROGRESS_N	build/install/include/kern/test161.h	46;"	d
 __TEST161_PROGRESS_N	kern/include/kern/test161.h	39;"	d
 __TEST161_PROGRESS_N	kern/include/kern/test161.h	46;"	d
 __UNUSED	kern/include/cdefs.h	59;"	d
@@ -5035,7 +5074,7 @@ as_complete_load	kern/vm/addrspace.c	/^as_complete_load(struct addrspace *as)$/;
 as_copy	kern/arch/mips/vm/dumbvm.c	/^as_copy(struct addrspace *old, struct addrspace **ret)$/;"	f
 as_copy	kern/vm/addrspace.c	/^as_copy(struct addrspace *old, struct addrspace **ret)$/;"	f
 as_create	kern/arch/mips/vm/dumbvm.c	/^as_create(void)$/;"	f
-as_create	kern/vm/addrspace.c	/^as_create(void)$/;"	f
+as_create	kern/vm/addrspace.c	/^struct addrspace *as_create(void)$/;"	f
 as_deactivate	kern/arch/mips/vm/dumbvm.c	/^as_deactivate(void)$/;"	f
 as_deactivate	kern/vm/addrspace.c	/^as_deactivate(void)$/;"	f
 as_define_region	kern/arch/mips/vm/dumbvm.c	/^as_define_region(struct addrspace *as, vaddr_t vaddr, size_t sz,$/;"	f
@@ -5156,6 +5195,7 @@ bitmap_mark	kern/lib/bitmap.c	/^bitmap_mark(struct bitmap *b, unsigned index)$/;
 bitmap_translate	kern/lib/bitmap.c	/^bitmap_translate(unsigned bitno, unsigned *ix, WORD_TYPE *mask)$/;"	f	file:
 bitmap_unmark	kern/lib/bitmap.c	/^bitmap_unmark(struct bitmap *b, unsigned index)$/;"	f
 bitmaptest	kern/test/bitmaptest.c	/^bitmaptest(int nargs, char **args)$/;"	f
+bk_perm	kern/include/vm.h	/^	struct permission *bk_perm;$/;"	m	struct:regions	typeref:struct:regions::permission
 blkcnt_t	.root/include/sys/types.h	/^typedef __blkcnt_t blkcnt_t;$/;"	t
 blkcnt_t	build/install/include/sys/types.h	/^typedef __blkcnt_t blkcnt_t;$/;"	t
 blkcnt_t	kern/include/types.h	/^typedef __blkcnt_t blkcnt_t;$/;"	t
@@ -5200,8 +5240,8 @@ buftest	userland/testbin/badcall/common_buf.c	/^struct buftest {$/;"	s	file:
 buildconfig	kern/compile/ASST2/vers.c	/^const char buildconfig[] = "ASST2";$/;"	v
 buildconfig	kern/compile/ASST3/vers.c	/^const char buildconfig[] = "ASST3";$/;"	v
 buildconfig	kern/compile/DUMBVM/vers.c	/^const char buildconfig[] = "DUMBVM";$/;"	v
-buildversion	kern/compile/ASST2/vers.c	/^const int buildversion = 101;$/;"	v
-buildversion	kern/compile/ASST3/vers.c	/^const int buildversion = 2;$/;"	v
+buildversion	kern/compile/ASST2/vers.c	/^const int buildversion = 129;$/;"	v
+buildversion	kern/compile/ASST3/vers.c	/^const int buildversion = 7;$/;"	v
 buildversion	kern/compile/DUMBVM/vers.c	/^const int buildversion = 214;$/;"	v
 builtins	userland/bin/sh/sh.c	/^} builtins[] = {$/;"	v	typeref:struct:__anon15	file:
 builtins	userland/testbin/shll/shll.c	/^} builtins[] = {$/;"	v	typeref:struct:__anon37	file:
@@ -5413,6 +5453,8 @@ child_plain	userland/testbin/usemtest/usemtest.c	/^child_plain(struct usem *gose
 child_with_own_fd	userland/testbin/usemtest/usemtest.c	/^child_with_own_fd(struct usem *gosem, struct usem *waitsem, unsigned num)$/;"	f	file:
 chkfile	userland/testbin/redirect/redirect.c	/^chkfile(void)$/;"	f	file:
 choose_name	userland/testbin/dirconc/dirconc.c	/^choose_name(char *buf, size_t len)$/;"	f	file:
+chunksize	kern/include/vm.h	/^	unsigned chunksize;$/;"	m	struct:coremap_entry
+clean	kern/include/vm.h	/^	clean,$/;"	e	enum:PageState
 cleanup	kern/test/rwtest.c	/^static void cleanup() {$/;"	f	file:
 cleanup	userland/testbin/badcall/common_buf.c	/^	void (*cleanup)(void);$/;"	m	struct:buftest	file:
 cleanup	userland/testbin/dirconc/dirconc.c	/^cleanup(void)$/;"	f	file:
@@ -5524,6 +5566,7 @@ copystr	kern/vm/copyinout.c	/^copystr(char *dest, const char *src, size_t maxlen
 coredump	userland/bin/sh/sh.c	/^		coredump:1;$/;"	m	struct:exitinfo	file:
 coredump	userland/testbin/shll/shll.c	/^		coredump:1;$/;"	m	struct:exitinfo	file:
 coremap	kern/vm/vm.c	/^struct coremap_entry *coremap;$/;"	v	typeref:struct:coremap_entry
+coremap_entry	kern/include/vm.h	/^struct coremap_entry{$/;"	s
 coremap_used_bytes	kern/arch/mips/vm/dumbvm.c	/^coremap_used_bytes() {$/;"	f
 coremap_used_bytes	kern/vm/vm.c	/^unsigned int coremap_used_bytes(void)$/;"	f
 coremapsize	kern/vm/vm.c	/^unsigned coremapsize;$/;"	v
@@ -5652,6 +5695,7 @@ dir	userland/testbin/frack/ops.c	/^struct dir {$/;"	s	file:
 dir_test	userland/testbin/f_test/f_test.c	/^dir_test(int depth)$/;"	f	file:
 dirfd	userland/testbin/dirseek/dirseek.c	/^static int dirfd;$/;"	v	file:
 dirsortfunc	userland/sbin/sfsck/sfs.c	/^dirsortfunc(const void *aa, const void *bb)$/;"	f	file:
+dirty	kern/include/vm.h	/^	dirty$/;"	e	enum:PageState
 diskblocks	userland/sbin/mksfs/disk.c	/^diskblocks(void)$/;"	f
 diskblocksize	userland/sbin/mksfs/disk.c	/^diskblocksize(void)$/;"	f
 diskread	userland/sbin/mksfs/disk.c	/^diskread(void *data, uint32_t block)$/;"	f
@@ -5859,6 +5903,7 @@ emufs_unmount	kern/dev/lamebus/emu.c	/^emufs_unmount(struct fs *fs)$/;"	f	file:
 emufs_vnode	kern/include/emufs.h	/^struct emufs_vnode {$/;"	s
 emufs_void_op_isdir	kern/dev/lamebus/emu.c	/^emufs_void_op_isdir(struct vnode *v)$/;"	f	file:
 emufs_write	kern/dev/lamebus/emu.c	/^emufs_write(struct vnode *v, struct uio *uio)$/;"	f	file:
+end	kern/include/vm.h	/^        vaddr_t end;$/;"	m	struct:regions
 end_ptr	userland/lib/libc/stdlib/random.c	/^static long *end_ptr = &randtbl[DEG_3 + 1];$/;"	v	file:
 endsem	kern/test/synchprobs.c	/^static struct semaphore *endsem;$/;"	v	typeref:struct:semaphore	file:
 enforce_sbrk	userland/testbin/badcall/bad_sbrk.c	/^enforce_sbrk(long val, const char *desc, int err)$/;"	f	file:
@@ -5974,6 +6019,7 @@ firstfree	kern/arch/mips/vm/ram.c	/^vaddr_t firstfree;   \/* first free virtual 
 firstpaddr	kern/arch/mips/vm/ram.c	/^static paddr_t firstpaddr;  \/* address of first free physical page *\/$/;"	v	file:
 firstpage	userland/testbin/bloat/bloat.c	/^static void *firstpage;$/;"	v	file:
 firstread	userland/testbin/dirseek/dirseek.c	/^firstread(void)$/;"	f	file:
+fixed	kern/include/vm.h	/^	fixed,$/;"	e	enum:PageState
 flags	kern/include/file.h	/^	int flags;$/;"	m	struct:filehandle
 flock	.root/hostinclude/kern/fcntl.h	/^struct flock {$/;"	s
 flock	.root/include/kern/fcntl.h	/^struct flock {$/;"	s
@@ -5989,6 +6035,7 @@ found	userland/testbin/frack/check.c	/^static struct fsobject *found;$/;"	v	type
 found_files	userland/testbin/frack/check.c	/^static unsigned found_subdirs, found_files;$/;"	v	file:
 found_subdirs	userland/testbin/frack/check.c	/^static unsigned found_subdirs, found_files;$/;"	v	file:
 fptr	userland/lib/libc/stdlib/random.c	/^static long *fptr = &randtbl[SEP_3 + 1];$/;"	v	file:
+free	kern/include/vm.h	/^	free,$/;"	e	enum:PageState
 free	userland/lib/libc/stdlib/malloc.c	/^free(void *x)$/;"	f
 free_kpages	kern/arch/mips/vm/dumbvm.c	/^free_kpages(vaddr_t addr)$/;"	f
 free_kpages	kern/vm/vm.c	/^void free_kpages(vaddr_t addr)$/;"	f
@@ -6903,6 +6950,8 @@ nblocks	userland/sbin/mksfs/disk.c	/^static uint32_t nblocks;$/;"	v	file:
 nettest	kern/test/nettest.c	/^nettest(int nargs, char **args)$/;"	f
 newdir	userland/testbin/frack/check.c	/^			unsigned newdir;$/;"	m	struct:fschange::__anon20::__anon25	file:
 newfile	userland/testbin/frack/check.c	/^			unsigned newfile;$/;"	m	struct:fschange::__anon20::__anon24	file:
+next	kern/include/vm.h	/^        struct page_table_entry *next;$/;"	m	struct:page_table_entry	typeref:struct:page_table_entry::page_table_entry
+next	kern/include/vm.h	/^        struct regions *next;$/;"	m	struct:regions	typeref:struct:regions::regions
 next	kern/vm/kmalloc.c	/^	struct freelist *next;$/;"	m	struct:freelist	typeref:struct:freelist::freelist	file:
 next	userland/testbin/frack/check.c	/^	struct fschange *next;$/;"	m	struct:fschange	typeref:struct:fschange::fschange	file:
 next	userland/testbin/frack/check.c	/^	struct fsdirent *next;$/;"	m	struct:fsdirent	typeref:struct:fsdirent::fsdirent	file:
@@ -6959,6 +7008,8 @@ npids	userland/testbin/farm/farm.c	/^static int pids[MAXPROCS], npids;$/;"	v	fil
 npids	userland/testbin/kitchen/kitchen.c	/^static int pids[MAXPROCS], npids;$/;"	v	file:
 npids	userland/testbin/sty/sty.c	/^static int pids[MAXPROCS], npids;$/;"	v	file:
 nprintf	common/libc/printf/tprintf.c	/^nprintf(const char *fmt, ...)$/;"	f
+nsay	.root/include/test/test.h	/^nsay(const char *fmt, ...)$/;"	f
+nsay	build/install/include/test/test.h	/^nsay(const char *fmt, ...)$/;"	f
 nsay	userland/include/test/test.h	/^nsay(const char *fmt, ...)$/;"	f
 nsems	userland/testbin/schedpong/pong.c	/^static unsigned nsems;$/;"	v	file:
 ntohll	userland/lib/hostcompat/ntohll.c	/^ntohll(uint64_t x)$/;"	f
@@ -7048,6 +7099,7 @@ paddr_t	kern/compile/ASST3/includelinks/mips/types.h	/^typedef __u32 paddr_t;$/;
 paddr_t	kern/compile/DUMBVM/includelinks/machine/types.h	/^typedef __u32 paddr_t;$/;"	t
 paddr_t	kern/compile/DUMBVM/includelinks/mips/types.h	/^typedef __u32 paddr_t;$/;"	t
 page	kern/vm/kmalloc.c	/^	struct pagerefpage *page;$/;"	m	struct:kheap_root	typeref:struct:kheap_root::pagerefpage	file:
+page_table_entry	kern/include/vm.h	/^struct page_table_entry$/;"	s
 pageaddr_and_blocktype	kern/vm/kmalloc.c	/^	vaddr_t pageaddr_and_blocktype;$/;"	m	struct:pageref	file:
 pageref	kern/vm/kmalloc.c	/^struct pageref {$/;"	s	file:
 pagerefpage	kern/vm/kmalloc.c	/^struct pagerefpage {$/;"	s	file:
@@ -7070,6 +7122,10 @@ pass2	userland/sbin/sfsck/pass2.c	/^pass2(void)$/;"	f
 pass2_dir	userland/sbin/sfsck/pass2.c	/^pass2_dir(uint32_t ino, uint32_t parentino, const char *pathsofar)$/;"	f	file:
 pasteofcount	userland/sbin/sfsck/pass1.c	/^	unsigned pasteofcount;	\/* number of blocks found past eof *\/$/;"	m	struct:ibstate	file:
 percent	userland/testbin/shll/shll.c	/^static int percent = 5;$/;"	v	file:
+perm	kern/include/vm.h	/^        struct permission *perm;$/;"	m	struct:page_table_entry	typeref:struct:page_table_entry::permission
+perm	kern/include/vm.h	/^        struct permission *perm;$/;"	m	struct:regions	typeref:struct:regions::permission
+permission	kern/include/vm.h	/^struct permission$/;"	s
+pg_dir_walk	kern/vm/addrspace.c	/^int pg_dir_walk(struct addrspace *as,vaddr_t faultaddress, struct permission *perm)$/;"	f
 pickpage	userland/testbin/bloat/bloat.c	/^pickpage(unsigned numpages)$/;"	f	file:
 pid	userland/testbin/forkbomb/forkbomb.c	/^static volatile int pid;$/;"	v	file:
 pid_array	kern/proc/proc.c	/^struct proc *pid_array[PROC_MAX];$/;"	v	typeref:struct:proc
@@ -7104,6 +7160,7 @@ pos	userland/bin/tac/tac.c	/^	off_t pos;$/;"	m	struct:indexentry	file:
 pos	userland/testbin/dirseek/dirseek.c	/^	off_t pos;$/;"	m	struct:__anon19	file:
 pos	userland/testbin/frack/check.c	/^			off_t pos;$/;"	m	struct:fschange::__anon20::__anon23	file:
 pow_int	userland/testbin/forktest/forktest.c	/^int pow_int(int x, int y) {$/;"	f	file:
+ppn	kern/include/vm.h	/^        paddr_t ppn;$/;"	m	struct:page_table_entry
 prep	userland/testbin/frack/workloads.c	/^prep(unsigned testcode, unsigned *exists, unsigned numfiles,$/;"	f	file:
 prepdata	userland/testbin/frack/data.c	/^prepdata(unsigned code, unsigned seq, char *buf, off_t len)$/;"	f	file:
 prepwords	userland/testbin/bigexec/bigexec.c	/^prepwords(void)$/;"	f	file:
@@ -7275,6 +7332,8 @@ recursive_cleanup	userland/testbin/dirconc/dirconc.c	/^recursive_cleanup(const c
 refcount	kern/include/file.h	/^	int refcount;$/;"	m	struct:filehandle
 refcount	userland/testbin/frack/check.c	/^	unsigned refcount;$/;"	m	struct:fsobject	file:
 refs	kern/vm/kmalloc.c	/^	struct pageref refs[NPAGEREFS_PER_PAGE];$/;"	m	struct:pagerefpage	typeref:struct:pagerefpage::pageref	file:
+region_walk	kern/vm/addrspace.c	/^int region_walk(vaddr_t faultaddress, struct addrspace *as, struct permission **perm1)$/;"	f
+regions	kern/include/vm.h	/^struct regions {$/;"	s
 remember_bg	userland/bin/sh/sh.c	/^remember_bg(pid_t pid)$/;"	f	file:
 remember_bg	userland/testbin/shll/shll.c	/^remember_bg(pid_t pid)$/;"	f	file:
 remove	userland/testbin/badcall/common_path.c	/^T(remove);$/;"	v
@@ -8074,6 +8133,7 @@ sigset_t	kern/include/kern/signal.h	/^typedef __u32 sigset_t;$/;"	t
 silent	kern/include/test.h	/^static inline void silent(const char * fmt, ...) { (void)fmt; };$/;"	f
 sink	userland/testbin/kitchen/kitchen.c	/^sink(void)$/;"	f	file:
 size	common/libc/printf/__printf.c	/^	} size;$/;"	m	struct:__anon6	typeref:enum:__anon6::__anon7	file:
+size	kern/include/vm.h	/^        size_t size;$/;"	m	struct:regions
 size_t	.root/include/types/size_t.h	/^typedef __size_t size_t;$/;"	t
 size_t	build/install/include/types/size_t.h	/^typedef __size_t size_t;$/;"	t
 size_t	kern/include/types.h	/^typedef __size_t size_t;$/;"	t
@@ -8182,6 +8242,7 @@ splitxy	kern/dev/lamebus/lscreen.c	/^splitxy(uint32_t xy, unsigned *x, unsigned 
 splk_holder	kern/include/spinlock.h	/^	struct cpu *splk_holder;	    \/* CPU holding this lock. *\/$/;"	m	struct:spinlock	typeref:struct:spinlock::cpu
 splk_lock	kern/include/spinlock.h	/^	volatile spinlock_data_t splk_lock; \/* Memory word where we spin. *\/$/;"	m	struct:spinlock
 spllower	kern/thread/spl.c	/^spllower(int oldspl, int newspl)$/;"	f
+splock_addr	kern/vm/addrspace.c	/^struct spinlock splock_addr;$/;"	v	typeref:struct:spinlock
 splock_coremap	kern/vm/vm.c	/^struct spinlock splock_coremap;$/;"	v	typeref:struct:spinlock
 splraise	kern/thread/spl.c	/^splraise(int oldspl, int newspl)$/;"	f
 splx	kern/thread/spl.c	/^splx(int spl)$/;"	f
@@ -8302,6 +8363,7 @@ st_uid	build/install/hostinclude/kern/stat.h	/^	uid_t st_uid;           \/* owne
 st_uid	build/install/include/kern/stat.h	/^	uid_t st_uid;           \/* owner *\/$/;"	m	struct:stat
 st_uid	kern/include/kern/stat.h	/^	uid_t st_uid;           \/* owner *\/$/;"	m	struct:stat
 stacktest1	userland/testbin/stacktest/stacktest.c	/^stacktest1()$/;"	f	file:
+start	kern/include/vm.h	/^        vaddr_t start;$/;"	m	struct:regions
 startcount	kern/test/synchprobs.c	/^static uint32_t startcount;$/;"	v	file:
 startcv	kern/test/synchprobs.c	/^static struct cv *startcv;$/;"	v	typeref:struct:cv	file:
 startpoint	userland/testbin/rmdirtest/rmdirtest.c	/^static char startpoint[PATH_MAX - sizeof(testdir)];$/;"	v	file:
@@ -8316,6 +8378,8 @@ stat	kern/include/kern/stat.h	/^struct stat {$/;"	s
 stat	userland/testbin/badcall/common_path.c	/^T(stat);$/;"	v
 stat_badpath	userland/testbin/badcall/common_path.c	/^stat_badpath(const char *name)$/;"	f	file:
 state	common/libtest161/sha256.h	/^    uint32_t state[8];          \/*!< intermediate digest state  *\/$/;"	m	struct:__anon8
+state	kern/include/vm.h	/^	enum PageState state;$/;"	m	struct:coremap_entry	typeref:enum:coremap_entry::PageState
+state	kern/include/vm.h	/^        enum PageState *state;$/;"	m	struct:page_table_entry	typeref:enum:page_table_entry::PageState
 state	userland/lib/libc/stdlib/random.c	/^static long *state = &randtbl[1];$/;"	v	file:
 state	userland/testbin/frack/check.c	/^static struct fsobject *state;$/;"	v	typeref:struct:fsobject	file:
 status_is_failure	userland/testbin/parallelvm/parallelvm.c	/^status_is_failure(int status)$/;"	f	file:
@@ -8393,6 +8457,7 @@ sys_nerr	kern/include/kern/errmsg.h	/^const int sys_nerr = sizeof(sys_errlist)\/
 sys_open	kern/syscall/file.c	/^int sys_open(const_userptr_t file, int flags, mode_t mode, int *returnvalue) {$/;"	f
 sys_read	kern/syscall/file.c	/^int sys_read(int fd, void *buf, size_t buflen, int *returnvalue)$/;"	f
 sys_reboot	kern/main/main.c	/^sys_reboot(int code)$/;"	f
+sys_sbrk	kern/syscall/procsyscalls.c	/^int sys_sbrk(intptr_t amount,int *returnvalue)$/;"	f
 sys_waitpid	kern/syscall/procsyscalls.c	/^int sys_waitpid (pid_t pid, userptr_t status, int options, int *returnvalue) {$/;"	f
 sys_write	kern/syscall/file.c	/^int sys_write(int fd, const void *buf, size_t nbytes, int *returnvalue) {$/;"	f
 syscall	kern/arch/mips/syscall/syscall.c	/^syscall(struct trapframe *tf)$/;"	f
@@ -9280,6 +9345,8 @@ ts_placeholder	kern/compile/ASST3/includelinks/machine/vm.h	/^	int ts_placeholde
 ts_placeholder	kern/compile/ASST3/includelinks/mips/vm.h	/^	int ts_placeholder;$/;"	m	struct:tlbshootdown
 ts_placeholder	kern/compile/DUMBVM/includelinks/machine/vm.h	/^	int ts_placeholder;$/;"	m	struct:tlbshootdown
 ts_placeholder	kern/compile/DUMBVM/includelinks/mips/vm.h	/^	int ts_placeholder;$/;"	m	struct:tlbshootdown
+tsay	.root/include/test/test.h	/^tsay(const char *fmt, ...)$/;"	f
+tsay	build/install/include/test/test.h	/^tsay(const char *fmt, ...)$/;"	f
 tsay	userland/include/test/test.h	/^tsay(const char *fmt, ...)$/;"	f
 tsem	kern/test/threadtest.c	/^static struct semaphore *tsem = NULL;$/;"	v	typeref:struct:semaphore	file:
 turnleft	kern/synchprobs/stoplight.c	/^turnleft(uint32_t direction, uint32_t index)$/;"	f
@@ -9509,7 +9576,7 @@ visited	userland/sbin/sfsck/inode.c	/^	int visited;		\/* dirs only *\/$/;"	m	str
 vm_bootstrap	kern/arch/mips/vm/dumbvm.c	/^vm_bootstrap(void)$/;"	f
 vm_bootstrap	kern/vm/vm.c	/^void vm_bootstrap(void)$/;"	f
 vm_fault	kern/arch/mips/vm/dumbvm.c	/^vm_fault(int faulttype, vaddr_t faultaddress)$/;"	f
-vm_fault	kern/vm/vm.c	/^int vm_fault(int faulttype, vaddr_t faultaddress)$/;"	f
+vm_fault	kern/vm/addrspace.c	/^int vm_fault(int faulttype, vaddr_t faultaddress)$/;"	f
 vm_tlbshootdown	kern/arch/mips/vm/dumbvm.c	/^vm_tlbshootdown(const struct tlbshootdown *ts)$/;"	f
 vm_tlbshootdown	kern/vm/vm.c	/^void vm_tlbshootdown(const struct tlbshootdown *ts)$/;"	f
 vm_tlbshootdown_all	kern/arch/mips/vm/dumbvm.c	/^vm_tlbshootdown_all(void)$/;"	f
@@ -9573,6 +9640,7 @@ vopfail_uio_inval	kern/vfs/vfsfail.c	/^vopfail_uio_inval(struct vnode *vn, struc
 vopfail_uio_isdir	kern/vfs/vfsfail.c	/^vopfail_uio_isdir(struct vnode *vn, struct uio *uio)$/;"	f
 vopfail_uio_nosys	kern/vfs/vfsfail.c	/^vopfail_uio_nosys(struct vnode *vn, struct uio *uio)$/;"	f
 vopfail_uio_notdir	kern/vfs/vfsfail.c	/^vopfail_uio_notdir(struct vnode *vn, struct uio *uio)$/;"	f
+vpn	kern/include/vm.h	/^        vaddr_t vpn;$/;"	m	struct:page_table_entry
 vprintf	userland/lib/libc/stdio/printf.c	/^vprintf(const char *fmt, va_list ap)$/;"	f
 vsay	userland/testbin/badcall/report.c	/^vsay(const char *fmt, va_list ap)$/;"	f	file:
 vscomplain	userland/testbin/psort/psort.c	/^vscomplain(char *buf, size_t len, const char *fmt, va_list ap, int err)$/;"	f	file:
@@ -9712,6 +9780,7 @@ write_to_code	userland/testbin/crash/crash.c	/^write_to_code(void)$/;"	f	file:
 write_to_inval	userland/testbin/crash/crash.c	/^write_to_inval(void)$/;"	f	file:
 write_to_kernel	userland/testbin/crash/crash.c	/^write_to_kernel(void)$/;"	f	file:
 write_to_null	userland/testbin/crash/crash.c	/^write_to_null(void)$/;"	f	file:
+write_to_tlb	kern/vm/addrspace.c	/^void write_to_tlb(vaddr_t faultaddress, struct permission *perm, paddr_t ppn)$/;"	f
 write_wchan	kern/include/synch.h	/^	struct wchan *write_wchan;$/;"	m	struct:rwlock	typeref:struct:rwlock::wchan
 writebuf	userland/testbin/fileonlytest/fileonlytest.c	/^static int writebuf[BUFFER_SIZE];$/;"	v	file:
 writecount	kern/test/rwtest.c	/^int writecount;$/;"	v
