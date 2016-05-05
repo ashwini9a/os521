@@ -143,7 +143,8 @@ as_copy(struct addrspace *old, struct addrspace **ret)
 	        }
 
                 temp->vpn = pg_old->vpn;
-                temp->ppn = KVADDR_TO_PADDR((vaddr_t)kmalloc(PAGE_SIZE));////////////////////////////////////////Change//////////////////////
+                temp->ppn = KVADDR_TO_PADDR((vaddr_t)alloc_kpages(1));////////////////////////////////////////Change//////////////////////
+		memmove((void*)PADDR_TO_KVADDR(temp->ppn),(void const*)PADDR_TO_KVADDR(pg_old->ppn),PAGE_SIZE);
                 temp->perm = (struct permission *)kmalloc(sizeof(struct permission));
 		if (temp->perm==NULL) {
 	                return ENOMEM;
