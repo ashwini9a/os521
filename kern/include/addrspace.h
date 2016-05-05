@@ -166,8 +166,8 @@ int               as_define_stack(struct addrspace *as, vaddr_t *initstackptr);
  */
 
 int load_elf(struct vnode *v, vaddr_t *entrypoint);
-int region_walk(vaddr_t faultaddress, struct addrspace *as, struct permission *perm);
-void pg_dir_walk(struct addrspace *as,vaddr_t faultaddress, struct permission *perm);
+int region_walk(vaddr_t faultaddress, struct addrspace *as, struct permission **perm1);
+int pg_dir_walk(struct addrspace *as,vaddr_t faultaddress, struct permission *perm);
 void write_to_tlb(vaddr_t faultaddress, struct permission *perm, paddr_t ppn);
 
 
