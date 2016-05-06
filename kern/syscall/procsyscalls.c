@@ -317,7 +317,7 @@ int sys_sbrk(intptr_t amount,int *returnvalue)
 //
 	
 	vaddr_t heap_start = as->heap_start;
-	vaddr_t heap_end = heap_start + amount;
+	vaddr_t heap_end = as->heap_end + amount;
 	if(heap_end >= as->stackBot)
 	{
 		*returnvalue = -1;
@@ -330,9 +330,23 @@ int sys_sbrk(intptr_t amount,int *returnvalue)
 	}
 	if(as->heap_end > heap_end)
 	{
-		//deallocate pages
+		deallocate_pages(as->heap_end,amount);
 	}
 	*returnvalue = as->heap_end;
 	as->heap_end = heap_end;
 	return 0;
+}
+
+
+void deallocate_pages(vaddr_t end,intptr_t amount)
+{
+
+	int num = (int) amount / PAGE_SIZE;
+	// wipe tlb entry
+	for(int i=0; i<num; i++)
+	{
+		kfree((void *)end);
+		end += PAGE_SIZE; 
+	}
+
 }

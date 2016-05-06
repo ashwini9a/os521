@@ -19,4 +19,5 @@ void sys_exit(int exitcode);
 int sys_waitpid(pid_t pid, userptr_t status, int options, int *returnvalue);
 int sys_execv(userptr_t progname, userptr_t args);
 int sys_sbrk(intptr_t amount,int *returnvalue);
+void deallocate_pages(vaddr_t end,intptr_t amount);
 #endif

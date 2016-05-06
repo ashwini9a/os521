@@ -99,7 +99,8 @@ as_copy(struct addrspace *old, struct addrspace **ret)
                  temp->end = start1->end;
                  temp->size = start1->size;
                  temp->perm = kmalloc(sizeof(struct permission));
-		if (temp->perm==NULL) {
+		if (temp->perm==NULL){ 
+			kfree(temp);
 	                return ENOMEM;
        		 }
 
@@ -108,6 +109,8 @@ as_copy(struct addrspace *old, struct addrspace **ret)
                  temp->perm->Execute = start1->perm->Execute;
 		 temp->bk_perm = kmalloc(sizeof(struct permission));
 		if (temp->bk_perm==NULL) {
+			kfree(temp->perm);
+			kfree(temp);
         	        return ENOMEM;
 	        }
 
@@ -146,11 +149,14 @@ as_copy(struct addrspace *old, struct addrspace **ret)
                 temp->ppn =getppages(1);////////////////////////////////////////Change//////////////////////
 		if(!temp->ppn)
 		{
+			kfree(temp);
 			return ENOMEM;
 		}
 		memmove((void*)PADDR_TO_KVADDR(temp->ppn),(void const*)PADDR_TO_KVADDR(pg_old->ppn),PAGE_SIZE);
                 temp->perm = (struct permission *)kmalloc(sizeof(struct permission));
 		if (temp->perm==NULL) {
+			kfree((void*)PADDR_TO_KVADDR(temp->ppn));
+			kfree(temp);
 	                return ENOMEM;
         	}
 
@@ -350,11 +356,14 @@ as_define_region(struct addrspace *as, vaddr_t vaddr, size_t memsize,
 	region_info->size = memsize;
 	region_info->perm = kmalloc(sizeof(struct permission));
 	if (region_info->perm==NULL) {
+		 kfree(region_info);
                 return ENOMEM;
         }
 
 	region_info->bk_perm = kmalloc(sizeof(struct permission));
 	if (region_info->bk_perm==NULL) {
+		kfree(region_info->perm);
+		kfree(region_info);
                 return ENOMEM;
         }
 
@@ -543,6 +552,7 @@ int region_walk(vaddr_t faultaddress, struct addrspace *as, struct permission **
                 return 0;
 
         }
+	kfree(perm);
         return -1;
 
 }
@@ -587,7 +597,8 @@ int pg_dir_walk(struct addrspace *as,vaddr_t faultaddress, struct permission *pe
                         ppn= temp->ppn;
                         temp->perm = (struct permission *)kmalloc(sizeof(struct permission));
 			if (temp->perm==NULL) {
-		                return ENOMEM;
+		                kfree(temp);
+				return ENOMEM;
         		}
 
                         //struct permission perm1 = kmalloc(sizeof(struct permission));
@@ -621,12 +632,20 @@ void write_to_tlb(vaddr_t faultaddress, struct permission *perm, paddr_t ppn)
         uint32_t ehi, elo;
         ehi = faultaddress;
         elo=0;
-        if(perm-> Write)
+	if(perm-> Write)
                 elo = ppn | TLBLO_DIRTY | TLBLO_VALID;
         else
                 elo = ppn | TLBLO_VALID;
+	int index = tlb_probe(ehi,0);
+        if(index >= 0)
+        {
+    
+               tlb_write(ehi,elo,index);
+        }
+    	else
+    
 //	spinlock_acquire(&splock_addr);
-        tlb_random(ehi, elo);
+  	      tlb_random(ehi, elo);
 //	spinlock_release(&splock_addr);
 
 }
@@ -637,7 +656,7 @@ int vm_fault(int faulttype, vaddr_t faultaddress)
 //      paddr_t paddr;
 //      int i;
         //int vpn = (faultaddress & 0xfffff000)>> 12;
-        uint32_t ehi, elo;
+//        uint32_t ehi, elo;
         struct addrspace *as;
 //        int spl;
         struct permission *perm;
@@ -675,7 +694,7 @@ int vm_fault(int faulttype, vaddr_t faultaddress)
                 {
                        // spl = splhigh();
 //			spinlock_acquire(&splock_addr);
-                        ehi =faultaddress;
+        /*                ehi =faultaddress;
                         int index = tlb_probe(ehi,elo);
 			if(index >= 0)
 			{
@@ -685,14 +704,14 @@ int vm_fault(int faulttype, vaddr_t faultaddress)
 				tlb_write(nehi,elo,index);
 			}
 			else
-			{
+			{*/
 				result = pg_dir_walk(as,faultaddress,perm);
                 		if(result)
                 		{
 //					 spinlock_release(&splock_addr);
                         		return result;
                 		}
-			}
+		//	}
                         //set_page_Dirty(elo);
 			//	tlb_write(nehi,elo,index);
 			
@@ -701,7 +720,7 @@ int vm_fault(int faulttype, vaddr_t faultaddress)
                       //  splx(spl);
                 }
                 else
-                        panic("\n Tried to write a readonly page");
+                        return EFAULT;
                 break;
             case VM_FAULT_READ:
             case VM_FAULT_WRITE:
