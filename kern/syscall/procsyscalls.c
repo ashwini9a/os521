@@ -331,6 +331,24 @@ int sys_sbrk(intptr_t amount,int *returnvalue)
 	if(as->heap_end > heap_end)
 	{
 		deallocate_pages(as->heap_end,amount);
+		struct page_table_entry *next = as->pg_entry;
+		struct page_table_entry *prev;
+		while(next->next != NULL) {
+			if ((next->vpn <= as->heap_end) && (next->vpn >= heap_end)) {
+				free_kpages(next->vpn);
+				int spl = splhigh();
+				uint32_t ehi = next->vpn;
+        			int index = tlb_probe(ehi,0);
+
+                		tlb_write(TLBHI_INVALID(index), TLBLO_INVALID(), index);
+        
+        			splx(spl);
+				prev->next = next->next;
+			}
+			
+			prev = next;
+			next = next->next;
+		}
 	}
 	*returnvalue = as->heap_end;
 	as->heap_end = heap_end;

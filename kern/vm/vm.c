@@ -86,19 +86,21 @@ paddr_t getppages(unsigned long npages)
 		 addr= 0;
 	}			
 	if(i<coremapsize){	
-	tcoremap = coremap;
-	for(unsigned ind=0;ind<coreindex;ind++){tcoremap++;}
-	for(unsigned j=coreindex;j<coreindex+pg;j++,tcoremap++)
-	{
-		tcoremap->state=fixed;
-		tcoremap->chunksize=pg;
+		tcoremap = coremap;
+		for(unsigned ind=0;ind<coreindex;ind++){
+			tcoremap++;
+		}
+		for(unsigned j=coreindex;j<coreindex+pg;j++,tcoremap++){
+			tcoremap->state=fixed;
+			tcoremap->chunksize=pg;
+		}
+		addr=(coreindex)*PAGE_SIZE;
+		c_used_bytes= c_used_bytes + pg*PAGE_SIZE;
+		bzero((void *)PADDR_TO_KVADDR(addr),npages*PAGE_SIZE);
 	}
-	addr=(coreindex)*PAGE_SIZE;
-	c_used_bytes= c_used_bytes + pg*PAGE_SIZE;
-	 bzero((void *)PADDR_TO_KVADDR(addr),npages*PAGE_SIZE);
+	else{
+		addr =0;
 	}
-	else
-	{addr =0;}
 	spinlock_release(&splock_coremap);
 //	bzero((void *)PADDR_TO_KVADDR(addr),npages*PAGE_SIZE);
 	return addr;
