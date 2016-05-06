@@ -95,11 +95,12 @@ paddr_t getppages(unsigned long npages)
 	}
 	addr=(coreindex)*PAGE_SIZE;
 	c_used_bytes= c_used_bytes + pg*PAGE_SIZE;
+	 bzero((void *)PADDR_TO_KVADDR(addr),npages*PAGE_SIZE);
 	}
 	else
 	{addr =0;}
 	spinlock_release(&splock_coremap);
-	bzero((void *)PADDR_TO_KVADDR(addr),npages*PAGE_SIZE);
+//	bzero((void *)PADDR_TO_KVADDR(addr),npages*PAGE_SIZE);
 	return addr;
 }
 /* Allocate/free kernel heap pages (called by kmalloc/kfree) */

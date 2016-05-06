@@ -56,7 +56,7 @@ struct addrspace *as_create(void)
 	 */
 	as->region_info = NULL;
         as->stackTop = USERSTACK;
-        as->stackBot =  USERSTACK - PAGE_SIZE*1024;
+        as->stackBot =  USERSTACK - 4*PAGE_SIZE*1024;
         as->heap_start = 0;
         as->heap_end = 0;
         as->pg_entry = NULL;
@@ -258,26 +258,42 @@ as_destroy(struct addrspace *as)
 void
 as_activate(void)
 {
-	struct addrspace *as;
-
-	as = proc_getas();
-	if (as == NULL) {
+//	struct addrspace *as;
+//
+//	as = proc_getas();
+//	if (as == NULL) {
 		/*
 		 * Kernel thread without an address space; leave the
 		 * prior address space in place.
 		 */
-		return;
-	}
-	spinlock_acquire(&splock_addr);
+//		return;
+//	}
+//	spinlock_acquire(&splock_addr);
 
-	for (int i=0; i<NUM_TLB; i++) {
-		tlb_write(TLBHI_INVALID(i), TLBLO_INVALID(), i);
-	}
-	spinlock_release(&splock_addr);
+//	for (int i=0; i<NUM_TLB; i++) {
+//		tlb_write(TLBHI_INVALID(i), TLBLO_INVALID(), i);
+//	}
+//	spinlock_release(&splock_addr);
 		
 	/*
 	 * Write this.
 	 */
+	int i, spl;
+	struct addrspace *as;
+
+	as = proc_getas();
+	if (as == NULL) {
+		return;
+	}
+
+	/* Disable interrupts on this CPU while frobbing the TLB. */
+	spl = splhigh();
+
+	for (i=0; i<NUM_TLB; i++) {
+		tlb_write(TLBHI_INVALID(i), TLBLO_INVALID(), i);
+	}
+
+	splx(spl);
 }
 
 void
@@ -380,7 +396,7 @@ as_define_region(struct addrspace *as, vaddr_t vaddr, size_t memsize,
 	}
 //	as->heap_end = as->heap_start;
 	as->stackTop = USERSTACK;
-	as->stackBot = USERSTACK - PAGE_SIZE*1024;
+	as->stackBot = USERSTACK - 4*PAGE_SIZE*1024;
 	
 /*	struct regions *next = as->region_info;
 	while(1)
@@ -536,6 +552,7 @@ int pg_dir_walk(struct addrspace *as,vaddr_t faultaddress, struct permission *pe
         vaddr_t vpn = faultaddress;
         paddr_t ppn;
         struct page_table_entry *pnext = as->pg_entry ;
+	struct page_table_entry *prev;
          while(1)
         {
                 //struct regions *next = as->region_info ;
@@ -544,9 +561,12 @@ int pg_dir_walk(struct addrspace *as,vaddr_t faultaddress, struct permission *pe
                         if(pnext->vpn == vpn)
                         {
                                 ppn = pnext->ppn;
+//				 spinlock_acquire(&splock_addr);
                                 write_to_tlb(faultaddress, perm,ppn);
+//				 spinlock_release(&splock_addr);
                                 return 0;
                         }
+			prev = pnext;
                         pnext = pnext->next;
                 }
 
@@ -579,14 +599,19 @@ int pg_dir_walk(struct addrspace *as,vaddr_t faultaddress, struct permission *pe
                         temp->bk_perm->Write = perm->Write;
                         temp->bk_perm->Execute = perm->Execute;*/
                         temp->next = NULL;
-
+			if(as->pg_entry==NULL)
+			{
+				as->pg_entry = temp;
+			}
+			else
+				prev->next=temp;
                     
                         break;
                 }
         }
-        spinlock_acquire(&splock_addr);
+//        spinlock_acquire(&splock_addr);
         write_to_tlb(faultaddress, perm,ppn);
-        spinlock_release(&splock_addr);
+//        spinlock_release(&splock_addr);
 	return 0;
 
 }
@@ -636,7 +661,9 @@ int vm_fault(int faulttype, vaddr_t faultaddress)
                  */
                 return EFAULT;
         }
+//	spinlock_acquire(&splock_addr);
         int result = region_walk(faultaddress, as, &perm);
+//	spinlock_release(&splock_addr);
         if(result)
         {
                 return result;
@@ -647,15 +674,29 @@ int vm_fault(int faulttype, vaddr_t faultaddress)
                 if(perm->Write)
                 {
                        // spl = splhigh();
-			spinlock_acquire(&splock_addr);
+//			spinlock_acquire(&splock_addr);
                         ehi =faultaddress;
-                        uint32_t index = tlb_probe(ehi,elo);
-			uint32_t nehi;
-                        tlb_read(&nehi,&elo,index);
-                        elo = elo | TLBLO_DIRTY | TLBLO_VALID;
+                        int index = tlb_probe(ehi,elo);
+			if(index >= 0)
+			{
+				uint32_t nehi;
+                        	tlb_read(&nehi,&elo,index);
+                        	elo = elo | TLBLO_DIRTY | TLBLO_VALID;
+				tlb_write(nehi,elo,index);
+			}
+			else
+			{
+				result = pg_dir_walk(as,faultaddress,perm);
+                		if(result)
+                		{
+//					 spinlock_release(&splock_addr);
+                        		return result;
+                		}
+			}
                         //set_page_Dirty(elo);
-			tlb_write(nehi,elo,index);
-			spinlock_release(&splock_addr);
+			//	tlb_write(nehi,elo,index);
+			
+//			spinlock_release(&splock_addr);
 //			set_page_Dirty(elo);		//////////////////////////////////////////////////////////////////
                       //  splx(spl);
                 }
@@ -664,7 +705,9 @@ int vm_fault(int faulttype, vaddr_t faultaddress)
                 break;
             case VM_FAULT_READ:
             case VM_FAULT_WRITE:
+//		spinlock_acquire(&splock_addr);
                 result = pg_dir_walk(as,faultaddress,perm);
+//		spinlock_release(&splock_addr);
 		if(result)
 	        {
         	        return result;
