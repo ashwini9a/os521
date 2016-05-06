@@ -103,9 +103,8 @@ as_copy(struct addrspace *old, struct addrspace **ret)
 		if (temp->perm==NULL) {
 			kfree(temp);
 			kfree(new);
-	                return ENOMEM;
-       		 }
-
+			return ENOMEM;
+		}
                  temp->perm->Read = start1->perm->Read;
                  temp->perm->Write = start1->perm->Write;
                  temp->perm->Execute = start1->perm->Execute;
@@ -160,8 +159,9 @@ as_copy(struct addrspace *old, struct addrspace **ret)
 		memmove((void*)PADDR_TO_KVADDR(temp->ppn),(void const*)PADDR_TO_KVADDR(pg_old->ppn),PAGE_SIZE);
                 temp->perm = (struct permission *)kmalloc(sizeof(struct permission));
 		if (temp->perm==NULL) {
-			kfree(temp);
 			kfree(new);
+			kfree((void*)PADDR_TO_KVADDR(temp->ppn));
+			kfree(temp);
 	                return ENOMEM;
         	}
 
@@ -367,7 +367,7 @@ as_define_region(struct addrspace *as, vaddr_t vaddr, size_t memsize,
 
 	region_info->bk_perm = kmalloc(sizeof(struct permission));
 	if (region_info->bk_perm==NULL) {
-		kfree(region_info);
+		kfree(region_info->perm);
                 return ENOMEM;
         }
 
@@ -637,12 +637,20 @@ void write_to_tlb(vaddr_t faultaddress, struct permission *perm, paddr_t ppn)
         uint32_t ehi, elo;
         ehi = faultaddress;
         elo=0;
-        if(perm-> Write)
+	if(perm-> Write)
                 elo = ppn | TLBLO_DIRTY | TLBLO_VALID;
         else
                 elo = ppn | TLBLO_VALID;
+	int index = tlb_probe(ehi,0);
+        if(index >= 0)
+        {
+    
+               tlb_write(ehi,elo,index);
+        }
+    	else
+    
 //	spinlock_acquire(&splock_addr);
-        tlb_random(ehi, elo);
+  	      tlb_random(ehi, elo);
 //	spinlock_release(&splock_addr);
 
 }
@@ -653,7 +661,7 @@ int vm_fault(int faulttype, vaddr_t faultaddress)
 //      paddr_t paddr;
 //      int i;
         //int vpn = (faultaddress & 0xfffff000)>> 12;
-        uint32_t ehi, elo;
+//        uint32_t ehi, elo;
         struct addrspace *as;
 //        int spl;
         struct permission *perm;
@@ -691,7 +699,7 @@ int vm_fault(int faulttype, vaddr_t faultaddress)
                 {
                        // spl = splhigh();
 //			spinlock_acquire(&splock_addr);
-                        ehi =faultaddress;
+        /*                ehi =faultaddress;
                         int index = tlb_probe(ehi,elo);
 			if(index >= 0)
 			{
@@ -701,14 +709,14 @@ int vm_fault(int faulttype, vaddr_t faultaddress)
 				tlb_write(nehi,elo,index);
 			}
 			else
-			{
+			{*/
 				result = pg_dir_walk(as,faultaddress,perm);
                 		if(result)
                 		{
 //					 spinlock_release(&splock_addr);
                         		return result;
                 		}
-			}
+		//	}
                         //set_page_Dirty(elo);
 			//	tlb_write(nehi,elo,index);
 			
@@ -717,7 +725,7 @@ int vm_fault(int faulttype, vaddr_t faultaddress)
                       //  splx(spl);
                 }
                 else
-                        panic("\n Tried to write a readonly page");
+                        return EFAULT;
                 break;
             case VM_FAULT_READ:
             case VM_FAULT_WRITE:
