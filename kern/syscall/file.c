@@ -241,6 +241,10 @@ bool isFdValid(int fd)
 		return false;
 	}
 
+	if (fd < 0) {
+		return false;
+	}
+
 	if(curproc->filedescriptor[fd]==NULL) {
 		return false;
 	}
@@ -258,7 +262,8 @@ int sys_read(int fd, void *buf, size_t buflen, int *returnvalue)
 	if (fd <0) {
 		return EBADF;
 	}
-	if (curproc->filedescriptor[fd]->flags == (O_WRONLY | O_CREAT | O_TRUNC)||curproc->filedescriptor[fd]->flags == (O_WRONLY) || curproc->filedescriptor[fd]->flags == (O_WRONLY | O_EXCL | O_TRUNC) || curproc->filedescriptor[fd]->flags == (O_WRONLY | O_CREAT | O_APPEND) || curproc->filedescriptor[fd]->flags == (O_WRONLY | O_EXCL | O_APPEND) || curproc->filedescriptor[fd]->flags == (O_WRONLY | O_TRUNC) || curproc->filedescriptor[fd]->flags == (O_WRONLY |O_APPEND)) {
+
+	if ((curproc->filedescriptor[fd]->flags & O_WRONLY) == O_WRONLY) {
 		return EBADF;
 	}
         struct uio uiotemp;
@@ -297,7 +302,10 @@ int sys_write(int fd, const void *buf, size_t nbytes, int *returnvalue) {
 		return EBADF;
 	}
 
-	if (curproc->filedescriptor[fd]->flags == O_RDONLY) {
+//	if (curproc->filedescriptor[fd]->flags == O_RDONLY) {
+//		return EBADF;
+//	}
+	if (((curproc->filedescriptor[fd]->flags & O_WRONLY) != O_WRONLY) && ((curproc->filedescriptor[fd]->flags & O_RDWR) != O_RDWR)) {
 		return EBADF;
 	}
 
@@ -337,6 +345,9 @@ int sys_close(int fd) {
 	if (fd >= OPEN_MAX) {
 		return EBADF;
 	}
+	if (fd < 0) {
+		return EBADF;
+	} 
 
 //	fh = getfileHandle(fd);
 
@@ -344,9 +355,6 @@ int sys_close(int fd) {
 		return EBADF;	
 	}
 	
-	if (fd < 0) {
-		return EBADF;
-	} 
 
 	curproc->filedescriptor[fd]->refcount--;
 
@@ -398,29 +406,34 @@ int sys_dup2(int oldfd, int newfd, int *retval)
 		//*returnvalue = EBADF;
                 return EBADF;
 	}
-	if(newfd > OPEN_MAX)
+	if(newfd > OPEN_MAX) {
 		//*returnvalue = EBADF;
 		return EBADF;
+	}
+	if (newfd < 0) {
+		return EBADF;
+	}
 	
-        if(curproc->filedescriptor[newfd]!= NULL)
+        if(curproc->filedescriptor[newfd]!= NULL) {
                 result = sys_close(newfd);
-        if(result)
-	//	*returnvalue= result;
-                return result;
+        	if(result) {
+                	return result;
+		}
+	}
 	
-	lock_acquire(curproc->filedescriptor[oldfd]->filelock);
+//	lock_acquire(curproc->filedescriptor[oldfd]->filelock);
         //curproc->filedescriptor[newfd] =(struct filehandle*) kmalloc(sizeof(struct filehandle));
         //curproc->filedescriptor[newfd]->filename = curproc->filedescriptor[oldfd]->filename;
         //curproc->filedescriptor[newfd]->flags = curproc->filedescriptor[oldfd]->flags;
         //curproc->filedescriptor[newfd]->offset = curproc->filedescriptor[oldfd]->offset;
         //curproc->filedescriptor[newfd]->refcount = curproc->filedescriptor[oldfd]->refcount+1;
 	curproc->filedescriptor[newfd] = curproc->filedescriptor[oldfd];
-	curproc->filedescriptor[newfd]->refcount++;
+	curproc->filedescriptor[newfd]->refcount += 1;
 	//curproc->filedescriptor[newfd]->vnode->vn_refcount++;
         //curproc->filedescriptor[newfd]->filelock = curproc->filedescriptor[oldfd]->filelock;
         //curproc->filedescriptor[newfd]->vnode = curproc->filedescriptor[oldfd]->vnode;
 	*retval =newfd; 
-	lock_release(curproc->filedescriptor[oldfd]->filelock);
+//	lock_release(curproc->filedescriptor[oldfd]->filelock);
         return 0;
 }
 
@@ -429,7 +442,13 @@ int sys__getcwd(void *buf, size_t buflen)
 	int result;
 	struct uio uiotemp;
         struct iovec iov;
-	char kbuf[buflen];
+	//char kbuf[buflen];
+	char *kbuf = kmalloc(buflen);
+	result = copyin((const_userptr_t)buf, kbuf, buflen);
+	if (result) {
+		return result;
+	}
+//	copyin(const_userptr_t );
 	
 	uio_kinit(&iov, &uiotemp, kbuf, buflen, 0,UIO_READ );
 	result = vfs_getcwd(&uiotemp);

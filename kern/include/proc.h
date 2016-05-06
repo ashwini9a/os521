@@ -137,6 +137,7 @@ struct proc {
 	struct semaphore *proc_sem;
 	bool __exited;
 	int exitstatus;
+	struct lock *proc_lock; 
 };
 
 /* This is the process structure for the kernel and for kernel-only threads. */

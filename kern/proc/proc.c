@@ -108,6 +108,7 @@ proc_create(const char *name)
 	proc->parent_pid = 0;
 
 	proc->proc_sem = sem_create("proc_semaphore",0);
+	proc->proc_lock = lock_create("somename");
 	proc->__exited = true;
 	proc->exitstatus = -100;
 	return proc;
@@ -254,6 +255,7 @@ proc_bootstrap(void)
 //		pid_array[i] = NULL;
 //	}
 	spinlock_init(&pid_slock);
+//	kproc->proc_lock = lock_create("somename");
 //	pid_lock = lock_create("pid_lock");
 //	fork_lock = lock_create("fork_lock");
 //	total_pids = 0;

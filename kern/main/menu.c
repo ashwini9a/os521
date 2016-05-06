@@ -119,7 +119,7 @@ common_prog(int nargs, char **args)
 {
 	struct proc *proc;
 	int result;
-	int status, returnvalue;
+	int returnvalue;
 	unsigned tc;
 
 	/* Create a process for the new program to run in. */
@@ -146,7 +146,7 @@ common_prog(int nargs, char **args)
 	 */
 
 //	kprintf("Kernel process: I am %d and my parent is %d I'm waiting on the child whose pid is :%d\n",curproc->proc_pid, curproc->parent_pid,proc->proc_pid);
-	result = sys_waitpid(proc->proc_pid, (userptr_t)&status, 0, &returnvalue);
+	result = sys_waitpid(proc->proc_pid, NULL, 0, &returnvalue);
 //	kprintf("result is %d", result);
 	if (result == 0) {
 		kprintf("???? WAITING FAILED???");

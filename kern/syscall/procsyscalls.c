@@ -53,23 +53,41 @@ int sys_waitpid (pid_t pid, userptr_t status, int options, int *returnvalue) {
 //	if (!((int)status & 0x3)) {
 //		return EFAULT;
 //	}
-
+	
 	int result;
 	struct proc *proc;
-	if (!status) {
-		return EFAULT;
+//	if (!status) {
+//		return EFAULT;
+//	}
+	if (pid<=0) {
+		return ESRCH;
 	}
 	proc = pid_array[pid];
 	if (!proc) {
 		return ESRCH;
 	}
+	lock_acquire(proc->proc_lock);
 
 	if (curproc->parent_pid == pid) {
-		return -1;
+		lock_release(proc->proc_lock);
+		return EINVAL;
+	}
+	if (curproc->proc_pid == pid) {
+		P(proc->proc_sem);
+		return EINVAL;
+		
 	}
 
 	if (curproc->proc_pid != proc->parent_pid) {
+		lock_release(proc->proc_lock);
 		return ECHILD;
+	}
+	if (!status && proc->__exited == false) {
+		P(proc->proc_sem);
+		*returnvalue = pid;
+		lock_release(proc->proc_lock);
+		proc_destroy(proc);
+		return 0;
 	}
 
 	if (proc->__exited == false) {
@@ -78,9 +96,11 @@ int sys_waitpid (pid_t pid, userptr_t status, int options, int *returnvalue) {
 
 	result = copyout((const void*) &proc->exitstatus, status, sizeof(int));
 	if (result) {
+		lock_release(proc->proc_lock);
 		return EFAULT;
 	}
 		
+	lock_release(proc->proc_lock);
 	proc_destroy(proc);	
 //	pid_array[pid] = NULL;
 	
@@ -92,10 +112,11 @@ void sys_exit(int exitcode) {
 	pid_t pid = curproc->proc_pid;
 	struct proc *proc = pid_array[pid];
 //	pid_t part_pid =  proc->parent_pid; 	//	added in case parent has exited
-//	lock_acquire(pid_lock); 
 	if (!proc) {
+//		return ESRCH;
 //		kprintf("process id not found...");
 	}
+//	lock_acquire(proc->proc_lock); 
 //	if(pid_array[part_pid]->__exited)		// added in case parent has exited
 //	{
 //		kprintf("this threads parent has exited, No need to store the exitcode");
@@ -107,7 +128,7 @@ void sys_exit(int exitcode) {
 		proc->exitstatus = _MKWAIT_EXIT(exitcode);
 		V(proc->proc_sem);
 	}
-//	lock_release(pid_lock);
+//	lock_release(proc->proc_lock);
 	thread_exit();
 }
 
@@ -298,17 +319,17 @@ int sys_execv(userptr_t progname, userptr_t args)
 	// No program should ever reach here
 	return EINVAL;
 }
-
+/*
 int sys_sbrk(intptr_t amount,int *returnvalue)
 {
 	struct addrspace *as;
 
         as = proc_getas();
         if (as == NULL) {
-                /*
-                 * Kernel thread without an address space; leave the
-                 * prior address space in place.
-                 */
+                //
+                // * Kernel thread without an address space; leave the
+                // * prior address space in place.
+                // 
                 return -1;
         }
 	if((amount % 4) != 0)
@@ -335,4 +356,4 @@ int sys_sbrk(intptr_t amount,int *returnvalue)
 	*returnvalue = as->heap_end;
 	as->heap_end = heap_end;
 	return 0;
-}
+} */
