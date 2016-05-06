@@ -311,14 +311,14 @@ int sys_sbrk(intptr_t amount,int *returnvalue)
                  */
                 return -1;
         }
-	if((amount % 4) != 0)
-	{
-		amount += (4 - (amount % 4));
-	}
+//f((amount % 4) != 0)
+//
+//amount += (4 - (amount % 4));
+//
 	
 	vaddr_t heap_start = as->heap_start;
 	vaddr_t heap_end = heap_start + amount;
-	if(heap_end > as->stackBot)
+	if(heap_end >= as->stackBot)
 	{
 		*returnvalue = -1;
 		return ENOMEM;
